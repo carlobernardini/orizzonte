@@ -1,0 +1,27 @@
+{
+  "name": "orizzonte",
+  "version": "0.1.0",
+  "description": "React components for a horizontal, filtered search UI",
+  "main": "./dist/orizzonte.min.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlobernardini/orizzonte.git"
+  },
+  "keywords": [
+    "search",
+    "filtering",
+    "horizontal"
+  ],
+  "author": "Carlo Bernardini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carlobernardini/orizzonte/issues"
+  },
+  "homepage": "https://github.com/carlobernardini/orizzonte#readme",
+  "dependencies": {
+    "react": "16.4.1"
+  }
+}
