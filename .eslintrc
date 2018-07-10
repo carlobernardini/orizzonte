@@ -1,0 +1,50 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 7
+    },
+    "extends": "airbnb",
+    "plugins": ["react", "import"],
+    "env": {
+        "jest": true
+    },
+    "rules": {
+        "arrow-parens": "off",
+        "class-methods-use-this": "off",
+        "comma-dangle": "off",
+        "eol-last": "off",
+        "func-call-spacing": "off",
+        "import/prefer-default-export": "off",
+        "indent": ["error", 4, {"SwitchCase": 1}],
+        "jsx-a11y/href-no-hash": "off",
+        "jsx-a11y/label-has-for": "off",
+        "jsx-quotes": ["error", "prefer-double"],
+        "no-console": "off",
+        "no-trailing-spaces": "off",
+        "react/forbid-prop-types": "off",
+        "react/jsx-closing-bracket-location": "off",
+        "react/jsx-curly-spacing": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-first-prop-new-line": "off",
+        "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off",
+        "react/jsx-max-props-per-line": "off",
+        "react/jsx-wrap-multilines": "off",
+        "react/no-array-index-key": "off",
+        "template-curly-spacing": "off"
+    },
+    "globals": {
+        "document": true,
+        "mount": true,
+        "shallow": true,
+        "render": true
+    },
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+                "config": "./config/webpack.config.dev.js"
+            }
+        }
+    }
+}
+
