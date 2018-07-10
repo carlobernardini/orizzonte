@@ -4,7 +4,9 @@ import { storiesOf } from '@storybook/react';
 
 const stories = storiesOf('Orizzonte', module);
 stories.add('Default', () => (
-	<Orizzonte>
+	<Orizzonte
+		btnAddPosition="left"
+	>
 		<Filter
 			name="Language"
 			selectedLabel="%d languages"

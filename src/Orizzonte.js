@@ -15,13 +15,14 @@ class Orizzonte extends Component {
 			return null;
 		}
 
-		return (<div
+		return (<button
+			type="button"
 			className={ classNames('orizzonte__btn-add', {
 				'orizzonte__btn-add--left': btnAddPosition === 'left'
 			}) }
 		>
 			+
-		</div>);
+		</button>);
 	}
 
 	render() {

@@ -8,28 +8,50 @@ class Filter extends Component {
         super(props);
 
         this.state = {
-        	shown: false
+        	shown: false,
+        	removing: false
         };
+        this.removeFilter = this.removeFilter.bind(this);
+    }
+
+    removeFilter(e) {
+    	this.setState({
+    		shown: false,
+    		removing: true
+    	});
     }
 
 	render() {
 		const { name } = this.props;
-		const { shown } = this.state;
+		const { shown, removing } = this.state;
 
-		return (<a
-			href="#"
-			onClick={ (e) => {
-				e.preventDefault();
-				this.setState({
-					shown: !shown
-				});
-			}}
+		return (<div
 			className={ classNames('orizzonte__filter', {
-				'orizzonte__filter--shown': shown
+				'orizzonte__filter--shown': shown,
+				'orizzonte__filter--removing': removing
 			}) }
 		>
-			{ name }
-		</a>);
+			<a
+				href="#"
+				onClick={ (e) => {
+					e.preventDefault();
+					this.setState({
+						shown: !shown
+					});
+				}}
+				className="orizzonte__filter-label"
+				
+			>
+				{ name }
+			</a>
+			<button
+				type="button"
+				className="orizzonte__filter-btn"
+				onClick={ this.removeFilter }
+			>
+				x
+			</button>
+		</div>);
 	}
 }
 

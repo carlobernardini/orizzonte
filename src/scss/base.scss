@@ -8,9 +8,14 @@
 	}
 }
 
-%btn {
-	padding: 7px 15px;
-	float: left;
+%btn-label {
 	color: $filter-color-label;
 	text-decoration: none;
+}
+
+%btn {
+	cursor: pointer;
+	padding: 7px 15px;
+	float: left;
+	@extend %btn-label
 }

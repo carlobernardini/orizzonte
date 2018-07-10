@@ -7,11 +7,26 @@
 .orizzonte__btn-add {
 	background-color: $btn-add-color;
 	border-radius: 50%;
-	padding: {
-		left: 0;
-		right: 0;
-	}
+	padding: 0;
 	width: 32px;
+	line-height: 32px;
 	text-align: center;
+	border: none;
+	outline: none;
+	transition: all .3s;
+	font: {
+		size: 1.1em;
+	}
 	@extend %btn;
+
+	&:hover {
+		background-color: lighten($btn-add-color, 5%);
+	}
+
+	&--left {
+		margin: {
+			left: 0;
+			right: 5px;
+		}
+	}
 }
