@@ -21,7 +21,22 @@
     "url": "https://github.com/carlobernardini/orizzonte/issues"
   },
   "homepage": "https://github.com/carlobernardini/orizzonte#readme",
-  "dependencies": {
-    "react": "16.4.1"
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "^23.4.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.4.1"
   }
 }
