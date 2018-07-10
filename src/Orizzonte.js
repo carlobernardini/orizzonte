@@ -26,17 +26,21 @@ class Orizzonte extends Component {
 	}
 
 	render() {
-		const { children } = this.props;
+		const { children, onFilterRemove } = this.props;
 
 		return (<div
 			className="orizzonte__container"
 		>
 			{ this.renderAddBtn('left') }
-			{ React.Children.map(children, (child) => {
+			{ React.Children.map(children, (child, i) => {
 				if (child.type.name !== 'Filter') {
 					return null;
 				}
-				return child;
+
+				return React.cloneElement(child, {
+					i,
+					onFilterRemove
+				});
 			}) }
 			{ this.renderAddBtn('right') }
 		</div>);
@@ -50,16 +54,16 @@ Orizzonte.propTypes = {
 	]),
 	disabled: PropTypes.bool,
 	maxFilters: PropTypes.number,
-	onFilterAdded: PropTypes.func,
-	onFilterRemoved: PropTypes.func
+	onFilterAdd: PropTypes.func,
+	onFilterRemove: PropTypes.func
 };
 
 Orizzonte.defaultProps = {
 	btnAddPosition: 'right',
 	disabled: false,
 	maxFilters: null,
-	onFilterAdded: () => {},
-	onFilterRemoved: () => {}
+	onFilterAdd: () => {},
+	onFilterRemove: () => {}
 };
 
 export default Orizzonte;

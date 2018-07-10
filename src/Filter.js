@@ -11,18 +11,23 @@ class Filter extends Component {
         	shown: false,
         	removing: false
         };
+
         this.removeFilter = this.removeFilter.bind(this);
     }
 
     removeFilter(e) {
+    	const { i, onFilterRemove } = this.props;
+
     	this.setState({
     		shown: false,
     		removing: true
     	});
+
+    	setTimeout(onFilterRemove.bind(null, i), 300);
     }
 
 	render() {
-		const { name } = this.props;
+		const { name, onFilterRemove } = this.props;
 		const { shown, removing } = this.state;
 
 		return (<div
@@ -56,9 +61,12 @@ class Filter extends Component {
 }
 
 Filter.propTypes = {
-	name: PropTypes.string.isRequired
+	name: PropTypes.string.isRequired,
+	onFilterRemove: PropTypes.func
 };
 
-Filter.defaultProps = {};
+Filter.defaultProps = {
+	onFilterRemove: () => {}
+};
 
 export default Filter;

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/carlobernardini/orizzonte#readme",
   "devDependencies": {
+    "@dump247/storybook-state": "^1.5.0",
     "@storybook/react": "^3.4.8",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",
