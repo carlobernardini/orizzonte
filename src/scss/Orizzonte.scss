@@ -24,6 +24,7 @@
 
 	&:hover {
 		background-color: lighten($btn-add-color, 5%);
+		transform: scale(1.1);
 	}
 
 	&--left {

@@ -25,11 +25,11 @@ stories.add('Default', withState({
 
 	return (<Orizzonte
 		onFilterRemove={ (i) => {
-			const filters = store.state.filters.slice(0);
-			filters.splice(i, 1);
+			const newFilters = store.state.filters.slice(0);
+			newFilters.splice(i, 1);
 
 			store.set({
-				filters
+				filters: newFilters
 			});
 		}}
 	>
