@@ -37,12 +37,14 @@
 	}
 
 	&--removing {
-		opacity: 0;
-		width: 0;
-		padding: {
-			left: 0;
-			right: 0;
-		}
+		// opacity: 0;
+		// width: 0;
+		// padding: {
+		// 	left: 0;
+		// 	right: 0;
+		// }
+		overflow: hidden;
+		animation: elementOut .3s forwards;
 	}
 }
 

@@ -36,7 +36,7 @@ stories.add('Default', withState({
 		{
 			filters.map((filter, i) => (
 				<Filter
-					key={ i }
+					key={ `${ filter.name }-${ i }` }
 					name={ filter.name }
 					selectedLabel={ filter.selectedLabel }
 				/>

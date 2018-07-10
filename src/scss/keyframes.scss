@@ -1,0 +1,12 @@
+@keyframes elementOut {
+	50%, 100% {
+		opacity: 0;
+	}
+	100% {
+		width: 0;
+		padding: {
+			left: 0;
+			right: 0;
+		}
+	}
+}
