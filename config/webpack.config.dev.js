@@ -4,6 +4,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 module.exports = {
     entry: [
@@ -31,7 +32,13 @@ module.exports = {
             test: /(\.js|\.jsx)$/,
             use: ['babel-loader'],
             exclude: /node_modules/,
+        }, {
+            test: /\.(s*)css$/,
+            loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]
         }]
+    },
+    sassLoader: {
+        includePaths: [ 'src/scss' ]
     },
     resolve: {
         alias: {

@@ -1,0 +1,17 @@
+@import 'base';
+
+.orizzonte__container {
+	@extend %fonts;
+}
+
+.orizzonte__btn-add {
+	background-color: $btn-add-color;
+	border-radius: 50%;
+	padding: {
+		left: 0;
+		right: 0;
+	}
+	width: 32px;
+	text-align: center;
+	@extend %btn;
+}

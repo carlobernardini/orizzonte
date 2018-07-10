@@ -1,0 +1,25 @@
+@import 'base';
+
+.orizzonte__filter {
+	background-color: $filter-color-idle;
+	border-radius: $filter-radius;
+	transition: all .3s;
+	@extend %btn;
+
+	&:hover {
+		background-color: $filter-color-active;
+	}
+
+	+ .orizzonte__filter {
+		margin-left: 5px;
+	}
+
+	&--shown {
+		background-color: lighten($filter-color-active, 10%);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+
+		&:hover {
+			background-color: lighten($filter-color-active, 10%);
+		}
+	}
+}
