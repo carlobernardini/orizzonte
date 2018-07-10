@@ -5,13 +5,13 @@ import './scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
 	renderAddBtn(position) {
-		const { btnAddPosition, maxFilters } = this.props;
+		const { btnAddPosition, children, maxFilters } = this.props;
 
 		if (btnAddPosition !== position) {
 			return null;
 		}
 
-		if (maxFilters && maxFilters === React.Children.length) {
+		if (maxFilters && maxFilters === React.Children.count(children)) {
 			return null;
 		}
 
@@ -49,6 +49,7 @@ Orizzonte.propTypes = {
 		'right'
 	]),
 	disabled: PropTypes.bool,
+	maxFilters: PropTypes.number,
 	onFilterAdded: PropTypes.func,
 	onFilterRemoved: PropTypes.func
 };
@@ -56,6 +57,7 @@ Orizzonte.propTypes = {
 Orizzonte.defaultProps = {
 	btnAddPosition: 'right',
 	disabled: false,
+	maxFilters: null,
 	onFilterAdded: () => {},
 	onFilterRemoved: () => {}
 };

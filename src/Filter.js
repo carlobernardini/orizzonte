@@ -56,11 +56,9 @@ class Filter extends Component {
 }
 
 Filter.propTypes = {
-
+	name: PropTypes.string.isRequired
 };
 
-Filter.defaultProps = {
-
-};
+Filter.defaultProps = {};
 
 export default Filter;
