@@ -23,7 +23,7 @@ class Orizzonte extends Component {
                 position={ btnAddPosition }
                 onFilterAdd={ onGroupAdd }
                 available={ React.Children.map(children, (child, i) => {
-                    if (child.props.selected) {
+                    if (child.props.included) {
                         return null;
                     }
                     return {
@@ -44,7 +44,7 @@ class Orizzonte extends Component {
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
-                    if (child.type.name !== 'Group' || !child.props.selected) {
+                    if (child.type.name !== 'Group' || !child.props.included) {
                         return null;
                     }
 

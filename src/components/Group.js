@@ -71,10 +71,10 @@ class Group extends Component {
     }
 
     render() {
-        const { label, selected } = this.props;
+        const { label, included } = this.props;
         const { shown, removing } = this.state;
 
-        if (!selected) {
+        if (!included) {
             return null;
         }
 
@@ -111,7 +111,7 @@ Group.propTypes = {
     /** Internal callback for group removal */
     onGroupRemove: PropTypes.func,
     /** If the group should be present in the bar */
-    selected: PropTypes.bool
+    included: PropTypes.bool
 };
 
 Group.defaultProps = {
@@ -119,7 +119,7 @@ Group.defaultProps = {
     hideRemove: false,
     i: null,
     onGroupRemove: () => {},
-    selected: false
+    included: false
 };
 
 export default Group;

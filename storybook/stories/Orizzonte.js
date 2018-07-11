@@ -15,7 +15,7 @@ const component = ({ store }) => {
             btnAddAlwaysShown
             onGroupAdd={ (i) => {
                 let newGroups = store.state.groups.slice(0);
-                newGroups[i].selected = true;
+                newGroups[i].included = true;
                 newGroups = ArrayMove(newGroups, i, newGroups.length - 1);
 
                 store.set({
@@ -24,7 +24,7 @@ const component = ({ store }) => {
             }}
             onGroupRemove={ (i) => {
                 const newGroups = store.state.groups.slice(0);
-                newGroups[i].selected = false;
+                newGroups[i].included = false;
 
                 store.set({
                     groups: newGroups
@@ -47,7 +47,7 @@ const component = ({ store }) => {
 
 stories.add('Default', withState({
     groups: [{
-        selected: true,
+        included: true,
         label: 'Language',
         selectedLabel: '%d languages',
         filters: [
@@ -85,13 +85,13 @@ stories.add('Default', withState({
             />
         ]
     }, {
-        selected: true,
+        included: true,
         label: 'Size',
         selectedLabel: '%d sizes'
     }, {
-        label: 'Full text'
+        label: 'Keywords'
     }, {
-        selected: true,
+        included: true,
         label: 'Dates'
     }, {
         label: 'Price'
