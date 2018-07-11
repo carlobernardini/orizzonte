@@ -2,6 +2,16 @@
 
 .orizzonte__container {
 	@extend %fonts;
+
+	&:hover {
+		.orizzonte__btn-add {
+			transform: scale(1);
+
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
 }
 
 .orizzonte__btn-add {
@@ -16,15 +26,15 @@
 	text-align: center;
 	border: none;
 	outline: none;
+	transform: scale(0);
 	transition: all .3s;
 	font: {
 		size: 1.1em;
 	}
 	@extend %btn;
 
-	&:hover {
-		background-color: lighten($btn-add-color, 5%);
-		transform: scale(1.1);
+	&--shown {
+		transform: scale(1);
 	}
 
 	&--left {
@@ -32,5 +42,10 @@
 			left: 0;
 			right: 5px;
 		}
+	}
+
+	&:hover {
+		background-color: lighten($btn-add-color, 5%);
+		transform: scale(1.1);
 	}
 }

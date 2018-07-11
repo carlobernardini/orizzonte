@@ -5,7 +5,7 @@ import '../scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
     renderAddBtn(position) {
-        const { btnAddPosition, children, maxFilters } = this.props;
+        const { btnAddAlwaysShown, btnAddPosition, children, maxFilters } = this.props;
 
         if (btnAddPosition !== position) {
             return null;
@@ -17,6 +17,7 @@ class Orizzonte extends Component {
 
         return (
             <BtnAdd
+                shown={ btnAddAlwaysShown }
                 position={ btnAddPosition }
             />
         );
@@ -51,6 +52,7 @@ Orizzonte.propTypes = {
         'left',
         'right'
     ]),
+    btnAddAlwaysShown: PropTypes.bool,
     children: PropTypes.array,
     disabled: PropTypes.bool,
     maxFilters: PropTypes.number,
@@ -60,6 +62,7 @@ Orizzonte.propTypes = {
 
 Orizzonte.defaultProps = {
     btnAddPosition: 'right',
+    btnAddAlwaysShown: false,
     children: [],
     disabled: false,
     maxFilters: null,
