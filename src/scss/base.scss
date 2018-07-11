@@ -1,0 +1,22 @@
+@import url('//fonts.googleapis.com/css?family=Roboto');
+@import 'variables';
+@import 'keyframes';
+
+%fonts {
+	font: {
+		family: $font-family;
+		size: $font-size;
+	}
+}
+
+%btn-label {
+	color: $filter-color-label;
+	text-decoration: none;
+}
+
+%btn {
+	cursor: pointer;
+	padding: 7px 15px;
+	float: left;
+	@extend %btn-label
+}

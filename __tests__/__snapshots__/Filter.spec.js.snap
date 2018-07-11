@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Filter /> should render a simple filter 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <button
+    className="orizzonte__filter-label"
+    onClick={[Function]}
+    type="button"
+  >
+    Language
+  </button>
+  <button
+    className="orizzonte__filter-btn"
+    onClick={[Function]}
+    type="button"
+  >
+    ×
+  </button>
+</div>
+`;

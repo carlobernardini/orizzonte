@@ -1,2 +1,2 @@
-# horizontal-search
+# Orizzonte
 React components for a horizontal, filtered search UI
