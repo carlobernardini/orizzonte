@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Orizzonte /> should render an empty filter container 1`] = `
+<div
+  className="orizzonte__container"
+>
+  <BtnAdd
+    disabled={false}
+    position="right"
+    shown={false}
+  />
+</div>
+`;

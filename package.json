@@ -7,6 +7,18 @@
     "storybook": "start-storybook -p 9001 -c ./storybook",
     "test": "jest"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|scss|sass)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "setupFiles": [
+      "./config/shim.js",
+      "./config/jest.setup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/carlobernardini/orizzonte.git"
