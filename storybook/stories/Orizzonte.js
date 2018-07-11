@@ -52,6 +52,7 @@ stories.add('Default', withState({
         selectedLabel: '%d languages',
         filters: [
             <Select
+                key="language"
                 label="Language"
                 options={ [{
                     label: 'English',
@@ -68,6 +69,7 @@ stories.add('Default', withState({
                 }] }
             />,
             <Select
+                key="something-else"
                 label="Something else"
                 options={ [{
                     label: 'Bla bla this is an option',

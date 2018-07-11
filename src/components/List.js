@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../scss/List.scss';
 
-const List = ({ isFilterGroup, items }) => {
-    console.log (isFilterGroup);
-    return <ul
+const List = ({ isFilterGroup, items }) => (
+    <ul
         className="orizzonte__list"
     >
         {
@@ -21,7 +20,7 @@ const List = ({ isFilterGroup, items }) => {
             ))
         }
     </ul>
-};
+);
 
 List.propTypes = {
     isFilterGroup: PropTypes.bool,

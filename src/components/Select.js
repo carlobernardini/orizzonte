@@ -15,8 +15,9 @@ const Select = ({ label, options }) => (
         <select
             className="orizzonte__filter-select"
         >
-            { options.map((option) => (
+            { options.map((option, i) => (
                 <option
+                    key={ `${ option.value }.${ i }` }
                     value={ option.value }
                 >
                     { option.label || option.value }
@@ -27,7 +28,9 @@ const Select = ({ label, options }) => (
 );
 
 Select.propTypes = {
+    /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string,
