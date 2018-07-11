@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import List from './List';
 import '../scss/Group.scss';
 
 class Group extends Component {
@@ -53,6 +54,21 @@ class Group extends Component {
         );
     }
 
+    renderList() {
+        const { children } = this.props;
+        const { shown } = this.state;
+
+        if (!shown || !children.length) {
+            return null;
+        }
+
+        return (
+            <List
+                items={ children }
+            />
+        );
+    }
+
     render() {
         const { label, selected } = this.props;
         const { shown, removing } = this.state;
@@ -76,12 +92,15 @@ class Group extends Component {
                     { label }
                 </button>
                 { this.renderBtn() }
+                { this.renderList() }
             </div>
         );
     }
 }
 
 Group.propTypes = {
+    /** Internal list of filters in this group */
+    children: PropTypes.array,
     /** If a remove button should be present */
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
@@ -95,6 +114,7 @@ Group.propTypes = {
 };
 
 Group.defaultProps = {
+    children: [],
     hideRemove: false,
     i: null,
     onGroupRemove: () => {},

@@ -1,5 +1,5 @@
 import React from 'react';
-import Orizzonte, { Group } from 'orizzonte';
+import Orizzonte, { Group, Select } from 'orizzonte';
 import ArrayMove from 'array-move';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
@@ -36,7 +36,9 @@ const component = ({ store }) => {
                     <Group
                         key={ `${ group.name }-${ i }` }
                         { ...group }
-                    />
+                    >
+                        { group.filters }
+                    </Group>
                 ))
             }
         </Orizzonte>
@@ -47,7 +49,25 @@ stories.add('Default', withState({
     groups: [{
         selected: true,
         label: 'Language',
-        selectedLabel: '%d languages'
+        selectedLabel: '%d languages',
+        filters: [
+            <Select
+                label="Language"
+                options={ [{
+                    label: 'English',
+                    value: 'en'
+                }, {
+                    label: 'French',
+                    value: 'fr'
+                }, {
+                    label: 'German',
+                    value: 'de'
+                }, {
+                    label: 'Dutch',
+                    value: 'nl'
+                }] }
+            />
+        ]
     }, {
         selected: true,
         label: 'Size',

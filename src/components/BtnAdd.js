@@ -49,29 +49,38 @@ class BtnAdd extends Component {
 
         return (
             <List
-                items={ available.map((filter) => ({
-                    label: filter.label,
-                    callback: () => {
-                        onFilterAdd(filter.i, filter.label);
-                        this.toggleButton();
-                    }
-                })) }
+                items={ available.map((filter) => (
+                    <a
+                        href="#"
+                        className="orizzonte__item-clickable"
+                        onClick={ (e) => {
+                            e.preventDefault();
+                            onFilterAdd(filter.i, filter.label);
+                            this.toggleButton();
+                        }}
+                    >
+                        { filter.label }
+                    </a>
+                )) }
             />
         );
     }
 
     render() { 
-        const { available, disabled, position, shown } = this.props;
+        const {
+            available, disabled, position, shown
+        } = this.props;
 
         return (
             <div
-                className="orizzonte__btn-add-wrapper"
+                className={ classNames('orizzonte__btn-add-wrapper', {
+                    'orizzonte__btn-add-wrapper--left': position === 'left',
+                }) }
                 ref={ this.btnAdd }
             >
                 <button
                     className={ classNames('orizzonte__btn-add', {
                         'orizzonte__btn-add--shown': shown,
-                        'orizzonte__btn-add--left': position === 'left',
                         'orizzonte__btn-add--disabled': disabled || !available.length
                     }) }
                     disabled={ !available.length }

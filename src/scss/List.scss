@@ -15,12 +15,18 @@
     animation: listIn .1s linear;
 }
 
-.orizzonte__list-item {
+.orizzonte__item {
     min-width: 125px;
-    padding: 7px 10px;
-    transition: all .1s;
-    cursor: pointer;
+}
+
+.orizzonte__item-clickable {
+    display: block;
     margin: 0 -1px;
+    padding: 7px 10px;
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .1s;
 
     &:hover {
         background-color: lighten($color-a, 15%);

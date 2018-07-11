@@ -1,6 +1,7 @@
 @import 'base';
 
 .orizzonte__group {
+	position: relative;
 	background-color: $group-color-idle;
 	border-radius: $group-radius;
 	transition: all .3s;

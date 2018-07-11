@@ -9,11 +9,10 @@ const List = ({ items }) => (
         {
             items.map((item, i) => (
                 <li
-                    className="orizzonte__list-item"
+                    className="orizzonte__item"
                     key={ i }
-                    onClick={ () => { item.callback(item.label); } }
                 >
-                    { item.label }
+                    { item }
                 </li>
             ))
         }
