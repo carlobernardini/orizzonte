@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import '../scss/Filter.scss';
+import '../scss/Group.scss';
 
-class Filter extends Component {
+class Group extends Component {
     constructor(props) {
         super(props);
 
@@ -12,22 +12,22 @@ class Filter extends Component {
             removing: false
         };
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.toggleFilter = this.toggleFilter.bind(this);
+        this.removeGroup = this.removeGroup.bind(this);
+        this.toggleGroup = this.toggleGroup.bind(this);
     }
 
-    removeFilter() {
-        const { i, onFilterRemove } = this.props;
+    removeGroup() {
+        const { i, onGroupRemove } = this.props;
 
         this.setState({
             shown: false,
             removing: true
         });
 
-        setTimeout(onFilterRemove.bind(null, i), 300);
+        setTimeout(onGroupRemove.bind(null, i), 300);
     }
 
-    toggleFilter() {
+    toggleGroup() {
         const { shown } = this.state;
 
         this.setState({
@@ -45,8 +45,8 @@ class Filter extends Component {
         return (
             <button
                 type="button"
-                className="orizzonte__filter-btn"
-                onClick={ this.removeFilter }
+                className="orizzonte__group-btn"
+                onClick={ this.removeGroup }
             >
                 &times;
             </button>
@@ -63,15 +63,15 @@ class Filter extends Component {
 
         return (
             <div
-                className={ classNames('orizzonte__filter', {
-                    'orizzonte__filter--shown': shown,
-                    'orizzonte__filter--removing': removing
+                className={ classNames('orizzonte__group', {
+                    'orizzonte__group--shown': shown,
+                    'orizzonte__group--removing': removing
                 }) }
             >
                 <button
                     type="button"
-                    onClick={ this.toggleFilter }
-                    className="orizzonte__filter-label"
+                    onClick={ this.toggleGroup }
+                    className="orizzonte__group-label"
                 >
                     { label }
                 </button>
@@ -81,24 +81,24 @@ class Filter extends Component {
     }
 }
 
-Filter.propTypes = {
+Group.propTypes = {
     /** If a remove button should be present */
     hideRemove: PropTypes.bool,
-    /** Internal filter list index */
+    /** Internal filter group list index */
     i: PropTypes.number,
-    /** Filter label */
+    /** Group label */
     label: PropTypes.string.isRequired,
-    /** Internal callback for filter removal */
-    onFilterRemove: PropTypes.func,
-    /** If the filter is added to the bar */
+    /** Internal callback for group removal */
+    onGroupRemove: PropTypes.func,
+    /** If the group should be present in the bar */
     selected: PropTypes.bool
 };
 
-Filter.defaultProps = {
+Group.defaultProps = {
     hideRemove: false,
     i: null,
-    onFilterRemove: () => {},
+    onGroupRemove: () => {},
     selected: false
 };
 
-export default Filter;
+export default Group;

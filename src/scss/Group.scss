@@ -1,38 +1,38 @@
 @import 'base';
 
-.orizzonte__filter {
-	background-color: $filter-color-idle;
-	border-radius: $filter-radius;
+.orizzonte__group {
+	background-color: $group-color-idle;
+	border-radius: $group-radius;
 	transition: all .3s;
 	white-space: nowrap;
 	@extend %btn;
 
 	&:hover {
-		background-color: $filter-color-active;
+		background-color: $group-color-active;
 
-		.orizzonte__filter-btn {
+		.orizzonte__group-btn {
 			width: 20px;
 			transform: scale(1);
 			opacity: 1;
 		}
 	}
 
-	+ .orizzonte__filter {
+	+ .orizzonte__group {
 		margin-left: 5px;
 	}
 
 	&--shown {
-		background-color: lighten($filter-color-active, 10%);
+		background-color: lighten($group-color-active, 10%);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 
-		.orizzonte__filter-btn {
+		.orizzonte__group-btn {
 			width: 20px;
 			transform: scale(1);
 			opacity: 1;
 		}
 
 		&:hover {
-			background-color: lighten($filter-color-active, 10%);
+			background-color: lighten($group-color-active, 10%);
 		}
 	}
 
@@ -42,7 +42,7 @@
 	}
 }
 
-.orizzonte__filter-label {
+.orizzonte__group-label {
 	margin: -7px 0 -7px -15px;
 	padding: 7px 0 7px 15px;
 	background-color: transparent;
@@ -53,7 +53,7 @@
 	@extend %btn-label;
 }
 
-.orizzonte__filter-btn {
+.orizzonte__group-btn {
 	overflow: hidden;
 	margin: {
 		left: 5px;
@@ -69,7 +69,7 @@
 	color: #FFF;
 	border: none;
 	outline: none;
-	color: $filter-color-active;
+	color: $group-color-active;
 	background-color: rgba(255, 255, 255, 1);
 	border-radius: 25px;
 	opacity: 0;

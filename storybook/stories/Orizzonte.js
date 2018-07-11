@@ -1,5 +1,5 @@
 import React from 'react';
-import Orizzonte, { Filter } from 'orizzonte';
+import Orizzonte, { Group } from 'orizzonte';
 import ArrayMove from 'array-move';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
@@ -8,34 +8,34 @@ import { withState } from '@dump247/storybook-state';
 const stories = storiesOf('Orizzonte', module);
 
 const component = ({ store }) => {
-    const { filters } = store.state;
+    const { groups } = store.state;
 
     return (
         <Orizzonte
             btnAddAlwaysShown
-            onFilterAdd={ (i) => {
-                let newFilters = store.state.filters.slice(0);
-                newFilters[i].selected = true;
-                newFilters = ArrayMove(newFilters, i, newFilters.length - 1);
+            onGroupAdd={ (i) => {
+                let newGroups = store.state.groups.slice(0);
+                newGroups[i].selected = true;
+                newGroups = ArrayMove(newGroups, i, newGroups.length - 1);
 
                 store.set({
-                    filters: newFilters
+                    groups: newGroups
                 });
             }}
-            onFilterRemove={ (i) => {
-                const newFilters = store.state.filters.slice(0);
-                newFilters[i].selected = false;
+            onGroupRemove={ (i) => {
+                const newGroups = store.state.groups.slice(0);
+                newGroups[i].selected = false;
 
                 store.set({
-                    filters: newFilters
+                    groups: newGroups
                 });
             }}
         >
             {
-                filters.map((filter, i) => (
-                    <Filter
-                        key={ `${ filter.name }-${ i }` }
-                        { ...filter }
+                groups.map((group, i) => (
+                    <Group
+                        key={ `${ group.name }-${ i }` }
+                        { ...group }
                     />
                 ))
             }
@@ -44,7 +44,7 @@ const component = ({ store }) => {
 };
 
 stories.add('Default', withState({
-    filters: [{
+    groups: [{
         selected: true,
         label: 'Language',
         selectedLabel: '%d languages'
