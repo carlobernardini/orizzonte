@@ -54,7 +54,7 @@ class Filter extends Component {
 				className="orizzonte__filter-btn"
 				onClick={ this.removeFilter }
 			>
-				x
+				&times;
 			</button>
 		</div>);
 	}
