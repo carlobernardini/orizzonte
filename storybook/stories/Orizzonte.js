@@ -66,6 +66,22 @@ stories.add('Default', withState({
                     label: 'Dutch',
                     value: 'nl'
                 }] }
+            />,
+            <Select
+                label="Something else"
+                options={ [{
+                    label: 'Bla bla this is an option',
+                    value: 'en'
+                }, {
+                    label: 'Hello I\'m another option',
+                    value: 'fr'
+                }, {
+                    label: 'There we go again',
+                    value: 'de'
+                }, {
+                    label: 'Testing multiple filters in a group',
+                    value: 'nl'
+                }] }
             />
         ]
     }, {

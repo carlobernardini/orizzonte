@@ -64,6 +64,7 @@ class Group extends Component {
 
         return (
             <List
+                isFilterGroup
                 items={ children }
             />
         );

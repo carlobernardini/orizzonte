@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../scss/List.scss';
 
-const List = ({ items }) => (
-    <ul
+const List = ({ isFilterGroup, items }) => {
+    console.log (isFilterGroup);
+    return <ul
         className="orizzonte__list"
     >
         {
             items.map((item, i) => (
                 <li
-                    className="orizzonte__item"
+                    className={ classNames('orizzonte__item', {
+                        'orizzonte__item--filters': isFilterGroup
+                    }) }
                     key={ i }
                 >
                     { item }
@@ -17,10 +21,15 @@ const List = ({ items }) => (
             ))
         }
     </ul>
-);
+};
 
 List.propTypes = {
+    isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired
+};
+
+List.defaultProps = {
+    isFilterGroup: false
 };
 
 export default List;
