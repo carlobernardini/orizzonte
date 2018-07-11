@@ -25,8 +25,7 @@ const component = ({ store }) => {
                 filters.map((filter, i) => (
                     <Filter
                         key={ `${ filter.name }-${ i }` }
-                        label={ filter.label }
-                        selectedLabel={ filter.selectedLabel }
+                        { ...filter }
                     />
                 ))
             }
@@ -36,14 +35,17 @@ const component = ({ store }) => {
 
 stories.add('Default', withState({
     filters: [{
+        selected: true,
         label: 'Language',
         selectedLabel: '%d languages'
     }, {
+        selected: true,
         label: 'Size',
         selectedLabel: '%d sizes'
     }, {
         label: 'Full text'
     }, {
+        selected: true,
         label: 'Dates'
     }, {
         label: 'Price'

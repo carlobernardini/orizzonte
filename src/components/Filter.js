@@ -35,9 +35,31 @@ class Filter extends Component {
         });
     }
 
+    renderBtn() {
+        const { hideRemove } = this.props;
+
+        if (hideRemove) {
+            return null;
+        }
+
+        return (
+            <button
+                type="button"
+                className="orizzonte__filter-btn"
+                onClick={ this.removeFilter }
+            >
+                &times;
+            </button>
+        );
+    }
+
     render() {
-        const { label } = this.props;
+        const { label, selected } = this.props;
         const { shown, removing } = this.state;
+
+        if (!selected) {
+            return null;
+        }
 
         return (
             <div
@@ -50,34 +72,33 @@ class Filter extends Component {
                     type="button"
                     onClick={ this.toggleFilter }
                     className="orizzonte__filter-label"
-                    
                 >
                     { label }
                 </button>
-                <button
-                    type="button"
-                    className="orizzonte__filter-btn"
-                    onClick={ this.removeFilter }
-                >
-                    &times;
-                </button>
+                { this.renderBtn() }
             </div>
         );
     }
 }
 
 Filter.propTypes = {
+    /** If a remove button should be present */
+    hideRemove: PropTypes.bool,
     /** Internal filter list index */
     i: PropTypes.number,
     /** Filter label */
     label: PropTypes.string.isRequired,
     /** Internal callback for filter removal */
-    onFilterRemove: PropTypes.func
+    onFilterRemove: PropTypes.func,
+    /** If the filter is added to the bar */
+    selected: PropTypes.bool
 };
 
 Filter.defaultProps = {
+    hideRemove: false,
     i: null,
-    onFilterRemove: () => {}
+    onFilterRemove: () => {},
+    selected: false
 };
 
 export default Filter;

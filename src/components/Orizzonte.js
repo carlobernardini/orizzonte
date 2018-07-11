@@ -34,7 +34,7 @@ class Orizzonte extends Component {
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
-                    if (child.type.name !== 'Filter') {
+                    if (child.type.name !== 'Filter' || !child.props.selected) {
                         return null;
                     }
 
