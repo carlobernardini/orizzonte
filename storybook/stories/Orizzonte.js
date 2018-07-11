@@ -1,26 +1,12 @@
 import React from 'react';
 import Orizzonte, { Filter } from 'orizzonte';
 import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
 import { withState } from '@dump247/storybook-state';
 
 const stories = storiesOf('Orizzonte', module);
-stories.add('Default', withState({
-    filters: [{
-        name: 'Language',
-        selectedLabel: '%d languages'
-    }, {
-        name: 'Size',
-        selectedLabel: '%d sizes'
-    }, {
-        name: 'Full text'
-    }, {
-        name: 'Dates'
-    }, {
-        name: 'Price'
-    }, {
-        name: 'More...'
-    }]
-})(({ store }) => {
+
+const component = ({ store }) => {
     const { filters } = store.state;
 
     return (
@@ -45,5 +31,25 @@ stories.add('Default', withState({
                 ))
             }
         </Orizzonte>
-    )
-}));
+    );
+};
+
+stories.add('Default', withState({
+    filters: [{
+        name: 'Language',
+        selectedLabel: '%d languages'
+    }, {
+        name: 'Size',
+        selectedLabel: '%d sizes'
+    }, {
+        name: 'Full text'
+    }, {
+        name: 'Dates'
+    }, {
+        name: 'Price'
+    }, {
+        name: 'More...'
+    }]
+})(
+    withInfo()(component)
+));
