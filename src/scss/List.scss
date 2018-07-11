@@ -1,0 +1,32 @@
+@import 'base';
+
+.orizzonte__list {
+    margin: 5px 0 0;
+    padding: 5px 0;
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: block;
+    border: 1px solid #d0d1d5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,.1), inset 0 -1px 1px rgba(0,0,0,.1);
+    background-color: #fff;
+    animation: listIn .1s linear;
+}
+
+.orizzonte__list-item {
+    min-width: 125px;
+    padding: 7px 10px;
+    transition: all .1s;
+    cursor: pointer;
+    margin: 0 -1px;
+
+    &:hover {
+        background-color: lighten($color-a, 15%);
+        color: #fff;
+    }
+    &:active {
+        background-color: lighten($color-a, 20%);
+    }
+}
