@@ -1,0 +1,84 @@
+@import 'base';
+
+.orizzonte__group {
+	position: relative;
+	background-color: $group-color-idle;
+	border-radius: $group-radius;
+	transition: all .3s;
+	white-space: nowrap;
+	@extend %btn;
+
+	&:hover {
+		background-color: $group-color-active;
+
+		.orizzonte__group-btn {
+			width: 20px;
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	+ .orizzonte__group {
+		margin-left: 5px;
+	}
+
+	&--shown {
+		background-color: lighten($group-color-active, 10%);
+		box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+
+		.orizzonte__group-btn {
+			width: 20px;
+			transform: scale(1);
+			opacity: 1;
+		}
+
+		&:hover {
+			background-color: lighten($group-color-active, 10%);
+		}
+	}
+
+	&--removing {
+		overflow: hidden;
+		animation: elementOut .3s forwards;
+	}
+}
+
+.orizzonte__group-label {
+	margin: -7px 0 -7px -15px;
+	padding: 7px 0 7px 15px;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	@extend %fonts;
+	@extend %btn-label;
+}
+
+.orizzonte__group-btn {
+	overflow: hidden;
+	margin: {
+		left: 5px;
+		right: -8px;
+		bottom: -7px;
+	}
+	position: relative;
+	top: -1px;
+	padding: 0;
+	width: 0px;
+	line-height: 20px;
+	text-align: center;
+	color: #FFF;
+	border: none;
+	outline: none;
+	color: $group-color-active;
+	background-color: rgba(255, 255, 255, 1);
+	border-radius: 25px;
+	opacity: 0;
+	transform: scale(0);
+	cursor: pointer;
+	transition: all .3s;
+
+	&:active {
+		transform: scale(1.5);
+	}
+}

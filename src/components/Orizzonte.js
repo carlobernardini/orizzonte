@@ -6,14 +6,14 @@ import '../scss/Orizzonte.scss';
 class Orizzonte extends Component {
     renderAddBtn(position) {
         const {
-            btnAddAlwaysShown, btnAddPosition, children, maxFilters
+            btnAddAlwaysShown, btnAddPosition, children, maxGroups, onGroupAdd
         } = this.props;
 
         if (btnAddPosition !== position) {
             return null;
         }
 
-        if (maxFilters && maxFilters === React.Children.count(children)) {
+        if (maxGroups && maxGroups === React.Children.count(children)) {
             return null;
         }
 
@@ -21,12 +21,22 @@ class Orizzonte extends Component {
             <BtnAdd
                 shown={ btnAddAlwaysShown }
                 position={ btnAddPosition }
+                onFilterAdd={ onGroupAdd }
+                available={ React.Children.map(children, (child, i) => {
+                    if (child.props.included) {
+                        return null;
+                    }
+                    return {
+                        i,
+                        label: child.props.label
+                    };
+                }) }
             />
         );
     }
 
     render() {
-        const { children, onFilterRemove } = this.props;
+        const { children, onGroupRemove } = this.props;
 
         return (
             <div
@@ -34,13 +44,13 @@ class Orizzonte extends Component {
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
-                    if (child.type.name !== 'Filter') {
+                    if (child.type.name !== 'Group' || !child.props.included) {
                         return null;
                     }
 
                     return React.cloneElement(child, {
                         i,
-                        onFilterRemove
+                        onGroupRemove
                     });
                 }) }
                 { this.renderAddBtn('right') }
@@ -50,23 +60,23 @@ class Orizzonte extends Component {
 }
 
 Orizzonte.propTypes = {
-    /** Show the button for adding new filters on the left or right */
+    /** Show the button for adding new filter groups on the left or right */
     btnAddPosition: PropTypes.oneOf([
         'left',
         'right'
     ]),
-    /** If the button for adding new filters should always be visible */
+    /** If the button for adding new filter groups should always be visible */
     btnAddAlwaysShown: PropTypes.bool,
-    /** List of filters */
+    /** List of filter groups */
     children: PropTypes.array,
     /** Disable any interaction */
     disabled: PropTypes.bool,
     /** Maximum number of filters to be added */
-    maxFilters: PropTypes.number,
-    /** Callback function for when a new filter is added */
-    onFilterAdd: PropTypes.func,
-    /** Callback function for when a filter is removed */
-    onFilterRemove: PropTypes.func
+    maxGroups: PropTypes.number,
+    /** Callback function for when a new filter group is added */
+    onGroupAdd: PropTypes.func,
+    /** Callback function for when a filter group is removed */
+    onGroupRemove: PropTypes.func
 };
 
 Orizzonte.defaultProps = {
@@ -74,9 +84,9 @@ Orizzonte.defaultProps = {
     btnAddAlwaysShown: false,
     children: [],
     disabled: false,
-    maxFilters: null,
-    onFilterAdd: () => {},
-    onFilterRemove: () => {}
+    maxGroups: null,
+    onGroupAdd: () => {},
+    onGroupRemove: () => {}
 };
 
 export default Orizzonte;
