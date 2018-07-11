@@ -5,7 +5,9 @@ import '../scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
     renderAddBtn(position) {
-        const { btnAddAlwaysShown, btnAddPosition, children, maxFilters } = this.props;
+        const {
+            btnAddAlwaysShown, btnAddPosition, children, maxFilters
+        } = this.props;
 
         if (btnAddPosition !== position) {
             return null;

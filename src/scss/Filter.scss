@@ -49,6 +49,7 @@
 	outline: none;
 	border: none;
 	cursor: pointer;
+	@extend %fonts;
 	@extend %btn-label;
 }
 
