@@ -20,7 +20,7 @@ class BtnAdd extends Component {
     }
 
     onBodyClick(e) {
-        if (!this.btnAdd || this.btnAdd.current.contains(e.target)) {
+        if (!this.btnAdd || !this.btnAdd.current || this.btnAdd.current.contains(e.target)) {
             return false;
         }
 
