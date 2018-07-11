@@ -10,8 +10,19 @@
 			&:hover {
 				transform: scale(1.1);
 			}
+
+			&--disabled {
+				&:hover {
+					transform: scale(1);
+				}
+			}
 		}
 	}
+}
+
+.orizzonte__btn-add-wrapper {
+	position: relative;
+	float: left;
 }
 
 .orizzonte__btn-add {
@@ -35,6 +46,9 @@
 
 	&--shown {
 		transform: scale(1);
+	}
+	&--disabled {
+		opacity: .5;
 	}
 
 	&--left {

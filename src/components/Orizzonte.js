@@ -6,7 +6,7 @@ import '../scss/Orizzonte.scss';
 class Orizzonte extends Component {
     renderAddBtn(position) {
         const {
-            btnAddAlwaysShown, btnAddPosition, children, maxFilters
+            btnAddAlwaysShown, btnAddPosition, children, maxFilters, onFilterAdd
         } = this.props;
 
         if (btnAddPosition !== position) {
@@ -21,6 +21,16 @@ class Orizzonte extends Component {
             <BtnAdd
                 shown={ btnAddAlwaysShown }
                 position={ btnAddPosition }
+                onFilterAdd={ onFilterAdd }
+                available={ React.Children.map(children, (child, i) => {
+                    if (child.props.selected) {
+                        return null;
+                    }
+                    return {
+                        i,
+                        label: child.props.label
+                    };
+                }) }
             />
         );
     }
