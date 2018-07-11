@@ -1,2 +1,2 @@
-export { default } from './Orizzonte';
-export { default as Filter } from './Filter';
+export { default } from './components/Orizzonte';
+export { default as Filter } from './components/Filter';

@@ -45,6 +45,10 @@
 .orizzonte__filter-label {
 	margin: -7px 0 -7px -15px;
 	padding: 7px 0 7px 15px;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	cursor: pointer;
 	@extend %btn-label;
 }
 
