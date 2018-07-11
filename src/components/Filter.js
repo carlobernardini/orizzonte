@@ -36,7 +36,7 @@ class Filter extends Component {
     }
 
     render() {
-        const { name } = this.props;
+        const { label } = this.props;
         const { shown, removing } = this.state;
 
         return (
@@ -52,7 +52,7 @@ class Filter extends Component {
                     className="orizzonte__filter-label"
                     
                 >
-                    { name }
+                    { label }
                 </button>
                 <button
                     type="button"
@@ -67,8 +67,11 @@ class Filter extends Component {
 }
 
 Filter.propTypes = {
+    /** Internal filter list index */
     i: PropTypes.number,
-    name: PropTypes.string.isRequired,
+    /** Filter label */
+    label: PropTypes.string.isRequired,
+    /** Internal callback for filter removal */
     onFilterRemove: PropTypes.func
 };
 

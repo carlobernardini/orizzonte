@@ -50,15 +50,22 @@ class Orizzonte extends Component {
 }
 
 Orizzonte.propTypes = {
+    /** Show the button for adding new filters on the left or right */
     btnAddPosition: PropTypes.oneOf([
         'left',
         'right'
     ]),
+    /** If the button for adding new filters should always be visible */
     btnAddAlwaysShown: PropTypes.bool,
+    /** List of filters */
     children: PropTypes.array,
+    /** Disable any interaction */
     disabled: PropTypes.bool,
+    /** Maximum number of filters to be added */
     maxFilters: PropTypes.number,
+    /** Callback function for when a new filter is added */
     onFilterAdd: PropTypes.func,
+    /** Callback function for when a filter is removed */
     onFilterRemove: PropTypes.func
 };
 
