@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BtnAdd /> should render a default add-button 1`] = `
+<button
+  className="orizzonte__btn-add"
+  type="button"
+>
+  +
+</button>
+`;
+
+exports[`<BtnAdd /> should render a disabled add-button 1`] = `
+<button
+  className="orizzonte__btn-add orizzonte__btn-add--disabled"
+  type="button"
+>
+  +
+</button>
+`;
+
+exports[`<BtnAdd /> should render a left-positioned add-button 1`] = `
+<button
+  className="orizzonte__btn-add orizzonte__btn-add--left"
+  type="button"
+>
+  +
+</button>
+`;
+
+exports[`<BtnAdd /> should render a shown add-button 1`] = `
+<button
+  className="orizzonte__btn-add orizzonte__btn-add--shown"
+  type="button"
+>
+  +
+</button>
+`;
