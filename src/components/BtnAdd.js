@@ -53,6 +53,7 @@ class BtnAdd extends Component {
                     label: filter.label,
                     callback: () => {
                         onFilterAdd(filter.i, filter.label);
+                        this.toggleButton();
                     }
                 })) }
             />
