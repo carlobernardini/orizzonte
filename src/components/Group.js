@@ -108,7 +108,7 @@ class Group extends Component {
 
 Group.propTypes = {
     /** Internal index of currently expanded group */
-    activeGroup: PropTypes.number.isRequired,
+    activeGroup: PropTypes.number,
     /** Internal list of filters in this group */
     children: PropTypes.array,
     /** If a remove button should be present */
@@ -120,16 +120,18 @@ Group.propTypes = {
     /** Internal callback for group removal */
     onGroupRemove: PropTypes.func,
     /** Internal callback for setting currently expanded group */
-    onGroupToggle: PropTypes.func.isRequired,
+    onGroupToggle: PropTypes.func,
     /** If the group should be present in the bar */
     included: PropTypes.bool
 };
 
 Group.defaultProps = {
+    activeGroup: null,
     children: [],
     hideRemove: false,
     i: null,
     onGroupRemove: () => {},
+    onGroupToggle: () => {},
     included: false
 };
 

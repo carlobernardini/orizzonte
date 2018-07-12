@@ -11,7 +11,23 @@ class Orizzonte extends Component {
             showAddBtn: false
         };
         this.toggleGroup = this.toggleGroup.bind(this);
+        this.addGroup = this.addGroup.bind(this);
         this.timer = null;
+    }
+
+    addGroup(groupIndex) {
+        const { autoExpandOnGroupAdd, children, onGroupAdd } = this.props;
+
+        onGroupAdd(groupIndex);
+
+        if (!autoExpandOnGroupAdd) {
+            return false;
+        }
+
+        const newIndex = React.Children.map(children, (child) => (child.props.included)).length - 1;
+
+        this.toggleGroup(newIndex);
+        return true;
     }
 
     toggleAddBtn(show) {
@@ -64,7 +80,7 @@ class Orizzonte extends Component {
 
     renderAddBtn(position) {
         const {
-            btnAddAlwaysShown, btnAddPosition, children, maxGroups, onGroupAdd
+            btnAddAlwaysShown, btnAddPosition, children, maxGroups
         } = this.props;
         const { showAddBtn } = this.state;
 
@@ -80,7 +96,7 @@ class Orizzonte extends Component {
             <BtnAdd
                 shown={ showAddBtn || btnAddAlwaysShown }
                 position={ btnAddPosition }
-                onFilterAdd={ onGroupAdd }
+                onFilterAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
                     if (child.props.included) {
                         return null;
@@ -126,6 +142,8 @@ class Orizzonte extends Component {
 }
 
 Orizzonte.propTypes = {
+    /** Indicates if a newly added group should auto expand */
+    autoExpandOnGroupAdd: PropTypes.bool,
     /** Show the button for adding new filter groups on the left or right */
     btnAddPosition: PropTypes.oneOf([
         'left',
@@ -146,6 +164,7 @@ Orizzonte.propTypes = {
 };
 
 Orizzonte.defaultProps = {
+    autoExpandOnGroupAdd: true,
     btnAddPosition: 'right',
     btnAddAlwaysShown: false,
     children: [],
