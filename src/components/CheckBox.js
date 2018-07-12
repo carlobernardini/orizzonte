@@ -7,7 +7,7 @@ import '../scss/CheckBox.scss';
  * Source: https://codepen.io/andreasstorm/pen/yjLGGN
  */
 
-const CheckBox = ({ id, label, value }) => (
+const CheckBox = ({ id, label, onChange, value }) => (
     <div
         className="orizzonte__checkbox"
     >
@@ -16,6 +16,10 @@ const CheckBox = ({ id, label, value }) => (
             id={ id }
             className="orizzonte__checkbox-input"
             value={ value }
+            onChange={ (e) => {
+                const { checked } = e.target;
+                onChange(checked);
+            }}
         />
         <label
             htmlFor={ id }
@@ -49,11 +53,16 @@ CheckBox.propTypes = {
     id: PropTypes.string.isRequired,
     /** Label for this checkbox */
     label: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
     /** Value for this checkbox */
     value: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
     ]).isRequired
+};
+
+CheckBox.defaultProps = {
+    onChange: () => {}
 };
 
 export default CheckBox;

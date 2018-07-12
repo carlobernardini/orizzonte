@@ -93,8 +93,6 @@ class Orizzonte extends Component {
             return null;
         }
 
-        console.log (orientation);
-
         return (
             <BtnAdd
                 shown={ showAddBtn || btnAddAlwaysShown }

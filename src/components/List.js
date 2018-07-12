@@ -10,6 +10,7 @@ class List extends Component {
         if (!isFilterGroup || !doneBtn) {
             return null;
         }
+
         return (
             <li>
                 <button
@@ -22,10 +23,40 @@ class List extends Component {
         );
     }
 
-    render() {
-        const { isFilterGroup, items, orientation } = this.props;
+    renderItems() {
+        const { items, isFilterGroup } = this.props;
 
-        console.log (orientation);
+        if (isFilterGroup) {
+            return React.Children.map(items, (item, i) => (
+                <li
+                    className={ classNames('orizzonte__item', {
+                        'orizzonte__item--filters': isFilterGroup
+                    }) }
+                    key={ i }
+                >
+                    { React.cloneElement(item, {
+                        onUpdate: (filterValue) => {
+                            console.log(filterValue);
+                        }
+                    }) }
+                </li>
+            ));
+        }
+
+        return items.map((item, i) => (
+            <li
+                className={ classNames('orizzonte__item', {
+                    'orizzonte__item--filters': isFilterGroup
+                }) }
+                key={ i }
+            >
+                { item }
+            </li>
+        ));
+    }
+
+    render() {
+        const { isFilterGroup, orientation } = this.props;
 
         return (
             <ul
@@ -33,18 +64,7 @@ class List extends Component {
                     'orizzonte__list--right': orientation === 'right'
                 }) }
             >
-                {
-                    items.map((item, i) => (
-                        <li
-                            className={ classNames('orizzonte__item', {
-                                'orizzonte__item--filters': isFilterGroup
-                            }) }
-                            key={ i }
-                        >
-                            { item }
-                        </li>
-                    ))
-                }
+                { this.renderItems() }
                 { this.renderDoneBtn() }
             </ul>
         );

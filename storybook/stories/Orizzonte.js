@@ -54,6 +54,7 @@ stories.add('Default', withState({
         filters: [
             <Select
                 key="language"
+                fieldName="language"
                 label="Language"
                 options={ [{
                     label: 'English',
@@ -71,6 +72,7 @@ stories.add('Default', withState({
             />,
             <Select
                 key="secondary-language"
+                fieldName="secondLanguage"
                 label="Secondary Language"
                 options={ [{
                     label: 'English',
@@ -94,6 +96,7 @@ stories.add('Default', withState({
         filters: [
             <Select
                 key="shirt-size"
+                fieldName="shirtSize"
                 label="Shirt Size"
                 options={ [{
                     label: 'Extra Small',
@@ -114,6 +117,7 @@ stories.add('Default', withState({
             />,
             <Choices
                 key="waist-size"
+                fieldName="waistSize"
                 label="Waist Size"
                 options={ [{
                     label: 'Extra Small (28)',
@@ -138,6 +142,7 @@ stories.add('Default', withState({
         filters: [
             <FullText
                 key="keywords"
+                fieldName="keywords"
                 label="Keywords"
                 placeholder="Enter some keywords..."
             />
@@ -149,6 +154,7 @@ stories.add('Default', withState({
             <Choices
                 multiple
                 key="period"
+                fieldName="calendarPeriod"
                 label="Calendar Period"
                 options={ [{
                     label: 'Last Month',

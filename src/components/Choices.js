@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
+import { includes, isEqual, uniqueId, without } from 'lodash';
 import CheckBox from './CheckBox';
 import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
 
 class Choices extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: []
+        };
+    }
+
     renderChoices() {
-        const { multiple, options } = this.props;
+        const { multiple, onUpdate, options } = this.props;
 
         if (multiple) {
             return options.map((option, i) => (
@@ -16,6 +24,23 @@ class Choices extends Component {
                     id={ uniqueId('checkbox-') }
                     value={ option.value }
                     label={ option.label || option.value }
+                    onChange={ (selected) => {
+                        let value = [...this.state.value];
+                        if (selected && !includes(value, option.value)) {
+                            value.push(option.value);
+                        }
+                        if (!selected && includes(value, option.value)) {
+                            value = without(value, option.value);
+                        }
+                        if (isEqual(value, this.state.value)) {
+                            return false;
+                        }
+                        this.setState({
+                            value
+                        });
+                        onUpdate(value);
+                        return true;
+                    }}
                 />
             ));            
         }
@@ -27,6 +52,17 @@ class Choices extends Component {
                 name="orizzonte"
                 value={ option.value }
                 label={ option.label || option.value }
+                onChange={ (selectedValue) => {
+                    let value = [...this.state.value];
+                    
+                    value = [selectedValue];
+
+                    this.setState({
+                        value
+                    });
+                    onUpdate(value[0]);
+                    return true;
+                }}
             />
         ));
     }
@@ -51,6 +87,8 @@ class Choices extends Component {
 Choices.propTypes = {
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    /** Internal callback for when filter value has changed */
+    onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
@@ -65,6 +103,7 @@ Choices.propTypes = {
 };
 
 Choices.defaultProps = {
+    onUpdate: () => {},
     multiple: false
 };
 
