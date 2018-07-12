@@ -78,7 +78,7 @@ class Group extends Component {
     }
 
     renderList() {
-        const { activeGroup, children, i } = this.props;
+        const { activeGroup, children, i, orientation } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
@@ -88,13 +88,14 @@ class Group extends Component {
             <List
                 isFilterGroup
                 items={ children }
+                orientation={ orientation }
             />
         );
     }
 
     render() {
         const {
-            activeGroup, i, label, included
+            activeGroup, i, included, label
         } = this.props;
         const { removing } = this.state;
 
@@ -141,6 +142,11 @@ Group.propTypes = {
     onGroupRemove: PropTypes.func,
     /** Internal callback for setting currently expanded group */
     onGroupToggle: PropTypes.func,
+    /** Orientation of the group dropdown list */
+    orientation: PropTypes.oneOf([
+        'left',
+        'right'
+    ]),
     /** If the group should be present in the bar */
     included: PropTypes.bool
 };
@@ -152,6 +158,7 @@ Group.defaultProps = {
     i: null,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
+    orientation: 'left',
     included: false
 };
 

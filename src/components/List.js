@@ -23,11 +23,15 @@ class List extends Component {
     }
 
     render() {
-        const { isFilterGroup, items } = this.props;
+        const { isFilterGroup, items, orientation } = this.props;
+
+        console.log (orientation);
 
         return (
             <ul
-                className="orizzonte__list"
+                className={ classNames('orizzonte__list', {
+                    'orizzonte__list--right': orientation === 'right'
+                }) }
             >
                 {
                     items.map((item, i) => (
@@ -51,13 +55,18 @@ List.propTypes = {
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
     isFilterGroup: PropTypes.bool,
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    orientation: PropTypes.oneOf([
+        'left',
+        'right'
+    ])
 };
 
 List.defaultProps = {
     doneBtn: true,
     doneBtnLabel: null,
-    isFilterGroup: false
+    isFilterGroup: false,
+    orientation: 'left'
 };
 
 export default List;

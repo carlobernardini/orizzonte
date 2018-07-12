@@ -2,6 +2,12 @@
 @import 'variables';
 @import 'keyframes';
 
+.orizzonte__clearfix:after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
 %fonts {
 	font: {
 		family: $font-family;
