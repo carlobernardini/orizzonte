@@ -42,6 +42,7 @@ Select.propTypes = {
     fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    /** Internal callback for when select value has changed */
     onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
