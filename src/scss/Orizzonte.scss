@@ -36,6 +36,7 @@
 }
 
 .orizzonte__btn-add {
+	position: relative;
 	background-color: $btn-add-color;
 	border-radius: 50%;
 	padding: 0;
@@ -61,5 +62,16 @@
 	&:hover {
 		background-color: lighten($btn-add-color, 5%);
 		transform: scale(1.1);
+	}
+	&:after {
+		position: absolute;
+		content: '+';
+		top: 50%;
+		left: 50%;
+		transform: translate(-5px, -17px);
+		@extend %fonts;
+		font: {
+			size: 17px;
+		}
 	}
 }

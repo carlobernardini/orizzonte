@@ -41,7 +41,7 @@ class BtnAdd extends Component {
 
     renderList() {
         const { active } = this.state;
-        const { available, onFilterAdd } = this.props;
+        const { available, onGroupAdd } = this.props;
 
         if (!active) {
             return null;
@@ -55,7 +55,7 @@ class BtnAdd extends Component {
                         className="orizzonte__item-clickable"
                         onClick={ (e) => {
                             e.preventDefault();
-                            onFilterAdd(filter.i, filter.label);
+                            onGroupAdd(filter.i, filter.label);
                             this.toggleButton();
                         }}
                     >
@@ -87,7 +87,7 @@ class BtnAdd extends Component {
                     onClick={ this.toggleButton }
                     type="button"
                 >
-                    +
+                    &nbsp;
                 </button>
                 { this.renderList() }
             </div>
@@ -98,7 +98,7 @@ class BtnAdd extends Component {
 BtnAdd.propTypes = {
     available: PropTypes.array,
     disabled: PropTypes.bool,
-    onFilterAdd: PropTypes.func,
+    onGroupAdd: PropTypes.func,
     position: PropTypes.string,
     shown: PropTypes.bool
 };
@@ -106,7 +106,7 @@ BtnAdd.propTypes = {
 BtnAdd.defaultProps = {
     available: [],
     disabled: false,
-    onFilterAdd: () => {},
+    onGroupAdd: () => {},
     position: null,
     shown: false
 };

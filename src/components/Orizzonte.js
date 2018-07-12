@@ -96,7 +96,7 @@ class Orizzonte extends Component {
             <BtnAdd
                 shown={ showAddBtn || btnAddAlwaysShown }
                 position={ btnAddPosition }
-                onFilterAdd={ this.addGroup }
+                onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
                     if (child.props.included) {
                         return null;
