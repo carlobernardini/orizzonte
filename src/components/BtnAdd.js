@@ -41,9 +41,9 @@ class BtnAdd extends Component {
 
     renderList() {
         const { active } = this.state;
-        const { available, onGroupAdd } = this.props;
+        const { available, onGroupAdd, shown } = this.props;
 
-        if (!active) {
+        if (!shown || !active) {
             return null;
         }
 
