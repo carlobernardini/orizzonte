@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 import CheckBox from './CheckBox';
+import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
 
 class Choices extends Component {
@@ -16,10 +17,18 @@ class Choices extends Component {
                     value={ option.value }
                     label={ option.label || option.value }
                 />
-            ));
+            ));            
         }
 
-        return null;
+        return options.map((option, i) => (
+            <RadioButton
+                key={ i }
+                id={ uniqueId('radio-') }
+                name="test"
+                value={ option.value }
+                label={ option.label || option.value }
+            />
+        ));
     }
 
     render() {
@@ -56,7 +65,7 @@ Choices.propTypes = {
 };
 
 Choices.defaultProps = {
-    multiple: true
+    multiple: false
 };
 
 export default Choices;
