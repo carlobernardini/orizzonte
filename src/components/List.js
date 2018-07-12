@@ -5,7 +5,7 @@ import '../scss/List.scss';
 
 class List extends Component {
     renderDoneBtn() {
-        const { doneBtn, doneBtnLabel, isFilterGroup } = this.props;
+        const { doneBtn, doneBtnLabel, isFilterGroup, onApply } = this.props;
 
         if (!isFilterGroup || !doneBtn) {
             return null;
@@ -16,6 +16,7 @@ class List extends Component {
                 <button
                     type="button"
                     className="orizzonte__list-done"
+                    onClick={ onApply }
                 >
                     { doneBtnLabel || 'Done' }
                 </button>
@@ -77,6 +78,7 @@ List.propTypes = {
     doneBtnLabel: PropTypes.string,
     isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired,
+    onApply: PropTypes.func,
     onUpdate:PropTypes.func,
     orientation: PropTypes.oneOf([
         'left',
@@ -88,6 +90,7 @@ List.defaultProps = {
     doneBtn: true,
     doneBtnLabel: null,
     isFilterGroup: false,
+    onApply: () => {},
     onUpdate: () => {},
     orientation: 'left'
 };

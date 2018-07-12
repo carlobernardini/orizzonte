@@ -81,7 +81,7 @@ class Group extends Component {
 
     renderList() {
         const { groupValues } = this.state;
-        const { activeGroup, children, i, orientation } = this.props;
+        const { activeGroup, children, i, onUpdate, orientation } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
@@ -92,6 +92,11 @@ class Group extends Component {
                 isFilterGroup
                 items={ children }
                 orientation={ orientation }
+                onApply={ () => {
+                    const { groupValues } = this.state;
+                    this.toggleGroup();
+                    onUpdate(groupValues);
+                }}
                 onUpdate={ (fieldName, value) => {
                     if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
                         return false;
@@ -102,7 +107,6 @@ class Group extends Component {
                     this.setState({
                         groupValues: values
                     });
-                    console.log (values);
                     return true;
                 }}
             />
@@ -158,6 +162,8 @@ Group.propTypes = {
     onGroupRemove: PropTypes.func,
     /** Internal callback for setting currently expanded group */
     onGroupToggle: PropTypes.func,
+    /** Internal callback for applying group values to query */
+    onUpdate: PropTypes.func,
     /** Orientation of the group dropdown list */
     orientation: PropTypes.oneOf([
         'left',
@@ -174,6 +180,7 @@ Group.defaultProps = {
     i: null,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
+    onUpdate: () => {},
     orientation: 'left',
     included: false
 };
