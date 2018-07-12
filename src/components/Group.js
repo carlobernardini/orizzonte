@@ -14,6 +14,23 @@ class Group extends Component {
 
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
+        document.addEventListener('keyup', this.onKeyUp.bind(this), false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this.onKeyUp.bind(this), false);
+    }
+
+    onKeyUp(e) {
+        const { activeGroup, i, onGroupToggle } = this.props;
+
+        const key = e.which || e.keyCode;
+
+        if (activeGroup !== i || key !== 27) {
+            return false;
+        }
+
+        return onGroupToggle(false);
     }
 
     removeGroup() {
