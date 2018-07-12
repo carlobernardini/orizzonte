@@ -24,7 +24,7 @@ class Choices extends Component {
             <RadioButton
                 key={ i }
                 id={ uniqueId('radio-') }
-                name="test"
+                name="orizzonte"
                 value={ option.value }
                 label={ option.label || option.value }
             />
