@@ -1,0 +1,22 @@
+@import 'base';
+
+.orizzonte__filter-fulltext {
+    width: 100%;
+    min-height: 50px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #d0d1d5;
+    border-radius: 3px;
+    outline: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    transition: border-color .3s;
+    box-sizing: border-box;
+    @extend %fonts;
+    font: {
+        size: .9em;
+    }
+
+    &:focus {
+        border-color: $color-a;
+    }
+}

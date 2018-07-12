@@ -9,19 +9,40 @@ class Group extends Component {
         super(props);
 
         this.state = {
-            shown: false,
             removing: false
         };
 
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
+        document.addEventListener('keyup', this.onKeyUp.bind(this), false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this.onKeyUp.bind(this), false);
+    }
+
+    onKeyUp(e) {
+        const { activeGroup, i, onGroupToggle } = this.props;
+
+        const key = e.which || e.keyCode;
+
+        if (activeGroup !== i || key !== 27) {
+            return false;
+        }
+
+        return onGroupToggle(false);
     }
 
     removeGroup() {
-        const { i, onGroupRemove } = this.props;
+        const {
+            activeGroup, i, onGroupRemove, onGroupToggle
+        } = this.props;
+
+        if (activeGroup === i) {
+            onGroupToggle();
+        }
 
         this.setState({
-            shown: false,
             removing: true
         });
 
@@ -29,11 +50,13 @@ class Group extends Component {
     }
 
     toggleGroup() {
-        const { shown } = this.state;
+        const { activeGroup, i, onGroupToggle } = this.props;
 
-        this.setState({
-            shown: !shown
-        });
+        if (activeGroup === i) {
+            return onGroupToggle(false);
+        }
+
+        return onGroupToggle(i);
     }
 
     renderBtn() {
@@ -49,16 +72,15 @@ class Group extends Component {
                 className="orizzonte__group-btn"
                 onClick={ this.removeGroup }
             >
-                &times;
+                &nbsp;
             </button>
         );
     }
 
     renderList() {
-        const { children } = this.props;
-        const { shown } = this.state;
+        const { activeGroup, children, i } = this.props;
 
-        if (!shown || !children.length) {
+        if (activeGroup !== i || !children.length) {
             return null;
         }
 
@@ -71,8 +93,10 @@ class Group extends Component {
     }
 
     render() {
-        const { label, included } = this.props;
-        const { shown, removing } = this.state;
+        const {
+            activeGroup, i, label, included
+        } = this.props;
+        const { removing } = this.state;
 
         if (!included) {
             return null;
@@ -81,7 +105,7 @@ class Group extends Component {
         return (
             <div
                 className={ classNames('orizzonte__group', {
-                    'orizzonte__group--shown': shown,
+                    'orizzonte__group--shown': activeGroup === i,
                     'orizzonte__group--removing': removing
                 }) }
             >
@@ -100,6 +124,11 @@ class Group extends Component {
 }
 
 Group.propTypes = {
+    /** Internal index of currently expanded group */
+    activeGroup: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.bool
+    ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
     /** If a remove button should be present */
@@ -110,15 +139,19 @@ Group.propTypes = {
     label: PropTypes.string.isRequired,
     /** Internal callback for group removal */
     onGroupRemove: PropTypes.func,
+    /** Internal callback for setting currently expanded group */
+    onGroupToggle: PropTypes.func,
     /** If the group should be present in the bar */
     included: PropTypes.bool
 };
 
 Group.defaultProps = {
+    activeGroup: null,
     children: [],
     hideRemove: false,
     i: null,
     onGroupRemove: () => {},
+    onGroupToggle: () => {},
     included: false
 };
 

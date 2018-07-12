@@ -16,6 +16,28 @@
     animation: listIn .1s linear;
 }
 
+.orizzonte__list-done {
+    outline: none;
+    border: none;
+    background-color: $color-c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 0;
+    margin: 5px 10px;
+    text-align: center;
+    width: calc(100% - 20px);
+    cursor: pointer;
+    transition: all .3s;
+    @extend %fonts;
+    font: {
+        weight: 500;
+    }
+
+    &:hover {
+        background-color: lighten($color-c, 5%);
+    }
+}
+
 .orizzonte__item {
     min-width: 175px;
 

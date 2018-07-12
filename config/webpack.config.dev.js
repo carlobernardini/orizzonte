@@ -2,9 +2,9 @@
 // const webpack = require('webpack');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 module.exports = {
     entry: [
@@ -34,7 +34,17 @@ module.exports = {
             exclude: /node_modules/,
         }, {
             test: /\.(s*)css$/,
-            loaders: [ 'style-loader', 'css-loader', 'sass-loader' ]
+            use: [
+                'style-loader',
+                'css-loader',
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: () => [autoprefixer()]
+                    }
+                },
+                'sass-loader'
+            ]
         }]
     },
     sassLoader: {

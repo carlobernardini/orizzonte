@@ -4,10 +4,85 @@ import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeGroup: null,
+            showAddBtn: false
+        };
+        this.toggleGroup = this.toggleGroup.bind(this);
+        this.addGroup = this.addGroup.bind(this);
+        this.timer = null;
+    }
+
+    addGroup(groupIndex) {
+        const { autoExpandOnGroupAdd, children, onGroupAdd } = this.props;
+
+        onGroupAdd(groupIndex);
+
+        if (!autoExpandOnGroupAdd) {
+            return false;
+        }
+
+        const newIndex = React.Children.map(children, (child) => (child.props.included)).length - 1;
+
+        this.toggleGroup(newIndex);
+        return true;
+    }
+
+    toggleAddBtn(show) {
+        const { showAddBtn } = this.state;
+
+        if (show) {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+
+            if (showAddBtn) {
+                return false;
+            }
+
+            this.setState({
+                showAddBtn: true
+            });
+            return true;            
+        }
+
+        if (!showAddBtn) {
+            return false;
+        }
+
+        this.timer = setTimeout(() => {
+            this.setState({
+                showAddBtn: false
+            });
+        }, 750);
+        return true;
+    }
+
+    toggleGroup(groupIndex) {
+        const { activeGroup } = this.state;
+
+        if (groupIndex === false && activeGroup === null) {
+            return false;
+        }
+
+        if (groupIndex && groupIndex === activeGroup) {
+            return false;
+        }
+
+        this.setState({
+            activeGroup: groupIndex
+        });
+        return true;
+    }
+
     renderAddBtn(position) {
         const {
-            btnAddAlwaysShown, btnAddPosition, children, maxGroups, onGroupAdd
+            btnAddAlwaysShown, btnAddPosition, children, maxGroups
         } = this.props;
+        const { showAddBtn } = this.state;
 
         if (btnAddPosition !== position) {
             return null;
@@ -19,9 +94,9 @@ class Orizzonte extends Component {
 
         return (
             <BtnAdd
-                shown={ btnAddAlwaysShown }
+                shown={ showAddBtn || btnAddAlwaysShown }
                 position={ btnAddPosition }
-                onFilterAdd={ onGroupAdd }
+                onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
                     if (child.props.included) {
                         return null;
@@ -37,10 +112,15 @@ class Orizzonte extends Component {
 
     render() {
         const { children, onGroupRemove } = this.props;
+        const { activeGroup } = this.state;
 
         return (
             <div
                 className="orizzonte__container"
+                onFocus={ () => { this.toggleAddBtn(true); }}
+                onMouseOver={ () => { this.toggleAddBtn(true); }}
+                onBlur={ () => { this.toggleAddBtn(false); }}
+                onMouseOut={ () => { this.toggleAddBtn(false); }}
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
@@ -49,8 +129,10 @@ class Orizzonte extends Component {
                     }
 
                     return React.cloneElement(child, {
+                        activeGroup,
                         i,
-                        onGroupRemove
+                        onGroupRemove,
+                        onGroupToggle: this.toggleGroup
                     });
                 }) }
                 { this.renderAddBtn('right') }
@@ -60,6 +142,8 @@ class Orizzonte extends Component {
 }
 
 Orizzonte.propTypes = {
+    /** Indicates if a newly added group should auto expand */
+    autoExpandOnGroupAdd: PropTypes.bool,
     /** Show the button for adding new filter groups on the left or right */
     btnAddPosition: PropTypes.oneOf([
         'left',
@@ -80,6 +164,7 @@ Orizzonte.propTypes = {
 };
 
 Orizzonte.defaultProps = {
+    autoExpandOnGroupAdd: true,
     btnAddPosition: 'right',
     btnAddAlwaysShown: false,
     children: [],

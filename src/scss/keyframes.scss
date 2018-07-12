@@ -21,3 +21,9 @@
 		}
 	}
 }
+
+@keyframes wave {
+    50% {
+        transform: scale(.9);
+    }
+}
