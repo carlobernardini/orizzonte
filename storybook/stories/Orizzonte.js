@@ -14,6 +14,9 @@ const component = ({ store }) => {
 
     return (
         <Orizzonte
+            onChange={ (queryObject) => {
+                console.log(queryObject);
+            }}
             onGroupAdd={ (i) => {
                 let newGroups = store.state.groups.slice(0);
                 newGroups[i].included = true;

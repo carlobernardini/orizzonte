@@ -35,13 +35,14 @@ class Orizzonte extends Component {
     }
 
     onGroupUpdate(group) {
-        const { query } = this.state;
+        const { onChange } = this.props;
+        const query = assign({}, { ...this.state.query }, group);
 
         this.setState({
-            query: assign({}, query, group)
-        }, () => {
-            console.log (this.state.query);
+            query
         });
+
+        onChange(query);
     }
 
     toggleAddBtn(show) {
@@ -160,6 +161,8 @@ class Orizzonte extends Component {
 Orizzonte.propTypes = {
     /** Indicates if a newly added group should auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
+    /** Callback function that triggers when the final query object is updated */
+    onChange: PropTypes.func,
     /** Show the button for adding new filter groups on the left or right */
     orientation: PropTypes.oneOf([
         'left',
@@ -181,6 +184,7 @@ Orizzonte.propTypes = {
 
 Orizzonte.defaultProps = {
     autoExpandOnGroupAdd: true,
+    onChange: () => {},
     orientation: 'left',
     btnAddAlwaysShown: false,
     children: [],
