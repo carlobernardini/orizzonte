@@ -32,6 +32,8 @@ const Select = ({ label, onUpdate, options }) => (
 );
 
 Select.propTypes = {
+    /** Field name for this filter, to be used in composed query */
+    fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     onUpdate: PropTypes.func,

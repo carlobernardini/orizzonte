@@ -101,19 +101,19 @@ stories.add('Default', withState({
                 fieldName="shirtSize"
                 label="Shirt Size"
                 options={ [{
-                    label: 'Extra Small',
+                    label: 'Extra Small (XS)',
                     value: 'xs'
                 }, {
-                    label: 'Small',
+                    label: 'Small (S)',
                     value: 's'
                 }, {
-                    label: 'Medium',
+                    label: 'Medium (M)',
                     value: 'm'
                 }, {
-                    label: 'Large',
+                    label: 'Large (L)',
                     value: 'l'
                 }, {
-                    label: 'Extra Large',
+                    label: 'Extra Large (XL)',
                     value: 'xl'
                 }] }
             />,

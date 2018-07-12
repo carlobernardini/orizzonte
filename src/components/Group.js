@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { isEqual } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -9,7 +10,8 @@ class Group extends Component {
         super(props);
 
         this.state = {
-            removing: false
+            removing: false,
+            groupValues: {},
         };
 
         this.removeGroup = this.removeGroup.bind(this);
@@ -78,6 +80,7 @@ class Group extends Component {
     }
 
     renderList() {
+        const { groupValues } = this.state;
         const { activeGroup, children, i, orientation } = this.props;
 
         if (activeGroup !== i || !children.length) {
@@ -89,6 +92,19 @@ class Group extends Component {
                 isFilterGroup
                 items={ children }
                 orientation={ orientation }
+                onUpdate={ (fieldName, value) => {
+                    if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
+                        return false;
+                    }
+                    const values = { ...groupValues };
+                    values[fieldName] = value;
+
+                    this.setState({
+                        groupValues: values
+                    });
+                    console.log (values);
+                    return true;
+                }}
             />
         );
     }

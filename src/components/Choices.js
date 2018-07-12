@@ -85,6 +85,8 @@ class Choices extends Component {
 }
 
 Choices.propTypes = {
+    /** Field name for this filter, to be used in composed query */
+    fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Internal callback for when filter value has changed */
