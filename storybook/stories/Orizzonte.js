@@ -145,7 +145,30 @@ stories.add('Default', withState({
         ]
     }, {
         included: true,
-        label: 'Dates'
+        label: 'Dates',
+        filters: [
+            <Choices
+                multiple
+                key="period"
+                label="Calendar Period"
+                options={ [{
+                    label: 'Last Month',
+                    value: '1m'
+                }, {
+                    label: 'Last 2 Months',
+                    value: '2m'
+                }, {
+                    label: 'Last 3 Months',
+                    value: '3m'
+                }, {
+                    label: 'Last 6 Months',
+                    value: '6m'
+                }, {
+                    label: 'Last Year',
+                    value: '1y'
+                }] }
+            />
+        ]
     }, {
         label: 'Price'
     }, {
