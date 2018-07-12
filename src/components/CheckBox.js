@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../scss/CheckBox.scss';
 
 /**
@@ -7,12 +8,15 @@ import '../scss/CheckBox.scss';
  * Source: https://codepen.io/andreasstorm/pen/yjLGGN
  */
 
-const CheckBox = ({ id, label, onChange, value }) => (
+const CheckBox = ({ disabled, id, label, onChange, value }) => (
     <div
-        className="orizzonte__checkbox"
+        className={ classNames('orizzonte__checkbox', {
+            'orizzonte__checkbox--disabled': disabled
+        }) }
     >
         <input
             type="checkbox"
+            disabled={ disabled }
             id={ id }
             className="orizzonte__checkbox-input"
             value={ value }
@@ -49,6 +53,8 @@ const CheckBox = ({ id, label, onChange, value }) => (
 );
 
 CheckBox.propTypes = {
+    /** If the checkbox should be disabled */
+    disabled: PropTypes.bool,
     /** Internal ID for this checkbox */
     id: PropTypes.string.isRequired,
     /** Label for this checkbox */
@@ -62,6 +68,7 @@ CheckBox.propTypes = {
 };
 
 CheckBox.defaultProps = {
+    disabled: false,
     onChange: () => {}
 };
 

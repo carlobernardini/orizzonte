@@ -132,10 +132,12 @@ stories.add('Default', withState({
                     value: 32
                 }, {
                     label: 'Large (34)',
-                    value: 34
+                    value: 34,
+                    disabled: true
                 }, {
                     label: 'Extra Large (36)',
-                    value: 36
+                    value: 36,
+                    disabled: true
                 }] }
             />
         ]
@@ -160,10 +162,12 @@ stories.add('Default', withState({
                 label="Calendar Period"
                 options={ [{
                     label: 'Last Month',
-                    value: '1m'
+                    value: '1m',
+                    disabled: true
                 }, {
                     label: 'Last 2 Months',
-                    value: '2m'
+                    value: '2m',
+                    disabled: true
                 }, {
                     label: 'Last 3 Months',
                     value: '3m'

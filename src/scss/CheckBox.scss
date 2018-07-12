@@ -1,5 +1,20 @@
 @import 'base';
 
+.orizzonte__checkbox--disabled {
+    .orizzonte__checkbox-span--last {
+        color: #CCC;
+    }
+    .orizzonte__checkbox-label {
+        cursor: not-allowed;
+
+        &:hover {
+            .orizzonte__checkbox-span--first {
+                border-color: #d0d1d5;
+            }
+        }
+    }
+}
+
 .orizzonte__checkbox-input {
     display: none;
 

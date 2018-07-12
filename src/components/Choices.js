@@ -22,6 +22,7 @@ class Choices extends Component {
                 <CheckBox
                     key={ i }
                     id={ uniqueId('checkbox-') }
+                    disabled={ option.disabled }
                     value={ option.value }
                     label={ option.label || option.value }
                     onChange={ (selected) => {
@@ -50,6 +51,7 @@ class Choices extends Component {
                 key={ i }
                 id={ uniqueId('radio-') }
                 name="orizzonte"
+                disabled={ option.disabled }
                 value={ option.value }
                 label={ option.label || option.value }
                 onChange={ (selectedValue) => {

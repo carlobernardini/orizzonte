@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../scss/RadioButton.scss';
 
-const RadioButton = ({ id, label, name, onChange, value }) => (
+const RadioButton = ({ disabled, id, label, name, onChange, value }) => (
     <div
-        className="orizzonte__radio"
+        className={ classNames('orizzonte__radio', {
+            'orizzonte__radio--disabled': disabled
+        }) }
     >
         <input
             type="radio"
+            disabled={ disabled }
             id={ id }
             name={ name }
             className="orizzonte__radio-input"
@@ -47,6 +51,8 @@ const RadioButton = ({ id, label, name, onChange, value }) => (
 );
 
 RadioButton.propTypes = {
+    /** If the checkbox should be disabled */
+    disabled: PropTypes.bool,
     /** Internal ID for this radio button */
     id: PropTypes.string.isRequired,
     /** Label for this radio button */
@@ -62,6 +68,7 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
+    disabled: false,
     onChange: () => {}
 };
 

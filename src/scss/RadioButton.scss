@@ -1,5 +1,21 @@
 @import 'base';
 
+.orizzonte__radio--disabled {
+    .orizzonte__radio-span--last {
+        color: #CCC;
+    }
+    .orizzonte__radio-label {
+        cursor: not-allowed;
+
+        &:hover {
+            .orizzonte__radio-span--first {
+                border-color: #d0d1d5;
+            }
+        }
+    }
+}
+
+
 .orizzonte__radio-input {
     display: none;
 
