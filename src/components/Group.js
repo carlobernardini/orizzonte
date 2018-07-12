@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { isEqual } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -9,7 +10,8 @@ class Group extends Component {
         super(props);
 
         this.state = {
-            removing: false
+            removing: false,
+            groupValues: {},
         };
 
         this.removeGroup = this.removeGroup.bind(this);
@@ -78,7 +80,8 @@ class Group extends Component {
     }
 
     renderList() {
-        const { activeGroup, children, i } = this.props;
+        const { groupValues } = this.state;
+        const { activeGroup, children, i, onUpdate, orientation } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
@@ -88,13 +91,31 @@ class Group extends Component {
             <List
                 isFilterGroup
                 items={ children }
+                orientation={ orientation }
+                onApply={ () => {
+                    const { groupValues } = this.state;
+                    this.toggleGroup();
+                    onUpdate(groupValues);
+                }}
+                onUpdate={ (fieldName, value) => {
+                    if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
+                        return false;
+                    }
+                    const values = { ...groupValues };
+                    values[fieldName] = value;
+
+                    this.setState({
+                        groupValues: values
+                    });
+                    return true;
+                }}
             />
         );
     }
 
     render() {
         const {
-            activeGroup, i, label, included
+            activeGroup, i, included, label
         } = this.props;
         const { removing } = this.state;
 
@@ -141,6 +162,13 @@ Group.propTypes = {
     onGroupRemove: PropTypes.func,
     /** Internal callback for setting currently expanded group */
     onGroupToggle: PropTypes.func,
+    /** Internal callback for applying group values to query */
+    onUpdate: PropTypes.func,
+    /** Orientation of the group dropdown list */
+    orientation: PropTypes.oneOf([
+        'left',
+        'right'
+    ]),
     /** If the group should be present in the bar */
     included: PropTypes.bool
 };
@@ -152,6 +180,8 @@ Group.defaultProps = {
     i: null,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
+    onUpdate: () => {},
+    orientation: 'left',
     included: false
 };
 

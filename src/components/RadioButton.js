@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../scss/RadioButton.scss';
 
-const RadioButton = ({ id, label, name, value }) => (
+const RadioButton = ({ id, label, name, onChange, value }) => (
     <div
         className="orizzonte__radio"
     >
@@ -12,6 +12,10 @@ const RadioButton = ({ id, label, name, value }) => (
             name={ name }
             className="orizzonte__radio-input"
             value={ value }
+            onChange={ (e) => {
+                const { value } = e.target;
+                onChange(value);
+            }}
         />
         <label
             htmlFor={ id }
@@ -49,11 +53,16 @@ RadioButton.propTypes = {
     label: PropTypes.string.isRequired,
     /** Name for current series of radio buttons*/
     name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
     /** Value for this radio button */
     value: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
     ]).isRequired
+};
+
+RadioButton.defaultProps = {
+    onChange: () => {}
 };
 
 export default RadioButton;

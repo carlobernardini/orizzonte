@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { assign } from 'lodash';
 import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
 
@@ -8,10 +10,12 @@ class Orizzonte extends Component {
         super(props);
         this.state = {
             activeGroup: null,
-            showAddBtn: false
+            showAddBtn: false,
+            query: {}
         };
         this.toggleGroup = this.toggleGroup.bind(this);
         this.addGroup = this.addGroup.bind(this);
+        this.onGroupUpdate = this.onGroupUpdate.bind(this);
         this.timer = null;
     }
 
@@ -28,6 +32,16 @@ class Orizzonte extends Component {
 
         this.toggleGroup(newIndex);
         return true;
+    }
+
+    onGroupUpdate(group) {
+        const { query } = this.state;
+
+        this.setState({
+            query: assign({}, query, group)
+        }, () => {
+            console.log (this.state.query);
+        });
     }
 
     toggleAddBtn(show) {
@@ -80,11 +94,11 @@ class Orizzonte extends Component {
 
     renderAddBtn(position) {
         const {
-            btnAddAlwaysShown, btnAddPosition, children, maxGroups
+            btnAddAlwaysShown, orientation, children, maxGroups
         } = this.props;
         const { showAddBtn } = this.state;
 
-        if (btnAddPosition !== position) {
+        if (orientation === position) {
             return null;
         }
 
@@ -95,7 +109,7 @@ class Orizzonte extends Component {
         return (
             <BtnAdd
                 shown={ showAddBtn || btnAddAlwaysShown }
-                position={ btnAddPosition }
+                position={ orientation === 'right' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
                     if (child.props.included) {
@@ -111,12 +125,12 @@ class Orizzonte extends Component {
     }
 
     render() {
-        const { children, onGroupRemove } = this.props;
+        const { children, onGroupRemove, orientation } = this.props;
         const { activeGroup } = this.state;
 
         return (
             <div
-                className="orizzonte__container"
+                className="orizzonte__container orizzonte__clearfix"
                 onFocus={ () => { this.toggleAddBtn(true); }}
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
                 onBlur={ () => { this.toggleAddBtn(false); }}
@@ -132,7 +146,9 @@ class Orizzonte extends Component {
                         activeGroup,
                         i,
                         onGroupRemove,
-                        onGroupToggle: this.toggleGroup
+                        onGroupToggle: this.toggleGroup,
+                        onUpdate: this.onGroupUpdate,
+                        orientation
                     });
                 }) }
                 { this.renderAddBtn('right') }
@@ -145,7 +161,7 @@ Orizzonte.propTypes = {
     /** Indicates if a newly added group should auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
     /** Show the button for adding new filter groups on the left or right */
-    btnAddPosition: PropTypes.oneOf([
+    orientation: PropTypes.oneOf([
         'left',
         'right'
     ]),
@@ -165,7 +181,7 @@ Orizzonte.propTypes = {
 
 Orizzonte.defaultProps = {
     autoExpandOnGroupAdd: true,
-    btnAddPosition: 'right',
+    orientation: 'left',
     btnAddAlwaysShown: false,
     children: [],
     disabled: false,

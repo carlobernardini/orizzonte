@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ label, options }) => (
+const Select = ({ label, onUpdate, options }) => (
     <div
         className="orizzonte__filter"
     >
@@ -14,6 +14,10 @@ const Select = ({ label, options }) => (
         </div>
         <select
             className="orizzonte__filter-select"
+            onChange={ (e) => {
+                const { value } = e.target;
+                onUpdate(value);
+            }}
         >
             { options.map((option, i) => (
                 <option
@@ -28,8 +32,11 @@ const Select = ({ label, options }) => (
 );
 
 Select.propTypes = {
+    /** Field name for this filter, to be used in composed query */
+    fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
@@ -40,6 +47,10 @@ Select.propTypes = {
             ]).isRequired
         })
     ).isRequired
+};
+
+Select.defaultProps = {
+    onUpdate: () => {}
 };
 
 export default Select;

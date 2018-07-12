@@ -5,16 +5,18 @@ import '../scss/List.scss';
 
 class List extends Component {
     renderDoneBtn() {
-        const { doneBtn, doneBtnLabel, isFilterGroup } = this.props;
+        const { doneBtn, doneBtnLabel, isFilterGroup, onApply } = this.props;
 
         if (!isFilterGroup || !doneBtn) {
             return null;
         }
+
         return (
             <li>
                 <button
                     type="button"
                     className="orizzonte__list-done"
+                    onClick={ onApply }
                 >
                     { doneBtnLabel || 'Done' }
                 </button>
@@ -22,25 +24,49 @@ class List extends Component {
         );
     }
 
+    renderItems() {
+        const { items, isFilterGroup, onUpdate } = this.props;
+
+        if (isFilterGroup) {
+            return React.Children.map(items, (item, i) => (
+                <li
+                    className={ classNames('orizzonte__item', {
+                        'orizzonte__item--filters': isFilterGroup
+                    }) }
+                    key={ i }
+                >
+                    { React.cloneElement(item, {
+                        onUpdate: (filterValue) => {
+                            const { fieldName } = item.props;
+                            onUpdate(fieldName, filterValue);
+                        }
+                    }) }
+                </li>
+            ));
+        }
+
+        return items.map((item, i) => (
+            <li
+                className={ classNames('orizzonte__item', {
+                    'orizzonte__item--filters': isFilterGroup
+                }) }
+                key={ i }
+            >
+                { item }
+            </li>
+        ));
+    }
+
     render() {
-        const { isFilterGroup, items } = this.props;
+        const { isFilterGroup, orientation } = this.props;
 
         return (
             <ul
-                className="orizzonte__list"
+                className={ classNames('orizzonte__list', {
+                    'orizzonte__list--right': orientation === 'right'
+                }) }
             >
-                {
-                    items.map((item, i) => (
-                        <li
-                            className={ classNames('orizzonte__item', {
-                                'orizzonte__item--filters': isFilterGroup
-                            }) }
-                            key={ i }
-                        >
-                            { item }
-                        </li>
-                    ))
-                }
+                { this.renderItems() }
                 { this.renderDoneBtn() }
             </ul>
         );
@@ -51,13 +77,22 @@ List.propTypes = {
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
     isFilterGroup: PropTypes.bool,
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    onApply: PropTypes.func,
+    onUpdate:PropTypes.func,
+    orientation: PropTypes.oneOf([
+        'left',
+        'right'
+    ])
 };
 
 List.defaultProps = {
     doneBtn: true,
     doneBtnLabel: null,
-    isFilterGroup: false
+    isFilterGroup: false,
+    onApply: () => {},
+    onUpdate: () => {},
+    orientation: 'left'
 };
 
 export default List;

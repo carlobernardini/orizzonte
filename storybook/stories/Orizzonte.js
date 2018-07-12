@@ -14,7 +14,6 @@ const component = ({ store }) => {
 
     return (
         <Orizzonte
-            // btnAddAlwaysShown
             onGroupAdd={ (i) => {
                 let newGroups = store.state.groups.slice(0);
                 newGroups[i].included = true;
@@ -34,14 +33,16 @@ const component = ({ store }) => {
             }}
         >
             {
-                groups.map((group, i) => (
-                    <Group
+                groups.map((group, i) => {
+                    const { filters, ...rest} = group;
+
+                    return <Group
                         key={ `${ group.name }-${ i }` }
-                        { ...group }
+                        { ...rest }
                     >
-                        { group.filters }
+                        { filters }
                     </Group>
-                ))
+                })
             }
         </Orizzonte>
     );
@@ -55,6 +56,7 @@ stories.add('Default', withState({
         filters: [
             <Select
                 key="language"
+                fieldName="language"
                 label="Language"
                 options={ [{
                     label: 'English',
@@ -72,6 +74,7 @@ stories.add('Default', withState({
             />,
             <Select
                 key="secondary-language"
+                fieldName="secondLanguage"
                 label="Secondary Language"
                 options={ [{
                     label: 'English',
@@ -95,26 +98,28 @@ stories.add('Default', withState({
         filters: [
             <Select
                 key="shirt-size"
+                fieldName="shirtSize"
                 label="Shirt Size"
                 options={ [{
-                    label: 'Extra Small',
+                    label: 'Extra Small (XS)',
                     value: 'xs'
                 }, {
-                    label: 'Small',
+                    label: 'Small (S)',
                     value: 's'
                 }, {
-                    label: 'Medium',
+                    label: 'Medium (M)',
                     value: 'm'
                 }, {
-                    label: 'Large',
+                    label: 'Large (L)',
                     value: 'l'
                 }, {
-                    label: 'Extra Large',
+                    label: 'Extra Large (XL)',
                     value: 'xl'
                 }] }
             />,
             <Choices
                 key="waist-size"
+                fieldName="waistSize"
                 label="Waist Size"
                 options={ [{
                     label: 'Extra Small (28)',
@@ -139,6 +144,7 @@ stories.add('Default', withState({
         filters: [
             <FullText
                 key="keywords"
+                fieldName="keywords"
                 label="Keywords"
                 placeholder="Enter some keywords..."
             />
@@ -150,6 +156,7 @@ stories.add('Default', withState({
             <Choices
                 multiple
                 key="period"
+                fieldName="calendarPeriod"
                 label="Calendar Period"
                 options={ [{
                     label: 'Last Month',

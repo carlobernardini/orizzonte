@@ -41,14 +41,15 @@ class BtnAdd extends Component {
 
     renderList() {
         const { active } = this.state;
-        const { available, onGroupAdd } = this.props;
+        const { available, onGroupAdd, position, shown } = this.props;
 
-        if (!active) {
+        if (!shown || !active) {
             return null;
         }
 
         return (
             <List
+                orientation={ position === 'right' ? 'left' : 'right' }
                 items={ available.map((filter) => (
                     <a
                         href="#"
