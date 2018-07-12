@@ -1,5 +1,7 @@
 import React from 'react';
-import Orizzonte, { FullText, Group, Select } from 'orizzonte';
+import Orizzonte, {
+    Choices, FullText, Group, Select
+} from 'orizzonte';
 import ArrayMove from 'array-move';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
@@ -111,7 +113,7 @@ stories.add('Default', withState({
                     value: 'xl'
                 }] }
             />,
-            <Select
+            <Choices
                 key="waist-size"
                 label="Waist Size"
                 options={ [{
