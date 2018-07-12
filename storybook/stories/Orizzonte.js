@@ -73,6 +73,7 @@ stories.add('Default', withState({
                 }] }
             />,
             <Select
+                disabled
                 key="secondary-language"
                 fieldName="secondLanguage"
                 label="Secondary Language"
@@ -149,6 +150,13 @@ stories.add('Default', withState({
                 fieldName="keywords"
                 label="Keywords"
                 placeholder="Enter some keywords..."
+            />,
+            <FullText
+                key="disabled"
+                disabled
+                fieldName="disabledTextField"
+                label="Another field"
+                placeholder="This one is disabled..."
             />
         ]
     }, {

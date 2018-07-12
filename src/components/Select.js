@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ label, onUpdate, options }) => (
+const Select = ({ disabled, label, onUpdate, options }) => (
     <div
         className="orizzonte__filter"
     >
@@ -13,7 +14,10 @@ const Select = ({ label, onUpdate, options }) => (
             { label }
         </div>
         <select
-            className="orizzonte__filter-select"
+            className={ classNames('orizzonte__filter-select', {
+                'orizzonte__filter-select--disabled': disabled
+            }) }
+            disabled={ disabled }
             onChange={ (e) => {
                 const { value } = e.target;
                 onUpdate(value);
@@ -32,6 +36,8 @@ const Select = ({ label, onUpdate, options }) => (
 );
 
 Select.propTypes = {
+    /** If the select should be disabled */
+    disabled: PropTypes.bool,
     /** Field name for this filter, to be used in composed query */
     fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
@@ -50,6 +56,7 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
+    disabled: false,
     onUpdate: () => {}
 };
 

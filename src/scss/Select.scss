@@ -26,4 +26,9 @@ $caret-base64: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
     &:focus {
         border-color: $color-a;
     }
+
+    &--disabled {
+        cursor: not-allowed;
+        background-color: #eee;
+    }
 }
