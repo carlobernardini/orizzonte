@@ -4,10 +4,19 @@ import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showAddBtn: false
+        };
+        this.timer = null;
+    }
+
     renderAddBtn(position) {
         const {
             btnAddAlwaysShown, btnAddPosition, children, maxGroups, onGroupAdd
         } = this.props;
+        const { showAddBtn } = this.state;
 
         if (btnAddPosition !== position) {
             return null;
@@ -19,7 +28,7 @@ class Orizzonte extends Component {
 
         return (
             <BtnAdd
-                shown={ btnAddAlwaysShown }
+                shown={ showAddBtn || btnAddAlwaysShown }
                 position={ btnAddPosition }
                 onFilterAdd={ onGroupAdd }
                 available={ React.Children.map(children, (child, i) => {
@@ -35,12 +44,48 @@ class Orizzonte extends Component {
         );
     }
 
+    toggleAddBtn(show) {
+        const { showAddBtn } = this.state;
+
+        if (show) {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+
+            if (showAddBtn) {
+                return false;
+            }
+
+            console.log('show add btn');
+            this.setState({
+                showAddBtn: true
+            });
+            return true;            
+        }
+
+        if (!showAddBtn) {
+            return false;
+        }
+
+        this.timer = setTimeout(() => {
+            this.setState({
+                showAddBtn: false
+            });
+        }, 500);
+        return true;
+    }
+
     render() {
         const { children, onGroupRemove } = this.props;
 
         return (
             <div
                 className="orizzonte__container"
+                onFocus={ () => { this.toggleAddBtn(true); }}
+                onMouseOver={ () => { this.toggleAddBtn(true); }}
+                onBlur={ () => { this.toggleAddBtn(false); }}
+                onMouseOut={ () => { this.toggleAddBtn(false); }}
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
