@@ -36,10 +36,10 @@ class Group extends Component {
         const { activeGroup, i, onGroupToggle } = this.props;
 
         if (activeGroup === i) {
-            onGroupToggle();
+            return onGroupToggle(false);
         }
 
-        onGroupToggle(i);
+        return onGroupToggle(i);
     }
 
     renderBtn() {
@@ -108,7 +108,10 @@ class Group extends Component {
 
 Group.propTypes = {
     /** Internal index of currently expanded group */
-    activeGroup: PropTypes.number,
+    activeGroup: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.bool
+    ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
     /** If a remove button should be present */

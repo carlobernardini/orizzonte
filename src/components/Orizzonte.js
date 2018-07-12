@@ -64,7 +64,7 @@ class Orizzonte extends Component {
     toggleGroup(groupIndex) {
         const { activeGroup } = this.state;
 
-        if (groupIndex === false && !activeGroup) {
+        if (groupIndex === false && activeGroup === null) {
             return false;
         }
 
