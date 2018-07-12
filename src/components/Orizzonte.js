@@ -7,9 +7,59 @@ class Orizzonte extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeGroup: null,
             showAddBtn: false
         };
+        this.toggleGroup = this.toggleGroup.bind(this);
         this.timer = null;
+    }
+
+    toggleAddBtn(show) {
+        const { showAddBtn } = this.state;
+
+        if (show) {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+
+            if (showAddBtn) {
+                return false;
+            }
+
+            this.setState({
+                showAddBtn: true
+            });
+            return true;            
+        }
+
+        if (!showAddBtn) {
+            return false;
+        }
+
+        this.timer = setTimeout(() => {
+            this.setState({
+                showAddBtn: false
+            });
+        }, 500);
+        return true;
+    }
+
+    toggleGroup(groupIndex) {
+        const { activeGroup } = this.state;
+
+        if (groupIndex === false && !activeGroup) {
+            return false;
+        }
+
+        if (groupIndex && groupIndex === activeGroup) {
+            return false;
+        }
+
+        this.setState({
+            activeGroup: groupIndex
+        });
+        return true;
     }
 
     renderAddBtn(position) {
@@ -44,40 +94,9 @@ class Orizzonte extends Component {
         );
     }
 
-    toggleAddBtn(show) {
-        const { showAddBtn } = this.state;
-
-        if (show) {
-            if (this.timer) {
-                clearTimeout(this.timer);
-                this.timer = null;
-            }
-
-            if (showAddBtn) {
-                return false;
-            }
-
-            console.log('show add btn');
-            this.setState({
-                showAddBtn: true
-            });
-            return true;            
-        }
-
-        if (!showAddBtn) {
-            return false;
-        }
-
-        this.timer = setTimeout(() => {
-            this.setState({
-                showAddBtn: false
-            });
-        }, 500);
-        return true;
-    }
-
     render() {
         const { children, onGroupRemove } = this.props;
+        const { activeGroup } = this.state;
 
         return (
             <div
@@ -94,8 +113,10 @@ class Orizzonte extends Component {
                     }
 
                     return React.cloneElement(child, {
+                        activeGroup,
                         i,
-                        onGroupRemove
+                        onGroupRemove,
+                        onGroupToggle: this.toggleGroup
                     });
                 }) }
                 { this.renderAddBtn('right') }
