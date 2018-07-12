@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
 
-const FullText = ({ label, onUpdate, placeholder }) => (
+const FullText = ({ disabled, label, onUpdate, placeholder }) => (
     <div
         className="orizzonte__filter"
     >
@@ -13,7 +14,10 @@ const FullText = ({ label, onUpdate, placeholder }) => (
             { label }
         </div>
         <textarea
-            className="orizzonte__filter-fulltext"
+            className={ classNames('orizzonte__filter-fulltext', {
+                'orizzonte__filter-fulltext--disabled': disabled
+            }) }
+            disabled={ disabled }
             onChange={ (e) => {
                 const { value } = e.target;
                 onUpdate(value);
@@ -24,6 +28,8 @@ const FullText = ({ label, onUpdate, placeholder }) => (
 );
 
 FullText.propTypes = {
+    /** If the textarea should be disabled */
+    disabled: PropTypes.bool,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Internal callback for filter update */
@@ -33,6 +39,7 @@ FullText.propTypes = {
 };
 
 FullText.defaultProps = {
+    disabled: false,
     onUpdate: () => {},
     placeholder: null
 };

@@ -19,4 +19,9 @@
     &:focus {
         border-color: $color-a;
     }
+
+    &--disabled {
+        cursor: not-allowed;
+        background-color: #eee;
+    }
 }

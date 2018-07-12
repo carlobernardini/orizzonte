@@ -51,7 +51,7 @@ const RadioButton = ({ disabled, id, label, name, onChange, value }) => (
 );
 
 RadioButton.propTypes = {
-    /** If the checkbox should be disabled */
+    /** If the radio button should be disabled */
     disabled: PropTypes.bool,
     /** Internal ID for this radio button */
     id: PropTypes.string.isRequired,
