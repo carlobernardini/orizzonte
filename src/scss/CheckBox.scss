@@ -7,7 +7,7 @@
         + .orizzonte__checkbox-label {
             .orizzonte__checkbox-span--first {
                 background: $color-a;
-                border-color: #506EEC;
+                border-color: $color-a;
                 animation: wave .4s ease;
 
                 .orizzonte__checkbox-svg {
@@ -71,8 +71,8 @@
 
 .orizzonte__checkbox-svg {
     position: absolute;
-    top: 3px;
-    left: 2px;
+    top: 0;
+    left: 1px;
     fill: none;
     stroke: #ffffff;
     stroke-width: 2;
