@@ -1,5 +1,5 @@
 import React from 'react';
-import Orizzonte, { Group, Select } from 'orizzonte';
+import Orizzonte, { FullText, Group, Select } from 'orizzonte';
 import ArrayMove from 'array-move';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
@@ -69,19 +69,19 @@ stories.add('Default', withState({
                 }] }
             />,
             <Select
-                key="something-else"
-                label="Something else"
+                key="secondary-language"
+                label="Secondary Language"
                 options={ [{
-                    label: 'Bla bla this is an option',
+                    label: 'English',
                     value: 'en'
                 }, {
-                    label: 'Hello I\'m another option',
+                    label: 'French',
                     value: 'fr'
                 }, {
-                    label: 'There we go again',
+                    label: 'German',
                     value: 'de'
                 }, {
-                    label: 'Testing multiple filters in a group',
+                    label: 'Dutch',
                     value: 'nl'
                 }] }
             />
@@ -89,9 +89,57 @@ stories.add('Default', withState({
     }, {
         included: true,
         label: 'Size',
-        selectedLabel: '%d sizes'
+        selectedLabel: '%d sizes',
+        filters: [
+            <Select
+                key="shirt-size"
+                label="Shirt Size"
+                options={ [{
+                    label: 'Extra Small',
+                    value: 'xs'
+                }, {
+                    label: 'Small',
+                    value: 's'
+                }, {
+                    label: 'Medium',
+                    value: 'm'
+                }, {
+                    label: 'Large',
+                    value: 'l'
+                }, {
+                    label: 'Extra Large',
+                    value: 'xl'
+                }] }
+            />,
+            <Select
+                key="waist-size"
+                label="Waist Size"
+                options={ [{
+                    label: 'Extra Small (28)',
+                    value: 28
+                }, {
+                    label: 'Small (30)',
+                    value: 30
+                }, {
+                    label: 'Medium (32)',
+                    value: 32
+                }, {
+                    label: 'Large (34)',
+                    value: 34
+                }, {
+                    label: 'Extra Large (36)',
+                    value: 36
+                }] }
+            />
+        ]
     }, {
-        label: 'Keywords'
+        label: 'Keywords',
+        filters: [
+            <FullText
+                label="Keywords"
+                placeholder="Enter some keywords..."
+            />
+        ]
     }, {
         included: true,
         label: 'Dates'
