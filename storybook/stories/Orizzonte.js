@@ -33,14 +33,16 @@ const component = ({ store }) => {
             }}
         >
             {
-                groups.map((group, i) => (
-                    <Group
+                groups.map((group, i) => {
+                    const { filters, ...rest} = group;
+
+                    return <Group
                         key={ `${ group.name }-${ i }` }
-                        { ...group }
+                        { ...rest }
                     >
-                        { group.filters }
+                        { filters }
                     </Group>
-                ))
+                })
             }
         </Orizzonte>
     );
