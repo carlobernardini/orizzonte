@@ -138,6 +138,7 @@ stories.add('Default', withState({
         label: 'Keywords',
         filters: [
             <FullText
+                key="keywords"
                 label="Keywords"
                 placeholder="Enter some keywords..."
             />

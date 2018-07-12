@@ -57,7 +57,7 @@ class Orizzonte extends Component {
             this.setState({
                 showAddBtn: false
             });
-        }, 500);
+        }, 750);
         return true;
     }
 

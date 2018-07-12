@@ -28,7 +28,7 @@ const CheckBox = ({ id, label, value }) => (
                     className="orizzonte__checkbox-svg"
                     width="12px"
                     height="10px"
-                    viewBox="0 0 10px 0"
+                    viewBox="0 0 10 10"
                 >
                     <polyline
                         points="1.5 6 3.5 9 8 3"
@@ -50,7 +50,10 @@ CheckBox.propTypes = {
     /** Label for this checkbox */
     label: PropTypes.string.isRequired,
     /** Value for this checkbox */
-    value: PropTypes.string.isRequired
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]).isRequired
 };
 
 export default CheckBox;
