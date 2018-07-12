@@ -103,6 +103,7 @@ Choices.propTypes = {
             ]).isRequired
         })
     ).isRequired,
+    /** Whether to show checkboxes (true) or radios (false) */
     multiple: PropTypes.bool
 };
 
