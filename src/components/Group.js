@@ -55,7 +55,7 @@ class Group extends Component {
                 className="orizzonte__group-btn"
                 onClick={ this.removeGroup }
             >
-                &times;
+                &nbsp;
             </button>
         );
     }
