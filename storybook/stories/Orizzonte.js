@@ -97,7 +97,7 @@ stories.add('Default', withState({
         ]
     }, {
         included: true,
-        label: 'Size',
+        label: 'Sizes',
         selectedLabel: '%d sizes',
         filters: [
             <Select

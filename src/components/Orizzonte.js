@@ -47,6 +47,7 @@ class Orizzonte extends Component {
 
     toggleAddBtn(show) {
         const { showAddBtn } = this.state;
+        const { children } = this.props;
 
         if (show) {
             if (this.timer) {
@@ -64,7 +65,14 @@ class Orizzonte extends Component {
             return true;            
         }
 
-        if (!showAddBtn) {
+        const included = React.Children.map(children, (child) => {
+            if (!child.props.included) {
+                return null;
+            }
+            return child;
+        });
+
+        if (!showAddBtn || !included.length) {
             return false;
         }
 
