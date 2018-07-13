@@ -64,7 +64,7 @@ stories.add('Default', withState({
                 key="language"
                 fieldName="language"
                 label="Language"
-                selectedLabel="Language (%s)"
+                selectedLabel="%s (primary)"
                 options={ [{
                     label: 'English',
                     value: 'en'
@@ -159,7 +159,7 @@ stories.add('Default', withState({
                 fieldName="keywords"
                 label="Keywords"
                 selectedLabel={ (value) => (truncate(value, {
-                    length: 10
+                    length: 20
                 }))}
                 placeholder="Enter some keywords..."
             />,
@@ -180,7 +180,7 @@ stories.add('Default', withState({
                 key="period"
                 fieldName="calendarPeriod"
                 label="Calendar Period"
-                selectedLabel="Period (%d)"
+                selectedLabel="Calendar Period (%d)"
                 options={ [{
                     label: 'Last Month',
                     value: '1m',

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { find, isEqual, isFunction, isNumber } from 'lodash';
+import {
+    find, intersection, isEqual, isFunction, isNumber
+} from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -157,6 +159,30 @@ class Group extends Component {
         return selectedLabels.join(', ');
     }
 
+    renderTopLabel() {
+        const { children, label, query } = this.props;
+
+        const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+
+        if (!fieldNames.length) {
+            return null;
+        }
+
+        const queryKeys = Object.keys(query);
+
+        if (!queryKeys.length || !intersection(queryKeys, fieldNames).length) {
+            return null;
+        }
+
+        return (
+            <span
+                className="orizzonte__group-label--top"
+            >
+                { label }
+            </span>
+        );
+    }
+
     render() {
         const {
             activeGroup, i, included
@@ -174,6 +200,7 @@ class Group extends Component {
                     'orizzonte__group--removing': removing
                 }) }
             >
+                { this.renderTopLabel() }
                 <button
                     type="button"
                     onClick={ this.toggleGroup }
