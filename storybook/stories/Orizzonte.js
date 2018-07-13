@@ -61,7 +61,7 @@ const component = ({ store }) => {
 
 stories.add('Default', withState({
     query: {
-        language: 'en',
+        language: 'fr',
         calendarPeriod: ['3m', '1y']
     },
     groups: [{

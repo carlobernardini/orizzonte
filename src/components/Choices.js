@@ -8,14 +8,6 @@ import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
 
 class Choices extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: []
-        };
-    }
-
     renderChoices() {
         const {
             fieldName, multiple, onUpdate, options, value
@@ -31,19 +23,16 @@ class Choices extends Component {
                     selected={ (value || []).indexOf(option.value) > -1 }
                     label={ option.label || option.value }
                     onChange={ (selected) => {
-                        let newValue = [...this.state.value];
+                        let newValue = (value || []).slice(0);
                         if (selected && !includes(newValue, option.value)) {
                             newValue.push(option.value);
                         }
                         if (!selected && includes(newValue, option.value)) {
                             newValue = without(newValue, option.value);
                         }
-                        if (isEqual(newValue, this.state.value)) {
+                        if (isEqual(newValue, value)) {
                             return false;
                         }
-                        this.setState({
-                            value: newValue
-                        });
                         onUpdate(newValue);
                         return true;
                     }}
@@ -60,17 +49,7 @@ class Choices extends Component {
                 value={ option.value }
                 selected={ value === option.value }
                 label={ option.label || option.value }
-                onChange={ (selectedValue) => {
-                    let value = [...this.state.value];
-                    
-                    value = [selectedValue];
-
-                    this.setState({
-                        value
-                    });
-                    onUpdate(value[0]);
-                    return true;
-                }}
+                onChange={ (selectedValue) => (onUpdate(selectedValue)) }
             />
         ));
     }

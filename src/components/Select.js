@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ disabled, label, onUpdate, options, value }) => (
+const Select = ({ disabled, label, onUpdate, options, value = '' }) => (
     <div
         className="orizzonte__filter"
     >
@@ -22,7 +22,7 @@ const Select = ({ disabled, label, onUpdate, options, value }) => (
                 const { value: val } = e.target;
                 onUpdate(val);
             }}
-            value={ value }
+            value={ value || '' }
         >
             { options.map((option, i) => (
                 <option
@@ -62,7 +62,7 @@ Select.propTypes = {
 Select.defaultProps = {
     disabled: false,
     onUpdate: () => {},
-    value: null
+    value: ''
 };
 
 export default Select;
