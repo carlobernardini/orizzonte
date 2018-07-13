@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ disabled, label, onUpdate, options }) => (
+const Select = ({ disabled, label, onUpdate, options, value }) => (
     <div
         className="orizzonte__filter"
     >
@@ -19,9 +19,10 @@ const Select = ({ disabled, label, onUpdate, options }) => (
             }) }
             disabled={ disabled }
             onChange={ (e) => {
-                const { value } = e.target;
-                onUpdate(value);
+                const { value: val } = e.target;
+                onUpdate(val);
             }}
+            value={ value }
         >
             { options.map((option, i) => (
                 <option
@@ -38,8 +39,6 @@ const Select = ({ disabled, label, onUpdate, options }) => (
 Select.propTypes = {
     /** If the select should be disabled */
     disabled: PropTypes.bool,
-    /** Field name for this filter, to be used in composed query */
-    fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Internal callback for when select value has changed */
@@ -53,12 +52,17 @@ Select.propTypes = {
                 PropTypes.string
             ]).isRequired
         })
-    ).isRequired
+    ).isRequired,
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ])
 };
 
 Select.defaultProps = {
     disabled: false,
-    onUpdate: () => {}
+    onUpdate: () => {},
+    value: null
 };
 
 export default Select;

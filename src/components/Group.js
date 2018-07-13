@@ -138,6 +138,7 @@ class Group extends Component {
             <List
                 isFilterGroup
                 items={ children }
+                values={ groupValues }
                 orientation={ orientation }
                 onApply={ () => {
                     this.toggleGroup();

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../scss/RadioButton.scss';
 
-const RadioButton = ({ disabled, id, label, name, onChange, value }) => (
+const RadioButton = ({ disabled, id, label, name, onChange, value, selected }) => (
     <div
         className={ classNames('orizzonte__radio', {
             'orizzonte__radio--disabled': disabled
@@ -16,6 +16,7 @@ const RadioButton = ({ disabled, id, label, name, onChange, value }) => (
             name={ name }
             className="orizzonte__radio-input"
             value={ value }
+            checked={ selected }
             onChange={ () => {
                 onChange(value);
             }}
@@ -59,6 +60,8 @@ RadioButton.propTypes = {
     /** Name for current series of radio buttons */
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
+    /** If the radio button should be checked */
+    selected: PropTypes.bool,
     /** Value for this radio button */
     value: PropTypes.oneOfType([
         PropTypes.number,
@@ -68,7 +71,8 @@ RadioButton.propTypes = {
 
 RadioButton.defaultProps = {
     disabled: false,
-    onChange: () => {}
+    onChange: () => {},
+    selected: false
 };
 
 export default RadioButton;

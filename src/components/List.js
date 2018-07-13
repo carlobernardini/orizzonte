@@ -27,7 +27,9 @@ class List extends Component {
     }
 
     renderItems() {
-        const { items, isFilterGroup, onUpdate } = this.props;
+        const {
+            values, items, isFilterGroup, onUpdate
+        } = this.props;
 
         if (isFilterGroup) {
             return React.Children.map(items, (item, i) => (
@@ -38,6 +40,12 @@ class List extends Component {
                     key={ i }
                 >
                     { React.cloneElement(item, {
+                        value: ((v, fn) => {
+                            if (!(fn in v)) {
+                                return null;
+                            }
+                            return v[fn];
+                        })(values, item.props.fieldName),
                         onUpdate: (filterValue) => {
                             const { fieldName } = item.props;
                             onUpdate(fieldName, filterValue);
@@ -78,6 +86,7 @@ class List extends Component {
 List.propTypes = {
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
+    values: PropTypes.object,
     isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired,
     onApply: PropTypes.func,
@@ -91,6 +100,7 @@ List.propTypes = {
 List.defaultProps = {
     doneBtn: true,
     doneBtnLabel: null,
+    values: {},
     isFilterGroup: false,
     onApply: () => {},
     onUpdate: () => {},
