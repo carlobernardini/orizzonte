@@ -72,6 +72,26 @@ class Group extends Component {
         return onGroupToggle(i);
     }
 
+    transformLabel(selectedLabel, value, option) {
+        if (selectedLabel) {
+            if (isFunction(selectedLabel)) {
+                if (option && option.label) {
+                    return selectedLabel(value, option.label);
+                }
+                return selectedLabel(value);
+            }
+            if (Array.isArray(value)) {
+                return selectedLabel.replace('%d', value.length);
+            }
+            if (isNumber(value)) {
+                return selectedLabel.replace('%d', value.toString());
+            }
+            return selectedLabel.replace('%s', option.label || value);
+        }
+
+        return null;
+    }
+
     renderBtn() {
         const { hideRemove } = this.props;
 
@@ -142,23 +162,7 @@ class Group extends Component {
             const value = query[fieldName];
             const option = find(child.props.options || {}, { value });
 
-            if (selectedLabel) {
-                if (isFunction(selectedLabel)) {
-                    if (option && option.label) {
-                        return selectedLabel(value, option.label);
-                    }
-                    return selectedLabel(value);
-                }
-                if (Array.isArray(value)) {
-                    return selectedLabel.replace('%d', value.length);
-                }
-                if (isNumber(value)) {
-                    return selectedLabel.replace('%d', value.toString());
-                }
-                return selectedLabel.replace('%s', option.label || value);
-            }
-
-            return null;
+            return this.transformLabel(selectedLabel, value, option);
         });
 
         if (!selectedLabels.length) {

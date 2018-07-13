@@ -10,8 +10,7 @@ class Orizzonte extends Component {
         super(props);
         this.state = {
             activeGroup: null,
-            showAddBtn: false,
-            query: {}
+            showAddBtn: false
         };
         this.toggleGroup = this.toggleGroup.bind(this);
         this.addGroup = this.addGroup.bind(this);
@@ -20,22 +19,16 @@ class Orizzonte extends Component {
     }
 
     onGroupUpdate(group) {
-        const { onChange } = this.props;
-        const { query } = this.state;
+        const { onChange, query } = this.props;
 
-        this.setState({
-            query: ((q) => {
-                // If 'group' is an array of fieldNames it is assumed
-                // you want those to be removed from the query
-                if (Array.isArray(group)) {
-                    return omit(q, group);
-                }
-                return assign({}, q, group);
-            })(query)
-        }, () => {
-            const { query: q } = this.state;
-            onChange(q);
-        });
+        onChange(((q) => {
+            // If 'group' is an array of fieldNames it is assumed
+            // you want those to be removed from the query
+            if (Array.isArray(group)) {
+                return omit(q, group);
+            }
+            return assign({}, q, group);
+        })(query));
     }
 
     addGroup(groupIndex) {
@@ -143,9 +136,9 @@ class Orizzonte extends Component {
 
     render() {
         const {
-            children, groupTopLabels, onGroupRemove, orientation
+            children, groupTopLabels, onGroupRemove, orientation, query
         } = this.props;
-        const { activeGroup, query } = this.state;
+        const { activeGroup } = this.state;
 
         return (
             <div
@@ -204,7 +197,9 @@ Orizzonte.propTypes = {
     /** Callback function for when a new filter group is added */
     onGroupAdd: PropTypes.func,
     /** Callback function for when a filter group is removed */
-    onGroupRemove: PropTypes.func
+    onGroupRemove: PropTypes.func,
+    /** The current query object */
+    query: PropTypes.object
 };
 
 Orizzonte.defaultProps = {
@@ -217,7 +212,8 @@ Orizzonte.defaultProps = {
     groupTopLabels: false,
     maxGroups: null,
     onGroupAdd: () => {},
-    onGroupRemove: () => {}
+    onGroupRemove: () => {},
+    query: {}
 };
 
 export default Orizzonte;

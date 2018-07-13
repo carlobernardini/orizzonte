@@ -11,13 +11,17 @@ import { withState } from '@dump247/storybook-state';
 const stories = storiesOf('Orizzonte', module);
 
 const component = ({ store }) => {
-    const { groups } = store.state;
+    const { groups, query } = store.state;
 
     return (
         <Orizzonte
+            query={ query }
             groupTopLabels
             onChange={ (queryObject) => {
                 console.log(queryObject);
+                store.set({
+                    query: queryObject
+                });
             }}
             onGroupAdd={ (i) => {
                 let newGroups = store.state.groups.slice(0);
@@ -56,6 +60,10 @@ const component = ({ store }) => {
 };
 
 stories.add('Default', withState({
+    query: {
+        language: 'en',
+        calendarPeriod: ['3m', '1y']
+    },
     groups: [{
         included: true,
         label: 'Language',
