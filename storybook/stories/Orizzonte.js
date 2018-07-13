@@ -64,7 +64,7 @@ stories.add('Default', withState({
                 key="language"
                 fieldName="language"
                 label="Language"
-                selectedLabel="%s (primary)"
+                selectedLabel="%s (Primary)"
                 options={ [{
                     label: 'English',
                     value: 'en'

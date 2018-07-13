@@ -61,6 +61,8 @@
 		line-height: 15px;
 		text-transform: uppercase;
 		color: $color-a;
+		animation: topLabelIn .2s;
+		animation-timing-function: easeOut;
 	}
 }
 

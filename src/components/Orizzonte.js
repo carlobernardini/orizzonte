@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { assign } from 'lodash';
+import { assign, omit } from 'lodash';
 import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
 
@@ -23,7 +23,14 @@ class Orizzonte extends Component {
         const { query } = this.state;
 
         this.setState({
-            query: ((q) => (assign({}, q, group)))(query)
+            query: ((q) => {
+                // If 'group' is an array of fieldNames it is assumed
+                // you want those to be removed from the query
+                if (Array.isArray(group)) {
+                    return omit(q, group);
+                }
+                return assign({}, q, group);
+            })(query)
         }, () => {
             const { query: q } = this.state;
             onChange(q);

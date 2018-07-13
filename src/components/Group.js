@@ -39,7 +39,7 @@ class Group extends Component {
 
     removeGroup() {
         const {
-            activeGroup, i, onGroupRemove, onGroupToggle
+            activeGroup, children, i, onGroupRemove, onGroupToggle, onUpdate, query
         } = this.props;
 
         if (activeGroup === i) {
@@ -48,6 +48,15 @@ class Group extends Component {
 
         this.setState({
             removing: true
+        }, () => {
+            const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+            
+            if (!intersection(Object.keys(query), fieldNames).length) {
+                return false;
+            }
+
+            onUpdate(fieldNames);
+            return true;
         });
 
         setTimeout(onGroupRemove.bind(null, i), 300);
