@@ -37,9 +37,23 @@ class Group extends Component {
         return onGroupToggle(false);
     }
 
+    queryHasGroupFilters() {
+        const { children, query } = this.props;
+
+        const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+
+        const fieldsInQuery = intersection(Object.keys(query), fieldNames);
+
+        if (!fieldsInQuery.length) {
+            return false;
+        }
+
+        return fieldsInQuery;
+    }
+
     removeGroup() {
         const {
-            activeGroup, children, i, onGroupRemove, onGroupToggle, onUpdate, query
+            activeGroup, i, onGroupRemove, onGroupToggle, onUpdate
         } = this.props;
 
         if (activeGroup === i) {
@@ -49,13 +63,13 @@ class Group extends Component {
         this.setState({
             removing: true
         }, () => {
-            const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
-            
-            if (!intersection(Object.keys(query), fieldNames).length) {
+            const fieldsInQuery = this.queryHasGroupFilters();
+
+            if (!fieldsInQuery) {
                 return false;
             }
 
-            onUpdate(fieldNames);
+            onUpdate(fieldsInQuery);
             return true;
         });
 
@@ -216,7 +230,8 @@ class Group extends Component {
             <div
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': activeGroup === i,
-                    'orizzonte__group--removing': removing
+                    'orizzonte__group--removing': removing,
+                    'orizzonte__group--empty': !this.queryHasGroupFilters()
                 }) }
             >
                 { this.renderTopLabel() }
