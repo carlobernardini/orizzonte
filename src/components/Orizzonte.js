@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { assign, omit } from 'lodash';
+import {
+    assign, identity, omit, pickBy
+} from 'lodash';
 import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
@@ -27,7 +29,8 @@ class Orizzonte extends Component {
             if (Array.isArray(group)) {
                 return omit(q, group);
             }
-            return assign({}, q, group);
+            // Merge group into query while excluding fields with falsey values
+            return pickBy(assign({}, q, group), identity);
         })(query));
     }
 

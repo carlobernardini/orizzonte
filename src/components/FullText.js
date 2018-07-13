@@ -20,7 +20,10 @@ const FullText = ({ disabled, label, onUpdate, placeholder, value }) => (
             disabled={ disabled }
             onChange={ (e) => {
                 const { value: val } = e.target;
-                onUpdate(val);
+                if (!val.length) {
+                    return onUpdate(null);
+                }
+                return onUpdate(val);
             }}
             placeholder={ placeholder }
             value={ value || '' }
