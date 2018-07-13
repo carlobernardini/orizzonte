@@ -1,6 +1,8 @@
 # Orizzonte
 React components for a horizontal, filtered search UI
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/carlobernardini/orizzonte/blob/master/LICENSE)
+
 ## Examples
 
 ### Storybook

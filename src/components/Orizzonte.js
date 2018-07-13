@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { assign, omit } from 'lodash';
 import classNames from 'classnames';
-import { assign } from 'lodash';
 import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
 
@@ -19,6 +19,25 @@ class Orizzonte extends Component {
         this.timer = null;
     }
 
+    onGroupUpdate(group) {
+        const { onChange } = this.props;
+        const { query } = this.state;
+
+        this.setState({
+            query: ((q) => {
+                // If 'group' is an array of fieldNames it is assumed
+                // you want those to be removed from the query
+                if (Array.isArray(group)) {
+                    return omit(q, group);
+                }
+                return assign({}, q, group);
+            })(query)
+        }, () => {
+            const { query: q } = this.state;
+            onChange(q);
+        });
+    }
+
     addGroup(groupIndex) {
         const { autoExpandOnGroupAdd, children, onGroupAdd } = this.props;
 
@@ -34,19 +53,9 @@ class Orizzonte extends Component {
         return true;
     }
 
-    onGroupUpdate(group) {
-        const { onChange } = this.props;
-        const query = assign({}, { ...this.state.query }, group);
-
-        this.setState({
-            query
-        });
-
-        onChange(query);
-    }
-
     toggleAddBtn(show) {
         const { showAddBtn } = this.state;
+        const { children } = this.props;
 
         if (show) {
             if (this.timer) {
@@ -64,7 +73,14 @@ class Orizzonte extends Component {
             return true;            
         }
 
-        if (!showAddBtn) {
+        const included = React.Children.map(children, (child) => {
+            if (!child.props.included) {
+                return null;
+            }
+            return child;
+        });
+
+        if (!showAddBtn || !included.length) {
             return false;
         }
 
@@ -126,12 +142,16 @@ class Orizzonte extends Component {
     }
 
     render() {
-        const { children, onGroupRemove, orientation } = this.props;
-        const { activeGroup } = this.state;
+        const {
+            children, groupTopLabels, onGroupRemove, orientation
+        } = this.props;
+        const { activeGroup, query } = this.state;
 
         return (
             <div
-                className="orizzonte__container orizzonte__clearfix"
+                className={ classNames('orizzonte__container orizzonte__clearfix', {
+                    'orizzonte__container--padded': groupTopLabels
+                }) }
                 onFocus={ () => { this.toggleAddBtn(true); }}
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
                 onBlur={ () => { this.toggleAddBtn(false); }}
@@ -145,11 +165,13 @@ class Orizzonte extends Component {
 
                     return React.cloneElement(child, {
                         activeGroup,
+                        groupTopLabels,
                         i,
                         onGroupRemove,
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
-                        orientation
+                        orientation,
+                        query
                     });
                 }) }
                 { this.renderAddBtn('right') }
@@ -174,6 +196,9 @@ Orizzonte.propTypes = {
     children: PropTypes.array,
     /** Disable any interaction */
     disabled: PropTypes.bool,
+    /** Whether the group label should be shown at the top if some of its
+        filters have selected values */
+    groupTopLabels: PropTypes.bool,
     /** Maximum number of filters to be added */
     maxGroups: PropTypes.number,
     /** Callback function for when a new filter group is added */
@@ -189,6 +214,7 @@ Orizzonte.defaultProps = {
     btnAddAlwaysShown: false,
     children: [],
     disabled: false,
+    groupTopLabels: false,
     maxGroups: null,
     onGroupAdd: () => {},
     onGroupRemove: () => {}

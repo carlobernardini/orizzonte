@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { isEqual } from 'lodash';
+import {
+    find, intersection, isEqual, isFunction, isNumber
+} from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -37,7 +39,7 @@ class Group extends Component {
 
     removeGroup() {
         const {
-            activeGroup, i, onGroupRemove, onGroupToggle
+            activeGroup, children, i, onGroupRemove, onGroupToggle, onUpdate, query
         } = this.props;
 
         if (activeGroup === i) {
@@ -46,6 +48,15 @@ class Group extends Component {
 
         this.setState({
             removing: true
+        }, () => {
+            const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+            
+            if (!intersection(Object.keys(query), fieldNames).length) {
+                return false;
+            }
+
+            onUpdate(fieldNames);
+            return true;
         });
 
         setTimeout(onGroupRemove.bind(null, i), 300);
@@ -81,7 +92,9 @@ class Group extends Component {
 
     renderList() {
         const { groupValues } = this.state;
-        const { activeGroup, children, i, onUpdate, orientation } = this.props;
+        const {
+            activeGroup, children, i, onUpdate, orientation
+        } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
@@ -93,7 +106,6 @@ class Group extends Component {
                 items={ children }
                 orientation={ orientation }
                 onApply={ () => {
-                    const { groupValues } = this.state;
                     this.toggleGroup();
                     onUpdate(groupValues);
                 }}
@@ -113,9 +125,82 @@ class Group extends Component {
         );
     }
 
+    renderLabel() {
+        const { children, label, query } = this.props;
+
+        const selectedLabels = React.Children.map(children, (child) => {
+            if (!child.props || !child.props.fieldName || !(child.props.fieldName in query)) {
+                return null;
+            }
+
+            const { fieldName, selectedLabel } = child.props;
+
+            if (!('fieldName' in child.props)) {
+                return null;
+            }
+
+            const value = query[fieldName];
+            const option = find(child.props.options || {}, { value });
+
+            if (selectedLabel) {
+                if (isFunction(selectedLabel)) {
+                    if (option && option.label) {
+                        return selectedLabel(value, option.label);
+                    }
+                    return selectedLabel(value);
+                }
+                if (Array.isArray(value)) {
+                    return selectedLabel.replace('%d', value.length);
+                }
+                if (isNumber(value)) {
+                    return selectedLabel.replace('%d', value.toString());
+                }
+                return selectedLabel.replace('%s', option.label || value);
+            }
+
+            return null;
+        });
+
+        if (!selectedLabels.length) {
+            return label;
+        }
+
+        return selectedLabels.join(', ');
+    }
+
+    renderTopLabel() {
+        const {
+            children, groupTopLabels, label, query
+        } = this.props;
+
+        if (!groupTopLabels) {
+            return null;
+        }
+
+        const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+
+        if (!fieldNames.length) {
+            return null;
+        }
+
+        const queryKeys = Object.keys(query);
+
+        if (!queryKeys.length || !intersection(queryKeys, fieldNames).length) {
+            return null;
+        }
+
+        return (
+            <span
+                className="orizzonte__group-label--top"
+            >
+                { label }
+            </span>
+        );
+    }
+
     render() {
         const {
-            activeGroup, i, included, label
+            activeGroup, i, included
         } = this.props;
         const { removing } = this.state;
 
@@ -130,12 +215,13 @@ class Group extends Component {
                     'orizzonte__group--removing': removing
                 }) }
             >
+                { this.renderTopLabel() }
                 <button
                     type="button"
                     onClick={ this.toggleGroup }
                     className="orizzonte__group-label"
                 >
-                    { label }
+                    { this.renderLabel() }
                 </button>
                 { this.renderBtn() }
                 { this.renderList() }
@@ -152,10 +238,14 @@ Group.propTypes = {
     ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
+    /** Internal flag if a label should be shown at the top */
+    groupTopLabels: PropTypes.bool,
     /** If a remove button should be present */
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
     i: PropTypes.number,
+    /** If the group should be present in the bar */
+    included: PropTypes.bool,
     /** Group label */
     label: PropTypes.string.isRequired,
     /** Internal callback for group removal */
@@ -169,20 +259,22 @@ Group.propTypes = {
         'left',
         'right'
     ]),
-    /** If the group should be present in the bar */
-    included: PropTypes.bool
+    /** Current composed query */
+    query: PropTypes.object
 };
 
 Group.defaultProps = {
     activeGroup: null,
     children: [],
+    groupTopLabels: false,
     hideRemove: false,
     i: null,
+    included: false,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
     onUpdate: () => {},
     orientation: 'left',
-    included: false
+    query: {}
 };
 
 export default Group;

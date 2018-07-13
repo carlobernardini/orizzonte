@@ -52,6 +52,18 @@
 	cursor: pointer;
 	@extend %fonts;
 	@extend %btn-label;
+
+	&--top {
+		position: absolute;
+		font-size: .7em;
+		top: -15px;
+		left: 15px;
+		line-height: 15px;
+		text-transform: uppercase;
+		color: $color-a;
+		animation: topLabelIn .2s;
+		animation-timing-function: easeOut;
+	}
 }
 
 .orizzonte__group-btn {
