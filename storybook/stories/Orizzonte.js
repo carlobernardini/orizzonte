@@ -15,6 +15,7 @@ const component = ({ store }) => {
 
     return (
         <Orizzonte
+            groupTopLabels
             onChange={ (queryObject) => {
                 console.log(queryObject);
             }}

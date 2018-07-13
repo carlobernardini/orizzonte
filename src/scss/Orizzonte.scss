@@ -1,7 +1,6 @@
 @import 'base';
 
 .orizzonte__container {
-	padding-top: 20px;
 	@extend %fonts;
 
 	&:hover {
@@ -18,6 +17,9 @@
 				}
 			}
 		}
+	}
+	&--padded {
+		padding-top: 20px;
 	}
 }
 

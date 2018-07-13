@@ -169,7 +169,13 @@ class Group extends Component {
     }
 
     renderTopLabel() {
-        const { children, label, query } = this.props;
+        const {
+            children, groupTopLabels, label, query
+        } = this.props;
+
+        if (!groupTopLabels) {
+            return null;
+        }
 
         const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
 
@@ -232,6 +238,8 @@ Group.propTypes = {
     ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
+    /** Internal flag if a label should be shown at the top */
+    groupTopLabels: PropTypes.bool,
     /** If a remove button should be present */
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
@@ -258,6 +266,7 @@ Group.propTypes = {
 Group.defaultProps = {
     activeGroup: null,
     children: [],
+    groupTopLabels: false,
     hideRemove: false,
     i: null,
     included: false,

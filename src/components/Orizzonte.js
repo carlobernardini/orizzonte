@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { assign, omit } from 'lodash';
+import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
 
@@ -141,12 +142,16 @@ class Orizzonte extends Component {
     }
 
     render() {
-        const { children, onGroupRemove, orientation } = this.props;
+        const {
+            children, groupTopLabels, onGroupRemove, orientation
+        } = this.props;
         const { activeGroup, query } = this.state;
 
         return (
             <div
-                className="orizzonte__container orizzonte__clearfix"
+                className={ classNames('orizzonte__container orizzonte__clearfix', {
+                    'orizzonte__container--padded': groupTopLabels
+                }) }
                 onFocus={ () => { this.toggleAddBtn(true); }}
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
                 onBlur={ () => { this.toggleAddBtn(false); }}
@@ -160,6 +165,7 @@ class Orizzonte extends Component {
 
                     return React.cloneElement(child, {
                         activeGroup,
+                        groupTopLabels,
                         i,
                         onGroupRemove,
                         onGroupToggle: this.toggleGroup,
@@ -190,6 +196,9 @@ Orizzonte.propTypes = {
     children: PropTypes.array,
     /** Disable any interaction */
     disabled: PropTypes.bool,
+    /** Whether the group label should be shown at the top if some of its
+        filters have selected values */
+    groupTopLabels: PropTypes.bool,
     /** Maximum number of filters to be added */
     maxGroups: PropTypes.number,
     /** Callback function for when a new filter group is added */
@@ -205,6 +214,7 @@ Orizzonte.defaultProps = {
     btnAddAlwaysShown: false,
     children: [],
     disabled: false,
+    groupTopLabels: false,
     maxGroups: null,
     onGroupAdd: () => {},
     onGroupRemove: () => {}
