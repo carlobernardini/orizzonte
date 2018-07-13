@@ -5,7 +5,9 @@ import '../scss/List.scss';
 
 class List extends Component {
     renderDoneBtn() {
-        const { doneBtn, doneBtnLabel, isFilterGroup, onApply } = this.props;
+        const {
+            doneBtn, doneBtnLabel, isFilterGroup, onApply
+        } = this.props;
 
         if (!isFilterGroup || !doneBtn) {
             return null;
@@ -58,7 +60,7 @@ class List extends Component {
     }
 
     render() {
-        const { isFilterGroup, orientation } = this.props;
+        const { orientation } = this.props;
 
         return (
             <ul
@@ -79,7 +81,7 @@ List.propTypes = {
     isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired,
     onApply: PropTypes.func,
-    onUpdate:PropTypes.func,
+    onUpdate: PropTypes.func,
     orientation: PropTypes.oneOf([
         'left',
         'right'

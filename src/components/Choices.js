@@ -15,7 +15,9 @@ class Choices extends Component {
     }
 
     renderChoices() {
-        const { multiple, onUpdate, options } = this.props;
+        const {
+            fieldName, multiple, onUpdate, options
+        } = this.props;
 
         if (multiple) {
             return options.map((option, i) => (
@@ -50,7 +52,7 @@ class Choices extends Component {
             <RadioButton
                 key={ i }
                 id={ uniqueId('radio-') }
-                name="orizzonte"
+                name={ fieldName }
                 disabled={ option.disabled }
                 value={ option.value }
                 label={ option.label || option.value }

@@ -81,7 +81,9 @@ class Group extends Component {
 
     renderList() {
         const { groupValues } = this.state;
-        const { activeGroup, children, i, onUpdate, orientation } = this.props;
+        const {
+            activeGroup, children, i, onUpdate, orientation
+        } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
@@ -93,7 +95,6 @@ class Group extends Component {
                 items={ children }
                 orientation={ orientation }
                 onApply={ () => {
-                    const { groupValues } = this.state;
                     this.toggleGroup();
                     onUpdate(groupValues);
                 }}

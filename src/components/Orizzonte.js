@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { assign } from 'lodash';
 import BtnAdd from './BtnAdd';
 import '../scss/Orizzonte.scss';
@@ -19,6 +18,18 @@ class Orizzonte extends Component {
         this.timer = null;
     }
 
+    onGroupUpdate(group) {
+        const { onChange } = this.props;
+        const { query } = this.state;
+
+        this.setState({
+            query: ((q) => (assign({}, q, group)))(query)
+        }, () => {
+            const { query: q } = this.state;
+            onChange(q);
+        });
+    }
+
     addGroup(groupIndex) {
         const { autoExpandOnGroupAdd, children, onGroupAdd } = this.props;
 
@@ -32,17 +43,6 @@ class Orizzonte extends Component {
 
         this.toggleGroup(newIndex);
         return true;
-    }
-
-    onGroupUpdate(group) {
-        const { onChange } = this.props;
-        const query = assign({}, { ...this.state.query }, group);
-
-        this.setState({
-            query
-        });
-
-        onChange(query);
     }
 
     toggleAddBtn(show) {

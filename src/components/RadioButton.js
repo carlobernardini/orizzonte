@@ -16,8 +16,7 @@ const RadioButton = ({ disabled, id, label, name, onChange, value }) => (
             name={ name }
             className="orizzonte__radio-input"
             value={ value }
-            onChange={ (e) => {
-                const { value } = e.target;
+            onChange={ () => {
                 onChange(value);
             }}
         />
@@ -57,7 +56,7 @@ RadioButton.propTypes = {
     id: PropTypes.string.isRequired,
     /** Label for this radio button */
     label: PropTypes.string.isRequired,
-    /** Name for current series of radio buttons*/
+    /** Name for current series of radio buttons */
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     /** Value for this radio button */
