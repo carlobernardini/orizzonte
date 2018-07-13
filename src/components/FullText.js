@@ -23,7 +23,7 @@ const FullText = ({ disabled, label, onUpdate, placeholder, value }) => (
                 onUpdate(val);
             }}
             placeholder={ placeholder }
-            value={ value }
+            value={ value || '' }
         />
     </div>
 );
