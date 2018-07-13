@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { isEqual } from 'lodash';
+import { find, isEqual, isFunction, isNumber } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -114,9 +114,52 @@ class Group extends Component {
         );
     }
 
+    renderLabel() {
+        const { children, label, query } = this.props;
+
+        const selectedLabels = React.Children.map(children, (child) => {
+            if (!child.props || !child.props.fieldName || !(child.props.fieldName in query)) {
+                return null;
+            }
+
+            const { fieldName, selectedLabel } = child.props;
+
+            if (!('fieldName' in child.props)) {
+                return null;
+            }
+
+            const value = query[fieldName];
+            const option = find(child.props.options || {}, { value });
+
+            if (selectedLabel) {
+                if (isFunction(selectedLabel)) {
+                    if (option && option.label) {
+                        return selectedLabel(value, option.label);
+                    }
+                    return selectedLabel(value);
+                }
+                if (Array.isArray(value)) {
+                    return selectedLabel.replace('%d', value.length);
+                }
+                if (isNumber(value)) {
+                    return selectedLabel.replace('%d', value.toString());
+                }
+                return selectedLabel.replace('%s', option.label || value);
+            }
+
+            return null;
+        });
+
+        if (!selectedLabels.length) {
+            return label;
+        }
+
+        return selectedLabels.join(', ');
+    }
+
     render() {
         const {
-            activeGroup, i, included, label
+            activeGroup, i, included
         } = this.props;
         const { removing } = this.state;
 
@@ -136,7 +179,7 @@ class Group extends Component {
                     onClick={ this.toggleGroup }
                     className="orizzonte__group-label"
                 >
-                    { label }
+                    { this.renderLabel() }
                 </button>
                 { this.renderBtn() }
                 { this.renderList() }
@@ -157,6 +200,8 @@ Group.propTypes = {
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
     i: PropTypes.number,
+    /** If the group should be present in the bar */
+    included: PropTypes.bool,
     /** Group label */
     label: PropTypes.string.isRequired,
     /** Internal callback for group removal */
@@ -170,8 +215,8 @@ Group.propTypes = {
         'left',
         'right'
     ]),
-    /** If the group should be present in the bar */
-    included: PropTypes.bool
+    /** Current composed query */
+    query: PropTypes.object
 };
 
 Group.defaultProps = {
@@ -179,11 +224,12 @@ Group.defaultProps = {
     children: [],
     hideRemove: false,
     i: null,
+    included: false,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
     onUpdate: () => {},
     orientation: 'left',
-    included: false
+    query: {}
 };
 
 export default Group;

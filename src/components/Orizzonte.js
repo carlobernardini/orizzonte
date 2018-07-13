@@ -135,7 +135,7 @@ class Orizzonte extends Component {
 
     render() {
         const { children, onGroupRemove, orientation } = this.props;
-        const { activeGroup } = this.state;
+        const { activeGroup, query } = this.state;
 
         return (
             <div
@@ -157,7 +157,8 @@ class Orizzonte extends Component {
                         onGroupRemove,
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
-                        orientation
+                        orientation,
+                        query
                     });
                 }) }
                 { this.renderAddBtn('right') }

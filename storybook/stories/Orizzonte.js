@@ -2,6 +2,7 @@ import React from 'react';
 import Orizzonte, {
     Choices, FullText, Group, Select
 } from 'orizzonte';
+import { truncate } from 'lodash';
 import ArrayMove from 'array-move';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
@@ -37,14 +38,16 @@ const component = ({ store }) => {
         >
             {
                 groups.map((group, i) => {
-                    const { filters, ...rest} = group;
+                    const { filters, ...rest } = group;
 
-                    return <Group
-                        key={ `${ group.name }-${ i }` }
-                        { ...rest }
-                    >
-                        { filters }
-                    </Group>
+                    return (
+                        <Group
+                            key={ `${ group.name }-${ i }` }
+                            { ...rest }
+                        >
+                            { filters }
+                        </Group>
+                    );
                 })
             }
         </Orizzonte>
@@ -61,6 +64,7 @@ stories.add('Default', withState({
                 key="language"
                 fieldName="language"
                 label="Language"
+                selectedLabel="Language (%s)"
                 options={ [{
                     label: 'English',
                     value: 'en'
@@ -104,20 +108,21 @@ stories.add('Default', withState({
                 key="shirt-size"
                 fieldName="shirtSize"
                 label="Shirt Size"
+                selectedLabel={ (value, label) => (`Shirt Size (${ label })`) }
                 options={ [{
-                    label: 'Extra Small (XS)',
+                    label: 'Extra Small',
                     value: 'xs'
                 }, {
-                    label: 'Small (S)',
+                    label: 'Small',
                     value: 's'
                 }, {
-                    label: 'Medium (M)',
+                    label: 'Medium',
                     value: 'm'
                 }, {
-                    label: 'Large (L)',
+                    label: 'Large',
                     value: 'l'
                 }, {
-                    label: 'Extra Large (XL)',
+                    label: 'Extra Large',
                     value: 'xl'
                 }] }
             />,
@@ -125,6 +130,7 @@ stories.add('Default', withState({
                 key="waist-size"
                 fieldName="waistSize"
                 label="Waist Size"
+                selectedLabel={ (value) => (`Waist Size (${ value })`) }
                 options={ [{
                     label: 'Extra Small (28)',
                     value: 28
@@ -152,6 +158,9 @@ stories.add('Default', withState({
                 key="keywords"
                 fieldName="keywords"
                 label="Keywords"
+                selectedLabel={ (value) => (truncate(value, {
+                    length: 10
+                }))}
                 placeholder="Enter some keywords..."
             />,
             <FullText
@@ -171,6 +180,7 @@ stories.add('Default', withState({
                 key="period"
                 fieldName="calendarPeriod"
                 label="Calendar Period"
+                selectedLabel="Period (%d)"
                 options={ [{
                     label: 'Last Month',
                     value: '1m',
