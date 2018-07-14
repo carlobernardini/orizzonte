@@ -83,6 +83,7 @@ Choices.propTypes = {
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
+            disabled: PropTypes.bool,
             label: PropTypes.string,
             value: PropTypes.oneOfType([
                 PropTypes.number,

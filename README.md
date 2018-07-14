@@ -48,6 +48,7 @@ import Orizzonte, { Choices, FullText, Group, Select } from 'orizzonte';
         {label: 'Medium (32)',value: 32},
         …
       ]}
+      multiple
     />
   </Group>
   <Group
