@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Choices /> should render a series of checkboxes with selected values 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test multiple choices
+  </div>
+  <CheckBox
+    disabled={false}
+    id="checkbox-4"
+    key="0"
+    label="Test value 1"
+    onChange={[Function]}
+    selected={false}
+    value={1}
+  />
+  <CheckBox
+    disabled={false}
+    id="checkbox-5"
+    key="1"
+    label="Test value 2"
+    onChange={[Function]}
+    selected={true}
+    value={2}
+  />
+  <CheckBox
+    disabled={false}
+    id="checkbox-6"
+    key="2"
+    label="Test value 3"
+    onChange={[Function]}
+    selected={true}
+    value={3}
+  />
+</div>
+`;
+
+exports[`<Choices /> should render a series of checkboxes with some disabled ones 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test multiple choices
+  </div>
+  <CheckBox
+    disabled={true}
+    id="checkbox-1"
+    key="0"
+    label="Test value 1"
+    onChange={[Function]}
+    selected={false}
+    value={1}
+  />
+  <CheckBox
+    disabled={false}
+    id="checkbox-2"
+    key="1"
+    label="Test value 2"
+    onChange={[Function]}
+    selected={false}
+    value={2}
+  />
+  <CheckBox
+    disabled={true}
+    id="checkbox-3"
+    key="2"
+    label="Test value 3"
+    onChange={[Function]}
+    selected={false}
+    value={3}
+  />
+</div>
+`;
+
+exports[`<Choices /> should render a series of radios with selected value 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test multiple choices
+  </div>
+  <RadioButton
+    disabled={true}
+    id="radio-10"
+    key="0"
+    label="Test value 1"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={1}
+  />
+  <RadioButton
+    disabled={false}
+    id="radio-11"
+    key="1"
+    label="Test value 2"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={2}
+  />
+  <RadioButton
+    disabled={true}
+    id="radio-12"
+    key="2"
+    label="Test value 3"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={true}
+    value={3}
+  />
+</div>
+`;
+
+exports[`<Choices /> should render a series of radios with some disabled ones 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test multiple choices
+  </div>
+  <RadioButton
+    disabled={true}
+    id="radio-7"
+    key="0"
+    label="Test value 1"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={1}
+  />
+  <RadioButton
+    disabled={false}
+    id="radio-8"
+    key="1"
+    label="Test value 2"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={2}
+  />
+  <RadioButton
+    disabled={true}
+    id="radio-9"
+    key="2"
+    label="Test value 3"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={3}
+  />
+</div>
+`;
