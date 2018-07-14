@@ -1,37 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<BtnAdd /> should render a default add-button 1`] = `
-<button
-  className="orizzonte__btn-add"
-  type="button"
+<div
+  className="orizzonte__btn-add-wrapper"
 >
-  +
-</button>
+  <button
+    className="orizzonte__btn-add"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+     
+  </button>
+</div>
 `;
 
 exports[`<BtnAdd /> should render a disabled add-button 1`] = `
-<button
-  className="orizzonte__btn-add orizzonte__btn-add--disabled"
-  type="button"
+<div
+  className="orizzonte__btn-add-wrapper"
 >
-  +
-</button>
+  <button
+    className="orizzonte__btn-add orizzonte__btn-add--disabled"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+     
+  </button>
+</div>
 `;
 
 exports[`<BtnAdd /> should render a left-positioned add-button 1`] = `
-<button
-  className="orizzonte__btn-add orizzonte__btn-add--left"
-  type="button"
+<div
+  className="orizzonte__btn-add-wrapper orizzonte__btn-add-wrapper--left"
 >
-  +
-</button>
+  <button
+    className="orizzonte__btn-add"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+     
+  </button>
+</div>
 `;
 
-exports[`<BtnAdd /> should render a shown add-button 1`] = `
-<button
-  className="orizzonte__btn-add orizzonte__btn-add--shown"
-  type="button"
+exports[`<BtnAdd /> should render an add-button that is always shown 1`] = `
+<div
+  className="orizzonte__btn-add-wrapper"
 >
-  +
-</button>
+  <button
+    className="orizzonte__btn-add orizzonte__btn-add--shown"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+     
+  </button>
+</div>
+`;
+
+exports[`<BtnAdd /> should render an add-button with expanded list of available filters 1`] = `
+<div
+  className="orizzonte__btn-add-wrapper"
+>
+  <button
+    className="orizzonte__btn-add orizzonte__btn-add--shown"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+     
+  </button>
+  <List
+    doneBtn={true}
+    doneBtnLabel={null}
+    isFilterGroup={false}
+    items={
+      Array [
+        <a
+          className="orizzonte__item-clickable"
+          href="#"
+          onClick={[Function]}
+        >
+          Filter 1
+        </a>,
+        <a
+          className="orizzonte__item-clickable"
+          href="#"
+          onClick={[Function]}
+        >
+          Filter 2
+        </a>,
+      ]
+    }
+    onApply={[Function]}
+    onUpdate={[Function]}
+    orientation="right"
+    values={Object {}}
+  />
+</div>
 `;
