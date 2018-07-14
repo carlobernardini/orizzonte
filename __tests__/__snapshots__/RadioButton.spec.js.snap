@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RadioButton /> should render a disabled radio button 1`] = `
+<div
+  className="orizzonte__radio orizzonte__radio--disabled"
+>
+  <input
+    checked={false}
+    className="orizzonte__radio-input"
+    disabled={true}
+    id="testRadio1"
+    name="testRadioGroup"
+    onChange={[Function]}
+    type="radio"
+    value="test"
+  />
+  <label
+    className="orizzonte__radio-label"
+    htmlFor="testRadio1"
+  >
+    <span
+      className="orizzonte__radio-span orizzonte__radio-span--first"
+    >
+      <svg
+        className="orizzonte__radio-svg"
+        height="10px"
+        viewBox="0 0 10 10"
+        width="12px"
+      >
+        <circle
+          cx="5"
+          cy="6"
+          r="3"
+        />
+      </svg>
+    </span>
+    <span
+      className="orizzonte__radio-span orizzonte__radio-span--last"
+    >
+      Test radio
+    </span>
+  </label>
+</div>
+`;
+
+exports[`<RadioButton /> should render a radio button 1`] = `
+<div
+  className="orizzonte__radio"
+>
+  <input
+    checked={false}
+    className="orizzonte__radio-input"
+    disabled={false}
+    id="testRadio1"
+    name="testRadioGroup"
+    onChange={[Function]}
+    type="radio"
+    value="test"
+  />
+  <label
+    className="orizzonte__radio-label"
+    htmlFor="testRadio1"
+  >
+    <span
+      className="orizzonte__radio-span orizzonte__radio-span--first"
+    >
+      <svg
+        className="orizzonte__radio-svg"
+        height="10px"
+        viewBox="0 0 10 10"
+        width="12px"
+      >
+        <circle
+          cx="5"
+          cy="6"
+          r="3"
+        />
+      </svg>
+    </span>
+    <span
+      className="orizzonte__radio-span orizzonte__radio-span--last"
+    >
+      Test radio
+    </span>
+  </label>
+</div>
+`;
+
+exports[`<RadioButton /> should render a selected radio button 1`] = `
+<div
+  className="orizzonte__radio"
+>
+  <input
+    checked={true}
+    className="orizzonte__radio-input"
+    disabled={false}
+    id="testRadio1"
+    name="testRadioGroup"
+    onChange={[Function]}
+    type="radio"
+    value="test"
+  />
+  <label
+    className="orizzonte__radio-label"
+    htmlFor="testRadio1"
+  >
+    <span
+      className="orizzonte__radio-span orizzonte__radio-span--first"
+    >
+      <svg
+        className="orizzonte__radio-svg"
+        height="10px"
+        viewBox="0 0 10 10"
+        width="12px"
+      >
+        <circle
+          cx="5"
+          cy="6"
+          r="3"
+        />
+      </svg>
+    </span>
+    <span
+      className="orizzonte__radio-span orizzonte__radio-span--last"
+    >
+      Test radio
+    </span>
+  </label>
+</div>
+`;
