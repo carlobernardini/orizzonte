@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Select /> should render a disabled select 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test select
+  </div>
+  <select
+    className="orizzonte__filter-select orizzonte__filter-select--disabled"
+    disabled={true}
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      key="1.0"
+      value={1}
+    >
+      Test value 1
+    </option>
+    <option
+      key="2.1"
+      value={2}
+    >
+      Test value 2
+    </option>
+    <option
+      key="3.2"
+      value={3}
+    >
+      Test value 3
+    </option>
+  </select>
+</div>
+`;
+
+exports[`<Select /> should render a normal select 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test select
+  </div>
+  <select
+    className="orizzonte__filter-select"
+    disabled={false}
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      key="1.0"
+      value={1}
+    >
+      Test value 1
+    </option>
+    <option
+      key="2.1"
+      value={2}
+    >
+      Test value 2
+    </option>
+    <option
+      key="3.2"
+      value={3}
+    >
+      Test value 3
+    </option>
+  </select>
+</div>
+`;
+
+exports[`<Select /> should render a select with selected value 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test select
+  </div>
+  <select
+    className="orizzonte__filter-select"
+    disabled={false}
+    onChange={[Function]}
+    value={3}
+  >
+    <option
+      key="1.0"
+      value={1}
+    >
+      Test value 1
+    </option>
+    <option
+      key="2.1"
+      value={2}
+    >
+      Test value 2
+    </option>
+    <option
+      key="3.2"
+      value={3}
+    >
+      Test value 3
+    </option>
+  </select>
+</div>
+`;
