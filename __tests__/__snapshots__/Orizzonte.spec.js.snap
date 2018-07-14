@@ -2,10 +2,16 @@
 
 exports[`<Orizzonte /> should render an empty filter container 1`] = `
 <div
-  className="orizzonte__container"
+  className="orizzonte__container orizzonte__clearfix"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
 >
   <BtnAdd
+    available={Array []}
     disabled={false}
+    onGroupAdd={[Function]}
     position="right"
     shown={false}
   />
