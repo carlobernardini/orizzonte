@@ -37,9 +37,23 @@ class Group extends Component {
         return onGroupToggle(false);
     }
 
+    queryHasGroupFilters() {
+        const { children, query } = this.props;
+
+        const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+
+        const fieldsInQuery = intersection(Object.keys(query), fieldNames);
+
+        if (!fieldsInQuery.length) {
+            return false;
+        }
+
+        return fieldsInQuery;
+    }
+
     removeGroup() {
         const {
-            activeGroup, children, i, onGroupRemove, onGroupToggle, onUpdate, query
+            activeGroup, i, onGroupRemove, onGroupToggle, onUpdate
         } = this.props;
 
         if (activeGroup === i) {
@@ -49,13 +63,13 @@ class Group extends Component {
         this.setState({
             removing: true
         }, () => {
-            const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
-            
-            if (!intersection(Object.keys(query), fieldNames).length) {
+            const fieldsInQuery = this.queryHasGroupFilters();
+
+            if (!fieldsInQuery) {
                 return false;
             }
 
-            onUpdate(fieldNames);
+            onUpdate(fieldsInQuery);
             return true;
         });
 
@@ -70,6 +84,26 @@ class Group extends Component {
         }
 
         return onGroupToggle(i);
+    }
+
+    transformLabel(selectedLabel, value, option) {
+        if (selectedLabel) {
+            if (isFunction(selectedLabel)) {
+                if (option && option.label) {
+                    return selectedLabel(value, option.label);
+                }
+                return selectedLabel(value);
+            }
+            if (Array.isArray(value)) {
+                return selectedLabel.replace('%d', value.length);
+            }
+            if (isNumber(value)) {
+                return selectedLabel.replace('%d', value.toString());
+            }
+            return selectedLabel.replace('%s', option.label || value);
+        }
+
+        return null;
     }
 
     renderBtn() {
@@ -104,6 +138,7 @@ class Group extends Component {
             <List
                 isFilterGroup
                 items={ children }
+                values={ groupValues }
                 orientation={ orientation }
                 onApply={ () => {
                     this.toggleGroup();
@@ -142,23 +177,7 @@ class Group extends Component {
             const value = query[fieldName];
             const option = find(child.props.options || {}, { value });
 
-            if (selectedLabel) {
-                if (isFunction(selectedLabel)) {
-                    if (option && option.label) {
-                        return selectedLabel(value, option.label);
-                    }
-                    return selectedLabel(value);
-                }
-                if (Array.isArray(value)) {
-                    return selectedLabel.replace('%d', value.length);
-                }
-                if (isNumber(value)) {
-                    return selectedLabel.replace('%d', value.toString());
-                }
-                return selectedLabel.replace('%s', option.label || value);
-            }
-
-            return null;
+            return this.transformLabel(selectedLabel, value, option);
         });
 
         if (!selectedLabels.length) {
@@ -212,7 +231,8 @@ class Group extends Component {
             <div
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': activeGroup === i,
-                    'orizzonte__group--removing': removing
+                    'orizzonte__group--removing': removing,
+                    'orizzonte__group--empty': !this.queryHasGroupFilters()
                 }) }
             >
                 { this.renderTopLabel() }

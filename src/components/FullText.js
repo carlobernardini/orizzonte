@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
 
-const FullText = ({ disabled, label, onUpdate, placeholder }) => (
+const FullText = ({ disabled, label, onUpdate, placeholder, value }) => (
     <div
         className="orizzonte__filter"
     >
@@ -19,10 +19,14 @@ const FullText = ({ disabled, label, onUpdate, placeholder }) => (
             }) }
             disabled={ disabled }
             onChange={ (e) => {
-                const { value } = e.target;
-                onUpdate(value);
+                const { value: val } = e.target;
+                if (!val.length) {
+                    return onUpdate(null);
+                }
+                return onUpdate(val);
             }}
             placeholder={ placeholder }
+            value={ value || '' }
         />
     </div>
 );
@@ -35,13 +39,16 @@ FullText.propTypes = {
     /** Internal callback for filter update */
     onUpdate: PropTypes.func,
     /** Label for this filter section */
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    /** Current value for this filter */
+    value: PropTypes.string
 };
 
 FullText.defaultProps = {
     disabled: false,
     onUpdate: () => {},
-    placeholder: null
+    placeholder: null,
+    value: null
 };
 
 export default FullText;

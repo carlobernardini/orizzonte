@@ -8,7 +8,7 @@ import '../scss/CheckBox.scss';
  * Source: https://codepen.io/andreasstorm/pen/yjLGGN
  */
 
-const CheckBox = ({ disabled, id, label, onChange, value }) => (
+const CheckBox = ({ disabled, id, label, onChange, selected, value }) => (
     <div
         className={ classNames('orizzonte__checkbox', {
             'orizzonte__checkbox--disabled': disabled
@@ -20,6 +20,7 @@ const CheckBox = ({ disabled, id, label, onChange, value }) => (
             id={ id }
             className="orizzonte__checkbox-input"
             value={ value }
+            checked={ selected }
             onChange={ (e) => {
                 const { checked } = e.target;
                 onChange(checked);
@@ -60,6 +61,8 @@ CheckBox.propTypes = {
     /** Label for this checkbox */
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func,
+    /** If the checkbox should be checked */
+    selected: PropTypes.bool,
     /** Value for this checkbox */
     value: PropTypes.oneOfType([
         PropTypes.number,
@@ -69,7 +72,8 @@ CheckBox.propTypes = {
 
 CheckBox.defaultProps = {
     disabled: false,
-    onChange: () => {}
+    onChange: () => {},
+    selected: false
 };
 
 export default CheckBox;

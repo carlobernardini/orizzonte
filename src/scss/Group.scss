@@ -41,6 +41,10 @@
 		overflow: hidden;
 		animation: elementOut .3s forwards;
 	}
+
+	&--empty {
+		background-color: #999;
+	}
 }
 
 .orizzonte__group-label {

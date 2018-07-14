@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FullText /> should render a disabled fulltext filter 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Fulltext filter
+  </div>
+  <textarea
+    className="orizzonte__filter-fulltext orizzonte__filter-fulltext--disabled"
+    disabled={true}
+    onChange={[Function]}
+    placeholder="This is a textarea placeholder..."
+    value=""
+  />
+</div>
+`;
+
+exports[`<FullText /> should render a fulltext filter 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Fulltext filter
+  </div>
+  <textarea
+    className="orizzonte__filter-fulltext"
+    disabled={false}
+    onChange={[Function]}
+    placeholder="This is a textarea placeholder..."
+    value=""
+  />
+</div>
+`;
+
+exports[`<FullText /> should render a fulltext filter with current value 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Fulltext filter
+  </div>
+  <textarea
+    className="orizzonte__filter-fulltext"
+    disabled={false}
+    onChange={[Function]}
+    placeholder="This is a textarea placeholder..."
+    value="Current textarea value"
+  />
+</div>
+`;

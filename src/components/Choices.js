@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { includes, isEqual, uniqueId, without } from 'lodash';
+import {
+    includes, isEqual, uniqueId, without
+} from 'lodash';
 import CheckBox from './CheckBox';
 import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
 
 class Choices extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: []
-        };
-    }
-
     renderChoices() {
         const {
-            fieldName, multiple, onUpdate, options
+            fieldName, multiple, onUpdate, options, value
         } = this.props;
 
         if (multiple) {
@@ -26,22 +20,20 @@ class Choices extends Component {
                     id={ uniqueId('checkbox-') }
                     disabled={ option.disabled }
                     value={ option.value }
+                    selected={ (value || []).indexOf(option.value) > -1 }
                     label={ option.label || option.value }
                     onChange={ (selected) => {
-                        let value = [...this.state.value];
-                        if (selected && !includes(value, option.value)) {
-                            value.push(option.value);
+                        let newValue = (value || []).slice(0);
+                        if (selected && !includes(newValue, option.value)) {
+                            newValue.push(option.value);
                         }
-                        if (!selected && includes(value, option.value)) {
-                            value = without(value, option.value);
+                        if (!selected && includes(newValue, option.value)) {
+                            newValue = without(newValue, option.value);
                         }
-                        if (isEqual(value, this.state.value)) {
+                        if (isEqual(newValue, value)) {
                             return false;
                         }
-                        this.setState({
-                            value
-                        });
-                        onUpdate(value);
+                        onUpdate(newValue);
                         return true;
                     }}
                 />
@@ -55,18 +47,9 @@ class Choices extends Component {
                 name={ fieldName }
                 disabled={ option.disabled }
                 value={ option.value }
+                selected={ value === option.value }
                 label={ option.label || option.value }
-                onChange={ (selectedValue) => {
-                    let value = [...this.state.value];
-                    
-                    value = [selectedValue];
-
-                    this.setState({
-                        value
-                    });
-                    onUpdate(value[0]);
-                    return true;
-                }}
+                onChange={ (selectedValue) => (onUpdate(selectedValue)) }
             />
         ));
     }
@@ -93,11 +76,14 @@ Choices.propTypes = {
     fieldName: PropTypes.string.isRequired,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    /** Whether to show checkboxes (true) or radios (false) */
+    multiple: PropTypes.bool,
     /** Internal callback for when filter value has changed */
     onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
+            disabled: PropTypes.bool,
             label: PropTypes.string,
             value: PropTypes.oneOfType([
                 PropTypes.number,
@@ -105,13 +91,22 @@ Choices.propTypes = {
             ]).isRequired
         })
     ).isRequired,
-    /** Whether to show checkboxes (true) or radios (false) */
-    multiple: PropTypes.bool
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.arrayOf(
+            PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number
+            ])
+        )
+    ])
 };
 
 Choices.defaultProps = {
+    multiple: false,
     onUpdate: () => {},
-    multiple: false
+    value: null
 };
 
 export default Choices;

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CheckBox /> should render a checkbox 1`] = `
+<div
+  className="orizzonte__checkbox"
+>
+  <input
+    checked={false}
+    className="orizzonte__checkbox-input"
+    disabled={false}
+    id="testCheckbox"
+    onChange={[Function]}
+    type="checkbox"
+    value="test"
+  />
+  <label
+    className="orizzonte__checkbox-label"
+    htmlFor="testCheckbox"
+  >
+    <span
+      className="orizzonte__checkbox-span orizzonte__checkbox-span--first"
+    >
+      <svg
+        className="orizzonte__checkbox-svg"
+        height="10px"
+        viewBox="0 0 10 10"
+        width="12px"
+      >
+        <polyline
+          points="1.5 6 3.5 9 8 3"
+        />
+      </svg>
+    </span>
+    <span
+      className="orizzonte__checkbox-span orizzonte__checkbox-span--last"
+    >
+      Test checkbox
+    </span>
+  </label>
+</div>
+`;
+
+exports[`<CheckBox /> should render a disabled checkbox 1`] = `
+<div
+  className="orizzonte__checkbox orizzonte__checkbox--disabled"
+>
+  <input
+    checked={false}
+    className="orizzonte__checkbox-input"
+    disabled={true}
+    id="testCheckbox"
+    onChange={[Function]}
+    type="checkbox"
+    value="test"
+  />
+  <label
+    className="orizzonte__checkbox-label"
+    htmlFor="testCheckbox"
+  >
+    <span
+      className="orizzonte__checkbox-span orizzonte__checkbox-span--first"
+    >
+      <svg
+        className="orizzonte__checkbox-svg"
+        height="10px"
+        viewBox="0 0 10 10"
+        width="12px"
+      >
+        <polyline
+          points="1.5 6 3.5 9 8 3"
+        />
+      </svg>
+    </span>
+    <span
+      className="orizzonte__checkbox-span orizzonte__checkbox-span--last"
+    >
+      Test checkbox
+    </span>
+  </label>
+</div>
+`;
+
+exports[`<CheckBox /> should render a selected checkbox 1`] = `
+<div
+  className="orizzonte__checkbox"
+>
+  <input
+    checked={true}
+    className="orizzonte__checkbox-input"
+    disabled={false}
+    id="testCheckbox"
+    onChange={[Function]}
+    type="checkbox"
+    value="test"
+  />
+  <label
+    className="orizzonte__checkbox-label"
+    htmlFor="testCheckbox"
+  >
+    <span
+      className="orizzonte__checkbox-span orizzonte__checkbox-span--first"
+    >
+      <svg
+        className="orizzonte__checkbox-svg"
+        height="10px"
+        viewBox="0 0 10 10"
+        width="12px"
+      >
+        <polyline
+          points="1.5 6 3.5 9 8 3"
+        />
+      </svg>
+    </span>
+    <span
+      className="orizzonte__checkbox-span orizzonte__checkbox-span--last"
+    >
+      Test checkbox
+    </span>
+  </label>
+</div>
+`;
