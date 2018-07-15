@@ -92,7 +92,7 @@ stories.add('Default', withState({
                 key="country"
                 fieldName="country"
                 label="Country"
-                selectedLabel="%d Countries"
+                selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
                 options={ [{
                     label: 'United Kingdom',
                     value: 'uk'
