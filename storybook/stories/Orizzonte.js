@@ -1,6 +1,6 @@
 import React from 'react';
 import Orizzonte, {
-    Choices, FullText, Group, Select
+    Choices, Dropdown, FullText, Group, Select
 } from 'orizzonte';
 import { truncate } from 'lodash';
 import ArrayMove from 'array-move';
@@ -87,6 +87,10 @@ stories.add('Default', withState({
                     label: 'Dutch',
                     value: 'nl'
                 }] }
+            />,
+            <Dropdown
+                disabled
+                label="Dropdown"
             />,
             <Select
                 disabled
