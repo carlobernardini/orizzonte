@@ -56,6 +56,27 @@ class Dropdown extends Component {
 		});
 	}
 
+	getHighlightedLabel(label) {
+		const { filter } = this.state;
+
+		if (!filter) {
+			return label
+		}
+
+		const parts = label.split(new RegExp(`(${ filter })`, 'gi'));
+
+		return parts.map((part) => {
+			if (part.toLowerCase() === filter.toLowerCase()) {
+				return (
+					<strong>
+						{ part }
+					</strong>
+				);
+			}
+			return part;
+		});
+	}
+
 	toggleDropdown(e = {}, collapse = false) {
 		const { disabled } = this.props;
 		const { expanded, filter } = this.state;
@@ -111,10 +132,11 @@ class Dropdown extends Component {
 
 	renderItem(option, i) {
 		const { multiple, onUpdate, value } = this.props;
-		const { filter } = this.state;
+
+		const highlightedLabel = this.getHighlightedLabel(option.label || option.value);
 
 		if (!multiple) {
-			return (option.label || option.value);
+			return highlightedLabel;
 		}
 
 		return (
@@ -122,7 +144,7 @@ class Dropdown extends Component {
 				disabled={ option.disabled }
 				id={ uniqueId('checkbox-') }
 				value={ option.value }
-				label={ option.label || option.value }
+				label={ highlightedLabel }
 				selected={ (value || []).indexOf(option.value) > -1 }
 				onChange={ (selected) => {
 					let newValue = (value || []).slice(0);
