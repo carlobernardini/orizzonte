@@ -86,6 +86,12 @@ class Dropdown extends Component {
 		);
 	}
 
+	renderButtonLabel() {
+		const { notSetLabel } = this.props;
+
+		return notSetLabel || 'None selected';
+	}
+
 	toggleDropdown(e = {}, collapse = false) {
 		const { disabled } = this.props;
 		const { expanded, filter } = this.state;
@@ -112,18 +118,26 @@ class Dropdown extends Component {
 
 		if (filter && expanded) {
 			return (
-				<input
-					type="text"
-					className="orizzonte__dropdown-filter"
-					onChange={ (e) => {
-						const { value } = e.target;
-						this.setState({
-							filter: diacritics.remove(value)
-						});
-					}}
-					placeholder={ filterPlaceholder }
-					ref={ this.filter }
-				/>
+				<div className="orizzonte__dropdown-filter-wrapper">
+					<input
+						type="text"
+						className="orizzonte__dropdown-filter"
+						onChange={ (e) => {
+							const { value } = e.target;
+							this.setState({
+								filter: diacritics.remove(value)
+							});
+						}}
+						placeholder={ filterPlaceholder }
+						ref={ this.filter }
+					/>
+					<button
+						className="orizzonte__dropdown-filter-button"
+						onClick={ () => (this.toggleDropdown(true)) }
+					>
+						&nbsp;
+					</button>
+				</div>
 			);
 		}
 
@@ -134,7 +148,7 @@ class Dropdown extends Component {
 				onClick={ this.toggleDropdown }
 				onFocus={ this._onFocus }
 			>
-				test
+				{ this.renderButtonLabel() }
 			</button>
 		);
 	}
@@ -236,6 +250,7 @@ Dropdown.propTypes = {
 	filter: PropTypes.bool,
 	filterPlaceholder: PropTypes.string,
 	label: PropTypes.string.isRequired,
+	notSetLabel: PropTypes.string,
 	onUpdate: PropTypes.func,
 	value: PropTypes.array
 };
@@ -244,6 +259,7 @@ Dropdown.defaultProps = {
 	disabled: false,
 	filter: false,
 	filterPlaceholder: null,
+	notSetLabel: null,
 	onUpdate: () => {},
 	value: []
 };

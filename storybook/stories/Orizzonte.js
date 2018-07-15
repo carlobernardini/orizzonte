@@ -66,7 +66,7 @@ stories.add('Default', withState({
     },
     groups: [{
         included: true,
-        label: 'Language',
+        label: 'Locale',
         selectedLabel: '%d languages',
         filters: [
             <Select
@@ -89,36 +89,40 @@ stories.add('Default', withState({
                 }] }
             />,
             <Dropdown
-                key="tertiary-language"
-                fieldName="thirdLanguage"
-                label="Dropdown"
+                key="country"
+                fieldName="country"
+                label="Country"
+                selectedLabel="%d Countries"
                 options={ [{
-                    label: 'English',
-                    value: 'en'
+                    label: 'United Kingdom',
+                    value: 'uk'
                 }, {
-                    label: 'French',
+                    label: 'France',
                     value: 'fr'
                 }, {
-                    label: 'German',
+                    label: 'Germany',
                     value: 'de'
                 }, {
-                    label: 'Dutch',
+                    label: 'The Netherlands',
                     value: 'nl'
                 }, {
-                    label: 'Spanish',
+                    label: 'Spain',
                     value: 'es'
                 }, {
-                    label: 'Italian',
+                    label: 'Italy',
                     value: 'it'
                 }, {
-                    label: 'Danish',
-                    value: 'dk'
+                    label: 'Belgium',
+                    value: 'be'
                 }, {
-                    label: 'Romanian',
-                    value: 'ro'
+                    label: 'Austria',
+                    value: 'at'
                 }, {
-                    label: 'Portuguese',
+                    label: 'Portugal',
                     value: 'pt'
+                }, {
+                    label: 'Ireland',
+                    value: 'IE'
                 }] }
                 multiple
                 filter
