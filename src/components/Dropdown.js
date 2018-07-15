@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { includes, isEqual, uniqueId, without } from 'lodash';
 import CheckBox from './CheckBox';
 import '../scss/Dropdown.scss';
 
@@ -9,34 +10,142 @@ class Dropdown extends Component {
 		super(props);
 
 		this.state = {
-			expanded: false
-		}
+			expanded: false,
+			filter: null,
+			focused: false
+		};
 
 		this.dropdown = React.createRef();
+		this.filter = React.createRef();
 		this.toggleDropdown = this.toggleDropdown.bind(this);
+		this._onFocus = this._onFocus.bind(this);
 	}
 
-	toggleDropdown(e, collapse = false) {
-		const { disabled } = this.props;
-		const { expanded } = this.state;
+	componentDidUpdate() {
+		if (this.filter && this.filter.current) {
+			this.filter.current.focus();
+		}
+	}
 
-		const newState = collapse ? false : !expanded;
+	_onFocus(e) {
+		const { focused } = this.state;
 
-		if (newState && disabled) {
+		if (focused) {
 			return false;
 		}
 
 		this.setState({
-			expanded: newState
+			focused: true
 		});
 		return true;
 	}
 
-	render() {
-		const { disabled, label } = this.props;
+	getFilteredOptions() {
+		const { options } = this.props;
+		const { filter } = this.state;
+
+		if (!filter) {
+			return options;
+		}
+
+		const re = new RegExp(`(${ filter })`, 'gi');
+
+		return options.filter((option) => {
+			const label = option.label || option.value;
+			return label.match(re);
+		});
+	}
+
+	toggleDropdown(e = {}, collapse = false) {
+		const { disabled } = this.props;
+		const { expanded, filter } = this.state;
+
+		const newState = {
+			expanded: collapse ? false : !expanded
+		};
+
+		if (newState.expanded && disabled) {
+			return false;
+		}
+		if (!newState.expanded && filter) {
+			newState.filter = null;
+		}
+
+		this.setState(newState);
+
+		return true;
+	}
+
+	renderDropdownTrigger() {
+		const { disabled, filter, filterPlaceholder } = this.props;
 		const { expanded } = this.state;
 
-		console.log(disabled);
+		if (filter && expanded) {
+			return (
+				<input
+					type="text"
+					className="orizzonte__dropdown-filter"
+					onChange={ (e) => {
+						const { value } = e.target;
+						this.setState({
+							filter: value
+						});
+					}}
+					placeholder={ filterPlaceholder }
+					ref={ this.filter }
+				/>
+			);
+		}
+
+		return (
+			<button
+				className="orizzonte__dropdown-button"
+				disabled={ disabled }
+				onClick={ this.toggleDropdown }
+				onFocus={ this._onFocus }
+			>
+				test
+			</button>
+		);
+	}
+
+	renderItem(option, i) {
+		const { multiple, onUpdate, value } = this.props;
+		const { filter } = this.state;
+
+		if (!multiple) {
+			return (option.label || option.value);
+		}
+
+		return (
+			<CheckBox
+				disabled={ option.disabled }
+				id={ uniqueId('checkbox-') }
+				value={ option.value }
+				label={ option.label || option.value }
+				selected={ (value || []).indexOf(option.value) > -1 }
+				onChange={ (selected) => {
+					let newValue = (value || []).slice(0);
+                    if (selected && !includes(newValue, option.value)) {
+                        newValue.push(option.value);
+                    }
+                    if (!selected && includes(newValue, option.value)) {
+                        newValue = without(newValue, option.value);
+                    }
+                    if (isEqual(newValue, value)) {
+                        return false;
+                    }
+                    onUpdate(newValue.length ? newValue : null);
+                    return true;
+				}}
+				viewBox={[0, 0, 13, 13]}
+			/>
+		);
+	}
+
+	render() {
+		const { disabled, label } = this.props;
+		const { expanded, focused } = this.state;
 
 		return (
 			<div
@@ -49,32 +158,24 @@ class Dropdown extends Component {
 		        </div>
 				<div
 					className={ classNames('orizzonte__dropdown', {
+						'orizzonte__dropdown--focused': expanded || focused,
 						'orizzonte__dropdown--expanded': expanded,
 						'orizzonte__dropdown--disabled': disabled
 					}) }
 					ref={ this.dropdown }
 				>
-					<button
-						className="orizzonte__dropdown-button"
-						disabled={ disabled }
-						onBlur={ (e) => {
-							if (this.dropdown.current.contains(e.target)) {
-								return false;
-							}
-							this.toggleDropdown(true)
-						}}
-						onClick={ this.toggleDropdown }
-					>
-						test
-					</button>
+					{ this.renderDropdownTrigger() }
 					<ul
 						className="orizzonte__dropdown-list"
 					>
-						<li
-							className="orizzonte__dropdown-item"
-						>
-							test
-						</li>
+						{ this.getFilteredOptions().map((option, i) => (
+							<li
+								key={ `${ option.value }.${ i }` }
+								className="orizzonte__dropdown-item"
+							>
+								{ this.renderItem(option) }
+							</li>
+						)) }
 					</ul>
 				</div>
 			</div>
@@ -84,11 +185,19 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
 	disabled: PropTypes.bool,
-	label: PropTypes.string.isRequired
+	filter: PropTypes.bool,
+	filterPlaceholder: PropTypes.string,
+	label: PropTypes.string.isRequired,
+	onUpdate: PropTypes.func,
+	value: PropTypes.array
 };
 
 Dropdown.defaultProps = {
-	disabled: false
+	disabled: false,
+	filter: false,
+	filterPlaceholder: null,
+	onUpdate: () => {},
+	value: []
 };
 
 export default Dropdown;

@@ -89,8 +89,40 @@ stories.add('Default', withState({
                 }] }
             />,
             <Dropdown
-                disabled
+                key="tertiary-language"
+                fieldName="thirdLanguage"
                 label="Dropdown"
+                options={ [{
+                    label: 'English',
+                    value: 'en'
+                }, {
+                    label: 'French',
+                    value: 'fr'
+                }, {
+                    label: 'German',
+                    value: 'de'
+                }, {
+                    label: 'Dutch',
+                    value: 'nl'
+                }, {
+                    label: 'Spanish',
+                    value: 'es'
+                }, {
+                    label: 'Italian',
+                    value: 'it'
+                }, {
+                    label: 'Danish',
+                    value: 'dk'
+                }, {
+                    label: 'Romanian',
+                    value: 'ro'
+                }, {
+                    label: 'Portuguese',
+                    value: 'pt'
+                }] }
+                multiple
+                filter
+                filterPlaceholder="Filter options..."
             />,
             <Select
                 disabled

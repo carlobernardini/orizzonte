@@ -3,10 +3,13 @@
 .orizzonte__dropdown {
 	position: relative;
 
-	&--expanded {
-		.orizzonte__dropdown-button {
+	&--focused {
+		.orizzonte__dropdown-button,
+		.orizzonte__dropdown-filter {
 			border-color: $color-a;
 		}
+	}
+	&--expanded {
 		.orizzonte__dropdown-list {
 			display: block;
 		}
@@ -24,16 +27,25 @@
 	text-align: left;
 }
 
+.orizzonte__dropdown-filter {
+	@extend %select;
+	background-image: none;
+	box-sizing: border-box;
+}
+
 .orizzonte__dropdown-list {
 	@extend %list;
 	display: none;
 	border-radius: 3px;
 	margin-top: 3px;
 	min-width: 100%;
+	max-height: 150px;
+	overflow: auto;
 	z-index: 999;
 	font: {
 		size: .9em;
 	}
+	animation: dropdownListIn .1s linear;
 }
 
 .orizzonte__dropdown-item {
@@ -43,5 +55,45 @@
 		right: 6px;
 		left: 6px;
 		bottom: 5px;
+	}
+
+	.orizzonte__checkbox {
+		margin: {
+			top: -5px;
+			right: -6px;
+			bottom: -5px;
+			left: -6px;
+		}
+	}
+
+	.orizzonte__checkbox-label {
+		padding: {
+			top: 5px;
+			right: 6px;
+			bottom: 5px;
+			left: 6px;
+		}
+	}
+
+	.orizzonte__checkbox-span {
+		&--first {
+			width: 9px;
+        	height: 9px;
+		}
+		&--last {
+			padding: 0 0 0 5px;
+		}
+	}
+
+	&:hover {
+		.orizzonte__checkbox-span {
+			&--first {
+				border-color: #fff;
+				background-color:#fff;
+			}
+		    &--last {
+		        color: #fff;
+		    }
+		}
 	}
 }

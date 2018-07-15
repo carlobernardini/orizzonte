@@ -23,7 +23,14 @@ exports[`<CheckBox /> should render a checkbox 1`] = `
       <svg
         className="orizzonte__checkbox-svg"
         height="10px"
-        viewBox="0 0 10 10"
+        viewBox={
+          Array [
+            0,
+            0,
+            10,
+            10,
+          ]
+        }
         width="12px"
       >
         <polyline
@@ -63,7 +70,14 @@ exports[`<CheckBox /> should render a disabled checkbox 1`] = `
       <svg
         className="orizzonte__checkbox-svg"
         height="10px"
-        viewBox="0 0 10 10"
+        viewBox={
+          Array [
+            0,
+            0,
+            10,
+            10,
+          ]
+        }
         width="12px"
       >
         <polyline
@@ -103,7 +117,14 @@ exports[`<CheckBox /> should render a selected checkbox 1`] = `
       <svg
         className="orizzonte__checkbox-svg"
         height="10px"
-        viewBox="0 0 10 10"
+        viewBox={
+          Array [
+            0,
+            0,
+            10,
+            10,
+          ]
+        }
         width="12px"
       >
         <polyline
