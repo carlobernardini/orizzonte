@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { includes, isEqual, uniqueId, without } from 'lodash';
+import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
 import '../scss/Dropdown.scss';
 
@@ -65,16 +66,24 @@ class Dropdown extends Component {
 
 		const parts = label.split(new RegExp(`(${ filter })`, 'gi'));
 
-		return parts.map((part) => {
-			if (part.toLowerCase() === filter.toLowerCase()) {
-				return (
-					<strong>
-						{ part }
-					</strong>
-				);
-			}
-			return part;
-		});
+		return (
+			<span>
+				{ parts.map((part, i) => {
+					if (part.toLowerCase() === filter.toLowerCase()) {
+						return (
+							<strong key={ i }>
+								{ part }
+							</strong>
+						);
+					}
+					return (
+						<span key={ i }>
+							{ part }
+						</span>
+					);
+				}) }
+			</span>
+		);
 	}
 
 	toggleDropdown(e = {}, collapse = false) {
@@ -109,7 +118,7 @@ class Dropdown extends Component {
 					onChange={ (e) => {
 						const { value } = e.target;
 						this.setState({
-							filter: value
+							filter: diacritics.remove(value)
 						});
 					}}
 					placeholder={ filterPlaceholder }
@@ -165,6 +174,30 @@ class Dropdown extends Component {
 		);
 	}
 
+	renderList() {
+		const { filter } = this.state;
+		const options = this.getFilteredOptions();
+
+		if (filter && !options.length) {
+			return (
+				<li
+					className="orizzonte__dropdown-item--empty"
+				>
+					No matches
+				</li>
+			);
+		}
+
+		return options.map((option, i) => (
+			<li
+				key={ `${ option.value }.${ i }` }
+				className="orizzonte__dropdown-item"
+			>
+				{ this.renderItem(option) }
+			</li>
+		));
+	}
+
 	render() {
 		const { disabled, label } = this.props;
 		const { expanded, focused } = this.state;
@@ -190,14 +223,7 @@ class Dropdown extends Component {
 					<ul
 						className="orizzonte__dropdown-list"
 					>
-						{ this.getFilteredOptions().map((option, i) => (
-							<li
-								key={ `${ option.value }.${ i }` }
-								className="orizzonte__dropdown-item"
-							>
-								{ this.renderItem(option) }
-							</li>
-						)) }
+						{ this.renderList() }
 					</ul>
 				</div>
 			</div>

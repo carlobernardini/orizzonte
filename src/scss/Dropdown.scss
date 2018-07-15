@@ -96,4 +96,14 @@
 		    }
 		}
 	}
+
+	&--empty {
+		color: #b2b2b2;
+		padding: {
+			top: 5px;
+			right: 6px;
+			left: 6px;
+			bottom: 5px;
+		}
+	}
 }
