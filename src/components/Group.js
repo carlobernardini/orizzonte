@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    find, intersection, isEqual, isFunction, isNumber
+    assign, find, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
@@ -37,7 +37,7 @@ class Group extends Component {
         return onGroupToggle(false);
     }
 
-    queryHasGroupFilters() {
+    queryHasGroupFilters(props) {
         const { children, query } = this.props;
 
         const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
@@ -127,18 +127,21 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            activeGroup, children, i, onUpdate, orientation
+            activeGroup, children, i, onUpdate, orientation, query
         } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
         }
 
+        const filterFields = this.queryHasGroupFilters();
+        const listValues = assign({}, pick(query, filterFields), groupValues);
+
         return (
             <List
                 isFilterGroup
                 items={ children }
-                values={ groupValues }
+                values={ listValues }
                 orientation={ orientation }
                 onApply={ () => {
                     this.toggleGroup();
