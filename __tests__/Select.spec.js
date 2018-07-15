@@ -23,10 +23,11 @@ describe('<Select />', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a disabled select', () => {
+    it('should render a disabled select that allows empty value', () => {
         const wrapper = shallow(
             <Select
                 label="Test select"
+                notSetLabel="None"
                 options={ [{
                     label: 'Test value 1',
                     value: 1

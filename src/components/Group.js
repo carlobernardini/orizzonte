@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    find, intersection, isEqual, isFunction, isNumber
+    assign, find, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
@@ -37,18 +37,18 @@ class Group extends Component {
         return onGroupToggle(false);
     }
 
-    queryHasGroupFilters() {
-        const { children, query } = this.props;
+    queryHasGroupFilters(props) {
+        const { children, queryPart } = this.props;
 
         const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
 
-        const fieldsInQuery = intersection(Object.keys(query), fieldNames);
+        const fieldsInQueryPart = intersection(Object.keys(queryPart), fieldNames);
 
-        if (!fieldsInQuery.length) {
+        if (!fieldsInQueryPart.length) {
             return false;
         }
 
-        return fieldsInQuery;
+        return fieldsInQueryPart;
     }
 
     removeGroup() {
@@ -63,13 +63,13 @@ class Group extends Component {
         this.setState({
             removing: true
         }, () => {
-            const fieldsInQuery = this.queryHasGroupFilters();
+            const fieldsInQueryPart = this.queryHasGroupFilters();
 
-            if (!fieldsInQuery) {
+            if (!fieldsInQueryPart) {
                 return false;
             }
 
-            onUpdate(fieldsInQuery);
+            onUpdate(fieldsInQueryPart);
             return true;
         });
 
@@ -127,18 +127,21 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            activeGroup, children, i, onUpdate, orientation
+            activeGroup, children, i, onUpdate, orientation, queryPart
         } = this.props;
 
         if (activeGroup !== i || !children.length) {
             return null;
         }
 
+        const filterFields = this.queryHasGroupFilters();
+        const listValues = assign({}, pick(queryPart, filterFields), groupValues);
+
         return (
             <List
                 isFilterGroup
                 items={ children }
-                values={ groupValues }
+                values={ listValues }
                 orientation={ orientation }
                 onApply={ () => {
                     this.toggleGroup();
@@ -161,10 +164,10 @@ class Group extends Component {
     }
 
     renderLabel() {
-        const { children, label, query } = this.props;
+        const { children, label, queryPart } = this.props;
 
         const selectedLabels = React.Children.map(children, (child) => {
-            if (!child.props || !child.props.fieldName || !(child.props.fieldName in query)) {
+            if (!child.props || !child.props.fieldName || !(child.props.fieldName in queryPart)) {
                 return null;
             }
 
@@ -174,7 +177,7 @@ class Group extends Component {
                 return null;
             }
 
-            const value = query[fieldName];
+            const value = queryPart[fieldName];
             const option = find(child.props.options || {}, { value });
 
             return this.transformLabel(selectedLabel, value, option);
@@ -189,7 +192,7 @@ class Group extends Component {
 
     renderTopLabel() {
         const {
-            children, groupTopLabels, label, query
+            children, groupTopLabels, label, queryPart
         } = this.props;
 
         if (!groupTopLabels) {
@@ -202,9 +205,9 @@ class Group extends Component {
             return null;
         }
 
-        const queryKeys = Object.keys(query);
+        const queryPartKeys = Object.keys(queryPart);
 
-        if (!queryKeys.length || !intersection(queryKeys, fieldNames).length) {
+        if (!queryPartKeys.length || !intersection(queryPartKeys, fieldNames).length) {
             return null;
         }
 
@@ -279,8 +282,8 @@ Group.propTypes = {
         'left',
         'right'
     ]),
-    /** Current composed query */
-    query: PropTypes.object
+    /** Part of current query object representing this group */
+    queryPart: PropTypes.object
 };
 
 Group.defaultProps = {
@@ -294,7 +297,7 @@ Group.defaultProps = {
     onGroupToggle: () => {},
     onUpdate: () => {},
     orientation: 'left',
-    query: {}
+    queryPart: {}
 };
 
 export default Group;

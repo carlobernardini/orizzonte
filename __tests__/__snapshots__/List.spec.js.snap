@@ -11,6 +11,7 @@ exports[`<List /> should render a list of filters 1`] = `
     <Select
       disabled={false}
       label="Test select"
+      notSetLabel="None"
       onUpdate={[Function]}
       options={
         Array [
@@ -75,6 +76,7 @@ exports[`<List /> should render a list of filters with custom done button and or
     <Select
       disabled={false}
       label="Test select"
+      notSetLabel={false}
       onUpdate={[Function]}
       options={
         Array [
@@ -139,6 +141,7 @@ exports[`<List /> should render a list of filters without done button 1`] = `
     <Select
       disabled={false}
       label="Test select"
+      notSetLabel={false}
       onUpdate={[Function]}
       options={
         Array [

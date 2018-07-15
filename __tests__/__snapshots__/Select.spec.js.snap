@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Select /> should render a disabled select 1`] = `
+exports[`<Select /> should render a disabled select that allows empty value 1`] = `
 <div
   className="orizzonte__filter"
 >
@@ -15,6 +15,11 @@ exports[`<Select /> should render a disabled select 1`] = `
     onChange={[Function]}
     value=""
   >
+    <option
+      value=""
+    >
+      None
+    </option>
     <option
       key="1.0"
       value={1}

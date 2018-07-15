@@ -33,7 +33,7 @@ class Choices extends Component {
                         if (isEqual(newValue, value)) {
                             return false;
                         }
-                        onUpdate(newValue);
+                        onUpdate(newValue.length ? newValue : null);
                         return true;
                     }}
                 />
