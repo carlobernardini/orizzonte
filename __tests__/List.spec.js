@@ -21,6 +21,7 @@ describe('<List />', () => {
                             value: 3
                         }]}
                         onUpdate={() => {}}
+                        notSetLabel="None"
                     />,
                     <Choices
                         fieldName="myAPIField"

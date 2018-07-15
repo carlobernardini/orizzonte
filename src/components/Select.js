@@ -49,7 +49,10 @@ Select.propTypes = {
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Which label the first (empty) option should have in case the select can be empty */
-    notSetLabel: PropTypes.string,
+    notSetLabel: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.string
+    ]),
     /** Internal callback for when select value has changed */
     onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
