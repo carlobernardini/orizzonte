@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ disabled, label, onUpdate, options, value = '' }) => (
+const Select = ({ disabled, label, notSetLabel, onUpdate, options, value = '' }) => (
     <div
         className="orizzonte__filter"
     >
@@ -24,6 +24,13 @@ const Select = ({ disabled, label, onUpdate, options, value = '' }) => (
             }}
             value={ value || '' }
         >
+            {
+                notSetLabel
+                ? <option value="">
+                    { notSetLabel }
+                </option>
+                : null
+            }
             { options.map((option, i) => (
                 <option
                     key={ `${ option.value }.${ i }` }
@@ -41,6 +48,8 @@ Select.propTypes = {
     disabled: PropTypes.bool,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    /** Which label the first (empty) option should have in case the select can be empty */
+    notSetLabel: PropTypes.string,
     /** Internal callback for when select value has changed */
     onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
@@ -61,6 +70,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
     disabled: false,
+    notSetLabel: false,
     onUpdate: () => {},
     value: ''
 };

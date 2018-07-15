@@ -106,6 +106,7 @@ stories.add('Default', withState({
                     label: 'Dutch',
                     value: 'nl'
                 }] }
+                notSetLabel="None"
             />
         ]
     }, {
@@ -134,6 +135,7 @@ stories.add('Default', withState({
                     label: 'Extra Large',
                     value: 'xl'
                 }] }
+                notSetLabel="None"
             />,
             <Choices
                 key="waist-size"
