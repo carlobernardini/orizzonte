@@ -38,17 +38,17 @@ class Group extends Component {
     }
 
     queryHasGroupFilters(props) {
-        const { children, query } = this.props;
+        const { children, queryPart } = this.props;
 
         const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
 
-        const fieldsInQuery = intersection(Object.keys(query), fieldNames);
+        const fieldsInQueryPart = intersection(Object.keys(queryPart), fieldNames);
 
-        if (!fieldsInQuery.length) {
+        if (!fieldsInQueryPart.length) {
             return false;
         }
 
-        return fieldsInQuery;
+        return fieldsInQueryPart;
     }
 
     removeGroup() {
@@ -63,13 +63,13 @@ class Group extends Component {
         this.setState({
             removing: true
         }, () => {
-            const fieldsInQuery = this.queryHasGroupFilters();
+            const fieldsInQueryPart = this.queryHasGroupFilters();
 
-            if (!fieldsInQuery) {
+            if (!fieldsInQueryPart) {
                 return false;
             }
 
-            onUpdate(fieldsInQuery);
+            onUpdate(fieldsInQueryPart);
             return true;
         });
 
@@ -127,7 +127,7 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            activeGroup, children, i, onUpdate, orientation, query
+            activeGroup, children, i, onUpdate, orientation, queryPart
         } = this.props;
 
         if (activeGroup !== i || !children.length) {
@@ -135,7 +135,7 @@ class Group extends Component {
         }
 
         const filterFields = this.queryHasGroupFilters();
-        const listValues = assign({}, pick(query, filterFields), groupValues);
+        const listValues = assign({}, pick(queryPart, filterFields), groupValues);
 
         return (
             <List
@@ -164,10 +164,10 @@ class Group extends Component {
     }
 
     renderLabel() {
-        const { children, label, query } = this.props;
+        const { children, label, queryPart } = this.props;
 
         const selectedLabels = React.Children.map(children, (child) => {
-            if (!child.props || !child.props.fieldName || !(child.props.fieldName in query)) {
+            if (!child.props || !child.props.fieldName || !(child.props.fieldName in queryPart)) {
                 return null;
             }
 
@@ -177,7 +177,7 @@ class Group extends Component {
                 return null;
             }
 
-            const value = query[fieldName];
+            const value = queryPart[fieldName];
             const option = find(child.props.options || {}, { value });
 
             return this.transformLabel(selectedLabel, value, option);
@@ -192,7 +192,7 @@ class Group extends Component {
 
     renderTopLabel() {
         const {
-            children, groupTopLabels, label, query
+            children, groupTopLabels, label, queryPart
         } = this.props;
 
         if (!groupTopLabels) {
@@ -205,9 +205,9 @@ class Group extends Component {
             return null;
         }
 
-        const queryKeys = Object.keys(query);
+        const queryPartKeys = Object.keys(queryPart);
 
-        if (!queryKeys.length || !intersection(queryKeys, fieldNames).length) {
+        if (!queryPartKeys.length || !intersection(queryPartKeys, fieldNames).length) {
             return null;
         }
 
@@ -282,8 +282,8 @@ Group.propTypes = {
         'left',
         'right'
     ]),
-    /** Current composed query */
-    query: PropTypes.object
+    /** Part of current query object representing this group */
+    queryPart: PropTypes.object
 };
 
 Group.defaultProps = {
@@ -297,7 +297,7 @@ Group.defaultProps = {
     onGroupToggle: () => {},
     onUpdate: () => {},
     orientation: 'left',
-    query: {}
+    queryPart: {}
 };
 
 export default Group;

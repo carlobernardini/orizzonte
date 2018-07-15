@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, identity, omit, pickBy
+    assign, identity, omit, pick, pickBy
 } from 'lodash';
 import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
@@ -137,6 +137,16 @@ class Orizzonte extends Component {
         );
     }
 
+    extractQueryPart() {
+        const { children, query } = this.props;
+
+        const fieldNames = React.Children.map(children, (group) => {
+            return React.Children.map(group.props.children, (filter) => (filter.props.fieldName))
+        });
+
+        return pick(query, fieldNames);
+    }
+
     render() {
         const {
             children, groupTopLabels, onGroupRemove, orientation, query
@@ -167,7 +177,7 @@ class Orizzonte extends Component {
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
                         orientation,
-                        query
+                        queryPart: this.extractQueryPart()
                     });
                 }) }
                 { this.renderAddBtn('right') }
