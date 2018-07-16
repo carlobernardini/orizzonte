@@ -33,9 +33,12 @@
     "url": "git+https://github.com/carlobernardini/orizzonte.git"
   },
   "keywords": [
+    "ui-components",
     "search",
     "filtering",
-    "horizontal"
+    "horizontal",
+    "query-builder",
+    "api"
   ],
   "author": "Carlo Bernardini",
   "license": "MIT",
