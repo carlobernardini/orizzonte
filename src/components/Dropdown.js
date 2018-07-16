@@ -22,6 +22,7 @@ class Dropdown extends Component {
         this.filter = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleEscPress = this.handleEscPress.bind(this);
     }
@@ -41,6 +42,19 @@ class Dropdown extends Component {
 
         this.setState({
             focused: true
+        });
+        return true;
+    }
+
+    onBlur() {
+        const { focused } = this.state;
+
+        if (!focused) {
+            return false;
+        }
+
+        this.setState({
+            focused: false
         });
         return true;
     }
@@ -203,6 +217,7 @@ class Dropdown extends Component {
                 disabled={ disabled }
                 onClick={ this.toggleDropdown }
                 onFocus={ this.onFocus }
+                onBlur={ this.onBlur }
                 type="button"
             >
                 { this.renderButtonLabel() }
