@@ -10,7 +10,7 @@ Groups can be in- or excluded from the Orizzonte bar, so users can include only 
 object with all new values from all groups that are currently visible. Here is a basic example.
 
 ```js
-import Orizzonte, { Choices, FullText, Group, Select } from 'orizzonte';
+import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte';
 
 <Orizzonte
   query={{
