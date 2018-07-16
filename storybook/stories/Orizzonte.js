@@ -17,7 +17,9 @@ import { withState } from '@dump247/storybook-state';
 
 const stories = storiesOf('Orizzonte', module);
 
-const mockAPI = new MockAdapter(axios);
+const mockAPI = new MockAdapter(axios, {
+    delayResponse: 1000
+});
 const apiRequest = 'https://orizzonte.io/suggestions';
 
 // eslint-disable-next-line react/prop-types
