@@ -164,16 +164,16 @@ class Dropdown extends Component {
             document.removeEventListener('keyup', this.handleEscPress, true);
         }
 
-        this.setState(newState);
+        this.setState(newState, this.queryRemote);
 
         return true;
     }
 
     queryRemote() {
         const { remote } = this.props;
-        const { filter, remoteOptions } = this.state;
+        const { expanded, filter, remoteOptions } = this.state;
 
-        if (!remote || !remote.endpoint || !remote.searchParam) {
+        if (!expanded || !remote || !remote.endpoint || !remote.searchParam) {
             return false;
         }
 
@@ -183,7 +183,7 @@ class Dropdown extends Component {
             axios
                 .get(remote.endpoint, {
                     data: assign({}, remote.data || {}, {
-                        [remote.searchParam]: filter
+                        [remote.searchParam]: filter || ''
                     })
                 })
                 .then((response) => {
@@ -342,15 +342,17 @@ class Dropdown extends Component {
     }
 
     renderList() {
-        const { filter } = this.state;
+        const { filter, remoteLoading } = this.state;
         const options = this.getFilteredOptions();
 
-        if (filter && !options.length) {
+        if (!options.length) {
+            const noOptionsLabel = filter ? 'No matches' : 'No options available';
+
             return (
                 <li
                     className="orizzonte__dropdown-item--empty"
                 >
-                    No matches
+                    { remoteLoading ? 'Loading...' : noOptionsLabel }
                 </li>
             );
         }
