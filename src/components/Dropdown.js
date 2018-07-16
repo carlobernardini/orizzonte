@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import classNames from 'classnames';
 import {
-    includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
+    assign, debounce, includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
+import LoadingIndicator from './LoadingIndicator';
 import '../scss/Dropdown.scss';
 
 class Dropdown extends Component {
@@ -16,9 +18,11 @@ class Dropdown extends Component {
             expanded: false,
             filter: null,
             focused: false,
+            remoteLoading: false,
             remoteOptions: [] // Options that were fetched from a remote API
         };
 
+        this.debounceRemote = null;
         this.dropdown = React.createRef();
         this.filter = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -26,6 +30,7 @@ class Dropdown extends Component {
         this.onBlur = this.onBlur.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleEscPress = this.handleEscPress.bind(this);
+        this.queryRemote = this.queryRemote.bind(this);
     }
 
     componentDidUpdate() {
@@ -111,6 +116,9 @@ class Dropdown extends Component {
     }
 
     handleClickOutside(e) {
+        if (!this.dropdown || !this.dropdown.current) {
+            return false;
+        }
         if (this.dropdown.current.contains(e.target)) {
             return false;
         }
@@ -156,7 +164,47 @@ class Dropdown extends Component {
             document.removeEventListener('keyup', this.handleEscPress, true);
         }
 
-        this.setState(newState);
+        this.setState(newState, this.queryRemote);
+
+        return true;
+    }
+
+    queryRemote() {
+        const { remote } = this.props;
+        const { expanded, filter, remoteOptions } = this.state;
+
+        if (!expanded || !remote || !remote.endpoint || !remote.searchParam) {
+            return false;
+        }
+
+        this.setState({
+            remoteLoading: true
+        }, () => {
+            axios
+                .get(remote.endpoint, {
+                    data: assign({}, remote.data || {}, {
+                        [remote.searchParam]: filter || ''
+                    })
+                })
+                .then((response) => {
+                    let { data } = response;
+                    const newState = {
+                        remoteLoading: false
+                    };
+
+                    if (remote.transformer && isFunction(remote.transformer)) {
+                        // Use a custom callback to transform the remote response
+                        // so the result conforms to the expected data structure (collection of options)
+                        data = remote.transformer(data);
+                    }
+
+                    if (!isEqual(data, remoteOptions)) {
+                        newState.remoteOptions = data;
+                    }
+
+                    this.setState(newState);
+                });
+        });
 
         return true;
     }
@@ -184,11 +232,40 @@ class Dropdown extends Component {
         return Array.isArray(value) ? `${ value.length } selected` : value;
     }
 
+    renderDropdownTriggerButton() {
+        const { remoteLoading } = this.state;
+
+        if (remoteLoading) {
+            return (
+                <div
+                    className="orizzonte__dropdown-filter-loading"
+                >
+                    <LoadingIndicator
+                        size="12"
+                        strokeWidth="4"
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <button
+                className="orizzonte__dropdown-filter-button"
+                onClick={ () => (this.toggleDropdown(null, true, true)) }
+                type="button"
+            >
+                &nbsp;
+            </button>
+        );
+    }
+
     renderDropdownTrigger() {
-        const { disabled, filter, filterPlaceholder } = this.props;
+        const {
+            disabled, filter
+        } = this.props;
         const { expanded } = this.state;
 
-        if (filter && expanded) {
+        if (filter && filter.enabled && expanded) {
             return (
                 <div className="orizzonte__dropdown-filter-wrapper">
                     <input
@@ -197,19 +274,20 @@ class Dropdown extends Component {
                         onChange={ (e) => {
                             const { value } = e.target;
                             this.setState({
-                                filter: diacritics.remove(value)
+                                filter: filter.matchDiacritics ? value : diacritics.remove(value)
+                            }, () => {
+                                if (!this.debounceRemote) {
+                                    this.debounceRemote = debounce(this.queryRemote, 300);
+                                } else {
+                                    this.debounceRemote.cancel();
+                                }
+                                this.debounceRemote();
                             });
                         }}
-                        placeholder={ filterPlaceholder }
+                        placeholder={ filter.placeholder || '' }
                         ref={ this.filter }
                     />
-                    <button
-                        className="orizzonte__dropdown-filter-button"
-                        onClick={ () => (this.toggleDropdown(null, true, true)) }
-                        type="button"
-                    >
-                        &nbsp;
-                    </button>
+                    { this.renderDropdownTriggerButton() }
                 </div>
             );
         }
@@ -264,15 +342,17 @@ class Dropdown extends Component {
     }
 
     renderList() {
-        const { filter } = this.state;
+        const { filter, remoteLoading } = this.state;
         const options = this.getFilteredOptions();
 
-        if (filter && !options.length) {
+        if (!options.length) {
+            const noOptionsLabel = filter ? 'No matches' : 'No options available';
+
             return (
                 <li
                     className="orizzonte__dropdown-item--empty"
                 >
-                    No matches
+                    { remoteLoading ? 'Loading...' : noOptionsLabel }
                 </li>
             );
         }
@@ -322,13 +402,34 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
     disabled: PropTypes.bool,
-    filter: PropTypes.bool,
-    filterPlaceholder: PropTypes.string,
+    /** Filter dropdown options and highlight matches */
+    filter: PropTypes.shape({
+        enabled: PropTypes.bool.isRequired,
+        matchDiacritics: PropTypes.bool,
+        placeholder: PropTypes.string
+    }),
     label: PropTypes.string.isRequired,
     multiple: PropTypes.bool,
+    /** Label to shown when no options are selected */
     notSetLabel: PropTypes.string,
     onUpdate: PropTypes.func,
-    options: PropTypes.array,
+    /** Collection of dropdown options */
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            value: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string
+            ]).isRequired,
+            label: PropTypes.any
+        })
+    ),
+    /** Remote API to fetch dropdown options from */
+    remote: PropTypes.shape({
+        data: PropTypes.object,
+        endpoint: PropTypes.string.isRequired,
+        searchParam: PropTypes.string.isRequired,
+        transformer: PropTypes.func
+    }),
     selectedLabel: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.func
@@ -338,12 +439,12 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
     disabled: false,
-    filter: false,
-    filterPlaceholder: null,
+    filter: null,
     multiple: true,
     notSetLabel: null,
     onUpdate: () => {},
     options: [],
+    remote: null,
     selectedLabel: null,
     value: []
 };

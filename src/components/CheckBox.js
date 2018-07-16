@@ -59,7 +59,10 @@ CheckBox.propTypes = {
     /** Internal ID for this checkbox */
     id: PropTypes.string.isRequired,
     /** Label for this checkbox */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]).isRequired,
     onChange: PropTypes.func,
     /** If the checkbox should be checked */
     selected: PropTypes.bool,

@@ -37,7 +37,8 @@
 		position: relative;
 	}
 
-	&-button {
+	&-button,
+	&-loading {
 		position: absolute;
 		right: 1px;
 		top: 1px;
@@ -46,12 +47,24 @@
 		padding: 0;
 		border: none;
 		outline: none;
-		border-left: 1px solid #eee;
+        border-left: 1px solid #eee;
+	}
+
+	&-button {
 		background: transparent url($caret-base64);
 	    background-repeat: no-repeat;
 	    background-position: 50% 50%;
 	    background-size: 8px auto;
 	}
+
+    &-loading {
+        width: 28px;
+        .orizzonte__loading {
+            position: absolute;
+            top: 8px;
+            right: 9px;
+        }
+    }
 }
 
 .orizzonte__dropdown-list {

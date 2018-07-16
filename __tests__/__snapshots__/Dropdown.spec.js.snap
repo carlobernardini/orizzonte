@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dropdown /> should render a default, collapsed dropdown without filtering and selected values 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Country
+  </div>
+  <div
+    className="orizzonte__dropdown"
+  >
+    <button
+      className="orizzonte__dropdown-button"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      type="button"
+    >
+      None selected
+    </button>
+    <ul
+      className="orizzonte__dropdown-list"
+    >
+      <li
+        className="orizzonte__dropdown-item"
+        key="at.0"
+      >
+        <CheckBox
+          disabled={false}
+          id="checkbox-1"
+          label="Austria"
+          onChange={[Function]}
+          selected={false}
+          value="at"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
+        key="pt.1"
+      >
+        <CheckBox
+          disabled={false}
+          id="checkbox-2"
+          label="Portugal"
+          onChange={[Function]}
+          selected={false}
+          value="pt"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
+        key="ie.2"
+      >
+        <CheckBox
+          disabled={false}
+          id="checkbox-3"
+          label="Ireland"
+          onChange={[Function]}
+          selected={false}
+          value="ie"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Dropdown /> should render an expanded dropdown multiselect with filtering 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Country
+  </div>
+  <div
+    className="orizzonte__dropdown orizzonte__dropdown--focused orizzonte__dropdown--expanded"
+  >
+    <div
+      className="orizzonte__dropdown-filter-wrapper"
+    >
+      <input
+        className="orizzonte__dropdown-filter"
+        onChange={[Function]}
+        placeholder="Search options..."
+        type="text"
+      />
+      <button
+        className="orizzonte__dropdown-filter-button"
+        onClick={[Function]}
+        type="button"
+      >
+         
+      </button>
+    </div>
+    <ul
+      className="orizzonte__dropdown-list"
+    >
+      <li
+        className="orizzonte__dropdown-item"
+        key="at.0"
+      >
+        <CheckBox
+          disabled={false}
+          id="checkbox-7"
+          label={
+            <span>
+              <span>
+                
+              </span>
+              <strong
+                className="orizzonte__dropdown-match"
+              >
+                Aus
+              </strong>
+              <span>
+                tria
+              </span>
+            </span>
+          }
+          onChange={[Function]}
+          selected={true}
+          value="at"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;

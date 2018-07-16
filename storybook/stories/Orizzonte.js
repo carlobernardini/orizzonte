@@ -3,15 +3,62 @@ import Orizzonte, {
     Choices, Dropdown, FullText, Group, Select
 } from 'orizzonte';
 import { truncate } from 'lodash';
+import axios from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import MockAdapter from 'axios-mock-adapter';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import ArrayMove from 'array-move';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { storiesOf } from '@storybook/react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { withInfo } from '@storybook/addon-info';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { withState } from '@dump247/storybook-state';
 
 const stories = storiesOf('Orizzonte', module);
 
+const mockAPI = new MockAdapter(axios, {
+    delayResponse: 750
+});
+const apiRequest = 'https://orizzonte.io/suggestions';
+const remoteOptions = [{
+    label: 'United Kingdom',
+    value: 'uk'
+}, {
+    label: 'France',
+    value: 'fr'
+}, {
+    label: 'Germany',
+    value: 'de'
+}, {
+    label: 'The Netherlands',
+    value: 'nl'
+}, {
+    label: 'Spain',
+    value: 'es'
+}, {
+    label: 'Italy',
+    value: 'it'
+}, {
+    label: 'Belgium',
+    value: 'be'
+}];
+
+// eslint-disable-next-line react/prop-types
 const component = ({ store }) => {
     const { groups, query } = store.state;
+
+    mockAPI.onGet(apiRequest).reply((config) => {
+        let filter = null
+
+        try {
+            filter = new RegExp(`(${ JSON.parse(config.data).q })`, 'gi');
+        } catch(e) {}
+
+        return [200, {
+            options: filter ? remoteOptions.filter((option) => ((option.label || option.value).match(filter))) : remoteOptions
+        }];
+    });
 
     return (
         <Orizzonte
@@ -93,28 +140,7 @@ stories.add('Default', withState({
                 fieldName="country"
                 label="Country"
                 selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
-                options={ [{
-                    label: 'United Kingdom',
-                    value: 'uk'
-                }, {
-                    label: 'France',
-                    value: 'fr'
-                }, {
-                    label: 'Germany',
-                    value: 'de'
-                }, {
-                    label: 'The Netherlands',
-                    value: 'nl'
-                }, {
-                    label: 'Spain',
-                    value: 'es'
-                }, {
-                    label: 'Italy',
-                    value: 'it'
-                }, {
-                    label: 'Belgium',
-                    value: 'be'
-                }, {
+                options={[{
                     label: 'Austria',
                     value: 'at'
                 }, {
@@ -122,11 +148,21 @@ stories.add('Default', withState({
                     value: 'pt'
                 }, {
                     label: 'Ireland',
-                    value: 'IE'
-                }] }
+                    value: 'ie'
+                }]}
                 multiple
-                filter
-                filterPlaceholder="Search options..."
+                filter={{
+                    enabled: true,
+                    placeholder: 'Search options...'
+                }}
+                remote={{
+                    endpoint: 'https://orizzonte.io/suggestions',
+                    searchParam: 'q',
+                    data: {
+                        some: 'additional data'
+                    },
+                    transformer: (response) => (response.options)
+                }}
             />,
             <Select
                 disabled
