@@ -185,7 +185,9 @@ class Dropdown extends Component {
     }
 
     renderDropdownTrigger() {
-        const { disabled, filter, filterPlaceholder } = this.props;
+        const {
+            disabled, filter, filterDiacriticsStrictly, filterPlaceholder
+        } = this.props;
         const { expanded } = this.state;
 
         if (filter && expanded) {
@@ -197,7 +199,7 @@ class Dropdown extends Component {
                         onChange={ (e) => {
                             const { value } = e.target;
                             this.setState({
-                                filter: diacritics.remove(value)
+                                filter: filterDiacriticsStrictly ? value : diacritics.remove(value)
                             });
                         }}
                         placeholder={ filterPlaceholder }
@@ -323,6 +325,7 @@ class Dropdown extends Component {
 Dropdown.propTypes = {
     disabled: PropTypes.bool,
     filter: PropTypes.bool,
+    filterDiacriticsStrictly: PropTypes.bool,
     filterPlaceholder: PropTypes.string,
     label: PropTypes.string.isRequired,
     multiple: PropTypes.bool,
@@ -339,6 +342,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
     disabled: false,
     filter: false,
+    filterDiacriticsStrictly: false,
     filterPlaceholder: null,
     multiple: true,
     notSetLabel: null,

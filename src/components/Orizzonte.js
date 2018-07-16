@@ -105,6 +105,16 @@ class Orizzonte extends Component {
         return true;
     }
 
+    extractQueryPart() {
+        const { children, query } = this.props;
+
+        const fieldNames = React.Children.map(children, (group) => (
+            React.Children.map(group.props.children, (filter) => (filter.props.fieldName))
+        ));
+
+        return pick(query, fieldNames);
+    }
+
     renderAddBtn(position) {
         const {
             btnAddAlwaysShown, orientation, children, maxGroups
@@ -137,19 +147,9 @@ class Orizzonte extends Component {
         );
     }
 
-    extractQueryPart() {
-        const { children, query } = this.props;
-
-        const fieldNames = React.Children.map(children, (group) => {
-            return React.Children.map(group.props.children, (filter) => (filter.props.fieldName))
-        });
-
-        return pick(query, fieldNames);
-    }
-
     render() {
         const {
-            children, groupTopLabels, onGroupRemove, orientation, query
+            children, groupTopLabels, onGroupRemove, orientation
         } = this.props;
         const { activeGroup } = this.state;
 
