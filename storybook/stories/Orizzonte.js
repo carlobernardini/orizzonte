@@ -26,8 +26,11 @@ const apiRequest = 'https://orizzonte.io/suggestions';
 const component = ({ store }) => {
     const { groups, query } = store.state;
 
-    mockAPI.onGet(apiRequest).reply(200, {
-        test: 'hello world'
+    mockAPI.onGet(apiRequest).reply((config) => {
+        console.log('intercepted API request', config);
+        return [200, {
+            test: 'hello world'
+        }];
     });
 
     return (

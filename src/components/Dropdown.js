@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import classNames from 'classnames';
 import {
-    debounce, includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
+    assign, debounce, includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
@@ -113,7 +114,7 @@ class Dropdown extends Component {
     }
 
     handleClickOutside(e) {
-        if (!this.dropdown) {
+        if (!this.dropdown || !this.dropdown.current) {
             return false;
         }
         if (this.dropdown.current.contains(e.target)) {
@@ -168,12 +169,21 @@ class Dropdown extends Component {
 
     queryRemote() {
         const { remote } = this.props;
+        const { filter } = this.state;
 
         if (!remote || !remote.endpoint || !remote.searchParam) {
             return false;
         }
 
-        console.log('query remote endpoint');
+        axios
+            .get(remote.endpoint, {
+                data: assign({}, remote.data || {}, {
+                    [remote.searchParam]: filter
+                })
+            })
+            .then((response) => {
+                console.log(response.data);
+            });
 
         return true;
     }
@@ -357,8 +367,10 @@ Dropdown.propTypes = {
     onUpdate: PropTypes.func,
     options: PropTypes.array,
     remote: PropTypes.shape({
+        data: PropTypes.object,
         endpoint: PropTypes.string.isRequired,
-        searchParam: PropTypes.string.isRequired
+        searchParam: PropTypes.string.isRequired,
+        transformer: PropTypes.func
     }),
     selectedLabel: PropTypes.oneOfType([
         PropTypes.string,
