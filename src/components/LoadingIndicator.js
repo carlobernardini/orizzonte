@@ -23,7 +23,10 @@ const LoadingIndicator = ({ size, strokeWidth }) => (
 );
 
 LoadingIndicator.propTypes = {
-	size: PropTypes.number,
+	size: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     strokeWidth: PropTypes.number
 };
 

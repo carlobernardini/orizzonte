@@ -410,9 +410,19 @@ Dropdown.propTypes = {
     }),
     label: PropTypes.string.isRequired,
     multiple: PropTypes.bool,
+    /** Label to shown when no options are selected */
     notSetLabel: PropTypes.string,
     onUpdate: PropTypes.func,
-    options: PropTypes.array,
+    /** Collection of dropdown options */
+    options: PropTypes.arrayOf(
+        PropTypes.shape({
+            value: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string
+            ]).isRequired,
+            label: PropTypes.any
+        })
+    ),
     /** Remote API to fetch dropdown options from */
     remote: PropTypes.shape({
         data: PropTypes.object,

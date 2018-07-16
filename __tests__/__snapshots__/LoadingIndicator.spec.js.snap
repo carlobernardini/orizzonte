@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadingIndicator /> should render a custom loading indicator 1`] = `
+<svg
+  className="orizzonte__loading"
+  style={
+    Object {
+      "height": "12",
+      "width": "12",
+    }
+  }
+  viewBox={
+    Array [
+      0,
+      0,
+      44,
+      44,
+    ]
+  }
+>
+  <circle
+    className="orizzonte__loading-path"
+    cx="22"
+    cy="22"
+    fill="none"
+    r="20"
+    strokeWidth={4}
+  />
+</svg>
+`;
+
+exports[`<LoadingIndicator /> should render a default loading indicator 1`] = `
+<svg
+  className="orizzonte__loading"
+  style={
+    Object {
+      "height": null,
+      "width": null,
+    }
+  }
+  viewBox={
+    Array [
+      0,
+      0,
+      44,
+      44,
+    ]
+  }
+>
+  <circle
+    className="orizzonte__loading-path"
+    cx="22"
+    cy="22"
+    fill="none"
+    r="20"
+    strokeWidth={4}
+  />
+</svg>
+`;
