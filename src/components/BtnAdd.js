@@ -51,6 +51,7 @@ class BtnAdd extends Component {
             <List
                 orientation={ position === 'right' ? 'left' : 'right' }
                 items={ available.map((filter) => (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a
                         href="#"
                         className="orizzonte__item-clickable"

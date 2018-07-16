@@ -21,6 +21,7 @@
         "jsx-quotes": ["error", "prefer-double"],
         "no-console": "off",
         "no-trailing-spaces": "off",
+        "object-curly-newline": "off",
         "react/forbid-prop-types": "off",
         "react/jsx-closing-bracket-location": "off",
         "react/jsx-curly-spacing": "off",

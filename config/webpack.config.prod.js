@@ -1,6 +1,8 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const sassLoader = require('sass-loader');
 
 const LIBRARY_NAME = 'orizzonte';
 
@@ -33,32 +35,31 @@ module.exports = {
             exclude: /node_modules/,
         }, {
             test: /\.(s*)css$/,
-            use: [{
-                loader: 'style-loader'
-            }, {
-                loader: 'css-loader'
-            }, {
-                loader: 'postcss-loader',
-                options: {
-                    plugins: () => [autoprefixer()]
-                }
-            }, {
-                loader: 'sass-loader'
-            }]
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: () => [autoprefixer()]
+                    }
+                },'sass-loader']
+            })
         }]
     },
-    sassLoader: {
-        includePaths: [ 'src/scss' ]
-    },
     plugins: [
+        new webpack.LoaderOptionsPlugin({
+            test: /\.(s*)css$/,
+            options: {
+                sassLoader: {
+                    includePaths: [path.resolve(__dirname, "../src/scss")]
+                }
+            }
+        }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
         }),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                sassLoader: {},
-                context: __dirname,
-            },
+        new ExtractTextPlugin({
+            filename: `${ LIBRARY_NAME }.min.css`
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.HashedModuleIdsPlugin(),

@@ -37,7 +37,7 @@ class Group extends Component {
         return onGroupToggle(false);
     }
 
-    queryHasGroupFilters(props) {
+    queryHasGroupFilters() {
         const { children, queryPart } = this.props;
 
         const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
