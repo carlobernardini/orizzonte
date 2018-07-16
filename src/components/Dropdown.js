@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
+    debounce, includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
@@ -19,6 +19,7 @@ class Dropdown extends Component {
             remoteOptions: [] // Options that were fetched from a remote API
         };
 
+        this.debounceRemote = null;
         this.dropdown = React.createRef();
         this.filter = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -26,6 +27,7 @@ class Dropdown extends Component {
         this.onBlur = this.onBlur.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleEscPress = this.handleEscPress.bind(this);
+        this.queryRemote = this.queryRemote.bind(this);
     }
 
     componentDidUpdate() {
@@ -161,6 +163,18 @@ class Dropdown extends Component {
         return true;
     }
 
+    queryRemote() {
+        const { remote } = this.props;
+
+        if (!remote || !remote.endpoint || !remote.searchParam) {
+            return false;
+        }
+
+        console.log('query remote endpoint');
+
+        return true;
+    }
+
     renderButtonLabel() {
         const { notSetLabel, value, selectedLabel } = this.props;
 
@@ -200,6 +214,13 @@ class Dropdown extends Component {
                             const { value } = e.target;
                             this.setState({
                                 filter: filterDiacriticsStrictly ? value : diacritics.remove(value)
+                            }, () => {
+                                if (!this.debounceRemote) {
+                                    this.debounceRemote = debounce(this.queryRemote, 300);
+                                } else {
+                                    this.debounceRemote.cancel();
+                                }
+                                this.debounceRemote();
                             });
                         }}
                         placeholder={ filterPlaceholder }
@@ -332,6 +353,10 @@ Dropdown.propTypes = {
     notSetLabel: PropTypes.string,
     onUpdate: PropTypes.func,
     options: PropTypes.array,
+    remote: PropTypes.shape({
+        endpoint: PropTypes.string.isRequired,
+        searchParam: PropTypes.string.isRequired
+    }),
     selectedLabel: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.func
@@ -348,6 +373,7 @@ Dropdown.defaultProps = {
     notSetLabel: null,
     onUpdate: () => {},
     options: [],
+    remote: null,
     selectedLabel: null,
     value: []
 };

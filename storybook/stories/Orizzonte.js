@@ -144,6 +144,10 @@ stories.add('Default', withState({
                 multiple
                 filter
                 filterPlaceholder="Search options..."
+                remote={{
+                    endpoint: 'https://orizzonte.io/suggestions',
+                    searchParam: 'q'
+                }}
             />,
             <Select
                 disabled
