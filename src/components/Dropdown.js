@@ -113,6 +113,9 @@ class Dropdown extends Component {
     }
 
     handleClickOutside(e) {
+        if (!this.dropdown) {
+            return false;
+        }
         if (this.dropdown.current.contains(e.target)) {
             return false;
         }
