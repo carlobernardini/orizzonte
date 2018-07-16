@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    includes, isEqual, isFunction, isNumber, uniqueId, without
+    includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
@@ -15,7 +15,8 @@ class Dropdown extends Component {
         this.state = {
             expanded: false,
             filter: null,
-            focused: false
+            focused: false,
+            remoteOptions: [] // Options that were fetched from a remote API
         };
 
         this.dropdown = React.createRef();
@@ -61,15 +62,17 @@ class Dropdown extends Component {
 
     getFilteredOptions() {
         const { options } = this.props;
-        const { filter } = this.state;
+        const { filter, remoteOptions } = this.state;
+
+        const mergedOptions = unionBy(options, remoteOptions, 'value');
 
         if (!filter) {
-            return options;
+            return mergedOptions;
         }
 
         const re = new RegExp(`(${ filter })`, 'gi');
 
-        return options.filter((option) => {
+        return mergedOptions.filter((option) => {
             const label = option.label || option.value;
             return label.match(re);
         });
