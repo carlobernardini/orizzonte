@@ -170,7 +170,7 @@ class Dropdown extends Component {
                     />
                     <button
                         className="orizzonte__dropdown-filter-button"
-                        onClick={ () => (this.toggleDropdown(true)) }
+                        onClick={ () => (this.toggleDropdown(null, true, true)) }
                         type="button"
                     >
                         &nbsp;
