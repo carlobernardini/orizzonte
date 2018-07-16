@@ -4,6 +4,8 @@
   "description": "React components for a horizontal, filtered search UI",
   "main": "./dist/orizzonte.min.js",
   "scripts": {
+    "build": "webpack --progress --config ./config/webpack.config.prod.js",
+    "prepublish": "npm run test && npm run build",
     "storybook": "start-storybook -p 9001 -c ./storybook",
     "test": "jest"
   },
@@ -57,6 +59,7 @@
     "enzyme-to-json": "^3.3.4",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
+    "eslint-loader": "^2.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.0",
     "eslint-plugin-react": "^7.10.0",

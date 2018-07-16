@@ -1,6 +1,3 @@
-// const path = require('path');
-// const webpack = require('webpack');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 import path from 'path';
 import autoprefixer from 'autoprefixer';
 import webpack from 'webpack';

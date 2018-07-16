@@ -37,7 +37,7 @@ const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) =
                     className="orizzonte__checkbox-svg"
                     width="12px"
                     height="10px"
-                    viewBox={ viewBox || [0, 0, 10, 10,] }
+                    viewBox={ viewBox || [0, 0, 10, 10] }
                 >
                     <polyline
                         points="1.5 6 3.5 9 8 3"

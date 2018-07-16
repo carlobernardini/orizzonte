@@ -200,8 +200,6 @@ Orizzonte.propTypes = {
     btnAddAlwaysShown: PropTypes.bool,
     /** List of filter groups */
     children: PropTypes.array,
-    /** Disable any interaction */
-    disabled: PropTypes.bool,
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
@@ -221,7 +219,6 @@ Orizzonte.defaultProps = {
     orientation: 'left',
     btnAddAlwaysShown: false,
     children: [],
-    disabled: false,
     groupTopLabels: false,
     maxGroups: null,
     onGroupAdd: () => {},

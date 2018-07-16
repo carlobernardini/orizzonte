@@ -26,10 +26,12 @@ const Select = ({ disabled, label, notSetLabel, onUpdate, options, value = '' })
         >
             {
                 notSetLabel
-                ? <option value="">
-                    { notSetLabel }
-                </option>
-                : null
+                    ? (
+                        <option value="">
+                            { notSetLabel }
+                        </option>
+                    )
+                    : null
             }
             { options.map((option, i) => (
                 <option

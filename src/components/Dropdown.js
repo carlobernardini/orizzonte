@@ -194,7 +194,8 @@ class Dropdown extends Component {
 
                     if (remote.transformer && isFunction(remote.transformer)) {
                         // Use a custom callback to transform the remote response
-                        // so the result conforms to the expected data structure (collection of options)
+                        // so the result conforms to the expected data structure
+                        // (collection of options)
                         data = remote.transformer(data);
                     }
 
