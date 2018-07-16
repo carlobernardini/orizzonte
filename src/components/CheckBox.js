@@ -8,7 +8,7 @@ import '../scss/CheckBox.scss';
  * Source: https://codepen.io/andreasstorm/pen/yjLGGN
  */
 
-const CheckBox = ({ disabled, id, label, onChange, selected, value }) => (
+const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) => (
     <div
         className={ classNames('orizzonte__checkbox', {
             'orizzonte__checkbox--disabled': disabled
@@ -37,7 +37,7 @@ const CheckBox = ({ disabled, id, label, onChange, selected, value }) => (
                     className="orizzonte__checkbox-svg"
                     width="12px"
                     height="10px"
-                    viewBox="0 0 10 10"
+                    viewBox={ viewBox || [0, 0, 10, 10,] }
                 >
                     <polyline
                         points="1.5 6 3.5 9 8 3"
@@ -67,13 +67,15 @@ CheckBox.propTypes = {
     value: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
-    ]).isRequired
+    ]).isRequired,
+    viewBox: PropTypes.array
 };
 
 CheckBox.defaultProps = {
     disabled: false,
     onChange: () => {},
-    selected: false
+    selected: false,
+    viewBox: null
 };
 
 export default CheckBox;

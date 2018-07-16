@@ -43,6 +43,7 @@
     margin: auto;
     user-select: none;
     cursor: pointer;
+    display: block;
 
     &:hover {
         .orizzonte__checkbox-span--first {

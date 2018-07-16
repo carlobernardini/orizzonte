@@ -1,6 +1,6 @@
 import React from 'react';
 import Orizzonte, {
-    Choices, FullText, Group, Select
+    Choices, Dropdown, FullText, Group, Select
 } from 'orizzonte';
 import { truncate } from 'lodash';
 import ArrayMove from 'array-move';
@@ -66,7 +66,7 @@ stories.add('Default', withState({
     },
     groups: [{
         included: true,
-        label: 'Language',
+        label: 'Locale',
         selectedLabel: '%d languages',
         filters: [
             <Select
@@ -87,6 +87,46 @@ stories.add('Default', withState({
                     label: 'Dutch',
                     value: 'nl'
                 }] }
+            />,
+            <Dropdown
+                key="country"
+                fieldName="country"
+                label="Country"
+                selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
+                options={ [{
+                    label: 'United Kingdom',
+                    value: 'uk'
+                }, {
+                    label: 'France',
+                    value: 'fr'
+                }, {
+                    label: 'Germany',
+                    value: 'de'
+                }, {
+                    label: 'The Netherlands',
+                    value: 'nl'
+                }, {
+                    label: 'Spain',
+                    value: 'es'
+                }, {
+                    label: 'Italy',
+                    value: 'it'
+                }, {
+                    label: 'Belgium',
+                    value: 'be'
+                }, {
+                    label: 'Austria',
+                    value: 'at'
+                }, {
+                    label: 'Portugal',
+                    value: 'pt'
+                }, {
+                    label: 'Ireland',
+                    value: 'IE'
+                }] }
+                multiple
+                filter
+                filterPlaceholder="Search options..."
             />,
             <Select
                 disabled
@@ -169,7 +209,7 @@ stories.add('Default', withState({
                 key="keywords"
                 fieldName="keywords"
                 label="Keywords"
-                selectedLabel={ (value) => (truncate(value, {
+                selectedLabel={ (value) => (truncate(value.trim(), {
                     length: 20
                 }))}
                 placeholder="Enter some keywords..."

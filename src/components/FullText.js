@@ -20,7 +20,7 @@ const FullText = ({ disabled, label, onUpdate, placeholder, value }) => (
             disabled={ disabled }
             onChange={ (e) => {
                 const { value: val } = e.target;
-                if (!val.length) {
+                if (!val.trim().length) {
                     return onUpdate(null);
                 }
                 return onUpdate(val);

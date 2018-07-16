@@ -10,7 +10,7 @@ Groups can be in- or excluded from the Orizzonte bar, so users can include only 
 object with all new values from all groups that are currently visible. Here is a basic example.
 
 ```js
-import Orizzonte, { Choices, FullText, Group, Select } from 'orizzonte';
+import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte';
 
 <Orizzonte
   query={{
@@ -49,6 +49,35 @@ import Orizzonte, { Choices, FullText, Group, Select } from 'orizzonte';
         …
       ]}
       multiple
+    />
+  </Group>
+  <Group
+    label="Locale"
+    included
+  >
+    <Select
+      fieldName="language"
+      label="Language"
+      selectedLabel="%s (Primary)"
+      options={[
+        {label: 'English',value: 'en'},
+        {label: 'French',value: 'fr'},
+        {label: 'German',value: 'de'},
+        …
+      ]}
+    />
+    <Dropdown
+      fieldName="country"
+      label="Country"
+      selectedLabel={selectedLabel}
+      options={[
+        {label: 'United Kingdom',value: 'uk'},
+        {label: 'France',value: 'fr'},
+        {label: 'Germany',value: 'de'},
+        …
+      ]}
+      filter
+      filterPlaceholder="Search options..."
     />
   </Group>
   <Group

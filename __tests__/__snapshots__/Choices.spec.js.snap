@@ -17,6 +17,7 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
     onChange={[Function]}
     selected={false}
     value={1}
+    viewBox={null}
   />
   <CheckBox
     disabled={false}
@@ -26,6 +27,7 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
     onChange={[Function]}
     selected={true}
     value={2}
+    viewBox={null}
   />
   <CheckBox
     disabled={false}
@@ -35,6 +37,7 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
     onChange={[Function]}
     selected={true}
     value={3}
+    viewBox={null}
   />
 </div>
 `;
@@ -56,6 +59,7 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
     onChange={[Function]}
     selected={false}
     value={1}
+    viewBox={null}
   />
   <CheckBox
     disabled={false}
@@ -65,6 +69,7 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
     onChange={[Function]}
     selected={false}
     value={2}
+    viewBox={null}
   />
   <CheckBox
     disabled={true}
@@ -74,6 +79,7 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
     onChange={[Function]}
     selected={false}
     value={3}
+    viewBox={null}
   />
 </div>
 `;
