@@ -1,17 +1,26 @@
 import React from 'react';
 import CheckBox from '../src/components/CheckBox';
 
+const onChange = jest.fn();
+
 describe('<CheckBox />', () => {
     it('should render a checkbox', () => {
+        const expectedCheckState = true;
         const wrapper = shallow(
             <CheckBox
                 id="testCheckbox"
                 label="Test checkbox"
                 value="test"
-                onChange={ () => {}}
+                onChange={ onChange }
             />
         );
 
+        wrapper.find('.orizzonte__checkbox-input').simulate('change', {
+            target: {
+                checked: expectedCheckState
+            }
+        });
+        expect(onChange).toHaveBeenCalledWith(expectedCheckState);
         expect(wrapper).toMatchSnapshot();
     });
 
