@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    includes, isEqual, uniqueId, without
+    includes, isEqual, isFunction, isNumber, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
@@ -109,9 +109,26 @@ class Dropdown extends Component {
     }
 
     renderButtonLabel() {
-        const { notSetLabel } = this.props;
+        const { notSetLabel, value, selectedLabel } = this.props;
 
-        return notSetLabel || 'None selected';
+        if (!value || !value.length) {
+            return notSetLabel || 'None selected';
+        }
+
+        if (selectedLabel) {
+            if (isFunction(selectedLabel)) {
+                return selectedLabel(value);
+            }
+            if (Array.isArray(value)) {
+                return selectedLabel.replace('%d', value.length);
+            }
+            if (isNumber(value)) {
+                return selectedLabel.replace('%d', value.toString());
+            }
+            return selectedLabel.replace('%s', value);
+        }
+
+        return Array.isArray(value) ? `${ value.length } selected` : value;
     }
 
     renderDropdownTrigger() {
@@ -258,6 +275,10 @@ Dropdown.propTypes = {
     notSetLabel: PropTypes.string,
     onUpdate: PropTypes.func,
     options: PropTypes.array,
+    selectedLabel: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func
+    ]),
     value: PropTypes.array
 };
 
@@ -269,6 +290,7 @@ Dropdown.defaultProps = {
     notSetLabel: null,
     onUpdate: () => {},
     options: [],
+    selectedLabel: null,
     value: []
 };
 
