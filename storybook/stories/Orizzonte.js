@@ -209,7 +209,7 @@ stories.add('Default', withState({
                 key="keywords"
                 fieldName="keywords"
                 label="Keywords"
-                selectedLabel={ (value) => (truncate(value, {
+                selectedLabel={ (value) => (truncate(value.trim(), {
                     length: 20
                 }))}
                 placeholder="Enter some keywords..."
