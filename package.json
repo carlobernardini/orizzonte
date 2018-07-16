@@ -4,6 +4,8 @@
   "description": "React components for a horizontal, filtered search UI",
   "main": "./dist/orizzonte.min.js",
   "scripts": {
+    "build": "webpack --progress --config ./config/webpack.config.prod.js",
+    "prepublish": "npm run test && npm run build",
     "storybook": "start-storybook -p 9001 -c ./storybook",
     "test": "jest"
   },
