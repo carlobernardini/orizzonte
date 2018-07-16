@@ -1,8 +1,11 @@
 import React from 'react';
 import Select from '../src/components/Select';
 
+const onUpdate = jest.fn();
+
 describe('<Select />', () => {
     it('should render a normal select', () => {
+        const expectedValue = 'test';
         const wrapper = shallow(
             <Select
                 label="Test select"
@@ -16,10 +19,16 @@ describe('<Select />', () => {
                     label: 'Test value 3',
                     value: 3
                 }]}
-                onUpdate={() => {}}
+                onUpdate={ onUpdate }
             />
         );
 
+        wrapper.find('.orizzonte__filter-select').simulate('change', {
+            target: {
+                value: expectedValue
+            }
+        });
+        expect(onUpdate).toHaveBeenCalledWith(expectedValue);
         expect(wrapper).toMatchSnapshot();
     });
 
