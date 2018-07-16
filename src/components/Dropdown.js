@@ -75,7 +75,10 @@ class Dropdown extends Component {
                 { parts.map((part, i) => {
                     if (part.toLowerCase() === filter.toLowerCase()) {
                         return (
-                            <strong key={ i }>
+                            <strong
+                                key={ i }
+                                className="orizzonte__dropdown-match"
+                            >
                                 { part }
                             </strong>
                         );
