@@ -11,3 +11,7 @@ cache:
 
 script:
   - npm test
+
+branches:
+  only:
+    - master
