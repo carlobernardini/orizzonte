@@ -2,7 +2,6 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const sassLoader = require('sass-loader');
 
 const LIBRARY_NAME = 'orizzonte';
 
@@ -37,12 +36,17 @@ module.exports = {
             test: /\.(s*)css$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: ['css-loader', {
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: true
+                    }
+                }, {
                     loader: 'postcss-loader',
                     options: {
                         plugins: () => [autoprefixer()]
                     }
-                },'sass-loader']
+                }, 'sass-loader']
             })
         }]
     },
@@ -51,7 +55,7 @@ module.exports = {
             test: /\.(s*)css$/,
             options: {
                 sassLoader: {
-                    includePaths: [path.resolve(__dirname, "../src/scss")]
+                    includePaths: [path.resolve(__dirname, '../src/scss')]
                 }
             }
         }),
