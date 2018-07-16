@@ -23,6 +23,7 @@ class Dropdown extends Component {
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.handleEscPress = this.handleEscPress.bind(this);
     }
 
     componentDidUpdate() {
@@ -97,6 +98,18 @@ class Dropdown extends Component {
         return true;
     }
 
+    handleEscPress(e) {
+        e.stopPropagation();
+        const key = e.keyCode || e.which;
+
+        if (key !== 27) {
+            return false;
+        }
+
+        this.toggleDropdown(null, true, true);
+        return false;
+    }
+
     toggleDropdown(e, collapse = false, focusOut = false) {
         const { disabled } = this.props;
         const { expanded, filter } = this.state;
@@ -117,8 +130,10 @@ class Dropdown extends Component {
 
         if (newState.expanded) {
             document.addEventListener('click', this.handleClickOutside, false);
+            document.addEventListener('keyup', this.handleEscPress, true);
         } else {
             document.removeEventListener('click', this.handleClickOutside, false);
+            document.removeEventListener('keyup', this.handleEscPress, true);
         }
 
         this.setState(newState);
