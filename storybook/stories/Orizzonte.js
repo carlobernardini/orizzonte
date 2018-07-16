@@ -148,7 +148,7 @@ stories.add('Default', withState({
                     value: 'pt'
                 }, {
                     label: 'Ireland',
-                    value: 'IE'
+                    value: 'ie'
                 }]}
                 multiple
                 filter={{
