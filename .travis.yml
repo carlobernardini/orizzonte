@@ -1,13 +1,13 @@
 language: node_js
 
 node_js:
-	- stable
+  - stable
 
 sudo: false
 
 cache:
-	directories:
-		- "node_modules"
+  directories:
+    - "node_modules"
 
 script:
-	- npm test
+  - npm test
