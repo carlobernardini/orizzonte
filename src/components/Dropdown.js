@@ -22,6 +22,7 @@ class Dropdown extends Component {
         this.filter = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.onFocus = this.onFocus.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidUpdate() {
@@ -88,7 +89,15 @@ class Dropdown extends Component {
         );
     }
 
-    toggleDropdown(e, collapse = false) {
+    handleClickOutside(e) {
+        if (this.dropdown.current.contains(e.target)) {
+            return false;
+        }
+        this.toggleDropdown(null, true, true);
+        return true;
+    }
+
+    toggleDropdown(e, collapse = false, focusOut = false) {
         const { disabled } = this.props;
         const { expanded, filter } = this.state;
 
@@ -101,6 +110,15 @@ class Dropdown extends Component {
         }
         if (!newState.expanded && filter) {
             newState.filter = null;
+        }
+        if (focusOut) {
+            newState.focused = false;
+        }
+
+        if (newState.expanded) {
+            document.addEventListener('click', this.handleClickOutside, false);
+        } else {
+            document.removeEventListener('click', this.handleClickOutside, false);
         }
 
         this.setState(newState);
