@@ -126,7 +126,7 @@ stories.add('Default', withState({
                 }] }
                 multiple
                 filter
-                filterPlaceholder="Filter options..."
+                filterPlaceholder="Search options..."
             />,
             <Select
                 disabled

@@ -52,6 +52,35 @@ import Orizzonte, { Choices, FullText, Group, Select } from 'orizzonte';
     />
   </Group>
   <Group
+    label="Locale"
+    included
+  >
+    <Select
+      fieldName="language"
+      label="Language"
+      selectedLabel="%s (Primary)"
+      options={[
+        {label: 'English',value: 'en'},
+        {label: 'French',value: 'fr'},
+        {label: 'German',value: 'de'},
+        …
+      ]}
+    />
+    <Dropdown
+      fieldName="country"
+      label="Country"
+      selectedLabel={selectedLabel}
+      options={[
+        {label: 'United Kingdom',value: 'uk'},
+        {label: 'France',value: 'fr'},
+        {label: 'Germany',value: 'de'},
+        …
+      ]}
+      filter
+      filterPlaceholder="Search options..."
+    />
+  </Group>
+  <Group
     label="Keywords"
   >
     <FullText
