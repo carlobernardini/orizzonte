@@ -3,15 +3,30 @@ import Orizzonte, {
     Choices, Dropdown, FullText, Group, Select
 } from 'orizzonte';
 import { truncate } from 'lodash';
+import axios from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import MockAdapter from 'axios-mock-adapter';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import ArrayMove from 'array-move';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { storiesOf } from '@storybook/react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { withInfo } from '@storybook/addon-info';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { withState } from '@dump247/storybook-state';
 
 const stories = storiesOf('Orizzonte', module);
 
+const mockAPI = new MockAdapter(axios);
+const apiRequest = 'https://orizzonte.io/suggestions';
+
+// eslint-disable-next-line react/prop-types
 const component = ({ store }) => {
     const { groups, query } = store.state;
+
+    mockAPI.onGet(apiRequest).reply(200, {
+        test: 'hello world'
+    });
 
     return (
         <Orizzonte
