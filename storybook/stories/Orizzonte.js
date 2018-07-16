@@ -21,15 +21,51 @@ const mockAPI = new MockAdapter(axios, {
     delayResponse: 1000
 });
 const apiRequest = 'https://orizzonte.io/suggestions';
+const remoteOptions = [{
+    label: 'United Kingdom',
+    value: 'uk'
+}, {
+    label: 'France',
+    value: 'fr'
+}, {
+    label: 'Germany',
+    value: 'de'
+}, {
+    label: 'The Netherlands',
+    value: 'nl'
+}, {
+    label: 'Spain',
+    value: 'es'
+}, {
+    label: 'Italy',
+    value: 'it'
+}, {
+    label: 'Belgium',
+    value: 'be'
+}, {
+    label: 'Austria',
+    value: 'at'
+}, {
+    label: 'Portugal',
+    value: 'pt'
+}, {
+    label: 'Ireland',
+    value: 'IE'
+}];
 
 // eslint-disable-next-line react/prop-types
 const component = ({ store }) => {
     const { groups, query } = store.state;
 
     mockAPI.onGet(apiRequest).reply((config) => {
-        console.log('intercepted API request', config);
+        let filter = null
+
+        try {
+            filter = new RegExp(`(${ JSON.parse(config.data).q })`, 'gi');
+        } catch(e) {}
+
         return [200, {
-            test: 'hello world'
+            options: filter ? remoteOptions.filter((option) => ((option.label || option.value).match(filter))) : remoteOptions
         }];
     });
 
@@ -113,37 +149,7 @@ stories.add('Default', withState({
                 fieldName="country"
                 label="Country"
                 selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
-                options={ [{
-                    label: 'United Kingdom',
-                    value: 'uk'
-                }, {
-                    label: 'France',
-                    value: 'fr'
-                }, {
-                    label: 'Germany',
-                    value: 'de'
-                }, {
-                    label: 'The Netherlands',
-                    value: 'nl'
-                }, {
-                    label: 'Spain',
-                    value: 'es'
-                }, {
-                    label: 'Italy',
-                    value: 'it'
-                }, {
-                    label: 'Belgium',
-                    value: 'be'
-                }, {
-                    label: 'Austria',
-                    value: 'at'
-                }, {
-                    label: 'Portugal',
-                    value: 'pt'
-                }, {
-                    label: 'Ireland',
-                    value: 'IE'
-                }] }
+                options={[]}
                 multiple
                 filter
                 filterPlaceholder="Search options..."
@@ -152,7 +158,8 @@ stories.add('Default', withState({
                     searchParam: 'q',
                     data: {
                         some: 'additional data'
-                    }
+                    },
+                    transformer: (response) => (response.options)
                 }}
             />,
             <Select

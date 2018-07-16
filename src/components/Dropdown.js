@@ -7,6 +7,7 @@ import {
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
+import LoadingIndicator from './LoadingIndicator';
 import '../scss/Dropdown.scss';
 
 class Dropdown extends Component {
@@ -17,6 +18,7 @@ class Dropdown extends Component {
             expanded: false,
             filter: null,
             focused: false,
+            remoteLoading: false,
             remoteOptions: [] // Options that were fetched from a remote API
         };
 
@@ -169,21 +171,40 @@ class Dropdown extends Component {
 
     queryRemote() {
         const { remote } = this.props;
-        const { filter } = this.state;
+        const { filter, remoteOptions } = this.state;
 
         if (!remote || !remote.endpoint || !remote.searchParam) {
             return false;
         }
 
-        axios
-            .get(remote.endpoint, {
-                data: assign({}, remote.data || {}, {
-                    [remote.searchParam]: filter
+        this.setState({
+            remoteLoading: true
+        }, () => {
+            axios
+                .get(remote.endpoint, {
+                    data: assign({}, remote.data || {}, {
+                        [remote.searchParam]: filter
+                    })
                 })
-            })
-            .then((response) => {
-                console.log(response.data);
-            });
+                .then((response) => {
+                    let { data } = response;
+                    const newState = {
+                        remoteLoading: false
+                    };
+
+                    if (remote.transformer && isFunction(remote.transformer)) {
+                        // Use a custom callback to transform the remote response
+                        // so the result conforms to the expected data structure (collection of options)
+                        data = remote.transformer(data);
+                    }
+
+                    if (!isEqual(data, remoteOptions)) {
+                        newState.remoteOptions = data;
+                    }
+
+                    this.setState(newState);
+                });
+        });
 
         return true;
     }
@@ -209,6 +230,33 @@ class Dropdown extends Component {
         }
 
         return Array.isArray(value) ? `${ value.length } selected` : value;
+    }
+
+    renderDropdownTriggerButton() {
+        const { remoteLoading } = this.state;
+
+        if (remoteLoading) {
+            return (
+                <div
+                    className="orizzonte__dropdown-filter-loading"
+                >
+                    <LoadingIndicator
+                        size="12"
+                        strokeWidth="4"
+                    />
+                </div>
+            );
+        }
+
+        return (
+            <button
+                className="orizzonte__dropdown-filter-button"
+                onClick={ () => (this.toggleDropdown(null, true, true)) }
+                type="button"
+            >
+                &nbsp;
+            </button>
+        );
     }
 
     renderDropdownTrigger() {
@@ -239,13 +287,7 @@ class Dropdown extends Component {
                         placeholder={ filterPlaceholder }
                         ref={ this.filter }
                     />
-                    <button
-                        className="orizzonte__dropdown-filter-button"
-                        onClick={ () => (this.toggleDropdown(null, true, true)) }
-                        type="button"
-                    >
-                        &nbsp;
-                    </button>
+                    { this.renderDropdownTriggerButton() }
                 </div>
             );
         }
