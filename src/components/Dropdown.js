@@ -261,11 +261,11 @@ class Dropdown extends Component {
 
     renderDropdownTrigger() {
         const {
-            disabled, filter, filterDiacriticsStrictly, filterPlaceholder
+            disabled, filter
         } = this.props;
         const { expanded } = this.state;
 
-        if (filter && expanded) {
+        if (filter && filter.enabled && expanded) {
             return (
                 <div className="orizzonte__dropdown-filter-wrapper">
                     <input
@@ -274,7 +274,7 @@ class Dropdown extends Component {
                         onChange={ (e) => {
                             const { value } = e.target;
                             this.setState({
-                                filter: filterDiacriticsStrictly ? value : diacritics.remove(value)
+                                filter: filter.matchDiacritics ? value : diacritics.remove(value)
                             }, () => {
                                 if (!this.debounceRemote) {
                                     this.debounceRemote = debounce(this.queryRemote, 300);
@@ -284,7 +284,7 @@ class Dropdown extends Component {
                                 this.debounceRemote();
                             });
                         }}
-                        placeholder={ filterPlaceholder }
+                        placeholder={ filter.placeholder || '' }
                         ref={ this.filter }
                     />
                     { this.renderDropdownTriggerButton() }
@@ -402,14 +402,18 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
     disabled: PropTypes.bool,
-    filter: PropTypes.bool,
-    filterDiacriticsStrictly: PropTypes.bool,
-    filterPlaceholder: PropTypes.string,
+    /** Filter dropdown options and highlight matches */
+    filter: PropTypes.shape({
+        enabled: PropTypes.bool.isRequired,
+        matchDiacritics: PropTypes.bool,
+        placeholder: PropTypes.string
+    }),
     label: PropTypes.string.isRequired,
     multiple: PropTypes.bool,
     notSetLabel: PropTypes.string,
     onUpdate: PropTypes.func,
     options: PropTypes.array,
+    /** Remote API to fetch dropdown options from */
     remote: PropTypes.shape({
         data: PropTypes.object,
         endpoint: PropTypes.string.isRequired,
@@ -425,9 +429,7 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
     disabled: false,
-    filter: false,
-    filterDiacriticsStrictly: false,
-    filterPlaceholder: null,
+    filter: null,
     multiple: true,
     notSetLabel: null,
     onUpdate: () => {},

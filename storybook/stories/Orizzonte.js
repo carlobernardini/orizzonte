@@ -18,7 +18,7 @@ import { withState } from '@dump247/storybook-state';
 const stories = storiesOf('Orizzonte', module);
 
 const mockAPI = new MockAdapter(axios, {
-    delayResponse: 1000
+    delayResponse: 750
 });
 const apiRequest = 'https://orizzonte.io/suggestions';
 const remoteOptions = [{
@@ -42,15 +42,6 @@ const remoteOptions = [{
 }, {
     label: 'Belgium',
     value: 'be'
-}, {
-    label: 'Austria',
-    value: 'at'
-}, {
-    label: 'Portugal',
-    value: 'pt'
-}, {
-    label: 'Ireland',
-    value: 'IE'
 }];
 
 // eslint-disable-next-line react/prop-types
@@ -149,10 +140,21 @@ stories.add('Default', withState({
                 fieldName="country"
                 label="Country"
                 selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
-                options={[]}
+                options={[{
+                    label: 'Austria',
+                    value: 'at'
+                }, {
+                    label: 'Portugal',
+                    value: 'pt'
+                }, {
+                    label: 'Ireland',
+                    value: 'IE'
+                }]}
                 multiple
-                filter
-                filterPlaceholder="Search options..."
+                filter={{
+                    enabled: true,
+                    placeholder: 'Search options...'
+                }}
                 remote={{
                     endpoint: 'https://orizzonte.io/suggestions',
                     searchParam: 'q',
