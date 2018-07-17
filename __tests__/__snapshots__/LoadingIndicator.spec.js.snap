@@ -24,6 +24,7 @@ exports[`<LoadingIndicator /> should render a custom loading indicator 1`] = `
     cy="22"
     fill="none"
     r="20"
+    strokeWidth="4"
   />
 </svg>
 `;
@@ -52,6 +53,7 @@ exports[`<LoadingIndicator /> should render a default loading indicator 1`] = `
     cy="22"
     fill="none"
     r="20"
+    strokeWidth="4"
   />
 </svg>
 `;

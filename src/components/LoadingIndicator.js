@@ -17,6 +17,7 @@ const LoadingIndicator = ({ size }) => (
             cy="22"
             r="20"
             fill="none"
+            strokeWidth="4"
         />
     </svg>
 );
