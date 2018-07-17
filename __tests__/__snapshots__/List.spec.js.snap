@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<List /> should render a list of filters 1`] = `
+exports[`<List /> should render a list of clickable items 1`] = `
 <ul
   className="orizzonte__list"
 >
@@ -8,8 +8,40 @@ exports[`<List /> should render a list of filters 1`] = `
     className="orizzonte__item"
     key="0"
   >
+    <a
+      className="orizzonte__item-clickable"
+      href="#"
+      onClick={[MockFunction]}
+    >
+      Filter 1
+    </a>
+  </li>
+  <li
+    className="orizzonte__item"
+    key="1"
+  >
+    <a
+      className="orizzonte__item-clickable"
+      href="#"
+      onClick={[MockFunction]}
+    >
+      Filter 2
+    </a>
+  </li>
+</ul>
+`;
+
+exports[`<List /> should render a list of filters 1`] = `
+<ul
+  className="orizzonte__list"
+>
+  <li
+    className="orizzonte__item orizzonte__item--filters"
+    key="0/.0"
+  >
     <Select
       disabled={false}
+      fieldName="myAPIField"
       label="Test select"
       notSetLabel="None"
       onUpdate={[Function]}
@@ -29,12 +61,12 @@ exports[`<List /> should render a list of filters 1`] = `
           },
         ]
       }
-      value=""
+      value={null}
     />
   </li>
   <li
-    className="orizzonte__item"
-    key="1"
+    className="orizzonte__item orizzonte__item--filters"
+    key="1/.1"
   >
     <Choices
       fieldName="myAPIField"
@@ -61,6 +93,15 @@ exports[`<List /> should render a list of filters 1`] = `
       }
       value={null}
     />
+  </li>
+  <li>
+    <button
+      className="orizzonte__list-done"
+      onClick={[Function]}
+      type="button"
+    >
+      Done
+    </button>
   </li>
 </ul>
 `;
@@ -70,8 +111,8 @@ exports[`<List /> should render a list of filters with custom done button and or
   className="orizzonte__list orizzonte__list--right"
 >
   <li
-    className="orizzonte__item"
-    key="0"
+    className="orizzonte__item orizzonte__item--filters"
+    key="0/.0"
   >
     <Select
       disabled={false}
@@ -94,12 +135,12 @@ exports[`<List /> should render a list of filters with custom done button and or
           },
         ]
       }
-      value=""
+      value={null}
     />
   </li>
   <li
-    className="orizzonte__item"
-    key="1"
+    className="orizzonte__item orizzonte__item--filters"
+    key="1/.1"
   >
     <Choices
       fieldName="myAPIField"
@@ -127,6 +168,15 @@ exports[`<List /> should render a list of filters with custom done button and or
       value={null}
     />
   </li>
+  <li>
+    <button
+      className="orizzonte__list-done"
+      onClick={[Function]}
+      type="button"
+    >
+      Apply
+    </button>
+  </li>
 </ul>
 `;
 
@@ -135,8 +185,8 @@ exports[`<List /> should render a list of filters without done button 1`] = `
   className="orizzonte__list"
 >
   <li
-    className="orizzonte__item"
-    key="0"
+    className="orizzonte__item orizzonte__item--filters"
+    key="0/.0"
   >
     <Select
       disabled={false}
@@ -159,12 +209,12 @@ exports[`<List /> should render a list of filters without done button 1`] = `
           },
         ]
       }
-      value=""
+      value={null}
     />
   </li>
   <li
-    className="orizzonte__item"
-    key="1"
+    className="orizzonte__item orizzonte__item--filters"
+    key="1/.1"
   >
     <Choices
       fieldName="myAPIField"
