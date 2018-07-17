@@ -45,7 +45,7 @@ exports[`<BtnAdd /> should render a left-positioned add-button 1`] = `
 </div>
 `;
 
-exports[`<BtnAdd /> should render an add-button that is always shown 1`] = `
+exports[`<BtnAdd /> should render an add-button that is (always) shown 1`] = `
 <div
   className="orizzonte__btn-add-wrapper"
 >
