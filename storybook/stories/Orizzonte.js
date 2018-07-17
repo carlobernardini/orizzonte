@@ -49,14 +49,16 @@ const component = ({ store }) => {
     const { groups, query } = store.state;
 
     mockAPI.onGet(apiRequest).reply((config) => {
-        let filter = null
+        let filter = null;
 
         try {
             filter = new RegExp(`(${ JSON.parse(config.data).q })`, 'gi');
         } catch(e) {}
 
         return [200, {
-            options: filter ? remoteOptions.filter((option) => ((option.label || option.value).match(filter))) : remoteOptions
+            options: filter
+                ? remoteOptions.filter((option) => ((option.label || option.value).match(filter)))
+                : remoteOptions
         }];
     });
 
