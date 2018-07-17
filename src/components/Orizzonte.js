@@ -165,7 +165,7 @@ class Orizzonte extends Component {
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
-                    if (child.type.name !== 'Group' || !child.props.included) {
+                    if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
                         return null;
                     }
 

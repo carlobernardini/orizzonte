@@ -243,7 +243,6 @@ class Dropdown extends Component {
                 >
                     <LoadingIndicator
                         size="12"
-                        strokeWidth="4"
                     />
                 </div>
             );

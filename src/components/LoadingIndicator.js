@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../scss/LoadingIndicator.scss';
 
-const LoadingIndicator = ({ size, strokeWidth }) => (
+const LoadingIndicator = ({ size }) => (
     <svg
         className="orizzonte__loading"
         viewBox={ [0, 0, 44, 44] }
@@ -17,7 +17,7 @@ const LoadingIndicator = ({ size, strokeWidth }) => (
             cy="22"
             r="20"
             fill="none"
-            strokeWidth={ strokeWidth || 4 }
+            strokeWidth="4"
         />
     </svg>
 );
@@ -26,13 +26,11 @@ LoadingIndicator.propTypes = {
     size: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
-    ]),
-    strokeWidth: PropTypes.number
+    ])
 };
 
 LoadingIndicator.defaultProps = {
-    size: null,
-    strokeWidth: null
+    size: null
 };
 
 export default LoadingIndicator;
