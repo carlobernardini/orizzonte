@@ -253,6 +253,8 @@ class Group extends Component {
     }
 }
 
+Group.displayName = 'OrizzonteGroup';
+
 Group.propTypes = {
     /** Internal index of currently expanded group */
     activeGroup: PropTypes.oneOfType([
