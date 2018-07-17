@@ -68,6 +68,10 @@ describe('<BtnAdd />', () => {
 
         document.body.click();
         expect(mountedComponent.state().active).toBe(false);
+
+        document.removeEventListener = jest.fn();
+        mountedComponent.unmount();
+        expect(document.removeEventListener).toHaveBeenCalledTimes(1);
     });
 
     it('should render a disabled add-button', () => {
