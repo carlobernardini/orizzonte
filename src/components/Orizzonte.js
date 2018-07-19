@@ -160,14 +160,15 @@ class Orizzonte extends Component {
 
     render() {
         const {
-            children, groupTopLabels, onGroupRemove, orientation
+            children, className, groupTopLabels, onGroupRemove, orientation
         } = this.props;
         const { activeGroup } = this.state;
 
         return (
             <div
                 className={ classNames('orizzonte__container orizzonte__clearfix', {
-                    'orizzonte__container--top-labels': groupTopLabels
+                    'orizzonte__container--top-labels': groupTopLabels,
+                    [className]: className
                 }) }
                 onFocus={ () => { this.toggleAddBtn(true); }}
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
@@ -211,6 +212,8 @@ Orizzonte.propTypes = {
     btnAddAlwaysShown: PropTypes.bool,
     /** List of filter groups */
     children: PropTypes.array,
+    /** Custom additional class name for the top-level element */
+    className: PropTypes.string,
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
@@ -230,6 +233,7 @@ Orizzonte.defaultProps = {
     orientation: 'left',
     btnAddAlwaysShown: false,
     children: [],
+    className: null,
     groupTopLabels: false,
     maxGroups: null,
     onGroupAdd: () => {},

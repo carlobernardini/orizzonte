@@ -240,7 +240,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, i, included
+            activeGroup, className, i, included
         } = this.props;
         const { removing } = this.state;
 
@@ -253,7 +253,8 @@ class Group extends Component {
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': activeGroup === i,
                     'orizzonte__group--removing': removing,
-                    'orizzonte__group--empty': !this.queryHasGroupFilters()
+                    'orizzonte__group--empty': !this.queryHasGroupFilters(),
+                    [className]: className
                 }) }
             >
                 { this.renderTopLabel() }
@@ -281,6 +282,8 @@ Group.propTypes = {
     ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
+    /** Custom additional class name for top-level component element */
+    className: PropTypes.string,
     /** A description for this group of filters */
     description: PropTypes.string,
     /** Internal flag if a label should be shown at the top */
@@ -311,6 +314,7 @@ Group.propTypes = {
 Group.defaultProps = {
     activeGroup: null,
     children: [],
+    className: null,
     description: null,
     groupTopLabels: false,
     hideRemove: false,
