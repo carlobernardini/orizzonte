@@ -285,6 +285,7 @@ stories.add('Default', withState({
     }, {
         included: true,
         label: 'Dates',
+        description: 'You can narrow your search to any of the time spans listed below',
         filters: [
             <Choices
                 multiple

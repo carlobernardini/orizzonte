@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
+    assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
@@ -123,7 +123,7 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            activeGroup, children, i, onUpdate, orientation, queryPart
+            activeGroup, children, description, i, onUpdate, orientation, queryPart
         } = this.props;
 
         if (activeGroup !== i || !children.length) {
@@ -133,10 +133,19 @@ class Group extends Component {
         const filterFields = this.queryHasGroupFilters();
         const listValues = assign({}, pick(queryPart, filterFields), groupValues);
 
+        const filters = description ? concat([
+            <div
+                className="orizzonte__group-description"
+            >
+                { description }
+            </div>
+        ], children) : children;
+
+
         return (
             <List
                 isFilterGroup
-                items={ children }
+                items={ filters }
                 values={ listValues }
                 orientation={ orientation }
                 onApply={ () => {
@@ -272,6 +281,8 @@ Group.propTypes = {
     ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
+    /** A description for this group of filters */
+    description: PropTypes.string,
     /** Internal flag if a label should be shown at the top */
     groupTopLabels: PropTypes.bool,
     /** If a remove button should be present */
@@ -300,6 +311,7 @@ Group.propTypes = {
 Group.defaultProps = {
     activeGroup: null,
     children: [],
+    description: null,
     groupTopLabels: false,
     hideRemove: false,
     i: null,
