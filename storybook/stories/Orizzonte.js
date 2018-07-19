@@ -53,7 +53,8 @@ const component = ({ store }) => {
 
         try {
             filter = new RegExp(`(${ JSON.parse(config.data).q })`, 'gi');
-        } catch(e) {}
+        // eslint-disable-next-line no-empty
+        } catch (e) {}
 
         return [200, {
             options: filter

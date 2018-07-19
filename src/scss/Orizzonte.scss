@@ -1,6 +1,7 @@
 @import 'base';
 
 .orizzonte__container {
+	margin-top: -5px;
 	@extend %fonts;
 
 	&:hover {
@@ -18,8 +19,19 @@
 			}
 		}
 	}
-	&--padded {
-		padding-top: 20px;
+	.orizzonte__group {
+		margin-top: 5px;
+	}
+	.orizzonte__btn-add-wrapper {
+		margin-top: 5px;
+	}
+	&--top-labels {
+		.orizzonte__group {
+			margin-top: 20px;
+		}
+		.orizzonte__btn-add-wrapper {
+			margin-top: 20px;
+		}
 	}
 }
 

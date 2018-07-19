@@ -156,7 +156,7 @@ class Orizzonte extends Component {
         return (
             <div
                 className={ classNames('orizzonte__container orizzonte__clearfix', {
-                    'orizzonte__container--padded': groupTopLabels
+                    'orizzonte__container--top-labels': groupTopLabels
                 }) }
                 onFocus={ () => { this.toggleAddBtn(true); }}
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
