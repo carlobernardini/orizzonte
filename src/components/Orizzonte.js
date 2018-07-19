@@ -125,13 +125,24 @@ class Orizzonte extends Component {
             return null;
         }
 
-        if (maxGroups && maxGroups === React.Children.count(children)) {
+        if (
+            maxGroups
+            && maxGroups === React.Children.count(children)
+            && !btnAddAlwaysShown
+        ) {
             return null;
         }
 
+        const includedCount = React.Children.map(children, (child) => {
+            if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
+                return null;
+            }
+            return child;
+        }).length;
+
         return (
             <BtnAdd
-                shown={ showAddBtn || btnAddAlwaysShown }
+                shown={ !includedCount || showAddBtn || btnAddAlwaysShown }
                 position={ orientation === 'right' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
@@ -149,14 +160,15 @@ class Orizzonte extends Component {
 
     render() {
         const {
-            children, groupTopLabels, onGroupRemove, orientation
+            children, className, groupTopLabels, onGroupRemove, orientation
         } = this.props;
         const { activeGroup } = this.state;
 
         return (
             <div
                 className={ classNames('orizzonte__container orizzonte__clearfix', {
-                    'orizzonte__container--padded': groupTopLabels
+                    'orizzonte__container--top-labels': groupTopLabels,
+                    [className]: className
                 }) }
                 onFocus={ () => { this.toggleAddBtn(true); }}
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
@@ -200,6 +212,8 @@ Orizzonte.propTypes = {
     btnAddAlwaysShown: PropTypes.bool,
     /** List of filter groups */
     children: PropTypes.array,
+    /** Custom additional class name for the top-level element */
+    className: PropTypes.string,
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
@@ -219,6 +233,7 @@ Orizzonte.defaultProps = {
     orientation: 'left',
     btnAddAlwaysShown: false,
     children: [],
+    className: null,
     groupTopLabels: false,
     maxGroups: null,
     onGroupAdd: () => {},

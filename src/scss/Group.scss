@@ -6,6 +6,7 @@
 	border-radius: $group-radius;
 	transition: all .3s;
 	white-space: nowrap;
+	margin-right: 5px;
 	@extend %btn;
 
 	&:hover {
@@ -18,8 +19,12 @@
 		}
 	}
 
-	+ .orizzonte__group {
-		margin-left: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
+
+	~ .orizzonte__btn-add-wrapper {
+		margin-left: 0;
 	}
 
 	&--shown {
@@ -45,6 +50,16 @@
 	&--empty {
 		background-color: #999;
 	}
+	&--top-labels {
+		margin-top: 20px;
+	}
+}
+
+.orizzonte__group-description {
+	color: #b2b2b2;
+	padding: 5px 10px;
+	white-space: normal;
+	font-size: .9em;
 }
 
 .orizzonte__group-label {

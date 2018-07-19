@@ -13,7 +13,7 @@ exports[`<Orizzonte /> should render an empty filter container 1`] = `
     disabled={false}
     onGroupAdd={[Function]}
     position="right"
-    shown={false}
+    shown={true}
   />
 </div>
 `;

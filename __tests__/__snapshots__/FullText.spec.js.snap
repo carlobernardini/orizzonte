@@ -9,11 +9,12 @@ exports[`<FullText /> should render a disabled fulltext filter 1`] = `
   >
     Fulltext filter
   </div>
-  <textarea
+  <input
     className="orizzonte__filter-fulltext orizzonte__filter-fulltext--disabled"
     disabled={true}
     onChange={[Function]}
     placeholder="This is a textarea placeholder..."
+    type="text"
     value=""
   />
 </div>
@@ -28,11 +29,12 @@ exports[`<FullText /> should render a fulltext filter 1`] = `
   >
     Fulltext filter
   </div>
-  <textarea
+  <input
     className="orizzonte__filter-fulltext"
     disabled={false}
     onChange={[Function]}
     placeholder="This is a textarea placeholder..."
+    type="text"
     value=""
   />
 </div>
@@ -47,11 +49,12 @@ exports[`<FullText /> should render a fulltext filter with current value 1`] = `
   >
     Fulltext filter
   </div>
-  <textarea
+  <input
     className="orizzonte__filter-fulltext"
     disabled={false}
     onChange={[Function]}
     placeholder="This is a textarea placeholder..."
+    type="text"
     value="Current textarea value"
   />
 </div>

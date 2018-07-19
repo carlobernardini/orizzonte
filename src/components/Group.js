@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, find, intersection, isEqual, isFunction, isNumber, pick
+    assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
@@ -86,24 +86,20 @@ class Group extends Component {
         return onGroupToggle(i);
     }
 
-    transformLabel(selectedLabel, value, option) {
-        if (selectedLabel) {
-            if (isFunction(selectedLabel)) {
-                if (option && option.label) {
-                    return selectedLabel(value, option.label);
-                }
-                return selectedLabel(value);
-            }
-            if (Array.isArray(value)) {
-                return selectedLabel.replace('%d', value.length);
-            }
-            if (isNumber(value)) {
-                return selectedLabel.replace('%d', value.toString());
-            }
-            return selectedLabel.replace('%s', option.label || value);
+    transformLabel(selectedLabel, value, totalOptionCount) {
+        if (!selectedLabel) {
+            return null;
         }
-
-        return null;
+        if (isFunction(selectedLabel)) {
+            return selectedLabel(value, totalOptionCount);
+        }
+        if (Array.isArray(value)) {
+            return selectedLabel.replace('%d', value.length);
+        }
+        if (isNumber(value)) {
+            return selectedLabel.replace('%d', value.toString());
+        }
+        return selectedLabel.replace('%s', value.label || value);
     }
 
     renderBtn() {
@@ -127,7 +123,7 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            activeGroup, children, i, onUpdate, orientation, queryPart
+            activeGroup, children, description, i, onUpdate, orientation, queryPart
         } = this.props;
 
         if (activeGroup !== i || !children.length) {
@@ -137,10 +133,19 @@ class Group extends Component {
         const filterFields = this.queryHasGroupFilters();
         const listValues = assign({}, pick(queryPart, filterFields), groupValues);
 
+        const filters = description ? concat([
+            <div
+                className="orizzonte__group-description"
+            >
+                { description }
+            </div>
+        ], children) : children;
+
+
         return (
             <List
                 isFilterGroup
-                items={ children }
+                items={ filters }
                 values={ listValues }
                 orientation={ orientation }
                 onApply={ () => {
@@ -166,21 +171,34 @@ class Group extends Component {
     renderLabel() {
         const { children, label, queryPart } = this.props;
 
+        const fields = Object.keys(queryPart);
+
+        if (!fields.length) {
+            return label;
+        }
+
         const selectedLabels = React.Children.map(children, (child) => {
             if (!child.props || !child.props.fieldName || !(child.props.fieldName in queryPart)) {
                 return null;
             }
 
-            const { fieldName, selectedLabel } = child.props;
-
-            if (!('fieldName' in child.props)) {
-                return null;
-            }
+            const { fieldName, options, selectedLabel } = child.props;
 
             const value = queryPart[fieldName];
-            const option = find(child.props.options || {}, { value });
 
-            return this.transformLabel(selectedLabel, value, option);
+            if (!options) {
+                return this.transformLabel(selectedLabel, value);
+            }
+            if (!Array.isArray(value) && options) {
+                const selectedOption = find(options, (option) => (option.value === value));
+                return this.transformLabel(selectedLabel, selectedOption);
+            }
+
+            const selectedOptions = filter(options, (option) => (
+                indexOf(value, option.value) > -1
+            ));
+
+            return this.transformLabel(selectedLabel, selectedOptions, options.length);
         });
 
         if (!selectedLabels.length) {
@@ -222,7 +240,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, i, included
+            activeGroup, className, i, included
         } = this.props;
         const { removing } = this.state;
 
@@ -235,7 +253,8 @@ class Group extends Component {
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': activeGroup === i,
                     'orizzonte__group--removing': removing,
-                    'orizzonte__group--empty': !this.queryHasGroupFilters()
+                    'orizzonte__group--empty': !this.queryHasGroupFilters(),
+                    [className]: className
                 }) }
             >
                 { this.renderTopLabel() }
@@ -263,6 +282,10 @@ Group.propTypes = {
     ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
+    /** Custom additional class name for top-level component element */
+    className: PropTypes.string,
+    /** A description for this group of filters */
+    description: PropTypes.string,
     /** Internal flag if a label should be shown at the top */
     groupTopLabels: PropTypes.bool,
     /** If a remove button should be present */
@@ -291,6 +314,8 @@ Group.propTypes = {
 Group.defaultProps = {
     activeGroup: null,
     children: [],
+    className: null,
+    description: null,
     groupTopLabels: false,
     hideRemove: false,
     i: null,

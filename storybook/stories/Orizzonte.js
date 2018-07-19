@@ -53,7 +53,8 @@ const component = ({ store }) => {
 
         try {
             filter = new RegExp(`(${ JSON.parse(config.data).q })`, 'gi');
-        } catch(e) {}
+        // eslint-disable-next-line no-empty
+        } catch (e) {}
 
         return [200, {
             options: filter
@@ -141,7 +142,12 @@ stories.add('Default', withState({
                 key="country"
                 fieldName="country"
                 label="Country"
-                selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
+                selectedLabel={ (value) => {
+                    if (value.length === 1) {
+                        return value[0].label;
+                    }
+                    return `${ value.length } Countries`;
+                }}
                 options={[{
                     label: 'Austria',
                     value: 'at'
@@ -192,11 +198,19 @@ stories.add('Default', withState({
         label: 'Sizes',
         selectedLabel: '%d sizes',
         filters: [
-            <Select
+            <Dropdown
                 key="shirt-size"
                 fieldName="shirtSize"
                 label="Shirt Size"
-                selectedLabel={ (value, label) => (`Shirt Size (${ label })`) }
+                selectedLabel={ (value, totalCount) => {
+                    if (value.length === 1) {
+                        return `Size (${ value[0].label })`;
+                    }
+                    if (value.length === totalCount) {
+                        return 'Any shirt size';
+                    }
+                    return `Size (${ value.length } selected)`;
+                }}
                 options={ [{
                     label: 'Extra Small',
                     value: 'xs'
@@ -214,27 +228,34 @@ stories.add('Default', withState({
                     value: 'xl'
                 }] }
                 notSetLabel="None"
+                multiple
+                selectAll
             />,
             <Choices
                 key="waist-size"
                 fieldName="waistSize"
                 label="Waist Size"
-                selectedLabel={ (value) => (`Waist Size (${ value })`) }
+                selectedLabel={ (value) => (`${ value.selectedLabel || value.label } waist size`) }
                 options={ [{
                     label: 'Extra Small (28)',
+                    selectedLabel: 'Extra Small',
                     value: 28
                 }, {
                     label: 'Small (30)',
+                    selectedLabel: 'Small',
                     value: 30
                 }, {
                     label: 'Medium (32)',
+                    selectedLabel: 'Medium',
                     value: 32
                 }, {
                     label: 'Large (34)',
+                    selectedLabel: 'Large',
                     value: 34,
                     disabled: true
                 }, {
                     label: 'Extra Large (36)',
+                    selectedLabel: 'Extra Large',
                     value: 36,
                     disabled: true
                 }] }
@@ -251,6 +272,7 @@ stories.add('Default', withState({
                     length: 20
                 }))}
                 placeholder="Enter some keywords..."
+                multiline
             />,
             <FullText
                 key="disabled"
@@ -263,13 +285,19 @@ stories.add('Default', withState({
     }, {
         included: true,
         label: 'Dates',
+        description: 'You can narrow your search to any of the time spans listed below',
         filters: [
             <Choices
                 multiple
                 key="period"
                 fieldName="calendarPeriod"
                 label="Calendar Period"
-                selectedLabel="Calendar Period (%d)"
+                selectedLabel={ (value) => {
+                    if (value.length === 1) {
+                        return value[0].label;
+                    }
+                    return `Calendar Period (${ value.length } selected)`;
+                }}
                 options={ [{
                     label: 'Last Month',
                     value: '1m',
