@@ -125,13 +125,24 @@ class Orizzonte extends Component {
             return null;
         }
 
-        if (maxGroups && maxGroups === React.Children.count(children)) {
+        if (
+            maxGroups
+            && maxGroups === React.Children.count(children)
+            && !btnAddAlwaysShown
+        ) {
             return null;
         }
 
+        const includedCount = React.Children.map(children, (child) => {
+            if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
+                return null;
+            }
+            return child;
+        }).length;
+
         return (
             <BtnAdd
-                shown={ showAddBtn || btnAddAlwaysShown }
+                shown={ !includedCount || showAddBtn || btnAddAlwaysShown }
                 position={ orientation === 'right' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
