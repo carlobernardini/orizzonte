@@ -6,6 +6,7 @@
 	border-radius: $group-radius;
 	transition: all .3s;
 	white-space: nowrap;
+	margin-right: 5px;
 	@extend %btn;
 
 	&:hover {
@@ -18,8 +19,12 @@
 		}
 	}
 
-	+ .orizzonte__group {
-		margin-left: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
+
+	~ .orizzonte__btn-add-wrapper {
+		margin-left: 0;
 	}
 
 	&--shown {
