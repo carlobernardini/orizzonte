@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, find, intersection, isEqual, isFunction, isNumber, pick
+    assign, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
@@ -86,24 +86,20 @@ class Group extends Component {
         return onGroupToggle(i);
     }
 
-    transformLabel(selectedLabel, value, option) {
-        if (selectedLabel) {
-            if (isFunction(selectedLabel)) {
-                if (option && option.label) {
-                    return selectedLabel(value, option.label);
-                }
-                return selectedLabel(value);
-            }
-            if (Array.isArray(value)) {
-                return selectedLabel.replace('%d', value.length);
-            }
-            if (isNumber(value)) {
-                return selectedLabel.replace('%d', value.toString());
-            }
-            return selectedLabel.replace('%s', option.label || value);
+    transformLabel(selectedLabel, value) {
+        if (!selectedLabel) {
+            return null;
         }
-
-        return null;
+        if (isFunction(selectedLabel)) {
+            return selectedLabel(value);
+        }
+        if (Array.isArray(value)) {
+            return selectedLabel.replace('%d', value.length);
+        }
+        if (isNumber(value)) {
+            return selectedLabel.replace('%d', value.toString());
+        }
+        return selectedLabel.replace('%s', value.label || value);
     }
 
     renderBtn() {
@@ -166,21 +162,34 @@ class Group extends Component {
     renderLabel() {
         const { children, label, queryPart } = this.props;
 
+        const fields = Object.keys(queryPart);
+
+        if (!fields.length) {
+            return label;
+        }
+
         const selectedLabels = React.Children.map(children, (child) => {
             if (!child.props || !child.props.fieldName || !(child.props.fieldName in queryPart)) {
                 return null;
             }
 
-            const { fieldName, selectedLabel } = child.props;
-
-            if (!('fieldName' in child.props)) {
-                return null;
-            }
+            const { fieldName, options, selectedLabel } = child.props;
 
             const value = queryPart[fieldName];
-            const option = find(child.props.options || {}, { value });
 
-            return this.transformLabel(selectedLabel, value, option);
+            if (!options) {
+                return this.transformLabel(selectedLabel, value);
+            }
+            if (!Array.isArray(value) && options) {
+                const selectedOption = find(options, (option) => (option.value === value));
+                return this.transformLabel(selectedLabel, selectedOption);
+            }
+
+            const selectedOptions = filter(options, (option) => (
+                indexOf(value, option.value) > -1
+            ));
+
+            return this.transformLabel(selectedLabel, selectedOptions);
         });
 
         if (!selectedLabels.length) {

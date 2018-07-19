@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
 import {
-    assign, debounce, includes, isEqual, isFunction, isNumber, unionBy, uniqueId, without
+    assign, debounce, filter as _filter, includes, indexOf,
+    isEqual, isFunction, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
@@ -66,10 +67,9 @@ class Dropdown extends Component {
     }
 
     getFilteredOptions() {
-        const { options } = this.props;
-        const { filter, remoteOptions } = this.state;
+        const { filter } = this.state;
 
-        const mergedOptions = unionBy(options, remoteOptions, 'value');
+        const mergedOptions = this.getMergedOptions();
 
         if (!filter) {
             return mergedOptions;
@@ -113,6 +113,13 @@ class Dropdown extends Component {
                 }) }
             </span>
         );
+    }
+
+    getMergedOptions() {
+        const { options } = this.props;
+        const { remoteOptions } = this.state;
+
+        return unionBy(options, remoteOptions, 'value');
     }
 
     handleClickOutside(e) {
@@ -212,25 +219,32 @@ class Dropdown extends Component {
 
     renderButtonLabel() {
         const { notSetLabel, value, selectedLabel } = this.props;
+        const mergedOptions = this.getMergedOptions();
 
         if (!value || !value.length) {
             return notSetLabel || 'None selected';
         }
 
-        if (selectedLabel) {
-            if (isFunction(selectedLabel)) {
-                return selectedLabel(value);
-            }
+        const selectedOptions = _filter(mergedOptions, (option) => {
             if (Array.isArray(value)) {
-                return selectedLabel.replace('%d', value.length);
+                return indexOf(value, option.value) > -1;
             }
-            if (isNumber(value)) {
-                return selectedLabel.replace('%d', value.toString());
-            }
-            return selectedLabel.replace('%s', value);
-        }
+            return option.value === value;
+        });
 
-        return Array.isArray(value) ? `${ value.length } selected` : value;
+        if (!selectedLabel) {
+            if (selectedOptions.length === 1) {
+                return selectedOptions[0].label || value;
+            }
+            return `${ selectedOptions.length } selected`;
+        }
+        if (isFunction(selectedLabel)) {
+            return selectedLabel(selectedOptions);
+        }
+        if (indexOf(selectedLabel, '%d') > -1) {
+            return selectedLabel.replace('%d', selectedoptions.length);
+        }
+        return selectedLabel.replace('%s', selectedOptions[0].label || value);
     }
 
     renderDropdownTriggerButton() {

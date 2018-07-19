@@ -141,7 +141,12 @@ stories.add('Default', withState({
                 key="country"
                 fieldName="country"
                 label="Country"
-                selectedLabel={ (n) => (n.length === 1 ? 'One Country' : `${ n.length } Countries`) }
+                selectedLabel={ (value) => {
+                    if (value.length === 1) {
+                        return value[0].label;
+                    }
+                    return `${ value.length } Countries`;
+                }}
                 options={[{
                     label: 'Austria',
                     value: 'at'
@@ -196,7 +201,7 @@ stories.add('Default', withState({
                 key="shirt-size"
                 fieldName="shirtSize"
                 label="Shirt Size"
-                selectedLabel={ (value, label) => (`Shirt Size (${ label })`) }
+                selectedLabel={ (value) => (`Size (${ value.label })`) }
                 options={ [{
                     label: 'Extra Small',
                     value: 'xs'
@@ -219,22 +224,27 @@ stories.add('Default', withState({
                 key="waist-size"
                 fieldName="waistSize"
                 label="Waist Size"
-                selectedLabel={ (value) => (`Waist Size (${ value })`) }
+                selectedLabel={ (value) => (`Waist Size (${ value.selectedLabel || value.label })`) }
                 options={ [{
                     label: 'Extra Small (28)',
+                    selectedLabel: 'Extra Small',
                     value: 28
                 }, {
                     label: 'Small (30)',
+                    selectedLabel: 'Small',
                     value: 30
                 }, {
                     label: 'Medium (32)',
+                    selectedLabel: 'Medium',
                     value: 32
                 }, {
                     label: 'Large (34)',
+                    selectedLabel: 'Large',
                     value: 34,
                     disabled: true
                 }, {
                     label: 'Extra Large (36)',
+                    selectedLabel: 'Extra Large',
                     value: 36,
                     disabled: true
                 }] }
@@ -269,7 +279,12 @@ stories.add('Default', withState({
                 key="period"
                 fieldName="calendarPeriod"
                 label="Calendar Period"
-                selectedLabel="Calendar Period (%d)"
+                selectedLabel={ (value) => {
+                    if (value.length === 1) {
+                        return value[0].label;
+                    }
+                    return `Calendar Period (${ value.length } selected)`;
+                }}
                 options={ [{
                     label: 'Last Month',
                     value: '1m',
