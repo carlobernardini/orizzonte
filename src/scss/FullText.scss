@@ -2,7 +2,6 @@
 
 .orizzonte__filter-fulltext {
     width: 100%;
-    min-height: 50px;
     padding: 5px;
     background-color: #fff;
     border: 1px solid #d0d1d5;
@@ -23,5 +22,8 @@
     &--disabled {
         cursor: not-allowed;
         background-color: #eee;
+    }
+    &--multiline {
+        min-height: 50px;
     }
 }

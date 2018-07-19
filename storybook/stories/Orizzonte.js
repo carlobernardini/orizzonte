@@ -261,6 +261,7 @@ stories.add('Default', withState({
                     length: 20
                 }))}
                 placeholder="Enter some keywords..."
+                multiline
             />,
             <FullText
                 key="disabled"
