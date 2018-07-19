@@ -86,12 +86,12 @@ class Group extends Component {
         return onGroupToggle(i);
     }
 
-    transformLabel(selectedLabel, value) {
+    transformLabel(selectedLabel, value, totalOptionCount) {
         if (!selectedLabel) {
             return null;
         }
         if (isFunction(selectedLabel)) {
-            return selectedLabel(value);
+            return selectedLabel(value, totalOptionCount);
         }
         if (Array.isArray(value)) {
             return selectedLabel.replace('%d', value.length);
@@ -189,7 +189,7 @@ class Group extends Component {
                 indexOf(value, option.value) > -1
             ));
 
-            return this.transformLabel(selectedLabel, selectedOptions);
+            return this.transformLabel(selectedLabel, selectedOptions, options.length);
         });
 
         if (!selectedLabels.length) {

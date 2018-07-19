@@ -197,11 +197,19 @@ stories.add('Default', withState({
         label: 'Sizes',
         selectedLabel: '%d sizes',
         filters: [
-            <Select
+            <Dropdown
                 key="shirt-size"
                 fieldName="shirtSize"
                 label="Shirt Size"
-                selectedLabel={ (value) => (`Size (${ value.label })`) }
+                selectedLabel={ (value, totalCount) => {
+                    if (value.length === 1) {
+                        return `Size (${ value[0].label })`;
+                    }
+                    if (value.length === totalCount) {
+                        return 'Any shirt size';
+                    }
+                    return `Size (${ value.length } selected)`;
+                }}
                 options={ [{
                     label: 'Extra Small',
                     value: 'xs'
@@ -219,12 +227,14 @@ stories.add('Default', withState({
                     value: 'xl'
                 }] }
                 notSetLabel="None"
+                multiple
+                selectAll
             />,
             <Choices
                 key="waist-size"
                 fieldName="waistSize"
                 label="Waist Size"
-                selectedLabel={ (value) => (`Waist Size (${ value.selectedLabel || value.label })`) }
+                selectedLabel={ (value) => (`${ value.selectedLabel || value.label } waist size`) }
                 options={ [{
                     label: 'Extra Small (28)',
                     selectedLabel: 'Extra Small',

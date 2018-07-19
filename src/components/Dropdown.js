@@ -239,10 +239,10 @@ class Dropdown extends Component {
             return `${ selectedOptions.length } selected`;
         }
         if (isFunction(selectedLabel)) {
-            return selectedLabel(selectedOptions);
+            return selectedLabel(selectedOptions, mergedOptions.length);
         }
         if (indexOf(selectedLabel, '%d') > -1) {
-            return selectedLabel.replace('%d', selectedoptions.length);
+            return selectedLabel.replace('%d', selectedOptions.length);
         }
         return selectedLabel.replace('%s', selectedOptions[0].label || value);
     }
@@ -381,6 +381,34 @@ class Dropdown extends Component {
         ));
     }
 
+    renderSelectAll() {
+        const {
+            multiple, onUpdate, options, remote, selectAll, selectAllLabel, value
+        } = this.props;
+
+        if (!selectAll || !multiple || remote) {
+            return null;
+        }
+
+        return (
+            <li
+                className="orizzonte__dropdown-item"
+            >
+                <CheckBox
+                    id={ uniqueId('checkbox-') }
+                    value="select-all"
+                    label={ selectAllLabel || 'Select all' }
+                    selected={ (value || []).length === options.length }
+                    onChange={ (selected) => {
+                        const newValue = selected ? options.map((option) => (option.value)) : null;
+                        onUpdate(newValue);
+                    }}
+                    viewBox={[0, 0, 13, 13]}
+                />
+            </li>
+        );
+    }
+
     render() {
         const { disabled, label } = this.props;
         const { expanded, focused } = this.state;
@@ -406,6 +434,7 @@ class Dropdown extends Component {
                     <ul
                         className="orizzonte__dropdown-list"
                     >
+                        { this.renderSelectAll() }
                         { this.renderList() }
                     </ul>
                 </div>
@@ -444,6 +473,13 @@ Dropdown.propTypes = {
         searchParam: PropTypes.string.isRequired,
         transformer: PropTypes.func
     }),
+    /** Whether to include a select all option on multiselects
+        This is not supported when remote source is configured
+     */
+    selectAll: PropTypes.bool,
+    /** What label to show for the select all option
+     */
+    selectAllLabel: PropTypes.string,
     selectedLabel: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.func
@@ -459,6 +495,8 @@ Dropdown.defaultProps = {
     onUpdate: () => {},
     options: [],
     remote: null,
+    selectAll: false,
+    selectAllLabel: null,
     selectedLabel: null,
     value: []
 };
