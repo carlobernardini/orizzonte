@@ -240,7 +240,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, i, included
+            activeGroup, className, groupTopLabels, i, included, label
         } = this.props;
         const { removing } = this.state;
 
@@ -262,6 +262,9 @@ class Group extends Component {
                     type="button"
                     onClick={ this.toggleGroup }
                     className="orizzonte__group-label"
+                    style={{
+                        minWidth: groupTopLabels && label ? `${ (label.length * 5) + 30 }px` : null
+                    }}
                 >
                     { this.renderLabel() }
                 </button>
