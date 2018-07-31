@@ -14,19 +14,30 @@
     }
 }
 
-.orizzonte__list-done {
+.orizzonte__list-controls {
+    display: flex;
+    margin: 10px 15px;
+}
+
+.orizzonte__list-control {
     outline: none;
     border: none;
-    background-color: $color-c;
     color: #fff;
-    border-radius: 5px;
     padding: 5px 0;
-    margin: 5px 10px;
-    text-align: center;
-    width: calc(100% - 20px);
     cursor: pointer;
     transition: all .3s;
+    display: table-cell;
+    text-align: center;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @extend %fonts;
+}
+
+.orizzonte__list-done {
+    background-color: $color-c;
+    border-radius: 5px;
     font: {
         weight: 500;
     }
@@ -34,6 +45,10 @@
     &:hover {
         background-color: lighten($color-c, 5%);
     }
+}
+
+.orizzonte__list-clear {
+    color: $color-a;
 }
 
 .orizzonte__item {

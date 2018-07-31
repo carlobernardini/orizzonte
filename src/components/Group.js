@@ -144,6 +144,7 @@ class Group extends Component {
 
         return (
             <List
+                clearBtn
                 isFilterGroup
                 items={ filters }
                 values={ listValues }
@@ -151,6 +152,10 @@ class Group extends Component {
                 onApply={ () => {
                     this.toggleGroup();
                     onUpdate(groupValues);
+                }}
+                onClear={ () => {
+                    this.toggleGroup();
+                    onUpdate(filterFields);
                 }}
                 onUpdate={ (fieldName, value) => {
                     if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {

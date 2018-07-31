@@ -14,14 +14,49 @@ class List extends Component {
         }
 
         return (
-            <li>
-                <button
-                    type="button"
-                    className="orizzonte__list-done"
-                    onClick={ onApply }
-                >
-                    { doneBtnLabel || 'Done' }
-                </button>
+            <button
+                type="button"
+                className="orizzonte__list-control orizzonte__list-done"
+                onClick={ onApply }
+            >
+                { doneBtnLabel || 'Done' }
+            </button>
+        );
+    }
+
+    renderClearBtn() {
+        const {
+            clearBtn, clearBtnLabel, isFilterGroup, onClear
+        } = this.props;
+
+        if (!isFilterGroup || !clearBtn) {
+            return null;
+        }
+
+        return (
+            <button
+                type="button"
+                className="orizzonte__list-control orizzonte__list-clear"
+                onClick={ onClear }
+            >
+                { clearBtnLabel || 'Clear' }
+            </button>
+        );
+    }
+
+    renderListControls() {
+        const { clearBtn, doneBtn } = this.props;
+
+        if (!clearBtn && !doneBtn) {
+            return null;
+        }
+
+        return (
+            <li
+                className="orizzonte__list-controls"
+            >
+                { this.renderClearBtn() }
+                { this.renderDoneBtn() }
             </li>
         );
     }
@@ -77,19 +112,22 @@ class List extends Component {
                 }) }
             >
                 { this.renderItems() }
-                { this.renderDoneBtn() }
+                { this.renderListControls() }
             </ul>
         );
     }
 }
 
 List.propTypes = {
+    clearBtn: PropTypes.bool,
+    clearBtnLabel: PropTypes.string,
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
     values: PropTypes.object,
     isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired,
     onApply: PropTypes.func,
+    onClear: PropTypes.func,
     onUpdate: PropTypes.func,
     orientation: PropTypes.oneOf([
         'left',
@@ -98,11 +136,14 @@ List.propTypes = {
 };
 
 List.defaultProps = {
+    clearBtn: false,
+    clearBtnLabel: null,
     doneBtn: true,
     doneBtnLabel: null,
     values: {},
     isFilterGroup: false,
     onApply: () => {},
+    onClear: () => {},
     onUpdate: () => {},
     orientation: 'left'
 };
