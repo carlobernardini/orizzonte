@@ -66,7 +66,7 @@ class List extends Component {
 
     renderItems() {
         const {
-            values, items, isFilterGroup, onUpdate
+            values: groupValues, items, isFilterGroup, onUpdate
         } = this.props;
 
         if (isFilterGroup) {
@@ -83,7 +83,7 @@ class List extends Component {
                                 return null;
                             }
                             return v[fn];
-                        })(values, item.props.fieldName),
+                        })(groupValues, item.props.fieldName),
                         onUpdate: (filterValue) => {
                             const { fieldName } = item.props;
                             onUpdate(fieldName, filterValue);
