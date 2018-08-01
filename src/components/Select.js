@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ disabled, label, notSetLabel, onUpdate, options, value = '' }) => (
+const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, value = '' }) => (
     <div
         className="orizzonte__filter"
     >
+        <FilterInfo information={ information } />
         <div
             className="orizzonte__filter-caption"
         >
@@ -48,6 +50,7 @@ const Select = ({ disabled, label, notSetLabel, onUpdate, options, value = '' })
 Select.propTypes = {
     /** If the select should be disabled */
     disabled: PropTypes.bool,
+    information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Which label the first (empty) option should have in case the select can be empty */
@@ -75,6 +78,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
     disabled: false,
+    information: null,
     notSetLabel: false,
     onUpdate: () => {},
     value: ''

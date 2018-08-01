@@ -140,6 +140,7 @@ stories.add('Default', withState({
             />,
             <Dropdown
                 key="country"
+                information="Choose one or more countries (optional)"
                 fieldName="country"
                 label="Country"
                 selectedLabel={ (value) => {

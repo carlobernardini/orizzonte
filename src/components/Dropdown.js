@@ -9,6 +9,7 @@ import {
 import diacritics from 'diacritics';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
+import FilterInfo from './FilterInfo';
 import '../scss/Dropdown.scss';
 
 class Dropdown extends Component {
@@ -410,13 +411,14 @@ class Dropdown extends Component {
     }
 
     render() {
-        const { disabled, label } = this.props;
+        const { information, disabled, label } = this.props;
         const { expanded, focused } = this.state;
 
         return (
             <div
                 className="orizzonte__filter"
             >
+                <FilterInfo information={ information } />
                 <div
                     className="orizzonte__filter-caption"
                 >
@@ -444,6 +446,7 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
+    information: PropTypes.string,
     disabled: PropTypes.bool,
     /** Filter dropdown options and highlight matches */
     filter: PropTypes.shape({
@@ -488,6 +491,7 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+    information: null,
     disabled: false,
     filter: null,
     multiple: true,

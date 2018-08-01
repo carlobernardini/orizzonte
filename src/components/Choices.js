@@ -4,6 +4,7 @@ import {
     includes, isEqual, uniqueId, without
 } from 'lodash';
 import CheckBox from './CheckBox';
+import FilterInfo from './FilterInfo';
 import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
 
@@ -55,11 +56,12 @@ class Choices extends Component {
     }
 
     render() {
-        const { label } = this.props;
+        const { information, label } = this.props;
         return (
             <div
                 className="orizzonte__filter"
             >
+                <FilterInfo information={ information } />
                 <div
                     className="orizzonte__filter-caption"
                 >
@@ -74,6 +76,7 @@ class Choices extends Component {
 Choices.propTypes = {
     /** Field name for this filter, to be used in composed query */
     fieldName: PropTypes.string.isRequired,
+    information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Whether to show checkboxes (true) or radios (false) */
@@ -104,6 +107,7 @@ Choices.propTypes = {
 };
 
 Choices.defaultProps = {
+    information: null,
     multiple: false,
     onUpdate: () => {},
     value: null

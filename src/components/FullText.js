@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
 
@@ -45,12 +46,13 @@ class FullText extends Component {
     }
 
     render() {
-        const { label } = this.props;
+        const { information, label } = this.props;
 
         return (
             <div
                 className="orizzonte__filter"
             >
+                <FilterInfo information={ information } />
                 <div
                     className="orizzonte__filter-caption"
                 >
@@ -65,6 +67,7 @@ class FullText extends Component {
 FullText.propTypes = {
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
+    information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     multiline: PropTypes.bool,
@@ -78,6 +81,7 @@ FullText.propTypes = {
 
 FullText.defaultProps = {
     disabled: false,
+    information: null,
     multiline: false,
     onUpdate: () => {},
     placeholder: null,
