@@ -37,6 +37,19 @@ class Group extends Component {
         return onGroupToggle(false);
     }
 
+    static getDerivedStateFromProps(props, state) {
+        const { activeGroup, i } = props;
+        const { groupValues } = state;
+
+        if (activeGroup === i || !Object.keys(groupValues).length) {
+            return null;
+        }
+
+        return {
+            groupValues: {}
+        };
+    }
+
     queryHasGroupFilters() {
         const { children, queryPart } = this.props;
 
