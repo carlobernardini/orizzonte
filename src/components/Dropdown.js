@@ -7,6 +7,7 @@ import {
     isEqual, isFunction, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
+import utils from '../utils';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
 import FilterInfo from './FilterInfo';
@@ -221,12 +222,13 @@ class Dropdown extends Component {
     renderButtonLabel() {
         const { notSetLabel, value, selectedLabel } = this.props;
         const mergedOptions = this.getMergedOptions();
+        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
 
         if (!value || !value.length) {
             return notSetLabel || 'None selected';
         }
 
-        const selectedOptions = _filter(mergedOptions, (option) => {
+        const selectedOptions = _filter(flatOptions, (option) => {
             if (Array.isArray(value)) {
                 return indexOf(value, option.value) > -1;
             }
@@ -240,7 +242,7 @@ class Dropdown extends Component {
             return `${ selectedOptions.length } selected`;
         }
         if (isFunction(selectedLabel)) {
-            return selectedLabel(selectedOptions, mergedOptions.length);
+            return selectedLabel(selectedOptions, flatOptions.length);
         }
         if (indexOf(selectedLabel, '%d') > -1) {
             return selectedLabel.replace('%d', selectedOptions.length);
@@ -372,14 +374,42 @@ class Dropdown extends Component {
             );
         }
 
-        return options.map((option, i) => (
-            <li
-                key={ `${ option.value }.${ i }` }
-                className="orizzonte__dropdown-item"
-            >
-                { this.renderItem(option) }
-            </li>
-        ));
+        return options.map((option, i) => {
+            if (option.children) {
+                if (!option.children.length) {
+                    return null;
+                }
+
+                return (
+                    <ul
+                        className="orizzonte__dropdown-group"
+                        key={ `${ option.value }.${ i }` }
+                    >
+                        <li
+                            className="orizzonte__dropdown-item--empty orizzonte__dropdown-group-label"
+                        >
+                            { option.value }
+                        </li>
+                        { option.children.map((child, j) => (
+                            <li
+                                key={ `${ child.value }.${ i }.${ j }` }
+                                className="orizzonte__dropdown-item"
+                            >
+                                { this.renderItem(child) }
+                            </li>
+                        )) }
+                    </ul>
+                );
+            }
+            return (
+                <li
+                    key={ `${ option.value }.${ i }` }
+                    className="orizzonte__dropdown-item"
+                >
+                    { this.renderItem(option) }
+                </li>
+            );
+        });
     }
 
     renderSelectAll() {
@@ -391,6 +421,8 @@ class Dropdown extends Component {
             return null;
         }
 
+        const { flatOptions } = utils.getFlattenedOptions(options);
+
         return (
             <li
                 className="orizzonte__dropdown-item"
@@ -399,9 +431,12 @@ class Dropdown extends Component {
                     id={ uniqueId('checkbox-') }
                     value="select-all"
                     label={ selectAllLabel || 'Select all' }
-                    selected={ (value || []).length === options.length }
+                    selected={ (value || []).length === flatOptions.length }
                     onChange={ (selected) => {
-                        const newValue = selected ? options.map((option) => (option.value)) : null;
+                        const newValue = selected
+                            ? flatOptions.map((option) => (option.value))
+                            : null;
+
                         onUpdate(newValue);
                     }}
                     viewBox={[0, 0, 13, 13]}
@@ -466,7 +501,16 @@ Dropdown.propTypes = {
                 PropTypes.number,
                 PropTypes.string
             ]).isRequired,
-            label: PropTypes.any
+            label: PropTypes.any,
+            children: PropTypes.arrayOf(
+                PropTypes.shape({
+                    value: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string
+                    ]).isRequired,
+                    label: PropTypes.any
+                })
+            )
         })
     ),
     /** Remote API to fetch dropdown options from */
@@ -494,7 +538,7 @@ Dropdown.defaultProps = {
     information: null,
     disabled: false,
     filter: null,
-    multiple: true,
+    multiple: false,
     notSetLabel: null,
     onUpdate: () => {},
     options: [],

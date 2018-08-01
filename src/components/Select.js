@@ -36,11 +36,15 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
                     : null
             }
             { options.map((option, i) => {
-                if (option.group && option.children) {
+                if (option.children) {
+                    if (!option.children.length) {
+                        return null;
+                    }
+
                     return (
                         <optgroup
-                            key={ `${ option.group }.${ i }` }
-                            label={ option.group }
+                            key={ `${ option.value }.${ i }` }
+                            label={ option.value }
                         >
                             { option.children.map((child, j) => (
                                 <option
@@ -86,7 +90,16 @@ Select.propTypes = {
             value: PropTypes.oneOfType([
                 PropTypes.number,
                 PropTypes.string
-            ]).isRequired
+            ]).isRequired,
+            children: PropTypes.arrayOf(
+                PropTypes.shape({
+                    value: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string
+                    ]).isRequired,
+                    label: PropTypes.any
+                })
+            )
         })
     ).isRequired,
     value: PropTypes.oneOfType([

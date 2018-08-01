@@ -125,7 +125,7 @@ stories.add('Default', withState({
                 label="Language"
                 selectedLabel="%s (Primary)"
                 options={ [{
-                    group: 'English',
+                    value: 'English',
                     children: [{
                         label: 'UK English',
                         value: 'en-gb'
@@ -219,20 +219,26 @@ stories.add('Default', withState({
                     return `Size (${ value.length } selected)`;
                 }}
                 options={ [{
-                    label: 'Extra Small',
-                    value: 'xs'
-                }, {
-                    label: 'Small',
-                    value: 's'
+                    value: 'Small sizes',
+                    children: [{
+                        label: 'Extra Small',
+                        value: 'xs'
+                    }, {
+                        label: 'Small',
+                        value: 's'
+                    }]
                 }, {
                     label: 'Medium',
                     value: 'm'
                 }, {
-                    label: 'Large',
-                    value: 'l'
-                }, {
-                    label: 'Extra Large',
-                    value: 'xl'
+                    value: 'Large sizes',
+                    children: [{
+                        label: 'Large',
+                        value: 'l'
+                    }, {
+                        label: 'Extra Large',
+                        value: 'xl'
+                    }]
                 }] }
                 notSetLabel="None"
                 multiple

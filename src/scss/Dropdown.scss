@@ -143,6 +143,19 @@
 	}
 }
 
+.orizzonte__dropdown-group {
+	padding-left: 0;
+
+	.orizzonte__dropdown-item {
+		padding-left: 22px;
+	}
+
+	&-label {
+		background-color: #eee;
+		color: #000;
+	}
+}
+
 .orizzonte__dropdown-match {
 	font-weight: 500;
 }

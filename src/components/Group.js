@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, flatMap, indexOf, intersection, isEqual, isFunction, isNumber, pick
+    assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
+import utils from '../utils';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -47,17 +48,6 @@ class Group extends Component {
 
         return {
             groupValues: {}
-        };
-    }
-
-    getFlattenedOptions(nestedOptions) {
-        return {
-            flatOptions: flatMap(nestedOptions, (option) => {
-                if (option.group && option.children) {
-                    return option.children;
-                }
-                return option;
-            })
         };
     }
 
@@ -212,7 +202,7 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
-            const { flatOptions } = this.getFlattenedOptions(options);
+            const { flatOptions } = utils.getFlattenedOptions(options);
 
             const value = queryPart[fieldName];
 
