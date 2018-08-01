@@ -35,14 +35,33 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
                     )
                     : null
             }
-            { options.map((option, i) => (
-                <option
-                    key={ `${ option.value }.${ i }` }
-                    value={ option.value }
-                >
-                    { option.label || option.value }
-                </option>
-            )) }
+            { options.map((option, i) => {
+                if (option.group && option.children) {
+                    return (
+                        <optgroup
+                            key={ `${ option.group }.${ i }` }
+                            label={ option.group }
+                        >
+                            { option.children.map((child, j) => (
+                                <option
+                                    key={ `${ child.value }.${ i }.${ j }` }
+                                    value={ child.value }
+                                >
+                                    { child.label || child.value }
+                                </option>
+                            )) }
+                        </optgroup>
+                    );
+                }
+                return (
+                    <option
+                        key={ `${ option.value }.${ i }` }
+                        value={ option.value }
+                    >
+                        { option.label || option.value }
+                    </option>
+                );
+            }) }
         </select>
     </div>
 );

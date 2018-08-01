@@ -125,8 +125,14 @@ stories.add('Default', withState({
                 label="Language"
                 selectedLabel="%s (Primary)"
                 options={ [{
-                    label: 'English',
-                    value: 'en'
+                    group: 'English',
+                    children: [{
+                        label: 'UK English',
+                        value: 'en-gb'
+                    }, {
+                        label: 'US English',
+                        value: 'en-us'
+                    }]
                 }, {
                     label: 'French',
                     value: 'fr'

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
+    assign, concat, filter, find, flatMap, indexOf, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
 import List from './List';
 import '../scss/Group.scss';
@@ -47,6 +47,17 @@ class Group extends Component {
 
         return {
             groupValues: {}
+        };
+    }
+
+    getFlattenedOptions(nestedOptions) {
+        return {
+            flatOptions: flatMap(nestedOptions, (option) => {
+                if (option.group && option.children) {
+                    return option.children;
+                }
+                return option;
+            })
         };
     }
 
@@ -201,22 +212,23 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
+            const { flatOptions } = this.getFlattenedOptions(options);
 
             const value = queryPart[fieldName];
 
             if (!options) {
                 return this.transformLabel(selectedLabel, value);
             }
-            if (!Array.isArray(value) && options) {
-                const selectedOption = find(options, (option) => (option.value === value));
+            if (!Array.isArray(value) && flatOptions) {
+                const selectedOption = find(flatOptions, (option) => (option.value === value));
                 return this.transformLabel(selectedLabel, selectedOption);
             }
 
-            const selectedOptions = filter(options, (option) => (
+            const selectedOptions = filter(flatOptions, (option) => (
                 indexOf(value, option.value) > -1
             ));
 
-            return this.transformLabel(selectedLabel, selectedOptions, options.length);
+            return this.transformLabel(selectedLabel, selectedOptions, flatOptions.length);
         });
 
         if (!selectedLabels.length) {
