@@ -138,7 +138,8 @@ stories.add('Default', withState({
                     value: 'fr'
                 }, {
                     label: 'German',
-                    value: 'de'
+                    value: 'de',
+                    disabled: true
                 }, {
                     label: 'Dutch',
                     value: 'nl'
@@ -222,7 +223,8 @@ stories.add('Default', withState({
                     value: 'Small sizes',
                     children: [{
                         label: 'Extra Small',
-                        value: 'xs'
+                        value: 'xs',
+                        disabled: true
                     }, {
                         label: 'Small',
                         value: 's'

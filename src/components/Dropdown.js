@@ -393,7 +393,9 @@ class Dropdown extends Component {
                         { option.children.map((child, j) => (
                             <li
                                 key={ `${ child.value }.${ i }.${ j }` }
-                                className="orizzonte__dropdown-item"
+                                className={ classNames('orizzonte__dropdown-item', {
+                                    'orizzonte__dropdown-item--disabled': child.disabled
+                                }) }
                             >
                                 { this.renderItem(child) }
                             </li>
@@ -404,7 +406,9 @@ class Dropdown extends Component {
             return (
                 <li
                     key={ `${ option.value }.${ i }` }
-                    className="orizzonte__dropdown-item"
+                    className={ classNames('orizzonte__dropdown-item', {
+                        'orizzonte__dropdown-item--disabled': option.disabled
+                    }) }
                 >
                     { this.renderItem(option) }
                 </li>
@@ -431,10 +435,15 @@ class Dropdown extends Component {
                     id={ uniqueId('checkbox-') }
                     value="select-all"
                     label={ selectAllLabel || 'Select all' }
-                    selected={ (value || []).length === flatOptions.length }
+                    selected={ (value || []).length === flatOptions
+                        .filter((option) => (!option.disabled))
+                        .length
+                    }
                     onChange={ (selected) => {
                         const newValue = selected
-                            ? flatOptions.map((option) => (option.value))
+                            ? flatOptions
+                                .filter((option) => (!option.disabled))
+                                .map((option) => (option.value))
                             : null;
 
                         onUpdate(newValue);
@@ -497,6 +506,7 @@ Dropdown.propTypes = {
     /** Collection of dropdown options */
     options: PropTypes.arrayOf(
         PropTypes.shape({
+            disabled: PropTypes.bool,
             value: PropTypes.oneOfType([
                 PropTypes.number,
                 PropTypes.string
@@ -504,6 +514,7 @@ Dropdown.propTypes = {
             label: PropTypes.any,
             children: PropTypes.arrayOf(
                 PropTypes.shape({
+                    disabled: PropTypes.bool,
                     value: PropTypes.oneOfType([
                         PropTypes.number,
                         PropTypes.string

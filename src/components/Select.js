@@ -29,7 +29,9 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
             {
                 notSetLabel
                     ? (
-                        <option value="">
+                        <option
+                            value=""
+                        >
                             { notSetLabel }
                         </option>
                     )
@@ -48,6 +50,7 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
                         >
                             { option.children.map((child, j) => (
                                 <option
+                                    disabled={ child.disabled }
                                     key={ `${ child.value }.${ i }.${ j }` }
                                     value={ child.value }
                                 >
@@ -57,8 +60,10 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
                         </optgroup>
                     );
                 }
+
                 return (
                     <option
+                        disabled={ option.disabled }
                         key={ `${ option.value }.${ i }` }
                         value={ option.value }
                     >
@@ -86,6 +91,7 @@ Select.propTypes = {
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
+            disabled: PropTypes.bool,
             label: PropTypes.string,
             value: PropTypes.oneOfType([
                 PropTypes.number,
@@ -93,6 +99,7 @@ Select.propTypes = {
             ]).isRequired,
             children: PropTypes.arrayOf(
                 PropTypes.shape({
+                    disabled: PropTypes.bool,
                     value: PropTypes.oneOfType([
                         PropTypes.number,
                         PropTypes.string
