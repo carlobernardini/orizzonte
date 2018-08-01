@@ -33,6 +33,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     @extend %fonts;
+
+    + .orizzonte__list-control {
+        margin-left: 3px;
+    }
 }
 
 .orizzonte__list-done {
@@ -51,6 +55,11 @@
 .orizzonte__list-clear {
     background-color: #FFF;
     color: $color-a;
+    transition: color .3s;
+
+    &--disabled {
+        color: #999;
+    }
 }
 
 .orizzonte__item {
