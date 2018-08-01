@@ -16,7 +16,7 @@
 
 .orizzonte__list-controls {
     display: flex;
-    margin: 10px 15px;
+    margin: 5px 10px;
 }
 
 .orizzonte__list-control {
@@ -38,6 +38,7 @@
 .orizzonte__list-done {
     background-color: $color-c;
     border-radius: 5px;
+    flex-grow: 1.5;
     font: {
         weight: 500;
     }
