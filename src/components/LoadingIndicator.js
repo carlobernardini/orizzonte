@@ -22,6 +22,8 @@ const LoadingIndicator = ({ size }) => (
     </svg>
 );
 
+LoadingIndicator.displayName = 'OrizzonteLoadingIndicator';
+
 LoadingIndicator.propTypes = {
     size: PropTypes.oneOfType([
         PropTypes.number,

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../scss/FilterInfo.scss';
 
-const FilterDescription = (({ information }) => (
+const FilterInfo = (({ information }) => (
     information
         ? (
             <div
@@ -19,12 +19,14 @@ const FilterDescription = (({ information }) => (
         : null
 ));
 
-FilterDescription.propTypes = {
+FilterInfo.displayName = 'OrizzonteFilterInfo';
+
+FilterInfo.propTypes = {
     information: PropTypes.string
 };
 
-FilterDescription.defaultProps = {
+FilterInfo.defaultProps = {
     information: null
 };
 
-export default FilterDescription;
+export default FilterInfo;

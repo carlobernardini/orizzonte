@@ -97,6 +97,8 @@ class BtnAdd extends Component {
     }
 }
 
+BtnAdd.displayName = 'OrizzonteBtnAdd';
+
 BtnAdd.propTypes = {
     available: PropTypes.array,
     disabled: PropTypes.bool,

@@ -75,6 +75,8 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
     </div>
 );
 
+Select.displayName = 'OrizzonteSelect';
+
 Select.propTypes = {
     /** If the select should be disabled */
     disabled: PropTypes.bool,

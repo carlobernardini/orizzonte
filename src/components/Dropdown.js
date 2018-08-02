@@ -489,6 +489,8 @@ class Dropdown extends Component {
     }
 }
 
+Dropdown.displayName = 'OrizzonteDropdown';
+
 Dropdown.propTypes = {
     information: PropTypes.string,
     disabled: PropTypes.bool,

@@ -121,6 +121,8 @@ class List extends Component {
     }
 }
 
+List.displayName = 'OrizzonteList';
+
 List.propTypes = {
     clearBtn: PropTypes.bool,
     clearBtnLabel: PropTypes.string,

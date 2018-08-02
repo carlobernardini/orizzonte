@@ -198,6 +198,8 @@ class Orizzonte extends Component {
     }
 }
 
+Orizzonte.displayName = 'Orizzonte';
+
 Orizzonte.propTypes = {
     /** Indicates if a newly added group should auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,

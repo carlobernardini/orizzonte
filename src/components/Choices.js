@@ -73,6 +73,8 @@ class Choices extends Component {
     }
 }
 
+Choices.displayName = 'OrizzonteChoices';
+
 Choices.propTypes = {
     /** Field name for this filter, to be used in composed query */
     fieldName: PropTypes.string.isRequired,

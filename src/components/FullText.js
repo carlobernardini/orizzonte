@@ -64,6 +64,8 @@ class FullText extends Component {
     }
 }
 
+FullText.displayName = 'OrizzonteFullText';
+
 FullText.propTypes = {
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
