@@ -15,6 +15,7 @@ class Group extends Component {
         this.state = {
             removing: false,
             groupValues: {},
+            hasError: false
         };
 
         this.removeGroup = this.removeGroup.bind(this);
@@ -49,6 +50,12 @@ class Group extends Component {
         return {
             groupValues: {}
         };
+    }
+
+    componentDidCatch() {
+        this.setState({
+            hasError: true
+        });
     }
 
     queryHasGroupFilters() {
@@ -262,10 +269,21 @@ class Group extends Component {
         const {
             activeGroup, className, groupTopLabels, i, included, label
         } = this.props;
-        const { removing } = this.state;
+        const { hasError, removing } = this.state;
 
         if (!included) {
             return null;
+        }
+
+        if (hasError) {
+            return (
+                <div
+                    className="orizzonte__group orizzonte__group--error"
+                >
+                    Something went wrong...
+                    { this.renderBtn() }
+                </div>
+            );
         }
 
         return (
