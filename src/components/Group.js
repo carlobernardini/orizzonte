@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
+    assign, concat, filter, find, indexOf, intersection,
+    isEqual, isFunction, isNumber, isObject, mapValues, pick
 } from 'lodash';
 import utils from '../utils';
 import List from './List';
@@ -145,7 +146,10 @@ class Group extends Component {
         }
 
         const filterFields = this.queryHasGroupFilters();
-        const listValues = assign({}, pick(queryPart, filterFields), groupValues);
+        const mappedGroupValues = mapValues(groupValues, (values) => (
+            values.map((value) => (isObject(value) ? value.value : value))
+        ));
+        const listValues = assign({}, pick(queryPart, filterFields), mappedGroupValues);
 
         const filters = description ? concat([
             <div
@@ -177,6 +181,8 @@ class Group extends Component {
                     }
                     const values = { ...groupValues };
                     values[fieldName] = value;
+
+                    console.log(values);
 
                     this.setState({
                         groupValues: values

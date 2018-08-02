@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
 import {
-    assign, debounce, filter as _filter, includes, indexOf,
-    isEqual, isFunction, unionBy, uniqueId, without
+    assign, debounce, filter as _filter, findIndex, indexOf,
+    isEqual, isFunction, unionBy, uniqueId
 } from 'lodash';
 import diacritics from 'diacritics';
 import utils from '../utils';
@@ -290,6 +290,7 @@ class Dropdown extends Component {
                         className="orizzonte__dropdown-filter"
                         onChange={ (e) => {
                             const { value } = e.target;
+
                             this.setState({
                                 filter: filter.matchDiacritics ? value : diacritics.remove(value)
                             }, () => {
@@ -332,6 +333,9 @@ class Dropdown extends Component {
             return highlightedLabel;
         }
 
+        const mergedOptions = this.getMergedOptions();
+        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
+
         return (
             <CheckBox
                 disabled={ option.disabled }
@@ -340,16 +344,23 @@ class Dropdown extends Component {
                 label={ highlightedLabel }
                 selected={ (value || []).indexOf(option.value) > -1 }
                 onChange={ (selected) => {
-                    let newValue = (value || []).slice(0);
-                    if (selected && !includes(newValue, option.value)) {
-                        newValue.push(option.value);
+                    let newValue = flatOptions
+                        .slice(0)
+                        .filter((o) => ((value || []).indexOf(o.value) > -1));
+
+                    if (selected && findIndex(newValue, ['value', option.value]) === -1) {
+                        newValue.push(option);
                     }
-                    if (!selected && includes(newValue, option.value)) {
-                        newValue = without(newValue, option.value);
+
+                    if (!selected && findIndex(newValue, ['value', option.value]) > -1) {
+                        newValue = newValue.filter((o) => (o.value !== option.value));
                     }
+
                     if (isEqual(newValue, value)) {
                         return false;
                     }
+                    console.log(newValue);
+
                     onUpdate(newValue.length ? newValue : null);
                     return true;
                 }}
@@ -441,9 +452,7 @@ class Dropdown extends Component {
                     }
                     onChange={ (selected) => {
                         const newValue = selected
-                            ? flatOptions
-                                .filter((option) => (!option.disabled))
-                                .map((option) => (option.value))
+                            ? flatOptions.filter((option) => (!option.disabled))
                             : null;
 
                         onUpdate(newValue);

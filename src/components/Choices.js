@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    includes, isEqual, uniqueId, without
+    findIndex, isEqual, uniqueId
 } from 'lodash';
 import CheckBox from './CheckBox';
 import FilterInfo from './FilterInfo';
@@ -24,16 +24,22 @@ class Choices extends Component {
                     selected={ (value || []).indexOf(option.value) > -1 }
                     label={ option.label || option.value }
                     onChange={ (selected) => {
-                        let newValue = (value || []).slice(0);
-                        if (selected && !includes(newValue, option.value)) {
-                            newValue.push(option.value);
+                        let newValue = options
+                            .slice(0)
+                            .filter((o) => ((value || []).indexOf(o.value) > -1));
+
+                        if (selected && findIndex(newValue, ['value', option.value]) === -1) {
+                            newValue.push(option);
                         }
-                        if (!selected && includes(newValue, option.value)) {
-                            newValue = without(newValue, option.value);
+
+                        if (!selected && findIndex(newValue, ['value', option.value]) > -1) {
+                            newValue = newValue.filter((o) => (o.value !== option.value));
                         }
+
                         if (isEqual(newValue, value)) {
                             return false;
                         }
+
                         onUpdate(newValue.length ? newValue : null);
                         return true;
                     }}
@@ -48,7 +54,7 @@ class Choices extends Component {
                 name={ fieldName }
                 disabled={ option.disabled }
                 value={ option.value }
-                selected={ value === option.value }
+                selected={ value && value === option.value }
                 label={ option.label || option.value }
                 onChange={ (selectedValue) => (onUpdate(selectedValue)) }
             />
