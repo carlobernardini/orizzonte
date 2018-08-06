@@ -161,6 +161,7 @@ stories.add('Default', withState({
                 multiple
                 filter={{
                     enabled: true,
+                    matchPosition: 'start',
                     placeholder: 'Search options...'
                 }}
                 remote={{

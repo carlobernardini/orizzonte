@@ -68,6 +68,7 @@ class Dropdown extends Component {
 
     getFilteredOptions() {
         const { filter } = this.state;
+        const { filter: filterProp } = this.props;
 
         const mergedOptions = this.getMergedOptions();
 
@@ -75,7 +76,7 @@ class Dropdown extends Component {
             return mergedOptions;
         }
 
-        const re = new RegExp(`(${ filter })`, 'gi');
+        const re = new RegExp(`${ filterProp.matchPosition === 'start' ? '^' : '' }(${ filter })`, 'gi');
 
         return mergedOptions.filter((option) => {
             const label = option.label || option.value;
@@ -449,6 +450,10 @@ Dropdown.propTypes = {
     filter: PropTypes.shape({
         enabled: PropTypes.bool.isRequired,
         matchDiacritics: PropTypes.bool,
+        matchPosition: PropTypes.oneOf([
+            'any',
+            'start'
+        ]),
         placeholder: PropTypes.string
     }),
     label: PropTypes.string.isRequired,
