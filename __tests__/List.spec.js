@@ -6,10 +6,12 @@ import Select from '../src/components/Select';
 describe('<List />', () => {
     it('should render a list of filters', () => {
         const fieldName = 'myAPIField';
+        const onApply = jest.fn();
         const onUpdate = jest.fn();
         const wrapper = shallow(
             <List
                 isFilterGroup
+                onApply={ onApply }
                 onUpdate={ onUpdate }
                 items={ [
                     <Select
@@ -52,6 +54,9 @@ describe('<List />', () => {
 
         wrapper.find(Select).props().onUpdate(1);
         expect(onUpdate).toHaveBeenCalledWith(fieldName, 1);
+
+        wrapper.find('.orizzonte__list-done').simulate('click');
+        expect(onApply).toHaveBeenCalled();
     });
 
     it('should render a list of filters without done button', () => {
@@ -99,12 +104,16 @@ describe('<List />', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a list of filters with custom done button and orientation', () => {
+    it('should render a list of filters with clear button, custom done button and custom orientation', () => {
+        const onClear = jest.fn();
+
         const wrapper = shallow(
             <List
                 isFilterGroup
+                clearBtn
                 doneBtnLabel="Apply"
                 orientation="right"
+                onClear={ onClear }
                 items={ [
                     <Select
                         label="Test select"
@@ -143,6 +152,9 @@ describe('<List />', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
+
+        wrapper.find('.orizzonte__list-clear').simulate('click');
+        expect(onClear).toHaveBeenCalled();
     });
 
     it('should render a list of clickable items', () => {

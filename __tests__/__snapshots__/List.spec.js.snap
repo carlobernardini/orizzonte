@@ -28,6 +28,9 @@ exports[`<List /> should render a list of clickable items 1`] = `
       Filter 2
     </a>
   </li>
+  <li
+    className="orizzonte__list-controls"
+  />
 </ul>
 `;
 
@@ -39,9 +42,10 @@ exports[`<List /> should render a list of filters 1`] = `
     className="orizzonte__item orizzonte__item--filters"
     key="0/.0"
   >
-    <Select
+    <OrizzonteSelect
       disabled={false}
       fieldName="myAPIField"
+      information={null}
       label="Test select"
       notSetLabel="None"
       onUpdate={[Function]}
@@ -68,8 +72,9 @@ exports[`<List /> should render a list of filters 1`] = `
     className="orizzonte__item orizzonte__item--filters"
     key="1/.1"
   >
-    <Choices
+    <OrizzonteChoices
       fieldName="myAPIField"
+      information={null}
       label="Test multiple choices"
       multiple={true}
       onUpdate={[Function]}
@@ -94,10 +99,12 @@ exports[`<List /> should render a list of filters 1`] = `
       value={null}
     />
   </li>
-  <li>
+  <li
+    className="orizzonte__list-controls"
+  >
     <button
-      className="orizzonte__list-done"
-      onClick={[Function]}
+      className="orizzonte__list-control orizzonte__list-done"
+      onClick={[MockFunction]}
       type="button"
     >
       Done
@@ -106,7 +113,7 @@ exports[`<List /> should render a list of filters 1`] = `
 </ul>
 `;
 
-exports[`<List /> should render a list of filters with custom done button and orientation 1`] = `
+exports[`<List /> should render a list of filters with clear button, custom done button and custom orientation 1`] = `
 <ul
   className="orizzonte__list orizzonte__list--right"
 >
@@ -114,8 +121,9 @@ exports[`<List /> should render a list of filters with custom done button and or
     className="orizzonte__item orizzonte__item--filters"
     key="0/.0"
   >
-    <Select
+    <OrizzonteSelect
       disabled={false}
+      information={null}
       label="Test select"
       notSetLabel={false}
       onUpdate={[Function]}
@@ -142,8 +150,9 @@ exports[`<List /> should render a list of filters with custom done button and or
     className="orizzonte__item orizzonte__item--filters"
     key="1/.1"
   >
-    <Choices
+    <OrizzonteChoices
       fieldName="myAPIField"
+      information={null}
       label="Test multiple choices"
       multiple={true}
       onUpdate={[Function]}
@@ -168,9 +177,18 @@ exports[`<List /> should render a list of filters with custom done button and or
       value={null}
     />
   </li>
-  <li>
+  <li
+    className="orizzonte__list-controls"
+  >
     <button
-      className="orizzonte__list-done"
+      className="orizzonte__list-control orizzonte__list-clear orizzonte__list-clear--disabled"
+      onClick={[MockFunction]}
+      type="button"
+    >
+      Clear
+    </button>
+    <button
+      className="orizzonte__list-control orizzonte__list-done"
       onClick={[Function]}
       type="button"
     >
@@ -188,8 +206,9 @@ exports[`<List /> should render a list of filters without done button 1`] = `
     className="orizzonte__item orizzonte__item--filters"
     key="0/.0"
   >
-    <Select
+    <OrizzonteSelect
       disabled={false}
+      information={null}
       label="Test select"
       notSetLabel={false}
       onUpdate={[Function]}
@@ -216,8 +235,9 @@ exports[`<List /> should render a list of filters without done button 1`] = `
     className="orizzonte__item orizzonte__item--filters"
     key="1/.1"
   >
-    <Choices
+    <OrizzonteChoices
       fieldName="myAPIField"
+      information={null}
       label="Test multiple choices"
       multiple={true}
       onUpdate={[Function]}
