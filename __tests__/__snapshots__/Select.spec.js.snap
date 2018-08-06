@@ -4,6 +4,9 @@ exports[`<Select /> should render a disabled select that allows empty value 1`] 
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >
@@ -42,10 +45,64 @@ exports[`<Select /> should render a disabled select that allows empty value 1`] 
 </div>
 `;
 
+exports[`<Select /> should render a grouped select 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Test select
+  </div>
+  <select
+    className="orizzonte__filter-select"
+    disabled={false}
+    onChange={[Function]}
+    value={3}
+  >
+    <option
+      key="1.0"
+      value={1}
+    >
+      Test value 1
+    </option>
+    <optgroup
+      key="Grouped values.1"
+      label="Grouped values"
+    >
+      <option
+        key="2.1.0"
+        value={2}
+      >
+        Test value 2
+      </option>
+      <option
+        key="3.1.1"
+        value={3}
+      >
+        Test value 3
+      </option>
+    </optgroup>
+    <option
+      key="4.2"
+      value={4}
+    >
+      Test value 4
+    </option>
+  </select>
+</div>
+`;
+
 exports[`<Select /> should render a normal select 1`] = `
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >
@@ -83,6 +140,9 @@ exports[`<Select /> should render a select with selected value 1`] = `
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >

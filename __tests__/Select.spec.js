@@ -74,4 +74,31 @@ describe('<Select />', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('should render a grouped select', () => {
+        const wrapper = shallow(
+            <Select
+                label="Test select"
+                options={ [{
+                    label: 'Test value 1',
+                    value: 1
+                }, {
+                    value: 'Grouped values',
+                    children: [{
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3
+                    }]
+                }, {
+                    value: 4,
+                    label: 'Test value 4'
+                }]}
+                value={ 3 }
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });
