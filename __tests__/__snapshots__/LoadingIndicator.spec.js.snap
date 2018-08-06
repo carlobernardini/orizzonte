@@ -5,8 +5,8 @@ exports[`<LoadingIndicator /> should render a custom loading indicator 1`] = `
   className="orizzonte__loading"
   style={
     Object {
-      "height": "12",
-      "width": "12",
+      "height": "12px",
+      "width": "12px",
     }
   }
   viewBox={
@@ -32,12 +32,7 @@ exports[`<LoadingIndicator /> should render a custom loading indicator 1`] = `
 exports[`<LoadingIndicator /> should render a default loading indicator 1`] = `
 <svg
   className="orizzonte__loading"
-  style={
-    Object {
-      "height": null,
-      "width": null,
-    }
-  }
+  style={null}
   viewBox={
     Array [
       0,
