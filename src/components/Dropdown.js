@@ -330,6 +330,7 @@ class Dropdown extends Component {
 
         if (!multiple) {
             return (
+                // eslint-disable-next-line
                 <li
                     key={ key }
                     className={ classNames('orizzonte__dropdown-item', {
