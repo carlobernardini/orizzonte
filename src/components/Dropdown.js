@@ -323,38 +323,58 @@ class Dropdown extends Component {
         );
     }
 
-    renderItem(option) {
+    renderItem(option, key) {
         const { multiple, onUpdate, value } = this.props;
 
         const highlightedLabel = this.getHighlightedLabel(option.label || option.value);
 
         if (!multiple) {
-            return highlightedLabel;
+            return (
+                <li
+                    key={ key }
+                    className={ classNames('orizzonte__dropdown-item', {
+                        'orizzonte__dropdown-item--disabled': option.disabled
+                    }) }
+                    onClick={ () => {
+                        onUpdate(option.value);
+                        this.toggleDropdown(null, true);
+                    }}
+                >
+                    { highlightedLabel }
+                </li>
+            );
         }
 
         return (
-            <CheckBox
-                disabled={ option.disabled }
-                id={ uniqueId('checkbox-') }
-                value={ option.value }
-                label={ highlightedLabel }
-                selected={ (value || []).indexOf(option.value) > -1 }
-                onChange={ (selected) => {
-                    let newValue = (value || []).slice(0);
-                    if (selected && !includes(newValue, option.value)) {
-                        newValue.push(option.value);
-                    }
-                    if (!selected && includes(newValue, option.value)) {
-                        newValue = without(newValue, option.value);
-                    }
-                    if (isEqual(newValue, value)) {
-                        return false;
-                    }
-                    onUpdate(newValue.length ? newValue : null);
-                    return true;
-                }}
-                viewBox={[0, 0, 13, 13]}
-            />
+            <li
+                key={ key }
+                className={ classNames('orizzonte__dropdown-item', {
+                    'orizzonte__dropdown-item--disabled': option.disabled
+                }) }
+            >
+                <CheckBox
+                    disabled={ option.disabled }
+                    id={ uniqueId('checkbox-') }
+                    value={ option.value }
+                    label={ highlightedLabel }
+                    selected={ (value || []).indexOf(option.value) > -1 }
+                    onChange={ (selected) => {
+                        let newValue = (value || []).slice(0);
+                        if (selected && !includes(newValue, option.value)) {
+                            newValue.push(option.value);
+                        }
+                        if (!selected && includes(newValue, option.value)) {
+                            newValue = without(newValue, option.value);
+                        }
+                        if (isEqual(newValue, value)) {
+                            return false;
+                        }
+                        onUpdate(newValue.length ? newValue : null);
+                        return true;
+                    }}
+                    viewBox={[0, 0, 13, 13]}
+                />
+            </li>
         );
     }
 
@@ -391,27 +411,19 @@ class Dropdown extends Component {
                             { option.value }
                         </li>
                         { option.children.map((child, j) => (
-                            <li
-                                key={ `${ child.value }.${ i }.${ j }` }
-                                className={ classNames('orizzonte__dropdown-item', {
-                                    'orizzonte__dropdown-item--disabled': child.disabled
-                                }) }
-                            >
-                                { this.renderItem(child) }
-                            </li>
+                            this.renderItem(
+                                child,
+                                `${ child.value }.${ i }.${ j }`
+                            )
                         )) }
                     </ul>
                 );
             }
             return (
-                <li
-                    key={ `${ option.value }.${ i }` }
-                    className={ classNames('orizzonte__dropdown-item', {
-                        'orizzonte__dropdown-item--disabled': option.disabled
-                    }) }
-                >
-                    { this.renderItem(option) }
-                </li>
+                this.renderItem(
+                    option,
+                    `${ option.value }.${ i }`
+                )
             );
         });
     }

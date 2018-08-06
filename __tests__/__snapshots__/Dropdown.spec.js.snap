@@ -4,6 +4,9 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >
@@ -28,65 +31,23 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
       <li
         className="orizzonte__dropdown-item"
         key="at.0"
+        onClick={[Function]}
       >
-        <CheckBox
-          disabled={false}
-          id="checkbox-1"
-          label="Austria"
-          onChange={[Function]}
-          selected={false}
-          value="at"
-          viewBox={
-            Array [
-              0,
-              0,
-              13,
-              13,
-            ]
-          }
-        />
+        Austria
       </li>
       <li
         className="orizzonte__dropdown-item"
         key="pt.1"
+        onClick={[Function]}
       >
-        <CheckBox
-          disabled={false}
-          id="checkbox-2"
-          label="Portugal"
-          onChange={[Function]}
-          selected={false}
-          value="pt"
-          viewBox={
-            Array [
-              0,
-              0,
-              13,
-              13,
-            ]
-          }
-        />
+        Portugal
       </li>
       <li
         className="orizzonte__dropdown-item"
         key="ie.2"
+        onClick={[Function]}
       >
-        <CheckBox
-          disabled={false}
-          id="checkbox-3"
-          label="Ireland"
-          onChange={[Function]}
-          selected={false}
-          value="ie"
-          viewBox={
-            Array [
-              0,
-              0,
-              13,
-              13,
-            ]
-          }
-        />
+        Ireland
       </li>
     </ul>
   </div>
@@ -97,6 +58,9 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >
@@ -129,9 +93,9 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
         className="orizzonte__dropdown-item"
         key="at.0"
       >
-        <CheckBox
+        <OrizzonteCheckBox
           disabled={false}
-          id="checkbox-7"
+          id="checkbox-4"
           label={
             <span>
               <span>
@@ -160,6 +124,154 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
           }
         />
       </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Dropdown /> should render an expanded, grouped dropdown with a few checked options 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <div
+    className="orizzonte__filter-caption"
+  >
+    Country
+  </div>
+  <div
+    className="orizzonte__dropdown orizzonte__dropdown--focused orizzonte__dropdown--expanded"
+  >
+    <button
+      className="orizzonte__dropdown-button"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      type="button"
+    >
+      United States
+    </button>
+    <ul
+      className="orizzonte__dropdown-list"
+    >
+      <li
+        className="orizzonte__dropdown-item"
+        key="at.0"
+      >
+        <OrizzonteCheckBox
+          disabled={false}
+          id="checkbox-10"
+          label="Austria"
+          onChange={[Function]}
+          selected={false}
+          value="at"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
+        key="pt.1"
+      >
+        <OrizzonteCheckBox
+          disabled={false}
+          id="checkbox-11"
+          label="Portugal"
+          onChange={[Function]}
+          selected={false}
+          value="pt"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
+        key="ie.2"
+      >
+        <OrizzonteCheckBox
+          disabled={false}
+          id="checkbox-12"
+          label="Ireland"
+          onChange={[Function]}
+          selected={false}
+          value="ie"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+      <ul
+        className="orizzonte__dropdown-group"
+        key="North-America.3"
+      >
+        <li
+          className="orizzonte__dropdown-item--empty orizzonte__dropdown-group-label"
+        >
+          North-America
+        </li>
+        <li
+          className="orizzonte__dropdown-item"
+          key="us.3.0"
+        >
+          <OrizzonteCheckBox
+            disabled={false}
+            id="checkbox-13"
+            label="United States"
+            onChange={[Function]}
+            selected={true}
+            value="us"
+            viewBox={
+              Array [
+                0,
+                0,
+                13,
+                13,
+              ]
+            }
+          />
+        </li>
+        <li
+          className="orizzonte__dropdown-item"
+          key="ca.3.1"
+        >
+          <OrizzonteCheckBox
+            disabled={false}
+            id="checkbox-14"
+            label="Canada"
+            onChange={[Function]}
+            selected={false}
+            value="ca"
+            viewBox={
+              Array [
+                0,
+                0,
+                13,
+                13,
+              ]
+            }
+          />
+        </li>
+      </ul>
     </ul>
   </div>
 </div>

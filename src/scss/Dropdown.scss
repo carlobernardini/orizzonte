@@ -144,9 +144,11 @@
 
 	&--disabled {
 		cursor: not-allowed;
+		color: #CCC;
 
 		&:hover {
 			background-color: transparent;
+			color: #CCC;
 
 			.orizzonte__checkbox-span {
 				&--first {
