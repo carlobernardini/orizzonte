@@ -125,14 +125,21 @@ stories.add('Default', withState({
                 label="Language"
                 selectedLabel="%s (Primary)"
                 options={ [{
-                    label: 'English',
-                    value: 'en'
+                    value: 'English',
+                    children: [{
+                        label: 'UK English',
+                        value: 'en-gb'
+                    }, {
+                        label: 'US English',
+                        value: 'en-us'
+                    }]
                 }, {
                     label: 'French',
                     value: 'fr'
                 }, {
                     label: 'German',
-                    value: 'de'
+                    value: 'de',
+                    disabled: true
                 }, {
                     label: 'Dutch',
                     value: 'nl'
@@ -140,6 +147,7 @@ stories.add('Default', withState({
             />,
             <Dropdown
                 key="country"
+                information="Choose one or more countries (optional)"
                 fieldName="country"
                 label="Country"
                 selectedLabel={ (value) => {
@@ -204,8 +212,8 @@ stories.add('Default', withState({
                 fieldName="shirtSize"
                 label="Shirt Size"
                 selectedLabel={ (value, totalCount) => {
-                    if (value.length === 1) {
-                        return `Size (${ value[0].label })`;
+                    if (value.length <= 2) {
+                        return `Size (${ value.map((v) => v.label).join(' & ') })`;
                     }
                     if (value.length === totalCount) {
                         return 'Any shirt size';
@@ -213,20 +221,27 @@ stories.add('Default', withState({
                     return `Size (${ value.length } selected)`;
                 }}
                 options={ [{
-                    label: 'Extra Small',
-                    value: 'xs'
-                }, {
-                    label: 'Small',
-                    value: 's'
+                    value: 'Small sizes',
+                    children: [{
+                        label: 'Extra Small',
+                        value: 'xs',
+                        disabled: true
+                    }, {
+                        label: 'Small',
+                        value: 's'
+                    }]
                 }, {
                     label: 'Medium',
                     value: 'm'
                 }, {
-                    label: 'Large',
-                    value: 'l'
-                }, {
-                    label: 'Extra Large',
-                    value: 'xl'
+                    value: 'Large sizes',
+                    children: [{
+                        label: 'Large',
+                        value: 'l'
+                    }, {
+                        label: 'Extra Large',
+                        value: 'xl'
+                    }]
                 }] }
                 notSetLabel="None"
                 multiple

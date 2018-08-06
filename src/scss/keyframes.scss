@@ -9,6 +9,17 @@
 	}
 }
 
+@keyframes infoTooltipIn {
+    from {
+        opacity: 0;
+        transform: translate(3px, -50%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, -50%);
+    }
+}
+
 @keyframes listIn {
 	from {
 		opacity: 0;

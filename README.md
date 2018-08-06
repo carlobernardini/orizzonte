@@ -1,5 +1,5 @@
 # Orizzonte
-React components for a horizontal, filtered search UI
+> React components for a horizontal, filtered search UI
 
 [![npm version](https://img.shields.io/npm/v/orizzonte.svg)](https://www.npmjs.com/package/orizzonte)
 [![Build Status](https://travis-ci.org/carlobernardini/orizzonte.svg?branch=master)](https://travis-ci.org/carlobernardini/orizzonte)
@@ -19,36 +19,52 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte
   query={{
     language: 'fr',
     waistSize: 32,
-    shirtSize: 'm'
+    shirtSize: ['m', 'xl']
   }}
   onChange={(query) => {}}
-  onGroupAdd={(i) => {}}
-  onGroupRemove={(i) => {}}
+  onGroupAdd={(groupIndex) => {}}
+  onGroupRemove={(groupIndex) => {}}
   groupTopLabels
 >
   <Group
+    description="Choose your shirt and waist sizes"
     label="Sizes"
     included
   >
-    <Select
+    <Dropdown
       fieldName="shirtSize"
       label="Shirt Size"
-      selectedLabel={(value, label) => (`Shirt Size (${ label })`)}
+      selectedLabel={ (value, totalCount) => {
+        if (value.length <= 2) {
+          return `Size (${ value.map((v) => v.label).join(' & ') })`;
+        }
+        if (value.length === totalCount) {
+          return 'Any shirt size';
+        }
+        return `Size (${ value.length } selected)`;
+      }}
       options={[
-        {label: 'Extra Small',value: 'xs'},
-        {label: 'Small',value: 's'},
+        {
+          value: 'Small sizes',
+          children: [
+            {label: 'Extra Small',value: 'xs',disabled: true},
+            {label: 'Small',value: 's'}
+          ]
+        },
         {label: 'Medium',value: 'm'},
         …
       ]}
+      multiple
+      selectAll
     />
     <Choices
       fieldName="waistSize"
       label="Waist Size"
-      selectedLabel={(value) => (`Waist Size (${ value })`)}
+      selectedLabel={ (value) => (`${ value.selectedLabel || value.label } waist size`) }
       options={[
-        {label: 'Extra Small (28)',value: 28},
-        {label: 'Small (30)',value: 30},
-        {label: 'Medium (32)',value: 32},
+        {label: 'Extra Small (28)',selectedLabel: 'Extra Small',value: 28},
+        {label: 'Small (30)',selectedLabel: 'Small',value: 30},
+        {label: 'Medium (32)',selectedLabel: 'Medium',value: 32},
         …
       ]}
       multiple
@@ -79,8 +95,10 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte
         {label: 'Germany',value: 'de'},
         …
       ]}
-      filter
-      filterPlaceholder="Search options..."
+      filter={{
+        enabled: true,
+        placeholder: 'Search options...'
+      }}
     />
   </Group>
   <Group
@@ -89,10 +107,11 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte
     <FullText
       fieldName="keywords"
       label="Keywords"
-      selectedLabel={(value) => (truncate(value, {
+      selectedLabel={(value) => (truncate(value.trim(), {
         length: 20
       }))}
       placeholder="Enter some keywords..."
+      multiline
     />
     <FullText
       disabled
@@ -103,6 +122,18 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte
   </Group>
 </Orizzonte>
 ```
+### Groups
+Groups contain one or more filters for which it make sense to be shown together. Each group has its own name and can be provided with a description.
+
+### Filters
+A filter is responsible for controlling the value of a particular field in the query object. Orizzonte comes with the following filter types:
+
+| Filter     | Description                                                                       |
+|------------|-----------------------------------------------------------------------------------|
+| `Choices`  | A series of inline checkboxes or radios                                           |
+| `Dropdown` | A more advanced dropdown select with support for filtering options and select all |
+| `FullText` | A single or multi line full text field                                            |
+| `Select`   | A simple single-select filter (uses browser `<select />` element)                 |
 
 ## Examples
 

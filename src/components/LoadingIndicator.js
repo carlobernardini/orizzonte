@@ -6,10 +6,15 @@ const LoadingIndicator = ({ size }) => (
     <svg
         className="orizzonte__loading"
         viewBox={ [0, 0, 44, 44] }
-        style={{
-            width: size,
-            height: size
-        }}
+        style={ ((s) => {
+            if (!s) {
+                return null;
+            }
+            return {
+                width: `${ s }px`,
+                height: `${ s }px`
+            };
+        })(size) }
     >
         <circle
             className="orizzonte__loading-path"
@@ -21,6 +26,8 @@ const LoadingIndicator = ({ size }) => (
         />
     </svg>
 );
+
+LoadingIndicator.displayName = 'OrizzonteLoadingIndicator';
 
 LoadingIndicator.propTypes = {
     size: PropTypes.oneOfType([

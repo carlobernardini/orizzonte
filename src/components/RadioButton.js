@@ -50,6 +50,8 @@ const RadioButton = ({ disabled, id, label, name, onChange, value, selected }) =
     </div>
 );
 
+RadioButton.displayName = 'OrizzonteRadioButton';
+
 RadioButton.propTypes = {
     /** If the radio button should be disabled */
     disabled: PropTypes.bool,

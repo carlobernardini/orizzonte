@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { compact, values } from 'lodash';
 import '../scss/List.scss';
 
 class List extends Component {
@@ -26,7 +27,7 @@ class List extends Component {
 
     renderClearBtn() {
         const {
-            clearBtn, clearBtnLabel, isFilterGroup, onClear
+            clearBtn, clearBtnLabel, isFilterGroup, onClear, values: groupValues
         } = this.props;
 
         if (!isFilterGroup || !clearBtn) {
@@ -36,7 +37,9 @@ class List extends Component {
         return (
             <button
                 type="button"
-                className="orizzonte__list-control orizzonte__list-clear"
+                className={ classNames('orizzonte__list-control orizzonte__list-clear', {
+                    'orizzonte__list-clear--disabled': !compact(values(groupValues || {})).length
+                }) }
                 onClick={ onClear }
             >
                 { clearBtnLabel || 'Clear' }
@@ -63,7 +66,7 @@ class List extends Component {
 
     renderItems() {
         const {
-            values, items, isFilterGroup, onUpdate
+            values: groupValues, items, isFilterGroup, onUpdate
         } = this.props;
 
         if (isFilterGroup) {
@@ -80,7 +83,7 @@ class List extends Component {
                                 return null;
                             }
                             return v[fn];
-                        })(values, item.props.fieldName),
+                        })(groupValues, item.props.fieldName),
                         onUpdate: (filterValue) => {
                             const { fieldName } = item.props;
                             onUpdate(fieldName, filterValue);
@@ -117,6 +120,8 @@ class List extends Component {
         );
     }
 }
+
+List.displayName = 'OrizzonteList';
 
 List.propTypes = {
     clearBtn: PropTypes.bool,

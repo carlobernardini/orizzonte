@@ -7,8 +7,10 @@ import {
     isEqual, isFunction, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
+import utils from '../utils';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
+import FilterInfo from './FilterInfo';
 import '../scss/Dropdown.scss';
 
 class Dropdown extends Component {
@@ -221,12 +223,13 @@ class Dropdown extends Component {
     renderButtonLabel() {
         const { notSetLabel, value, selectedLabel } = this.props;
         const mergedOptions = this.getMergedOptions();
+        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
 
         if (!value || !value.length) {
             return notSetLabel || 'None selected';
         }
 
-        const selectedOptions = _filter(mergedOptions, (option) => {
+        const selectedOptions = _filter(flatOptions, (option) => {
             if (Array.isArray(value)) {
                 return indexOf(value, option.value) > -1;
             }
@@ -240,7 +243,7 @@ class Dropdown extends Component {
             return `${ selectedOptions.length } selected`;
         }
         if (isFunction(selectedLabel)) {
-            return selectedLabel(selectedOptions, mergedOptions.length);
+            return selectedLabel(selectedOptions, flatOptions.length);
         }
         if (indexOf(selectedLabel, '%d') > -1) {
             return selectedLabel.replace('%d', selectedOptions.length);
@@ -321,38 +324,59 @@ class Dropdown extends Component {
         );
     }
 
-    renderItem(option) {
+    renderItem(option, key) {
         const { multiple, onUpdate, value } = this.props;
 
         const highlightedLabel = this.getHighlightedLabel(option.label || option.value);
 
         if (!multiple) {
-            return highlightedLabel;
+            return (
+                // eslint-disable-next-line
+                <li
+                    key={ key }
+                    className={ classNames('orizzonte__dropdown-item', {
+                        'orizzonte__dropdown-item--disabled': option.disabled
+                    }) }
+                    onClick={ () => {
+                        onUpdate(option.value);
+                        this.toggleDropdown(null, true);
+                    }}
+                >
+                    { highlightedLabel }
+                </li>
+            );
         }
 
         return (
-            <CheckBox
-                disabled={ option.disabled }
-                id={ uniqueId('checkbox-') }
-                value={ option.value }
-                label={ highlightedLabel }
-                selected={ (value || []).indexOf(option.value) > -1 }
-                onChange={ (selected) => {
-                    let newValue = (value || []).slice(0);
-                    if (selected && !includes(newValue, option.value)) {
-                        newValue.push(option.value);
-                    }
-                    if (!selected && includes(newValue, option.value)) {
-                        newValue = without(newValue, option.value);
-                    }
-                    if (isEqual(newValue, value)) {
-                        return false;
-                    }
-                    onUpdate(newValue.length ? newValue : null);
-                    return true;
-                }}
-                viewBox={[0, 0, 13, 13]}
-            />
+            <li
+                key={ key }
+                className={ classNames('orizzonte__dropdown-item', {
+                    'orizzonte__dropdown-item--disabled': option.disabled
+                }) }
+            >
+                <CheckBox
+                    disabled={ option.disabled }
+                    id={ uniqueId('checkbox-') }
+                    value={ option.value }
+                    label={ highlightedLabel }
+                    selected={ (value || []).indexOf(option.value) > -1 }
+                    onChange={ (selected) => {
+                        let newValue = (value || []).slice(0);
+                        if (selected && !includes(newValue, option.value)) {
+                            newValue.push(option.value);
+                        }
+                        if (!selected && includes(newValue, option.value)) {
+                            newValue = without(newValue, option.value);
+                        }
+                        if (isEqual(newValue, value)) {
+                            return false;
+                        }
+                        onUpdate(newValue.length ? newValue : null);
+                        return true;
+                    }}
+                    viewBox={[0, 0, 13, 13]}
+                />
+            </li>
         );
     }
 
@@ -372,14 +396,38 @@ class Dropdown extends Component {
             );
         }
 
-        return options.map((option, i) => (
-            <li
-                key={ `${ option.value }.${ i }` }
-                className="orizzonte__dropdown-item"
-            >
-                { this.renderItem(option) }
-            </li>
-        ));
+        return options.map((option, i) => {
+            if (option.children) {
+                if (!option.children.length) {
+                    return null;
+                }
+
+                return (
+                    <ul
+                        className="orizzonte__dropdown-group"
+                        key={ `${ option.value }.${ i }` }
+                    >
+                        <li
+                            className="orizzonte__dropdown-item--empty orizzonte__dropdown-group-label"
+                        >
+                            { option.value }
+                        </li>
+                        { option.children.map((child, j) => (
+                            this.renderItem(
+                                child,
+                                `${ child.value }.${ i }.${ j }`
+                            )
+                        )) }
+                    </ul>
+                );
+            }
+            return (
+                this.renderItem(
+                    option,
+                    `${ option.value }.${ i }`
+                )
+            );
+        });
     }
 
     renderSelectAll() {
@@ -391,6 +439,8 @@ class Dropdown extends Component {
             return null;
         }
 
+        const { flatOptions } = utils.getFlattenedOptions(options);
+
         return (
             <li
                 className="orizzonte__dropdown-item"
@@ -399,9 +449,17 @@ class Dropdown extends Component {
                     id={ uniqueId('checkbox-') }
                     value="select-all"
                     label={ selectAllLabel || 'Select all' }
-                    selected={ (value || []).length === options.length }
+                    selected={ (value || []).length === flatOptions
+                        .filter((option) => (!option.disabled))
+                        .length
+                    }
                     onChange={ (selected) => {
-                        const newValue = selected ? options.map((option) => (option.value)) : null;
+                        const newValue = selected
+                            ? flatOptions
+                                .filter((option) => (!option.disabled))
+                                .map((option) => (option.value))
+                            : null;
+
                         onUpdate(newValue);
                     }}
                     viewBox={[0, 0, 13, 13]}
@@ -411,13 +469,14 @@ class Dropdown extends Component {
     }
 
     render() {
-        const { disabled, label } = this.props;
+        const { information, disabled, label } = this.props;
         const { expanded, focused } = this.state;
 
         return (
             <div
                 className="orizzonte__filter"
             >
+                <FilterInfo information={ information } />
                 <div
                     className="orizzonte__filter-caption"
                 >
@@ -444,7 +503,10 @@ class Dropdown extends Component {
     }
 }
 
+Dropdown.displayName = 'OrizzonteDropdown';
+
 Dropdown.propTypes = {
+    information: PropTypes.string,
     disabled: PropTypes.bool,
     /** Filter dropdown options and highlight matches */
     filter: PropTypes.shape({
@@ -464,11 +526,22 @@ Dropdown.propTypes = {
     /** Collection of dropdown options */
     options: PropTypes.arrayOf(
         PropTypes.shape({
+            disabled: PropTypes.bool,
             value: PropTypes.oneOfType([
                 PropTypes.number,
                 PropTypes.string
             ]).isRequired,
-            label: PropTypes.any
+            label: PropTypes.any,
+            children: PropTypes.arrayOf(
+                PropTypes.shape({
+                    disabled: PropTypes.bool,
+                    value: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string
+                    ]).isRequired,
+                    label: PropTypes.any
+                })
+            )
         })
     ),
     /** Remote API to fetch dropdown options from */
@@ -493,9 +566,10 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+    information: null,
     disabled: false,
     filter: null,
-    multiple: true,
+    multiple: false,
     notSetLabel: null,
     onUpdate: () => {},
     options: [],
