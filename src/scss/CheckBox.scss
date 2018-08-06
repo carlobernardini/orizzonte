@@ -58,6 +58,7 @@
     transform: translate3d(0,0,0);
 
     &--first {
+        box-shadow: content-box;
         position: relative;
         width: 12px;
         height: 12px;
