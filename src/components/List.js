@@ -48,9 +48,9 @@ class List extends Component {
     }
 
     renderListControls() {
-        const { clearBtn, doneBtn } = this.props;
+        const { clearBtn, doneBtn, isFilterGroup } = this.props;
 
-        if (!clearBtn && !doneBtn) {
+        if (!isFilterGroup || (!clearBtn && !doneBtn)) {
             return null;
         }
 
