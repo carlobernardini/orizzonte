@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FilterInfo /> should not render anything if prop is empty 1`] = `""`;
+
+exports[`<FilterInfo /> should render a default filter info tooltip 1`] = `
+<div
+  className="orizzonte__info-icon"
+>
+  ?
+  <div
+    className="orizzonte__info-content"
+  >
+    Some filter information
+  </div>
+</div>
+`;
