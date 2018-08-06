@@ -141,6 +141,23 @@
 			bottom: 5px;
 		}
 	}
+
+	&--disabled {
+		cursor: not-allowed;
+
+		&:hover {
+			background-color: transparent;
+
+			.orizzonte__checkbox-span {
+				&--first {
+					border-color: #d0d1d5;
+				}
+			    &--last {
+			        color: #CCC;
+			    }
+			}
+		}
+	}
 }
 
 .orizzonte__dropdown-group {

@@ -211,8 +211,8 @@ stories.add('Default', withState({
                 fieldName="shirtSize"
                 label="Shirt Size"
                 selectedLabel={ (value, totalCount) => {
-                    if (value.length === 1) {
-                        return `Size (${ value[0].label })`;
+                    if (value.length <= 2) {
+                        return `Size (${ value.map((v) => v.label).join(' & ') })`;
                     }
                     if (value.length === totalCount) {
                         return 'Any shirt size';

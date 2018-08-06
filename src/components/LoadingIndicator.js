@@ -7,8 +7,8 @@ const LoadingIndicator = ({ size }) => (
         className="orizzonte__loading"
         viewBox={ [0, 0, 44, 44] }
         style={{
-            width: size,
-            height: size
+            width: `${ size }px`,
+            height: `${ size }px`
         }}
     >
         <circle
