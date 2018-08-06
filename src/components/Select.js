@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ disabled, label, notSetLabel, onUpdate, options, value = '' }) => (
+const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, value = '' }) => (
     <div
         className="orizzonte__filter"
     >
+        <FilterInfo information={ information } />
         <div
             className="orizzonte__filter-caption"
         >
@@ -27,27 +29,58 @@ const Select = ({ disabled, label, notSetLabel, onUpdate, options, value = '' })
             {
                 notSetLabel
                     ? (
-                        <option value="">
+                        <option
+                            value=""
+                        >
                             { notSetLabel }
                         </option>
                     )
                     : null
             }
-            { options.map((option, i) => (
-                <option
-                    key={ `${ option.value }.${ i }` }
-                    value={ option.value }
-                >
-                    { option.label || option.value }
-                </option>
-            )) }
+            { options.map((option, i) => {
+                if (option.children) {
+                    if (!option.children.length) {
+                        return null;
+                    }
+
+                    return (
+                        <optgroup
+                            key={ `${ option.value }.${ i }` }
+                            label={ option.value }
+                        >
+                            { option.children.map((child, j) => (
+                                <option
+                                    disabled={ child.disabled }
+                                    key={ `${ child.value }.${ i }.${ j }` }
+                                    value={ child.value }
+                                >
+                                    { child.label || child.value }
+                                </option>
+                            )) }
+                        </optgroup>
+                    );
+                }
+
+                return (
+                    <option
+                        disabled={ option.disabled }
+                        key={ `${ option.value }.${ i }` }
+                        value={ option.value }
+                    >
+                        { option.label || option.value }
+                    </option>
+                );
+            }) }
         </select>
     </div>
 );
 
+Select.displayName = 'OrizzonteSelect';
+
 Select.propTypes = {
     /** If the select should be disabled */
     disabled: PropTypes.bool,
+    information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
     /** Which label the first (empty) option should have in case the select can be empty */
@@ -60,11 +93,22 @@ Select.propTypes = {
     /** List of selectable options (value is required) */
     options: PropTypes.arrayOf(
         PropTypes.shape({
+            disabled: PropTypes.bool,
             label: PropTypes.string,
             value: PropTypes.oneOfType([
                 PropTypes.number,
                 PropTypes.string
-            ]).isRequired
+            ]).isRequired,
+            children: PropTypes.arrayOf(
+                PropTypes.shape({
+                    disabled: PropTypes.bool,
+                    value: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string
+                    ]).isRequired,
+                    label: PropTypes.any
+                })
+            )
         })
     ).isRequired,
     value: PropTypes.oneOfType([
@@ -75,6 +119,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
     disabled: false,
+    information: null,
     notSetLabel: false,
     onUpdate: () => {},
     value: ''

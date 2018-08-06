@@ -4,6 +4,9 @@ exports[`<FullText /> should render a disabled fulltext filter 1`] = `
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >
@@ -24,6 +27,9 @@ exports[`<FullText /> should render a fulltext filter 1`] = `
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >
@@ -44,6 +50,9 @@ exports[`<FullText /> should render a fulltext filter with current value 1`] = `
 <div
   className="orizzonte__filter"
 >
+  <OrizzonteFilterInfo
+    information={null}
+  />
   <div
     className="orizzonte__filter-caption"
   >

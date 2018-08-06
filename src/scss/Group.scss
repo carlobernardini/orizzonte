@@ -53,6 +53,13 @@
 	&--top-labels {
 		margin-top: 20px;
 	}
+	&--error {
+		background-color: #999;
+
+		&:hover {
+			background-color: #999;
+		}
+	}
 }
 
 .orizzonte__group-description {
@@ -69,6 +76,7 @@
 	outline: none;
 	border: none;
 	cursor: pointer;
+	text-align: left;
 	@extend %fonts;
 	@extend %btn-label;
 

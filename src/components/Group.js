@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import {
     assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
 } from 'lodash';
+import utils from '../utils';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -14,6 +15,7 @@ class Group extends Component {
         this.state = {
             removing: false,
             groupValues: {},
+            hasError: false
         };
 
         this.removeGroup = this.removeGroup.bind(this);
@@ -35,6 +37,25 @@ class Group extends Component {
         }
 
         return onGroupToggle(false);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const { activeGroup, i } = props;
+        const { groupValues } = state;
+
+        if (activeGroup === i || !Object.keys(groupValues).length) {
+            return null;
+        }
+
+        return {
+            groupValues: {}
+        };
+    }
+
+    componentDidCatch() {
+        this.setState({
+            hasError: true
+        });
     }
 
     queryHasGroupFilters() {
@@ -144,6 +165,7 @@ class Group extends Component {
 
         return (
             <List
+                clearBtn
                 isFilterGroup
                 items={ filters }
                 values={ listValues }
@@ -151,6 +173,10 @@ class Group extends Component {
                 onApply={ () => {
                     this.toggleGroup();
                     onUpdate(groupValues);
+                }}
+                onClear={ () => {
+                    this.toggleGroup();
+                    onUpdate(filterFields);
                 }}
                 onUpdate={ (fieldName, value) => {
                     if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
@@ -183,22 +209,23 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
+            const { flatOptions } = utils.getFlattenedOptions(options);
 
             const value = queryPart[fieldName];
 
             if (!options) {
                 return this.transformLabel(selectedLabel, value);
             }
-            if (!Array.isArray(value) && options) {
-                const selectedOption = find(options, (option) => (option.value === value));
+            if (!Array.isArray(value) && flatOptions) {
+                const selectedOption = find(flatOptions, (option) => (option.value === value));
                 return this.transformLabel(selectedLabel, selectedOption);
             }
 
-            const selectedOptions = filter(options, (option) => (
+            const selectedOptions = filter(flatOptions, (option) => (
                 indexOf(value, option.value) > -1
             ));
 
-            return this.transformLabel(selectedLabel, selectedOptions, options.length);
+            return this.transformLabel(selectedLabel, selectedOptions, flatOptions.length);
         });
 
         if (!selectedLabels.length) {
@@ -240,12 +267,23 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, i, included
+            activeGroup, className, groupTopLabels, i, included, label
         } = this.props;
-        const { removing } = this.state;
+        const { hasError, removing } = this.state;
 
         if (!included) {
             return null;
+        }
+
+        if (hasError) {
+            return (
+                <div
+                    className="orizzonte__group orizzonte__group--error"
+                >
+                    Something went wrong...
+                    { this.renderBtn() }
+                </div>
+            );
         }
 
         return (
@@ -262,6 +300,9 @@ class Group extends Component {
                     type="button"
                     onClick={ this.toggleGroup }
                     className="orizzonte__group-label"
+                    style={{
+                        minWidth: groupTopLabels && label ? `${ (label.length * 5) + 30 }px` : null
+                    }}
                 >
                     { this.renderLabel() }
                 </button>

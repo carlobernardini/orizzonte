@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { compact, values } from 'lodash';
 import '../scss/List.scss';
 
 class List extends Component {
@@ -14,21 +15,58 @@ class List extends Component {
         }
 
         return (
-            <li>
-                <button
-                    type="button"
-                    className="orizzonte__list-done"
-                    onClick={ onApply }
-                >
-                    { doneBtnLabel || 'Done' }
-                </button>
+            <button
+                type="button"
+                className="orizzonte__list-control orizzonte__list-done"
+                onClick={ onApply }
+            >
+                { doneBtnLabel || 'Done' }
+            </button>
+        );
+    }
+
+    renderClearBtn() {
+        const {
+            clearBtn, clearBtnLabel, isFilterGroup, onClear, values: groupValues
+        } = this.props;
+
+        if (!isFilterGroup || !clearBtn) {
+            return null;
+        }
+
+        return (
+            <button
+                type="button"
+                className={ classNames('orizzonte__list-control orizzonte__list-clear', {
+                    'orizzonte__list-clear--disabled': !compact(values(groupValues || {})).length
+                }) }
+                onClick={ onClear }
+            >
+                { clearBtnLabel || 'Clear' }
+            </button>
+        );
+    }
+
+    renderListControls() {
+        const { clearBtn, doneBtn } = this.props;
+
+        if (!clearBtn && !doneBtn) {
+            return null;
+        }
+
+        return (
+            <li
+                className="orizzonte__list-controls"
+            >
+                { this.renderClearBtn() }
+                { this.renderDoneBtn() }
             </li>
         );
     }
 
     renderItems() {
         const {
-            values, items, isFilterGroup, onUpdate
+            values: groupValues, items, isFilterGroup, onUpdate
         } = this.props;
 
         if (isFilterGroup) {
@@ -45,7 +83,7 @@ class List extends Component {
                                 return null;
                             }
                             return v[fn];
-                        })(values, item.props.fieldName),
+                        })(groupValues, item.props.fieldName),
                         onUpdate: (filterValue) => {
                             const { fieldName } = item.props;
                             onUpdate(fieldName, filterValue);
@@ -77,19 +115,24 @@ class List extends Component {
                 }) }
             >
                 { this.renderItems() }
-                { this.renderDoneBtn() }
+                { this.renderListControls() }
             </ul>
         );
     }
 }
 
+List.displayName = 'OrizzonteList';
+
 List.propTypes = {
+    clearBtn: PropTypes.bool,
+    clearBtnLabel: PropTypes.string,
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
     values: PropTypes.object,
     isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired,
     onApply: PropTypes.func,
+    onClear: PropTypes.func,
     onUpdate: PropTypes.func,
     orientation: PropTypes.oneOf([
         'left',
@@ -98,11 +141,14 @@ List.propTypes = {
 };
 
 List.defaultProps = {
+    clearBtn: false,
+    clearBtnLabel: null,
     doneBtn: true,
     doneBtnLabel: null,
     values: {},
     isFilterGroup: false,
     onApply: () => {},
+    onClear: () => {},
     onUpdate: () => {},
     orientation: 'left'
 };

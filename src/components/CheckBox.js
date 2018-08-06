@@ -53,6 +53,8 @@ const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) =
     </div>
 );
 
+CheckBox.displayName = 'OrizzonteCheckBox';
+
 CheckBox.propTypes = {
     /** If the checkbox should be disabled */
     disabled: PropTypes.bool,

@@ -72,7 +72,9 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
   >
      
   </button>
-  <List
+  <OrizzonteList
+    clearBtn={false}
+    clearBtnLabel={null}
     doneBtn={true}
     doneBtnLabel={null}
     isFilterGroup={false}
@@ -95,6 +97,7 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
       ]
     }
     onApply={[Function]}
+    onClear={[Function]}
     onUpdate={[Function]}
     orientation="right"
     values={Object {}}
