@@ -28,9 +28,6 @@ exports[`<List /> should render a list of clickable items 1`] = `
       Filter 2
     </a>
   </li>
-  <li
-    className="orizzonte__list-controls"
-  />
 </ul>
 `;
 

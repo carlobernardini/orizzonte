@@ -133,7 +133,7 @@ A filter is responsible for controlling the value of a particular field in the q
 | `Choices`  | A series of inline checkboxes or radios                                           |
 | `Dropdown` | A more advanced dropdown select with support for filtering options and select all |
 | `FullText` | A single or multi line full text field                                            |
-| `Select`   | A simple single-select filter (uses browser <select />)                           |
+| `Select`   | A simple single-select filter (uses browser `<select />` element)                 |
 
 ## Examples
 

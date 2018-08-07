@@ -58,7 +58,7 @@
     transition: color .3s;
 
     &--disabled {
-        color: #999;
+        color: $text-color-muted;
     }
 }
 

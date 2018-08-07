@@ -3,8 +3,20 @@ $color-b: #35A7FF;
 $color-c: #F5B700;
 $color-d: #8FC93A;
 
+$gray-lighter: #EEE;
+$gray-light: #B2B2B2;
+$gray-medium: #999;
+$gray-dark: #D0D1D5;
+$gray-darker: #1D1D1B;
+
 $font-family: 'Roboto', sans-serif;
 $font-size: 14px;
+
+$text-color: $gray-darker;
+$text-color-muted: $gray-light;
+$border-color: $gray-dark;
+$border-color-inside: $gray-lighter;
+$background-color-muted: $gray-lighter;
 
 $group-radius: 20px;
 $group-color-idle: $color-a;
@@ -12,3 +24,5 @@ $group-color-active: $color-b;
 $group-color-label: #fff;
 
 $btn-add-color: $color-d;
+
+$loading-indicator-color: $gray-darker;
