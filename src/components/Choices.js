@@ -55,6 +55,27 @@ class Choices extends Component {
         ));
     }
 
+    renderNoPreference() {
+        const { noPreferenceLabel, multiple } = this.props;
+
+        if (multiple || !noPreferenceLabel) {
+            return null;
+        }
+
+        const { fieldName, onUpdate, value } = this.props;
+
+        return (
+            <RadioButton
+                id={ uniqueId('radio-') }
+                name={ fieldName }
+                value="no-preference"
+                selected={ !value }
+                label={ noPreferenceLabel }
+                onChange={ () => (onUpdate(null)) }
+            />
+        );
+    }
+
     render() {
         const { information, label } = this.props;
         return (
@@ -67,6 +88,7 @@ class Choices extends Component {
                 >
                     { label }
                 </div>
+                { this.renderNoPreference() }
                 { this.renderChoices() }
             </div>
         );
@@ -83,6 +105,9 @@ Choices.propTypes = {
     label: PropTypes.string.isRequired,
     /** Whether to show checkboxes (true) or radios (false) */
     multiple: PropTypes.bool,
+    /** Label to show if you want to include a 'no preference' option
+        Only available for radio groups */
+    noPreferenceLabel: PropTypes.string,
     /** Internal callback for when filter value has changed */
     onUpdate: PropTypes.func,
     /** List of selectable options (value is required) */
@@ -111,6 +136,7 @@ Choices.propTypes = {
 Choices.defaultProps = {
     information: null,
     multiple: false,
+    noPreferenceLabel: null,
     onUpdate: () => {},
     value: null
 };

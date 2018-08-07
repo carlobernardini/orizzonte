@@ -74,6 +74,7 @@ exports[`<List /> should render a list of filters 1`] = `
       information={null}
       label="Test multiple choices"
       multiple={true}
+      noPreferenceLabel={null}
       onUpdate={[Function]}
       options={
         Array [
@@ -152,6 +153,7 @@ exports[`<List /> should render a list of filters with clear button, custom done
       information={null}
       label="Test multiple choices"
       multiple={true}
+      noPreferenceLabel={null}
       onUpdate={[Function]}
       options={
         Array [
@@ -237,6 +239,7 @@ exports[`<List /> should render a list of filters without done button 1`] = `
       information={null}
       label="Test multiple choices"
       multiple={true}
+      noPreferenceLabel={null}
       onUpdate={[Function]}
       options={
         Array [

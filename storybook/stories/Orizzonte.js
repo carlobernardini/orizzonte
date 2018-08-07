@@ -117,7 +117,6 @@ stories.add('Default', withState({
     groups: [{
         included: true,
         label: 'Locale',
-        selectedLabel: '%d languages',
         filters: [
             <Select
                 key="language"
@@ -205,7 +204,6 @@ stories.add('Default', withState({
     }, {
         included: true,
         label: 'Sizes',
-        selectedLabel: '%d sizes',
         filters: [
             <Dropdown
                 key="shirt-size"
@@ -213,12 +211,12 @@ stories.add('Default', withState({
                 label="Shirt Size"
                 selectedLabel={ (value, totalCount) => {
                     if (value.length <= 2) {
-                        return `Size (${ value.map((v) => v.label).join(' & ') })`;
+                        return `Shirt Size (${ value.map((v) => v.label).join(' & ') })`;
                     }
                     if (value.length === totalCount) {
                         return 'Any shirt size';
                     }
-                    return `Size (${ value.length } selected)`;
+                    return `Shirt Size (${ value.length } selected)`;
                 }}
                 options={ [{
                     value: 'Small sizes',
@@ -252,6 +250,7 @@ stories.add('Default', withState({
                 fieldName="waistSize"
                 label="Waist Size"
                 selectedLabel={ (value) => (`${ value.selectedLabel || value.label } waist size`) }
+                noPreferenceLabel="No preference"
                 options={ [{
                     label: 'Extra Small (28)',
                     selectedLabel: 'Extra Small',
