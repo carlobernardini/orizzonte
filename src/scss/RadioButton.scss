@@ -2,14 +2,14 @@
 
 .orizzonte__radio--disabled {
     .orizzonte__radio-span--last {
-        color: #CCC;
+        color: $text-color-muted;
     }
     .orizzonte__radio-label {
         cursor: not-allowed;
 
         &:hover {
             .orizzonte__radio-span--first {
-                border-color: #d0d1d5;
+                border-color: $border-color;
             }
         }
     }
@@ -65,7 +65,7 @@
         border-radius: 50%;
         transform: scale(1);
         vertical-align: middle;
-        border: 1px solid #d0d1d5;
+        border: 1px solid $border-color;
         transition: all .2s ease;
 
         &:before {
@@ -93,5 +93,4 @@
     fill: #ffffff;
     transition: all .3s ease;
     transition-delay: .1s;
-    // transform: translate3d(0, 0, 0);
 }

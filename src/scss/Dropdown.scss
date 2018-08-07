@@ -47,7 +47,7 @@
 		padding: 0;
 		border: none;
 		outline: none;
-        border-left: 1px solid #eee;
+        border-left: 1px solid $border-color-inside;
 	}
 
 	&-button {
@@ -133,7 +133,7 @@
 	}
 
 	&--empty {
-		color: #b2b2b2;
+		color: $text-color-muted;
 		line-height: 16px;
 		padding: {
 			top: 5px;
@@ -145,18 +145,18 @@
 
 	&--disabled {
 		cursor: not-allowed;
-		color: #CCC;
+		color: $text-color-muted;
 
 		&:hover {
 			background-color: transparent;
-			color: #CCC;
+			color: $text-color-muted;
 
 			.orizzonte__checkbox-span {
 				&--first {
-					border-color: #d0d1d5;
+					border-color: $border-color;
 				}
 			    &--last {
-			        color: #CCC;
+			        color: $text-color-muted;
 			    }
 			}
 		}
@@ -171,8 +171,8 @@
 	}
 
 	&-label {
-		background-color: #eee;
-		color: #000;
+		background-color: $background-color-muted;
+		color: $text-color;
 	}
 }
 

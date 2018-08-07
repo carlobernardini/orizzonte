@@ -2,14 +2,14 @@
 
 .orizzonte__checkbox--disabled {
     .orizzonte__checkbox-span--last {
-        color: #CCC;
+        color: $text-color-muted;
     }
     .orizzonte__checkbox-label {
         cursor: not-allowed;
 
         &:hover {
             .orizzonte__checkbox-span--first {
-                border-color: #d0d1d5;
+                border-color: $border-color;
             }
         }
     }
@@ -65,7 +65,7 @@
         border-radius: 3px;
         transform: scale(1);
         vertical-align: middle;
-        border: 1px solid #d0d1d5;
+        border: 1px solid $border-color;
         transition: all .2s ease;
 
         &:before {
@@ -82,7 +82,7 @@
 
     &--last {
         padding: 5px 0 5px 7px;
-        color: #000;
+        color: $text-color;
     }
 }
 
