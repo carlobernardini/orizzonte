@@ -22,71 +22,15 @@
 	.orizzonte__group {
 		margin-top: 5px;
 	}
-	.orizzonte__btn-add-wrapper {
+	.orizzonte__btn-wrapper {
 		margin-top: 5px;
 	}
 	&--top-labels {
 		.orizzonte__group {
 			margin-top: 20px;
 		}
-		.orizzonte__btn-add-wrapper {
+		.orizzonte__btn-wrapper {
 			margin-top: 20px;
-		}
-	}
-}
-
-.orizzonte__btn-add-wrapper {
-	position: relative;
-	float: left;
-	margin: {
-		left: 5px;
-	}
-
-	&--left {
-		margin: {
-			left: 0;
-			right: 5px;
-		}
-	}
-}
-
-.orizzonte__btn-add {
-	position: relative;
-	background-color: $btn-add-color;
-	border-radius: 50%;
-	padding: 0;
-	width: 32px;
-	line-height: 32px;
-	text-align: center;
-	border: none;
-	outline: none;
-	transform: scale(0);
-	transition: all .3s;
-	font: {
-		size: 1.1em;
-	}
-	@extend %btn;
-
-	&--shown {
-		transform: scale(1);
-	}
-	&--disabled {
-		opacity: .5;
-	}
-
-	&:hover {
-		background-color: lighten($btn-add-color, 5%);
-		transform: scale(1.1);
-	}
-	&:after {
-		position: absolute;
-		content: '+';
-		top: 50%;
-		left: 50%;
-		transform: translate(-5px, -17px);
-		@extend %fonts;
-		font: {
-			size: 17px;
 		}
 	}
 }
