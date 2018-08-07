@@ -252,6 +252,7 @@ stories.add('Default', withState({
                 fieldName="waistSize"
                 label="Waist Size"
                 selectedLabel={ (value) => (`${ value.selectedLabel || value.label } waist size`) }
+                noPreferenceLabel="No preference"
                 options={ [{
                     label: 'Extra Small (28)',
                     selectedLabel: 'Extra Small',
