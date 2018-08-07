@@ -28,11 +28,11 @@ class Group extends Component {
     }
 
     onKeyUp(e) {
-        const { activeGroup, i, onGroupToggle } = this.props;
+        const { onGroupToggle } = this.props;
 
         const key = e.which || e.keyCode;
 
-        if (activeGroup !== i || key !== 27) {
+        if (!this.groupIsActive() || key !== 27) {
             return false;
         }
 
@@ -74,10 +74,10 @@ class Group extends Component {
 
     removeGroup() {
         const {
-            activeGroup, i, onGroupRemove, onGroupToggle, onUpdate
+            i, onGroupRemove, onGroupToggle, onUpdate
         } = this.props;
 
-        if (activeGroup === i) {
+        if (this.groupIsActive()) {
             onGroupToggle();
         }
 
@@ -97,10 +97,16 @@ class Group extends Component {
         setTimeout(onGroupRemove.bind(null, i), 300);
     }
 
-    toggleGroup() {
-        const { activeGroup, i, onGroupToggle } = this.props;
+    groupIsActive() {
+        const { activeGroup, i } = this.props;
 
-        if (activeGroup === i) {
+        return activeGroup === i;
+    }
+
+    toggleGroup() {
+        const { i, onGroupToggle } = this.props;
+
+        if (this.groupIsActive()) {
             return onGroupToggle(false);
         }
 
@@ -144,10 +150,10 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            activeGroup, children, description, i, onUpdate, orientation, queryPart
+            children, description, onUpdate, orientation, queryPart
         } = this.props;
 
-        if (activeGroup !== i || !children.length) {
+        if (!this.groupIsActive() || !children.length) {
             return null;
         }
 
@@ -267,7 +273,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, groupTopLabels, i, included, label
+            className, groupTopLabels, included, label
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -289,7 +295,7 @@ class Group extends Component {
         return (
             <div
                 className={ classNames('orizzonte__group', {
-                    'orizzonte__group--shown': activeGroup === i,
+                    'orizzonte__group--shown': this.groupIsActive(),
                     'orizzonte__group--removing': removing,
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
