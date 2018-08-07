@@ -245,7 +245,7 @@ class Dropdown extends Component {
         if (isFunction(selectedLabel)) {
             return selectedLabel(selectedOptions, flatOptions.length);
         }
-        if (indexOf(selectedLabel, '%d') > -1) {
+        if (includes(selectedLabel, '%d')) {
             return selectedLabel.replace('%d', selectedOptions.length);
         }
         return selectedLabel.replace('%s', selectedOptions[0].label || value);
@@ -563,7 +563,10 @@ Dropdown.propTypes = {
         PropTypes.string,
         PropTypes.func
     ]),
-    value: PropTypes.array
+    value: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.string
+    ])
 };
 
 Dropdown.defaultProps = {
