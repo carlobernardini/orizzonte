@@ -21,25 +21,42 @@ class Dropdown extends Component {
             expanded: false,
             filter: null,
             focused: false,
+            cursor: -1,
             remoteLoading: false,
             remoteOptions: [] // Options that were fetched from a remote API
         };
 
         this.debounceRemote = null;
         this.dropdown = React.createRef();
+        this.dropdownButton = React.createRef();
         this.filter = React.createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.handleEscPress = this.handleEscPress.bind(this);
+        this.handleKeyDown = this.handleKeyDown.bind(this);
         this.queryRemote = this.queryRemote.bind(this);
+        this.nodes = {};
+        this.setNodeRef = (node, cursorIndex) => {
+            this.nodes[cursorIndex] = node;
+        };
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
+        const { expanded } = this.state;
+
+        if (prevState.expanded === expanded) {
+            return false;
+        }
+
         if (this.filter && this.filter.current) {
             this.filter.current.focus();
+        } else if (this.dropdownButton && this.dropdownButton.current) {
+            this.dropdownButton.current.focus();
         }
+
+        return true;
     }
 
     onFocus() {
@@ -146,6 +163,82 @@ class Dropdown extends Component {
 
         this.toggleDropdown(null, true, true);
         return false;
+    }
+
+    handleKeyDown(e, option, selected) {
+        e.preventDefault();
+        const { multiple } = this.props;
+        const { cursor } = this.state;
+        const mergedOptions = this.getMergedOptions();
+        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
+        const options = flatOptions.filter((o) => (!o.disabled));
+        const key = e.keyCode || e.which;
+
+        if ((key === 32 || key === 13) && option) { // Space or enter
+            if (option.disabled) {
+                return false;
+            }
+
+            if (!multiple) {
+                this.handleSingleSelection(option.value);
+                return false;
+            }
+
+            this.handleSelection(selected, option.value);
+            return false;
+        }
+
+        let newCursor = null;
+
+        if (key === 38) { // Arrow up
+            newCursor = cursor > 0
+                ? cursor - 1
+                : (options.length - 1);
+        } else if (key === 40) { // Arrow down
+            newCursor = cursor < (options.length - 1)
+                ? cursor + 1
+                : 0;
+        }
+
+        if (newCursor === null) {
+            return true;
+        }
+
+        this.setState({
+            cursor: newCursor
+        }, () => {
+            if (!this.nodes[newCursor]) {
+                return false;
+            }
+            this.nodes[newCursor].focus();
+            return true;
+        });
+
+        return false;
+    }
+
+    handleSelection(selected, optionValue) {
+        const { value, onUpdate } = this.props;
+
+        let newValue = (value || []).slice(0);
+        if (selected && !includes(newValue, optionValue)) {
+            newValue.push(optionValue);
+        }
+        if (!selected && includes(newValue, optionValue)) {
+            newValue = without(newValue, optionValue);
+        }
+        if (isEqual(newValue, value)) {
+            return false;
+        }
+        onUpdate(newValue.length ? newValue : null);
+        return true;
+    }
+
+    handleSingleSelection(optionValue) {
+        const { onUpdate } = this.props;
+
+        onUpdate(optionValue);
+        this.toggleDropdown(null, true);
     }
 
     toggleDropdown(e, collapse = false, focusOut = false) {
@@ -302,6 +395,7 @@ class Dropdown extends Component {
                                 this.debounceRemote();
                             });
                         }}
+                        onKeyDown={ this.handleKeyDown }
                         placeholder={ filter.placeholder || '' }
                         ref={ this.filter }
                     />
@@ -314,9 +408,11 @@ class Dropdown extends Component {
             <button
                 className="orizzonte__dropdown-button"
                 disabled={ disabled }
+                onBlur={ this.onBlur }
                 onClick={ this.toggleDropdown }
                 onFocus={ this.onFocus }
-                onBlur={ this.onBlur }
+                onKeyDown={ this.handleKeyDown }
+                ref={ this.dropdownButton }
                 type="button"
             >
                 { this.renderButtonLabel() }
@@ -324,10 +420,17 @@ class Dropdown extends Component {
         );
     }
 
-    renderItem(option, key) {
-        const { multiple, onUpdate, value } = this.props;
+    renderItem(option, key, cursorIndex) {
+        const { multiple, value } = this.props;
 
         const highlightedLabel = this.getHighlightedLabel(option.label || option.value);
+
+        const ref = (node) => {
+            if (option.disabled) {
+                return null;
+            }
+            return this.setNodeRef(node, cursorIndex);
+        };
 
         if (!multiple) {
             return (
@@ -337,43 +440,36 @@ class Dropdown extends Component {
                     className={ classNames('orizzonte__dropdown-item', {
                         'orizzonte__dropdown-item--disabled': option.disabled
                     }) }
-                    onClick={ () => {
-                        onUpdate(option.value);
-                        this.toggleDropdown(null, true);
-                    }}
+                    onClick={ () => (this.handleSingleSelection(option.value)) }
+                    onKeyDown={ (e) => (this.handleKeyDown(e, option)) }
+                    ref={ ref }
+                    tabIndex="-1"
                 >
                     { highlightedLabel }
                 </li>
             );
         }
 
+        const isSelected = (value || []).indexOf(option.value) > -1;
+
         return (
+            // eslint-disable-next-line
             <li
                 key={ key }
                 className={ classNames('orizzonte__dropdown-item', {
                     'orizzonte__dropdown-item--disabled': option.disabled
                 }) }
+                onKeyDown={ (e) => (this.handleKeyDown(e, option, !isSelected)) }
+                ref={ ref }
+                tabIndex="-1"
             >
                 <CheckBox
                     disabled={ option.disabled }
                     id={ uniqueId('checkbox-') }
                     value={ option.value }
                     label={ highlightedLabel }
-                    selected={ (value || []).indexOf(option.value) > -1 }
-                    onChange={ (selected) => {
-                        let newValue = (value || []).slice(0);
-                        if (selected && !includes(newValue, option.value)) {
-                            newValue.push(option.value);
-                        }
-                        if (!selected && includes(newValue, option.value)) {
-                            newValue = without(newValue, option.value);
-                        }
-                        if (isEqual(newValue, value)) {
-                            return false;
-                        }
-                        onUpdate(newValue.length ? newValue : null);
-                        return true;
-                    }}
+                    selected={ isSelected }
+                    onChange={ (selected) => (this.handleSelection(selected, option.value)) }
                     viewBox={[0, 0, 13, 13]}
                 />
             </li>
@@ -396,6 +492,8 @@ class Dropdown extends Component {
             );
         }
 
+        let cursorIndex = -1;
+
         return options.map((option, i) => {
             if (option.children) {
                 if (!option.children.length) {
@@ -412,19 +510,30 @@ class Dropdown extends Component {
                         >
                             { option.value }
                         </li>
-                        { option.children.map((child, j) => (
-                            this.renderItem(
+                        { option.children.map((child, j) => {
+                            if (!child.disabled) {
+                                cursorIndex += 1;
+                            }
+
+                            return this.renderItem(
                                 child,
-                                `${ child.value }.${ i }.${ j }`
-                            )
-                        )) }
+                                `${ child.value }.${ i }.${ j }`,
+                                cursorIndex
+                            );
+                        }) }
                     </ul>
                 );
             }
+
+            if (!option.disabled) {
+                cursorIndex += 1;
+            }
+
             return (
                 this.renderItem(
                     option,
-                    `${ option.value }.${ i }`
+                    `${ option.value }.${ i }`,
+                    cursorIndex
                 )
             );
         });
