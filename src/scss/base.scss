@@ -67,7 +67,8 @@ $caret-base64: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
     text-decoration: none;
     transition: all .1s;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: lighten($color-a, 15%);
         color: #fff;
     }

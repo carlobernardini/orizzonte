@@ -45,11 +45,11 @@ module.exports = {
         }]
     },
     sassLoader: {
-        includePaths: [ 'src/scss' ]
+        includePaths: ['src/scss']
     },
     resolve: {
         alias: {
-            'orizzonte': path.resolve(__dirname, '../src')
+            orizzonte: path.resolve(__dirname, '../src')
         },
         modules: [path.resolve(__dirname, '../node_modules')],
         extensions: ['.js', '.jsx'],

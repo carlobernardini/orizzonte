@@ -1,0 +1,62 @@
+@import 'base';
+
+.orizzonte__btn-wrapper {
+    position: relative;
+    float: left;
+    margin: {
+        left: 5px;
+    }
+
+    &--left {
+        margin: {
+            left: 0;
+            right: 5px;
+        }
+    }
+}
+
+.orizzonte__btn {
+    position: relative;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    line-height: 32px;
+    text-align: center;
+    border: none;
+    outline: none;
+    transition: all .3s;
+    font: {
+        size: 1.1em;
+    }
+
+    &--shown {
+        transform: scale(1);
+    }
+    &--disabled {
+        opacity: .5;
+    }
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+.orizzonte__btn-add {
+    background-color: $btn-add-color;
+    transform: scale(0);
+    @extend %btn;
+
+    &:hover {
+        background-color: lighten($btn-add-color, 5%);
+    }
+    &:after {
+        position: absolute;
+        content: '+';
+        top: 50%;
+        left: 50%;
+        transform: translate(-5px, -17px);
+        @extend %fonts;
+        font: {
+            size: 17px;
+        }
+    }
+}

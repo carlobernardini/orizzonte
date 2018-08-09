@@ -120,7 +120,8 @@
 		}
 	}
 
-	&:hover {
+	&:hover,
+	&:focus {
 		.orizzonte__checkbox-span {
 			&--first {
 				border-color: #fff;
@@ -130,6 +131,10 @@
 		        color: #fff;
 		    }
 		}
+	}
+
+	&:focus {
+		outline: none;
 	}
 
 	&--empty {

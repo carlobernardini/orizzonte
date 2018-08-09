@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import List from './List';
+import '../scss/Button.scss';
 
 class BtnAdd extends Component {
     constructor(props) {
@@ -75,15 +76,15 @@ class BtnAdd extends Component {
 
         return (
             <div
-                className={ classNames('orizzonte__btn-add-wrapper', {
-                    'orizzonte__btn-add-wrapper--left': position === 'left',
+                className={ classNames('orizzonte__btn-wrapper', {
+                    'orizzonte__btn-wrapper--left': position === 'left',
                 }) }
                 ref={ this.btnAdd }
             >
                 <button
-                    className={ classNames('orizzonte__btn-add', {
-                        'orizzonte__btn-add--shown': shown,
-                        'orizzonte__btn-add--disabled': disabled || !available.length
+                    className={ classNames('orizzonte__btn orizzonte__btn-add', {
+                        'orizzonte__btn--shown': shown,
+                        'orizzonte__btn--disabled': disabled || !available.length
                     }) }
                     disabled={ !available.length }
                     onClick={ this.toggleButton }
