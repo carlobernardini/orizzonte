@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, without
+    isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash';
 import utils from '../utils';
 import List from './List';
@@ -21,6 +21,7 @@ class Group extends Component {
 
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
+        this.updateGroupValues = this.updateGroupValues.bind(this);
         document.addEventListener('keyup', this.onKeyUp.bind(this), false);
     }
 
@@ -130,6 +131,63 @@ class Group extends Component {
         return selectedLabel.replace('%s', value.label || value);
     }
 
+    updateGroupValues(fieldName, value) {
+        const { mutuallyExclusiveFilters } = this.props;
+        const { groupValues } = this.state;
+
+        const filterFields = this.queryHasGroupFilters();
+
+        if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
+            return false;
+        }
+
+        let values;
+
+        if (!mutuallyExclusiveFilters || isNil(value)) {
+            values = assign({}, groupValues, {
+                [fieldName]: value
+            });
+        } else if (
+            Array.isArray(mutuallyExclusiveFilters)
+            && mutuallyExclusiveFilters.length >= 2
+            && indexOf(mutuallyExclusiveFilters, fieldName) > -1
+        ) {
+            const reset = fromPairs(
+                intersection(
+                    union(
+                        Object.keys(groupValues),
+                        filterFields
+                    ),
+                    without(
+                        mutuallyExclusiveFilters,
+                        fieldName
+                    )
+                ).map((field) => ([field, null]))
+            );
+
+            values = assign({}, groupValues, reset, {
+                [fieldName]: value
+            });
+        } else {
+            const reset = fromPairs(
+                without(
+                    filterFields,
+                    fieldName
+                ).map((field) => ([field, null]))
+            );
+
+            values = assign({}, reset, {
+                [fieldName]: value
+            });
+        }
+
+        this.setState({
+            groupValues: values
+        });
+
+        return true;
+    }
+
     renderBtn() {
         const { hideRemove } = this.props;
 
@@ -151,7 +209,7 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            mutuallyExclusiveFilters, children, description, onUpdate, orientation, queryPart
+            children, description, onUpdate, orientation, queryPart
         } = this.props;
 
         if (!this.groupIsActive() || !children.length) {
@@ -185,34 +243,7 @@ class Group extends Component {
                     this.toggleGroup();
                     onUpdate(filterFields);
                 }}
-                onUpdate={ (fieldName, value) => {
-                    if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
-                        return false;
-                    }
-
-                    let values = (!mutuallyExclusiveFilters || isNil(value))
-                        ? { ...groupValues }
-                        : {};
-
-                    values[fieldName] = value;
-
-                    if (
-                        mutuallyExclusiveFilters
-                        && !isNil(value)
-                        && filterFields
-                    ) {
-                        const otherFilters = without(filterFields, fieldName);
-                        values = assign(
-                            values,
-                            fromPairs(otherFilters.map((field) => [field, null]))
-                        );
-                    }
-
-                    this.setState({
-                        groupValues: values
-                    });
-                    return true;
-                }}
+                onUpdate={ this.updateGroupValues }
             />
         );
     }
@@ -344,8 +375,13 @@ Group.propTypes = {
         PropTypes.number,
         PropTypes.bool
     ]),
-    /** When true, only one filter can be selected for this group */
-    mutuallyExclusiveFilters: PropTypes.bool,
+    /** When true, only one filter can be selected for this group
+        When you want only specific filters to be mutually exclusive,
+        you can provide an array of (two or more) field names */
+    mutuallyExclusiveFilters: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.array
+    ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
     /** Custom additional class name for top-level component element */
