@@ -166,7 +166,6 @@ class Dropdown extends Component {
     }
 
     handleKeyDown(e, option, selected) {
-        e.preventDefault();
         const { multiple } = this.props;
         const { cursor } = this.state;
         const mergedOptions = this.getMergedOptions();
@@ -203,6 +202,8 @@ class Dropdown extends Component {
         if (newCursor === null) {
             return true;
         }
+
+        e.preventDefault();
 
         this.setState({
             cursor: newCursor
