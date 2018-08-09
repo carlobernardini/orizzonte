@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, fromPairs, indexOf, intersection, isEqual, isFunction, isNil, isNumber, pick, without
+    assign, concat, filter, find, fromPairs, indexOf, intersection,
+    isEqual, isFunction, isNil, isNumber, pick, without
 } from 'lodash';
 import utils from '../utils';
 import List from './List';
