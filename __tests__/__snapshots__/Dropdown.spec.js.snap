@@ -21,6 +21,7 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
+      onKeyDown={[Function]}
       type="button"
     >
       None selected
@@ -32,6 +33,8 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
         className="orizzonte__dropdown-item"
         key="at.0"
         onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         Austria
       </li>
@@ -39,6 +42,8 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
         className="orizzonte__dropdown-item"
         key="pt.1"
         onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         Portugal
       </li>
@@ -46,6 +51,8 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
         className="orizzonte__dropdown-item"
         key="ie.2"
         onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         Ireland
       </li>
@@ -75,6 +82,7 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
       <input
         className="orizzonte__dropdown-filter"
         onChange={[Function]}
+        onKeyDown={[Function]}
         placeholder="Search options..."
         type="text"
       />
@@ -92,6 +100,8 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
       <li
         className="orizzonte__dropdown-item"
         key="at.0"
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         <OrizzonteCheckBox
           disabled={false}
@@ -150,6 +160,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
+      onKeyDown={[Function]}
       type="button"
     >
       United States
@@ -160,6 +171,8 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       <li
         className="orizzonte__dropdown-item"
         key="at.0"
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         <OrizzonteCheckBox
           disabled={false}
@@ -181,6 +194,8 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       <li
         className="orizzonte__dropdown-item"
         key="pt.1"
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         <OrizzonteCheckBox
           disabled={false}
@@ -202,6 +217,8 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       <li
         className="orizzonte__dropdown-item"
         key="ie.2"
+        onKeyDown={[Function]}
+        tabIndex="-1"
       >
         <OrizzonteCheckBox
           disabled={false}
@@ -232,6 +249,8 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
         <li
           className="orizzonte__dropdown-item"
           key="us.3.0"
+          onKeyDown={[Function]}
+          tabIndex="-1"
         >
           <OrizzonteCheckBox
             disabled={false}
@@ -253,6 +272,8 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
         <li
           className="orizzonte__dropdown-item"
           key="ca.3.1"
+          onKeyDown={[Function]}
+          tabIndex="-1"
         >
           <OrizzonteCheckBox
             disabled={false}
