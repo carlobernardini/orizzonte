@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, without
+    isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash';
 import utils from '../utils';
 import List from './List';
@@ -141,27 +141,50 @@ class Group extends Component {
             return false;
         }
 
-        let values = (!mutuallyExclusiveFilters || isNil(value))
-            ? { ...groupValues }
-            : {};
+        let values;
 
-        values[fieldName] = value;
-
-        if (
-            mutuallyExclusiveFilters
-            && !isNil(value)
-            && filterFields
+        if (!mutuallyExclusiveFilters || isNil(value)) {
+            values = assign({}, groupValues, {
+                [fieldName]: value
+            });
+        } else if (
+            Array.isArray(mutuallyExclusiveFilters)
+            && mutuallyExclusiveFilters.length >= 2
+            && indexOf(mutuallyExclusiveFilters, fieldName) > -1
         ) {
-            const otherFilters = without(filterFields, fieldName);
-            values = assign(
-                values,
-                fromPairs(otherFilters.map((field) => [field, null]))
+            const reset = fromPairs(
+                intersection(
+                    union(
+                        Object.keys(groupValues),
+                        filterFields
+                    ),
+                    without(
+                        mutuallyExclusiveFilters,
+                        fieldName
+                    )
+                ).map((field) => ([field, null]))
             );
+
+            values = assign({}, groupValues, reset, {
+                [fieldName]: value
+            });
+        } else {
+            const reset = fromPairs(
+                without(
+                    filterFields,
+                    fieldName
+                ).map((field) => ([field, null]))
+            );
+
+            values = assign({}, reset, {
+                [fieldName]: value
+            });
         }
 
         this.setState({
             groupValues: values
         });
+
         return true;
     }
 
@@ -352,8 +375,13 @@ Group.propTypes = {
         PropTypes.number,
         PropTypes.bool
     ]),
-    /** When true, only one filter can be selected for this group */
-    mutuallyExclusiveFilters: PropTypes.bool,
+    /** When true, only one filter can be selected for this group
+        When you want only specific filters to be mutually exclusive,
+        you can provide an array of (two or more) field names */
+    mutuallyExclusiveFilters: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.array
+    ]),
     /** Internal list of filters in this group */
     children: PropTypes.array,
     /** Custom additional class name for top-level component element */
