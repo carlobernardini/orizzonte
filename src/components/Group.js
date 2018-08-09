@@ -21,6 +21,7 @@ class Group extends Component {
 
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
+        this.updateGroupValues = this.updateGroupValues.bind(this);
         document.addEventListener('keyup', this.onKeyUp.bind(this), false);
     }
 
@@ -130,6 +131,40 @@ class Group extends Component {
         return selectedLabel.replace('%s', value.label || value);
     }
 
+    updateGroupValues(fieldName, value) {
+        const { mutuallyExclusiveFilters } = this.props;
+        const { groupValues } = this.state;
+
+        const filterFields = this.queryHasGroupFilters();
+
+        if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
+            return false;
+        }
+
+        let values = (!mutuallyExclusiveFilters || isNil(value))
+            ? { ...groupValues }
+            : {};
+
+        values[fieldName] = value;
+
+        if (
+            mutuallyExclusiveFilters
+            && !isNil(value)
+            && filterFields
+        ) {
+            const otherFilters = without(filterFields, fieldName);
+            values = assign(
+                values,
+                fromPairs(otherFilters.map((field) => [field, null]))
+            );
+        }
+
+        this.setState({
+            groupValues: values
+        });
+        return true;
+    }
+
     renderBtn() {
         const { hideRemove } = this.props;
 
@@ -151,7 +186,7 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            mutuallyExclusiveFilters, children, description, onUpdate, orientation, queryPart
+            children, description, onUpdate, orientation, queryPart
         } = this.props;
 
         if (!this.groupIsActive() || !children.length) {
@@ -185,34 +220,7 @@ class Group extends Component {
                     this.toggleGroup();
                     onUpdate(filterFields);
                 }}
-                onUpdate={ (fieldName, value) => {
-                    if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
-                        return false;
-                    }
-
-                    let values = (!mutuallyExclusiveFilters || isNil(value))
-                        ? { ...groupValues }
-                        : {};
-
-                    values[fieldName] = value;
-
-                    if (
-                        mutuallyExclusiveFilters
-                        && !isNil(value)
-                        && filterFields
-                    ) {
-                        const otherFilters = without(filterFields, fieldName);
-                        values = assign(
-                            values,
-                            fromPairs(otherFilters.map((field) => [field, null]))
-                        );
-                    }
-
-                    this.setState({
-                        groupValues: values
-                    });
-                    return true;
-                }}
+                onUpdate={ this.updateGroupValues }
             />
         );
     }
