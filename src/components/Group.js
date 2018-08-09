@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, indexOf, intersection, isEqual, isFunction, isNumber, pick
+    assign, concat, filter, find, fromPairs, indexOf, intersection,
+    isEqual, isFunction, isNil, isNumber, pick, without
 } from 'lodash';
 import utils from '../utils';
 import List from './List';
@@ -150,7 +151,7 @@ class Group extends Component {
     renderList() {
         const { groupValues } = this.state;
         const {
-            children, description, onUpdate, orientation, queryPart
+            mutuallyExclusiveFilters, children, description, onUpdate, orientation, queryPart
         } = this.props;
 
         if (!this.groupIsActive() || !children.length) {
@@ -188,8 +189,24 @@ class Group extends Component {
                     if (fieldName in groupValues && isEqual(groupValues[fieldName], value)) {
                         return false;
                     }
-                    const values = { ...groupValues };
+
+                    let values = (!mutuallyExclusiveFilters || isNil(value))
+                        ? { ...groupValues }
+                        : {};
+
                     values[fieldName] = value;
+
+                    if (
+                        mutuallyExclusiveFilters
+                        && !isNil(value)
+                        && filterFields
+                    ) {
+                        const otherFilters = without(filterFields, fieldName);
+                        values = assign(
+                            values,
+                            fromPairs(otherFilters.map((field) => [field, null]))
+                        );
+                    }
 
                     this.setState({
                         groupValues: values
@@ -327,6 +344,8 @@ Group.propTypes = {
         PropTypes.number,
         PropTypes.bool
     ]),
+    /** When true, only one filter can be selected for this group */
+    mutuallyExclusiveFilters: PropTypes.bool,
     /** Internal list of filters in this group */
     children: PropTypes.array,
     /** Custom additional class name for top-level component element */
@@ -360,6 +379,7 @@ Group.propTypes = {
 
 Group.defaultProps = {
     activeGroup: null,
+    mutuallyExclusiveFilters: false,
     children: [],
     className: null,
     description: null,
