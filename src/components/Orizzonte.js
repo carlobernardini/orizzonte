@@ -21,21 +21,21 @@ class Orizzonte extends Component {
         this.addGroup = this.addGroup.bind(this);
         this.onGroupUpdate = this.onGroupUpdate.bind(this);
         this.timer = null;
-        document.addEventListener('click', this.onClickOutside.bind(this), false);
+        document.addEventListener('click', this.onClickOutside.bind(this), true);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.onClickOutside.bind(this), false);
+        document.removeEventListener('click', this.onClickOutside.bind(this), true);
     }
 
     onClickOutside(e) {
         const { collapseGroupOnClickOutside } = this.props;
 
-        if (!collapseGroupOnClickOutside) {
+        if (!collapseGroupOnClickOutside || !this.orizzonte || !this.orizzonte.current) {
             return false;
         }
 
-        if (!e.target.contains(this.orizzonte.current)) {
+        if (this.orizzonte.current.contains(e.target)) {
             return false;
         }
 

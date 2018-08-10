@@ -246,6 +246,10 @@ class Dropdown extends Component {
         const { disabled } = this.props;
         const { expanded, filter } = this.state;
 
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+        }
+
         const newState = {
             expanded: collapse ? false : !expanded
         };
