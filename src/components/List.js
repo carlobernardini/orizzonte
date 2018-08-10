@@ -111,7 +111,7 @@ class List extends Component {
 
     renderItems() {
         const {
-            values: groupValues, items, isFilterGroup, onUpdate
+            cache, values: groupValues, items, isFilterGroup, onUpdate, syncCacheToGroup
         } = this.props;
 
         if (isFilterGroup) {
@@ -123,6 +123,12 @@ class List extends Component {
                     key={ i }
                 >
                     { React.cloneElement(item, {
+                        cache: ((c, { fieldName }) => {
+                            if (fieldName in c) {
+                                return c[fieldName];
+                            }
+                            return null;
+                        })(cache, item.props),
                         value: ((v, fn) => {
                             if (!(fn in v)) {
                                 return null;
@@ -132,6 +138,10 @@ class List extends Component {
                         onUpdate: (filterValue) => {
                             const { fieldName } = item.props;
                             onUpdate(fieldName, filterValue);
+                        },
+                        syncCache: (options) => {
+                            const { fieldName } = item.props;
+                            syncCacheToGroup(fieldName, options);
                         }
                     }) }
                 </li>
@@ -171,6 +181,7 @@ class List extends Component {
 List.displayName = 'OrizzonteList';
 
 List.propTypes = {
+    cache: PropTypes.object,
     clearBtn: PropTypes.bool,
     clearBtnLabel: PropTypes.string,
     doneBtn: PropTypes.bool,
@@ -184,10 +195,12 @@ List.propTypes = {
     orientation: PropTypes.oneOf([
         'left',
         'right'
-    ])
+    ]),
+    syncCacheToGroup: PropTypes.func
 };
 
 List.defaultProps = {
+    cache: {},
     clearBtn: false,
     clearBtnLabel: null,
     doneBtn: true,
@@ -197,7 +210,8 @@ List.defaultProps = {
     onApply: () => {},
     onClear: () => {},
     onUpdate: () => {},
-    orientation: 'left'
+    orientation: 'left',
+    syncCacheToGroup: () => {}
 };
 
 export default List;
