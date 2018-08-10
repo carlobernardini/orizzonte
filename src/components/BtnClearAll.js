@@ -25,11 +25,15 @@ const BtnClearAll = ({ clearAllLabel, disabled, onClearAll, position, shown }) =
 );
 
 BtnClearAll.propTypes = {
-    clearAllLabel: PropTypes.string.isRequired,
+    clearAllLabel: PropTypes.string,
     disabled: PropTypes.bool.isRequired,
     onClearAll: PropTypes.func.isRequired,
     position: PropTypes.string.isRequired,
     shown: PropTypes.bool.isRequired
+};
+
+BtnClearAll.defaultProps = {
+    clearAllLabel: null
 };
 
 export default BtnClearAll;

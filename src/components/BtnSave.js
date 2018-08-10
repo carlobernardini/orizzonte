@@ -25,11 +25,15 @@ const BtnSave = ({ saveLabel, disabled, onSave, position, shown }) => (
 );
 
 BtnSave.propTypes = {
-    saveLabel: PropTypes.string.isRequired,
+    saveLabel: PropTypes.string,
     disabled: PropTypes.bool.isRequired,
     onSave: PropTypes.func.isRequired,
     position: PropTypes.string.isRequired,
     shown: PropTypes.bool.isRequired
+};
+
+BtnSave.defaultProps = {
+    saveLabel: null
 };
 
 export default BtnSave;
