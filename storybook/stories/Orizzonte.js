@@ -65,6 +65,7 @@ const component = ({ store }) => {
 
     return (
         <Orizzonte
+            autoHideControls
             query={ query }
             collapseGroupOnClickOutside
             groupTopLabels
@@ -72,6 +73,11 @@ const component = ({ store }) => {
                 console.log(queryObject);
                 store.set({
                     query: queryObject
+                });
+            }}
+            onClearAll={ () => {
+                store.set({
+                    query: {}
                 });
             }}
             onGroupAdd={ (i) => {
@@ -90,6 +96,9 @@ const component = ({ store }) => {
                 store.set({
                     groups: newGroups
                 });
+            }}
+            onSave={ (queryObject) => {
+                console.log('Save query', queryObject);
             }}
         >
             {

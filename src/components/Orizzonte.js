@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, identity, omit, pick, pickBy
+    assign, identity, isFunction, omit, pick, pickBy
 } from 'lodash';
 import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
+import BtnClearAll from './BtnClearAll';
+import BtnSave from './BtnSave';
 import '../scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
@@ -12,7 +14,7 @@ class Orizzonte extends Component {
         super(props);
         this.state = {
             activeGroup: null,
-            showAddBtn: false
+            showControls: false
         };
         this.orizzonte = React.createRef();
         this.toggleGroup = this.toggleGroup.bind(this);
@@ -69,9 +71,9 @@ class Orizzonte extends Component {
         return true;
     }
 
-    toggleAddBtn(show) {
-        const { showAddBtn } = this.state;
-        const { children } = this.props;
+    toggleControls(show) {
+        const { showControls } = this.state;
+        const { autoHideTimeout, children } = this.props;
 
         if (show) {
             if (this.timer) {
@@ -79,12 +81,12 @@ class Orizzonte extends Component {
                 this.timer = null;
             }
 
-            if (showAddBtn) {
+            if (showControls) {
                 return false;
             }
 
             this.setState({
-                showAddBtn: true
+                showControls: true
             });
             return true;            
         }
@@ -96,15 +98,15 @@ class Orizzonte extends Component {
             return child;
         });
 
-        if (!showAddBtn || !included.length) {
+        if (!showControls || !included.length) {
             return false;
         }
 
         this.timer = setTimeout(() => {
             this.setState({
-                showAddBtn: false
+                showControls: false
             });
-        }, 750);
+        }, autoHideTimeout);
         return true;
     }
 
@@ -137,9 +139,9 @@ class Orizzonte extends Component {
 
     renderAddBtn(position) {
         const {
-            btnAddAlwaysShown, orientation, children, maxGroups
+            autoHideControls, orientation, children, maxGroups
         } = this.props;
-        const { showAddBtn } = this.state;
+        const { showControls } = this.state;
 
         if (orientation === position) {
             return null;
@@ -148,7 +150,7 @@ class Orizzonte extends Component {
         if (
             maxGroups
             && maxGroups === React.Children.count(children)
-            && !btnAddAlwaysShown
+            && !autoHideControls
         ) {
             return null;
         }
@@ -162,7 +164,7 @@ class Orizzonte extends Component {
 
         return (
             <BtnAdd
-                shown={ !includedCount || showAddBtn || btnAddAlwaysShown }
+                shown={ !includedCount || showControls || !autoHideControls }
                 position={ orientation === 'right' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
@@ -174,6 +176,54 @@ class Orizzonte extends Component {
                         label: child.props.label
                     };
                 }) }
+            />
+        );
+    }
+
+    renderClearBtn(position) {
+        const { autoHideControls, clearAllLabel, onClearAll, orientation, query } = this.props;
+        const { showControls } = this.state;
+
+        if (orientation === position) {
+            return null;
+        }
+
+        if (!onClearAll || !isFunction(onClearAll)) {
+            return null;
+        }
+
+        return (
+            <BtnClearAll
+                disabled={ !Object.keys(query).length }
+                shown={ showControls || !autoHideControls }
+                clearAllLabel={ clearAllLabel }
+                onClearAll={ onClearAll }
+                position={ orientation === 'right' ? 'left' : 'right' }
+            />
+        );
+    }
+
+    renderSaveBtn(position) {
+        const { autoHideControls, saveLabel, onSave, orientation, query } = this.props;
+        const { showControls } = this.state;
+
+        if (orientation === position) {
+            return null;
+        }
+
+        if (!onSave || !isFunction(onSave)) {
+            return null;
+        }
+
+        return (
+            <BtnSave
+                disabled={ !Object.keys(query).length }
+                shown={ showControls || !autoHideControls }
+                saveLabel={ saveLabel }
+                onSave={ () => {
+                    onSave(query);
+                }}
+                position={ orientation === 'right' ? 'left' : 'right' }
             />
         );
     }
@@ -191,12 +241,22 @@ class Orizzonte extends Component {
                     'orizzonte__container--top-labels': groupTopLabels,
                     [className]: className
                 }) }
-                onFocus={ () => { this.toggleAddBtn(true); }}
-                onMouseOver={ () => { this.toggleAddBtn(true); }}
-                onBlur={ () => { this.toggleAddBtn(false); }}
-                onMouseOut={ () => { this.toggleAddBtn(false); }}
+                onFocus={ () => {
+                    this.toggleControls(true);
+                }}
+                onMouseOver={ () => {
+                    this.toggleControls(true);
+                }}
+                onBlur={ (e) => {
+                    this.toggleControls(!e.target.contains(this.orizzonte.current));
+                }}
+                onMouseOut={ () => {
+                    this.toggleControls(false);
+                }}
                 ref={ this.orizzonte }
             >
+                { this.renderSaveBtn('left') }
+                { this.renderClearBtn('left') }
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
                     if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
@@ -216,6 +276,8 @@ class Orizzonte extends Component {
                     });
                 }) }
                 { this.renderAddBtn('right') }
+                { this.renderClearBtn('right') }
+                { this.renderSaveBtn('right') }
             </div>
         );
     }
@@ -226,48 +288,65 @@ Orizzonte.displayName = 'Orizzonte';
 Orizzonte.propTypes = {
     /** Indicates if a newly added group should auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
-    /** If the button for adding new filter groups should always be visible */
-    btnAddAlwaysShown: PropTypes.bool,
+    /** If true, add, clear and save buttons will hide automatically */
+    autoHideControls: PropTypes.bool,
+    /** Custom timeout interval for auto-hiding controls */
+    autoHideTimeout: PropTypes.number,
     /** List of filter groups */
     children: PropTypes.array,
     /** Custom additional class name for the top-level element */
     className: PropTypes.string,
+    /** Custom label for the button to clear all of the query
+        onClear prop needs to be defined for the button to show */
+    clearAllLabel: PropTypes.string,
     /** Whether the group should collapse when the user clicks outside of it
         Changes will not be applied to the query */
     collapseGroupOnClickOutside: PropTypes.bool,
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
-    /** Maximum number of filters to be added */
+    /** Maximum number of groups to be added */
     maxGroups: PropTypes.number,
     /** Callback function that triggers when the final query object is updated */
     onChange: PropTypes.func,
+    /** Callback function for clearing all of the query */
+    onClearAll: PropTypes.func,
     /** Callback function for when a new filter group is added */
     onGroupAdd: PropTypes.func,
     /** Callback function for when a filter group is removed */
     onGroupRemove: PropTypes.func,
+    /** Callback function saving the current query object */
+    onSave: PropTypes.func,
     /** Show the button for adding new filter groups on the left or right */
     orientation: PropTypes.oneOf([
         'left',
         'right'
     ]),
     /** The current query object */
-    query: PropTypes.object
+    query: PropTypes.object,
+    /** Custom label for the button to save the current query
+        onSave prop needs to be defined for the button to show */
+    saveLabel: PropTypes.string
 };
 
 Orizzonte.defaultProps = {
     autoExpandOnGroupAdd: true,
-    btnAddAlwaysShown: false,
+    autoHideControls: false,
+    autoHideTimeout: 750,
     children: [],
     className: null,
+    clearAllLabel: null,
     collapseGroupOnClickOutside: false,
     groupTopLabels: false,
     maxGroups: null,
     onChange: () => {},
+    onClearAll: null,
     onGroupAdd: () => {},
     onGroupRemove: () => {},
+    onSave: null,
     orientation: 'left',
-    query: {}
+    query: {},
+    saveLabel: null
 };
 
 export default Orizzonte;
