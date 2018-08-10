@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { assign } from 'lodash';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
@@ -8,19 +9,21 @@ import '../scss/FullText.scss';
 class FullText extends Component {
     renderField() {
         const {
-            disabled, multiline, onUpdate, placeholder, value
+            disabled, maxHeight, maxWidth, multiline, onUpdate, placeholder, value
         } = this.props;
 
-        const fieldProps = {
+        let fieldProps = {
             className: classNames('orizzonte__filter-fulltext', {
                 'orizzonte__filter-fulltext--disabled': disabled
             }),
             disabled,
             onChange: (e) => {
                 const { value: val } = e.target;
-                if (!val.trim().length) {
+
+                if (!(val || '').trim().length) {
                     return onUpdate(null);
                 }
+
                 return onUpdate(val);
             },
             placeholder,
@@ -28,7 +31,19 @@ class FullText extends Component {
         };
 
         if (multiline) {
-            fieldProps.className = classNames(fieldProps.className, 'orizzonte__filter-fulltext--multiline');
+            fieldProps = assign({}, fieldProps, {
+                className: classNames(fieldProps.className, 'orizzonte__filter-fulltext--multiline'),
+                style: ((mh, mw) => {
+                    if (!mh && !mw) {
+                        return null;
+                    }
+
+                    return {
+                        maxHeight: mh ? `${ mh }px` : null,
+                        maxWidth: mw ? `${ mw }px` : null
+                    };
+                })(maxHeight, maxWidth)
+            });
 
             return (
                 <textarea
@@ -72,11 +87,21 @@ FullText.propTypes = {
     information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
+    /** Maximum textarea height (only applicable for multiline mode) */
+    maxHeight: PropTypes.number,
+    /** Maximum textarea width (only applicable for multiline mode) */
+    maxWidth: PropTypes.number,
+    /** Whether to render a textarea (true) or input field (false) */
     multiline: PropTypes.bool,
     /** Internal callback for filter update */
     onUpdate: PropTypes.func,
     /** Label for this filter section */
     placeholder: PropTypes.string,
+    /** Transforming function or placeholder for group label */
+    selectedLabel: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.string
+    ]),
     /** Current value for this filter */
     value: PropTypes.string
 };
@@ -84,9 +109,12 @@ FullText.propTypes = {
 FullText.defaultProps = {
     disabled: false,
     information: null,
+    maxHeight: null,
+    maxWidth: null,
     multiline: false,
     onUpdate: () => {},
     placeholder: null,
+    selectedLabel: '%s',
     value: null
 };
 

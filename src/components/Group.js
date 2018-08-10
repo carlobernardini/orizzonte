@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, union, without
+    isEqual, isFunction, isNil, isNumber, pick, union, unionBy, without
 } from 'lodash';
 import utils from '../utils';
 import List from './List';
@@ -14,6 +14,7 @@ class Group extends Component {
         super(props);
 
         this.state = {
+            cache: {},
             removing: false,
             groupValues: {},
             hasError: false
@@ -213,7 +214,7 @@ class Group extends Component {
     }
 
     renderList() {
-        const { groupValues } = this.state;
+        const { cache, groupValues } = this.state;
         const {
             children, description, onUpdate, orientation, queryPart
         } = this.props;
@@ -233,9 +234,9 @@ class Group extends Component {
             </div>
         ], children) : children;
 
-
         return (
             <List
+                cache={ cache || {} }
                 clearBtn
                 isFilterGroup
                 items={ filters }
@@ -250,12 +251,21 @@ class Group extends Component {
                     onUpdate(filterFields);
                 }}
                 onUpdate={ this.updateGroupValues }
+                syncCacheToGroup={ (fieldName, options) => {
+
+                    this.setState({
+                        cache: assign({}, cache, {
+                            [fieldName]: options
+                        })
+                    });
+                }}
             />
         );
     }
 
     renderLabel() {
         const { children, label, queryPart } = this.props;
+        const { cache } = this.state;
 
         const fields = Object.keys(queryPart);
 
@@ -269,7 +279,11 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
-            const { flatOptions } = utils.getFlattenedOptions(options);
+            let { flatOptions } = utils.getFlattenedOptions(options);
+
+            if (fieldName in cache) {
+                flatOptions = unionBy(flatOptions, cache[fieldName], 'value');
+            }
 
             const value = queryPart[fieldName];
 

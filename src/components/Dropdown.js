@@ -4,7 +4,7 @@ import axios from 'axios';
 import classNames from 'classnames';
 import {
     assign, debounce, filter as _filter, includes, indexOf,
-    isEqual, isFunction, unionBy, uniqueId, without
+    isEqual, isFunction, toArray, unionBy, uniqueId, without
 } from 'lodash';
 import diacritics from 'diacritics';
 import utils from '../utils';
@@ -135,11 +135,36 @@ class Dropdown extends Component {
         );
     }
 
+    getLoadingText() {
+        const { remote } = this.props;
+
+        if (!remote || !remote.loadingText) {
+            return 'Loading...';
+        }
+
+        return remote.loadingText;
+    }
+
     getMergedOptions() {
         const { options } = this.props;
         const { remoteOptions } = this.state;
 
         return unionBy(options, remoteOptions, 'value');
+    }
+
+    dispatchUpdate(newValue) {
+        const { remoteOptions } = this.state;
+        const { onUpdate, syncCache } = this.props;
+
+        if (remoteOptions) {
+            const { flatOptions } = utils.getFlattenedOptions(remoteOptions);
+            const subsetToCache = _filter(flatOptions, (o) => (
+                includes(toArray(newValue), o.value)
+            ));
+            syncCache(subsetToCache);
+        }
+
+        onUpdate(newValue);
     }
 
     handleClickOutside(e) {
@@ -219,26 +244,27 @@ class Dropdown extends Component {
     }
 
     handleSelection(selected, optionValue) {
-        const { value, onUpdate } = this.props;
+        const { value } = this.props;
 
         let newValue = (value || []).slice(0);
         if (selected && !includes(newValue, optionValue)) {
             newValue.push(optionValue);
         }
+
         if (!selected && includes(newValue, optionValue)) {
             newValue = without(newValue, optionValue);
         }
+
         if (isEqual(newValue, value)) {
             return false;
         }
-        onUpdate(newValue.length ? newValue : null);
+
+        this.dispatchUpdate(newValue.length ? newValue : null);
         return true;
     }
 
     handleSingleSelection(optionValue) {
-        const { onUpdate } = this.props;
-
-        onUpdate(optionValue);
+        this.dispatchUpdate(optionValue);
         this.toggleDropdown(null, true);
     }
 
@@ -319,7 +345,7 @@ class Dropdown extends Component {
     }
 
     renderButtonLabel() {
-        const { notSetLabel, value, selectedLabel } = this.props;
+        const { cache, notSetLabel, value, selectedLabel } = this.props;
         const mergedOptions = this.getMergedOptions();
         const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
 
@@ -327,12 +353,21 @@ class Dropdown extends Component {
             return notSetLabel || 'None selected';
         }
 
-        const selectedOptions = _filter(flatOptions, (option) => {
+        let selectedOptions = _filter(flatOptions, (option) => {
             if (Array.isArray(value)) {
                 return indexOf(value, option.value) > -1;
             }
             return option.value === value;
         });
+
+        // Enrich selected options with ones from cache
+        if (cache) {
+            selectedOptions = unionBy(
+                selectedOptions,
+                cache,
+                'value'
+            );
+        }
 
         if (!selectedLabel) {
             if (selectedOptions.length === 1) {
@@ -492,7 +527,7 @@ class Dropdown extends Component {
                 <li
                     className="orizzonte__dropdown-item--empty"
                 >
-                    { remoteLoading ? 'Loading...' : noOptionsLabel }
+                    { remoteLoading ? this.getLoadingText() : noOptionsLabel }
                 </li>
             );
         }
@@ -620,17 +655,24 @@ class Dropdown extends Component {
 Dropdown.displayName = 'OrizzonteDropdown';
 
 Dropdown.propTypes = {
+    /** Currently cached selected options from remote endpoint */
+    cache: PropTypes.object,
     information: PropTypes.string,
     disabled: PropTypes.bool,
     /** Filter dropdown options and highlight matches */
     filter: PropTypes.shape({
+        /** If filtering should be enabled */
         enabled: PropTypes.bool.isRequired,
+        /** If the filter is case sensitive */
         matchCase: PropTypes.bool,
+        /** If the filter should strictly match diacritics */
         matchDiacritics: PropTypes.bool,
+        /** Whether to match at any position in the string or from the start */
         matchPosition: PropTypes.oneOf([
             'any',
             'start'
         ]),
+        /** Input placeholder when filter is empty */
         placeholder: PropTypes.string
     }),
     label: PropTypes.string.isRequired,
@@ -662,21 +704,27 @@ Dropdown.propTypes = {
     /** Remote API to fetch dropdown options from */
     remote: PropTypes.shape({
         data: PropTypes.object,
+        /** Remote endpoint URI */
         endpoint: PropTypes.string.isRequired,
+        /** Text to show while loading data */
+        loadingText: PropTypes.string,
+        /** Query parameter to apply the filter value to */
         searchParam: PropTypes.string.isRequired,
+        /** Function for transforming response data before consuming it */
         transformer: PropTypes.func
     }),
     /** Whether to include a select all option on multiselects
         This is not supported when remote source is configured
      */
     selectAll: PropTypes.bool,
-    /** What label to show for the select all option
-     */
+    /** What label to show for the select all option */
     selectAllLabel: PropTypes.string,
     selectedLabel: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.func
     ]),
+    /** Internal callback for syncing selected values from remote endpoint */
+    syncCache: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.string
@@ -684,6 +732,7 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+    cache: {},
     information: null,
     disabled: false,
     filter: null,
@@ -695,6 +744,7 @@ Dropdown.defaultProps = {
     selectAll: false,
     selectAllLabel: null,
     selectedLabel: null,
+    syncCache: () => {},
     value: []
 };
 
