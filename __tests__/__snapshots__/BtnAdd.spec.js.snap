@@ -73,6 +73,7 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
      
   </button>
   <OrizzonteList
+    cache={Object {}}
     clearBtn={false}
     clearBtnLabel={null}
     doneBtn={true}
@@ -100,6 +101,7 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
     onClear={[Function]}
     onUpdate={[Function]}
     orientation="right"
+    syncCacheToGroup={[Function]}
     values={Object {}}
   />
 </div>
