@@ -197,7 +197,10 @@ class Orizzonte extends Component {
                 disabled={ !Object.keys(query).length }
                 shown={ showControls || !autoHideControls }
                 clearAllLabel={ clearAllLabel }
-                onClearAll={ onClearAll }
+                onClearAll={ () => {
+                    this.toggleGroup(null);
+                    onClearAll();
+                }}
                 position={ orientation === 'right' ? 'left' : 'right' }
             />
         );
@@ -221,6 +224,7 @@ class Orizzonte extends Component {
                 shown={ showControls || !autoHideControls }
                 saveLabel={ saveLabel }
                 onSave={ () => {
+                    this.toggleGroup(null);
                     onSave(query);
                 }}
                 position={ orientation === 'right' ? 'left' : 'right' }
@@ -231,7 +235,7 @@ class Orizzonte extends Component {
     render() {
         const {
             children, className, collapseGroupOnClickOutside,
-            groupTopLabels, onGroupRemove, orientation
+            groupTopLabels, dispatchOnFilterChange, onGroupRemove, orientation
         } = this.props;
         const { activeGroup } = this.state;
 
@@ -268,6 +272,7 @@ class Orizzonte extends Component {
                         collapseGroupOnClickOutside,
                         groupTopLabels,
                         i,
+                        dispatchOnFilterChange,
                         onGroupRemove,
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
@@ -305,6 +310,8 @@ Orizzonte.propTypes = {
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
+    /** If true, the query object will be updated right after any filter change */
+    dispatchOnFilterChange: PropTypes.bool,
     /** Maximum number of groups to be added */
     maxGroups: PropTypes.number,
     /** Callback function that triggers when the final query object is updated */
@@ -338,6 +345,7 @@ Orizzonte.defaultProps = {
     clearAllLabel: null,
     collapseGroupOnClickOutside: false,
     groupTopLabels: false,
+    dispatchOnFilterChange: false,
     maxGroups: null,
     onChange: () => {},
     onClearAll: null,

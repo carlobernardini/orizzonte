@@ -69,6 +69,7 @@ const component = ({ store }) => {
             query={ query }
             collapseGroupOnClickOutside
             groupTopLabels
+            dispatchOnFilterChange
             onChange={ (queryObject) => {
                 console.log(queryObject);
                 store.set({
