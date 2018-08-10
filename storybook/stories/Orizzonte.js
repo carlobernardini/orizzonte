@@ -66,6 +66,7 @@ const component = ({ store }) => {
     return (
         <Orizzonte
             query={ query }
+            collapseGroupOnClickOutside
             groupTopLabels
             onChange={ (queryObject) => {
                 console.log(queryObject);

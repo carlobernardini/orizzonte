@@ -14,10 +14,30 @@ class Orizzonte extends Component {
             activeGroup: null,
             showAddBtn: false
         };
+        this.orizzonte = React.createRef();
         this.toggleGroup = this.toggleGroup.bind(this);
         this.addGroup = this.addGroup.bind(this);
         this.onGroupUpdate = this.onGroupUpdate.bind(this);
         this.timer = null;
+        document.addEventListener('click', this.onClickOutside.bind(this), false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.onClickOutside.bind(this), false);
+    }
+
+    onClickOutside(e) {
+        const { collapseGroupOnClickOutside } = this.props;
+
+        if (!collapseGroupOnClickOutside) {
+            return false;
+        }
+
+        if (!e.target.contains(this.orizzonte.current)) {
+            return false;
+        }
+
+        return this.toggleGroup(null);
     }
 
     onGroupUpdate(group) {
@@ -160,7 +180,8 @@ class Orizzonte extends Component {
 
     render() {
         const {
-            children, className, groupTopLabels, onGroupRemove, orientation
+            children, className, collapseGroupOnClickOutside,
+            groupTopLabels, onGroupRemove, orientation
         } = this.props;
         const { activeGroup } = this.state;
 
@@ -174,6 +195,7 @@ class Orizzonte extends Component {
                 onMouseOver={ () => { this.toggleAddBtn(true); }}
                 onBlur={ () => { this.toggleAddBtn(false); }}
                 onMouseOut={ () => { this.toggleAddBtn(false); }}
+                ref={ this.orizzonte }
             >
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
@@ -183,6 +205,7 @@ class Orizzonte extends Component {
 
                     return React.cloneElement(child, {
                         activeGroup,
+                        collapseGroupOnClickOutside,
                         groupTopLabels,
                         i,
                         onGroupRemove,
@@ -203,43 +226,47 @@ Orizzonte.displayName = 'Orizzonte';
 Orizzonte.propTypes = {
     /** Indicates if a newly added group should auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
-    /** Callback function that triggers when the final query object is updated */
-    onChange: PropTypes.func,
-    /** Show the button for adding new filter groups on the left or right */
-    orientation: PropTypes.oneOf([
-        'left',
-        'right'
-    ]),
     /** If the button for adding new filter groups should always be visible */
     btnAddAlwaysShown: PropTypes.bool,
     /** List of filter groups */
     children: PropTypes.array,
     /** Custom additional class name for the top-level element */
     className: PropTypes.string,
+    /** Whether the group should collapse when the user clicks outside of it
+        Changes will not be applied to the query */
+    collapseGroupOnClickOutside: PropTypes.bool,
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
     /** Maximum number of filters to be added */
     maxGroups: PropTypes.number,
+    /** Callback function that triggers when the final query object is updated */
+    onChange: PropTypes.func,
     /** Callback function for when a new filter group is added */
     onGroupAdd: PropTypes.func,
     /** Callback function for when a filter group is removed */
     onGroupRemove: PropTypes.func,
+    /** Show the button for adding new filter groups on the left or right */
+    orientation: PropTypes.oneOf([
+        'left',
+        'right'
+    ]),
     /** The current query object */
     query: PropTypes.object
 };
 
 Orizzonte.defaultProps = {
     autoExpandOnGroupAdd: true,
-    onChange: () => {},
-    orientation: 'left',
     btnAddAlwaysShown: false,
     children: [],
     className: null,
+    collapseGroupOnClickOutside: false,
     groupTopLabels: false,
     maxGroups: null,
+    onChange: () => {},
     onGroupAdd: () => {},
     onGroupRemove: () => {},
+    orientation: 'left',
     query: {}
 };
 
