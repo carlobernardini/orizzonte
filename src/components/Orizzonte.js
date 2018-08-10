@@ -31,11 +31,11 @@ class Orizzonte extends Component {
     onClickOutside(e) {
         const { collapseGroupOnClickOutside } = this.props;
 
-        if (!collapseGroupOnClickOutside) {
+        if (!collapseGroupOnClickOutside || !this.orizzonte || !this.orizzonte.current) {
             return false;
         }
 
-        if (!e.target.contains(this.orizzonte.current)) {
+        if (this.orizzonte.current.contains(e.target)) {
             return false;
         }
 
