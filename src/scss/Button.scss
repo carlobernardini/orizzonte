@@ -25,6 +25,7 @@
     border: none;
     outline: none;
     transition: all .3s;
+    transform: scale(0);
     font: {
         size: 1.1em;
     }
@@ -42,7 +43,6 @@
 
 .orizzonte__btn-add {
     background-color: $btn-add-color;
-    transform: scale(0);
     @extend %btn;
 
     &:hover {
@@ -58,5 +58,27 @@
         font: {
             size: 17px;
         }
+    }
+}
+
+.orizzonte__btn-text {
+    background-color: transparent;
+    color: $color-a;
+    cursor: pointer;
+    width: auto;
+    border-radius: 20px;
+    padding: 0 10px;
+    @extend %fonts;
+    font: {
+        weight: 400;
+        size: 14px;
+    };
+
+    &:hover {
+        transform: scale(1);
+    }
+
+    &.orizzonte__btn--disabled {
+        color: $gray-darker;
     }
 }
