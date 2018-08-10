@@ -135,6 +135,16 @@ class Dropdown extends Component {
         );
     }
 
+    getLoadingText() {
+        const { remote } = this.props;
+
+        if (!remote || !remote.loadingText) {
+            return 'Loading...';
+        }
+
+        return remote.loadingText;
+    }
+
     getMergedOptions() {
         const { options } = this.props;
         const { remoteOptions } = this.state;
@@ -492,7 +502,7 @@ class Dropdown extends Component {
                 <li
                     className="orizzonte__dropdown-item--empty"
                 >
-                    { remoteLoading ? 'Loading...' : noOptionsLabel }
+                    { remoteLoading ? this.getLoadingText() : noOptionsLabel }
                 </li>
             );
         }
@@ -663,6 +673,7 @@ Dropdown.propTypes = {
     remote: PropTypes.shape({
         data: PropTypes.object,
         endpoint: PropTypes.string.isRequired,
+        loadingText: PropTypes.string,
         searchParam: PropTypes.string.isRequired,
         transformer: PropTypes.func
     }),
