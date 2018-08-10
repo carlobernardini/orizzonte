@@ -252,7 +252,6 @@ class Group extends Component {
                 }}
                 onUpdate={ this.updateGroupValues }
                 syncCacheToGroup={ (fieldName, options) => {
-
                     this.setState({
                         cache: assign({}, cache, {
                             [fieldName]: options
