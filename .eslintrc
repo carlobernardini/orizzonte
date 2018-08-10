@@ -38,7 +38,8 @@
         "document": true,
         "mount": true,
         "shallow": true,
-        "render": true
+        "render": true,
+        "window": true
     },
     "settings": {
         "import/resolver": {

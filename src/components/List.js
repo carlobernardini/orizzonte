@@ -5,6 +5,51 @@ import { compact, values } from 'lodash';
 import '../scss/List.scss';
 
 class List extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            fromRight: false,
+        };
+
+        this.list = React.createRef();
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+    }
+
+    componentDidMount() {
+        this.onWindowResize();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.onWindowResize.bind(this), false);
+    }
+
+    onWindowResize() {
+        if (!this.list || !this.list.current) {
+            return true;
+        }
+
+        const windowWidth = Math.max(
+            document.documentElement.clientWidth,
+            window.innerWidth || 0
+        );
+
+        const { right } = this.list.current.getBoundingClientRect();
+        const { fromRight } = this.state;
+
+        if (right >= windowWidth && !fromRight) {
+            this.setState({
+                fromRight: right
+            });
+        } else if (fromRight && fromRight < windowWidth) {
+            this.setState({
+                fromRight: false
+            });
+        }
+
+        return true;
+    }
+
     renderDoneBtn() {
         const {
             doneBtn, doneBtnLabel, isFilterGroup, onApply
@@ -107,12 +152,14 @@ class List extends Component {
 
     render() {
         const { orientation } = this.props;
+        const { fromRight } = this.state;
 
         return (
             <ul
                 className={ classNames('orizzonte__list', {
-                    'orizzonte__list--right': orientation === 'right'
+                    'orizzonte__list--right': orientation === 'right' || fromRight
                 }) }
+                ref={ this.list }
             >
                 { this.renderItems() }
                 { this.renderListControls() }
