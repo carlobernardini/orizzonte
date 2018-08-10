@@ -132,7 +132,7 @@ class Group extends Component {
     }
 
     updateGroupValues(fieldName, value) {
-        const { mutuallyExclusiveFilters } = this.props;
+        const { dispatchOnFilterChange, mutuallyExclusiveFilters, onUpdate } = this.props;
         const { groupValues } = this.state;
 
         const filterFields = this.queryHasGroupFilters();
@@ -183,6 +183,12 @@ class Group extends Component {
 
         this.setState({
             groupValues: values
+        }, () => {
+            if (!dispatchOnFilterChange) {
+                return false;
+            }
+
+            return onUpdate(values);
         });
 
         return true;
@@ -394,6 +400,8 @@ Group.propTypes = {
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
     i: PropTypes.number,
+    /** Internal prop */
+    dispatchOnFilterChange: PropTypes.bool,
     /** If the group should be present in the bar */
     included: PropTypes.bool,
     /** Group label */
@@ -422,6 +430,7 @@ Group.defaultProps = {
     groupTopLabels: false,
     hideRemove: false,
     i: null,
+    dispatchOnFilterChange: false,
     included: false,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
