@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
@@ -6,7 +6,7 @@ import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
 
-class FullText extends Component {
+class FullText extends PureComponent {
     renderField() {
         const {
             disabled, maxHeight, maxWidth, multiline, onUpdate, placeholder, value

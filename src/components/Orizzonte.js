@@ -17,6 +17,7 @@ class Orizzonte extends Component {
             showControls: false
         };
         this.orizzonte = React.createRef();
+        this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
         this.addGroup = this.addGroup.bind(this);
         this.onGroupUpdate = this.onGroupUpdate.bind(this);
@@ -110,6 +111,11 @@ class Orizzonte extends Component {
         return true;
     }
 
+    removeGroup(groupIndex) {
+        const { onGroupRemove } = this.props;
+        onGroupRemove(groupIndex);
+    }
+
     toggleGroup(groupIndex) {
         const { activeGroup } = this.state;
 
@@ -127,12 +133,15 @@ class Orizzonte extends Component {
         return true;
     }
 
-    extractQueryPart() {
-        const { children, query } = this.props;
+    extractQueryPart(group) {
+        const { query } = this.props;
 
-        const fieldNames = React.Children.map(children, (group) => (
-            React.Children.map(group.props.children, (filter) => (filter.props.fieldName))
-        ));
+        const fieldNames = React.Children.map(
+            group.props.children,
+            (filter) => (
+                filter.props.fieldName
+            )
+        );
 
         return pick(query, fieldNames);
     }
@@ -235,7 +244,7 @@ class Orizzonte extends Component {
     render() {
         const {
             children, className, collapseGroupOnClickOutside,
-            groupTopLabels, dispatchOnFilterChange, onGroupRemove, orientation
+            groupTopLabels, dispatchOnFilterChange, orientation
         } = this.props;
         const { activeGroup } = this.state;
 
@@ -268,16 +277,16 @@ class Orizzonte extends Component {
                     }
 
                     return React.cloneElement(child, {
-                        activeGroup,
+                        activeGroup: activeGroup === i,
                         collapseGroupOnClickOutside,
                         groupTopLabels,
                         i,
                         dispatchOnFilterChange,
-                        onGroupRemove,
+                        onGroupRemove: this.removeGroup,
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
                         orientation,
-                        queryPart: this.extractQueryPart()
+                        queryPart: this.extractQueryPart(child)
                     });
                 }) }
                 { this.renderAddBtn('right') }

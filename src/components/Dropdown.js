@@ -154,14 +154,17 @@ class Dropdown extends Component {
 
     dispatchUpdate(newValue) {
         const { remoteOptions } = this.state;
-        const { onUpdate, syncCache } = this.props;
+        const { cache, onUpdate, syncCache } = this.props;
 
-        if (remoteOptions) {
+        if (remoteOptions && isFunction(syncCache)) {
             const { flatOptions } = utils.getFlattenedOptions(remoteOptions);
-            const subsetToCache = _filter(flatOptions, (o) => (
+            const subset = _filter(flatOptions, (o) => (
                 includes(toArray(newValue), o.value)
             ));
-            syncCache(subsetToCache);
+
+            if (!isEqual(cache, subset)) {
+                syncCache(subset);
+            }
         }
 
         onUpdate(newValue);
@@ -656,7 +659,9 @@ Dropdown.displayName = 'OrizzonteDropdown';
 
 Dropdown.propTypes = {
     /** Currently cached selected options from remote endpoint */
-    cache: PropTypes.object,
+    cache: PropTypes.arrayOf(
+        PropTypes.object
+    ),
     information: PropTypes.string,
     disabled: PropTypes.bool,
     /** Filter dropdown options and highlight matches */
@@ -732,7 +737,7 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
-    cache: {},
+    cache: [],
     information: null,
     disabled: false,
     filter: null,

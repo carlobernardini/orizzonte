@@ -40,7 +40,6 @@ exports[`<List /> should render a list of filters 1`] = `
     key="0/.0"
   >
     <OrizzonteSelect
-      cache={null}
       disabled={false}
       fieldName="myAPIField"
       information={null}
@@ -63,7 +62,6 @@ exports[`<List /> should render a list of filters 1`] = `
           },
         ]
       }
-      syncCache={[Function]}
       value={null}
     />
   </li>
@@ -72,7 +70,6 @@ exports[`<List /> should render a list of filters 1`] = `
     key="1/.1"
   >
     <OrizzonteChoices
-      cache={null}
       fieldName="myAPIField"
       information={null}
       label="Test multiple choices"
@@ -97,7 +94,6 @@ exports[`<List /> should render a list of filters 1`] = `
           },
         ]
       }
-      syncCache={[Function]}
       value={null}
     />
   </li>
@@ -124,7 +120,6 @@ exports[`<List /> should render a list of filters with clear button, custom done
     key="0/.0"
   >
     <OrizzonteSelect
-      cache={null}
       disabled={false}
       information={null}
       label="Test select"
@@ -146,7 +141,6 @@ exports[`<List /> should render a list of filters with clear button, custom done
           },
         ]
       }
-      syncCache={[Function]}
       value={null}
     />
   </li>
@@ -155,7 +149,6 @@ exports[`<List /> should render a list of filters with clear button, custom done
     key="1/.1"
   >
     <OrizzonteChoices
-      cache={null}
       fieldName="myAPIField"
       information={null}
       label="Test multiple choices"
@@ -180,7 +173,6 @@ exports[`<List /> should render a list of filters with clear button, custom done
           },
         ]
       }
-      syncCache={[Function]}
       value={null}
     />
   </li>
@@ -214,7 +206,6 @@ exports[`<List /> should render a list of filters without done button 1`] = `
     key="0/.0"
   >
     <OrizzonteSelect
-      cache={null}
       disabled={false}
       information={null}
       label="Test select"
@@ -236,7 +227,6 @@ exports[`<List /> should render a list of filters without done button 1`] = `
           },
         ]
       }
-      syncCache={[Function]}
       value={null}
     />
   </li>
@@ -245,7 +235,6 @@ exports[`<List /> should render a list of filters without done button 1`] = `
     key="1/.1"
   >
     <OrizzonteChoices
-      cache={null}
       fieldName="myAPIField"
       information={null}
       label="Test multiple choices"
@@ -270,7 +259,6 @@ exports[`<List /> should render a list of filters without done button 1`] = `
           },
         ]
       }
-      syncCache={[Function]}
       value={null}
     />
   </li>

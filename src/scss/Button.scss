@@ -19,13 +19,14 @@
     position: relative;
     border-radius: 50%;
     padding: 0;
-    width: 32px;
-    line-height: 32px;
+    width: 30px;
+    line-height: 30px;
     text-align: center;
     border: none;
     outline: none;
     transition: all .3s;
     transform: scale(0);
+    cursor: pointer;
     font: {
         size: 1.1em;
     }
@@ -53,10 +54,11 @@
         content: '+';
         top: 50%;
         left: 50%;
-        transform: translate(-5px, -17px);
+        transform: translate(-5px, -15px);
         @extend %fonts;
         font: {
-            size: 17px;
+            size: 18px;
+            weight: 200;
         }
     }
 }
@@ -64,7 +66,6 @@
 .orizzonte__btn-text {
     background-color: transparent;
     color: $color-a;
-    cursor: pointer;
     width: auto;
     border-radius: 20px;
     padding: 0 10px;

@@ -115,37 +115,38 @@ class List extends Component {
         } = this.props;
 
         if (isFilterGroup) {
-            return React.Children.map(items, (item, i) => (
-                <li
-                    className={ classNames('orizzonte__item', {
-                        'orizzonte__item--filters': isFilterGroup
-                    }) }
-                    key={ i }
-                >
-                    { React.cloneElement(item, {
-                        cache: ((c, { fieldName }) => {
-                            if (fieldName in c) {
-                                return c[fieldName];
-                            }
-                            return null;
-                        })(cache, item.props),
-                        value: ((v, fn) => {
-                            if (!(fn in v)) {
-                                return null;
-                            }
-                            return v[fn];
-                        })(groupValues, item.props.fieldName),
-                        onUpdate: (filterValue) => {
-                            const { fieldName } = item.props;
-                            onUpdate(fieldName, filterValue);
-                        },
-                        syncCache: (options) => {
+            return React.Children.map(items, (item, i) => {
+                const props = {
+                    value: groupValues[item.props.fieldName] || null,
+                    onUpdate: (filterValue) => {
+                        const { fieldName } = item.props;
+                        onUpdate(fieldName, filterValue);
+                    }
+                };
+
+                if (typeof item.type === typeof Function) {
+                    if (item.props.remote && item.props.fieldName in cache) {
+                        props.cache = cache[item.props.fieldName];
+                    }
+                    if (item.props.remote) {
+                        props.syncCache = (options) => {
                             const { fieldName } = item.props;
                             syncCacheToGroup(fieldName, options);
-                        }
-                    }) }
-                </li>
-            ));
+                        };
+                    }
+                }
+
+                return (
+                    <li
+                        className={ classNames('orizzonte__item', {
+                            'orizzonte__item--filters': isFilterGroup
+                        }) }
+                        key={ i }
+                    >
+                        { React.cloneElement(item, props) }
+                    </li>
+                );
+            });
         }
 
         return items.map((item, i) => (

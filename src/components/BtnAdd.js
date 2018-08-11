@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import List from './List';
 import '../scss/Button.scss';
 
-class BtnAdd extends Component {
+class BtnAdd extends PureComponent {
     constructor(props) {
         super(props);
 
