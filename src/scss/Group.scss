@@ -15,6 +15,10 @@
 		.orizzonte__group-btn {
 			opacity: 1;
 		}
+
+		.orizzonte__group-label {
+			width: 100%;
+		}
 	}
 
 	&:last-child {
@@ -75,6 +79,9 @@
 	border: none;
 	cursor: pointer;
 	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	box-sizing: border-box;
 	@extend %fonts;
 	@extend %btn-label;
 
