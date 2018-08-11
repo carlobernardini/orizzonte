@@ -123,11 +123,11 @@ class List extends Component {
                     key={ i }
                 >
                     { React.cloneElement(item, {
-                        cache: ((c, { fieldName }) => {
-                            if (fieldName in c) {
-                                return c[fieldName];
+                        cache: ((c, { fieldName, remote }) => {
+                            if (!remote || !(fieldName in c)) {
+                                return null;
                             }
-                            return null;
+                            return c[fieldName];
                         })(cache, item.props),
                         value: ((v, fn) => {
                             if (!(fn in v)) {
@@ -139,10 +139,15 @@ class List extends Component {
                             const { fieldName } = item.props;
                             onUpdate(fieldName, filterValue);
                         },
-                        syncCache: (options) => {
-                            const { fieldName } = item.props;
-                            syncCacheToGroup(fieldName, options);
-                        }
+                        syncCache: (({ remote }) => {
+                            if (!remote) {
+                                return null;
+                            }
+                            return (options) => {
+                                const { fieldName } = item.props;
+                                syncCacheToGroup(fieldName, options);
+                            };
+                        })(item.props)
                     }) }
                 </li>
             ));
