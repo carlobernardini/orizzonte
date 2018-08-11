@@ -659,7 +659,9 @@ Dropdown.displayName = 'OrizzonteDropdown';
 
 Dropdown.propTypes = {
     /** Currently cached selected options from remote endpoint */
-    cache: PropTypes.object,
+    cache: PropTypes.arrayOf(
+        PropTypes.object
+    ),
     information: PropTypes.string,
     disabled: PropTypes.bool,
     /** Filter dropdown options and highlight matches */
@@ -735,7 +737,7 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
-    cache: {},
+    cache: [],
     information: null,
     disabled: false,
     filter: null,
