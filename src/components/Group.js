@@ -368,7 +368,7 @@ class Group extends Component {
                     onClick={ this.toggleGroup }
                     className="orizzonte__group-label"
                     style={{
-                        minWidth: groupTopLabels && label ? `${ (label.length * 5) + 30 }px` : null
+                        minWidth: groupTopLabels && label ? `${ (label.length * 5) + 40 }px` : null
                     }}
                 >
                     { this.renderLabel() }
