@@ -77,10 +77,10 @@ class Group extends Component {
 
     removeGroup() {
         const {
-            i, onGroupRemove, onGroupToggle, onUpdate
+            activeGroup, i, onGroupRemove, onGroupToggle, onUpdate
         } = this.props;
 
-        if (this.groupIsActive()) {
+        if (activeGroup) {
             onGroupToggle();
         }
 
