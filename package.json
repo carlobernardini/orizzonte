@@ -49,6 +49,7 @@
   "devDependencies": {
     "@dump247/storybook-state": "^1.5.0",
     "@storybook/addon-info": "^3.4.8",
+    "@storybook/addon-knobs": "^3.4.10",
     "@storybook/react": "^3.4.8",
     "array-move": "^1.0.0",
     "axios-mock-adapter": "^1.15.0",
