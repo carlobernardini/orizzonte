@@ -39,6 +39,10 @@
 			opacity: 1;
 		}
 
+		.orizzonte__group-label {
+			width: 100%;
+		}
+
 		&:hover {
 			background-color: lighten($group-color-active, 10%);
 		}
