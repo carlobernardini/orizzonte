@@ -300,7 +300,7 @@ class Orizzonte extends Component {
 Orizzonte.displayName = 'Orizzonte';
 
 Orizzonte.propTypes = {
-    /** Indicates if a newly added group should auto expand */
+    /** Makes a newly added group auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
     /** If true, add, clear and save buttons will hide automatically */
     autoHideControls: PropTypes.bool,

@@ -84,12 +84,15 @@ FullText.displayName = 'OrizzonteFullText';
 FullText.propTypes = {
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
+    /** Field name for this filter, to be used in composed query */
+    // eslint-disable-next-line
+    fieldName: PropTypes.string.isRequired,
     information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
-    /** Maximum textarea height (only applicable for multiline mode) */
+    /** Maximum textarea height (only applicable in multiline mode) */
     maxHeight: PropTypes.number,
-    /** Maximum textarea width (only applicable for multiline mode) */
+    /** Maximum textarea width (only applicable in multiline mode) */
     maxWidth: PropTypes.number,
     /** Whether to render a textarea (true) or input field (false) */
     multiline: PropTypes.bool,
