@@ -31,11 +31,11 @@ class Group extends Component {
     }
 
     onKeyUp(e) {
-        const { onGroupToggle } = this.props;
+        const { activeGroup, onGroupToggle } = this.props;
 
         const key = e.which || e.keyCode;
 
-        if (!this.groupIsActive() || key !== 27) {
+        if (!activeGroup || key !== 27) {
             return false;
         }
 
@@ -43,10 +43,10 @@ class Group extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        const { activeGroup, i } = props;
+        const { activeGroup } = props;
         const { groupValues } = state;
 
-        if (activeGroup === i || !Object.keys(groupValues).length) {
+        if (activeGroup || !Object.keys(groupValues).length) {
             return null;
         }
 
@@ -100,16 +100,10 @@ class Group extends Component {
         setTimeout(onGroupRemove.bind(null, i), 300);
     }
 
-    groupIsActive() {
-        const { activeGroup, i } = this.props;
-
-        return activeGroup === i;
-    }
-
     toggleGroup() {
-        const { i, onGroupToggle } = this.props;
+        const { activeGroup, i, onGroupToggle } = this.props;
 
-        if (this.groupIsActive()) {
+        if (activeGroup) {
             return onGroupToggle(false);
         }
 
@@ -216,10 +210,10 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            children, description, onUpdate, orientation, queryPart
+            activeGroup, children, description, onUpdate, orientation, queryPart
         } = this.props;
 
-        if (!this.groupIsActive() || !children.length) {
+        if (!activeGroup || !children.length) {
             return null;
         }
 
@@ -340,7 +334,7 @@ class Group extends Component {
 
     render() {
         const {
-            className, groupTopLabels, included, label
+            activeGroup, className, groupTopLabels, included, label
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -362,7 +356,7 @@ class Group extends Component {
         return (
             <div
                 className={ classNames('orizzonte__group', {
-                    'orizzonte__group--shown': this.groupIsActive(),
+                    'orizzonte__group--shown': activeGroup,
                     'orizzonte__group--removing': removing,
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
@@ -389,11 +383,8 @@ class Group extends Component {
 Group.displayName = 'OrizzonteGroup';
 
 Group.propTypes = {
-    /** Internal index of currently expanded group */
-    activeGroup: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.bool
-    ]),
+    /** Internal flag if current group is expanded */
+    activeGroup: PropTypes.bool,
     /** When true, only one filter can be selected for this group
         When you want only specific filters to be mutually exclusive,
         you can provide an array of (two or more) field names */

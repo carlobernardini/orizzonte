@@ -119,7 +119,6 @@ class List extends Component {
                 const props = {
                     value: groupValues[item.props.fieldName] || null,
                     onUpdate: (filterValue) => {
-                        console.log(filterValue);
                         const { fieldName } = item.props;
                         onUpdate(fieldName, filterValue);
                     }
