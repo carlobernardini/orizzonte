@@ -116,18 +116,19 @@ class List extends Component {
 
         if (isFilterGroup) {
             return React.Children.map(items, (item, i) => {
-                const props = {
-                    value: groupValues[item.props.fieldName] || null,
-                    onUpdate: (filterValue) => {
-                        const { fieldName } = item.props;
-                        onUpdate(fieldName, filterValue);
-                    }
-                };
+                const props = {};
 
                 if (typeof item.type === typeof Function) {
+                    props.value = groupValues[item.props.fieldName] || null;
+                    props.onUpdate = (filterValue) => {
+                        const { fieldName } = item.props;
+                        onUpdate(fieldName, filterValue);
+                    };
+
                     if (item.props.remote && item.props.fieldName in cache) {
                         props.cache = cache[item.props.fieldName];
                     }
+
                     if (item.props.remote) {
                         props.syncCache = (options) => {
                             const { fieldName } = item.props;
