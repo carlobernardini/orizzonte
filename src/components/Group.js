@@ -339,7 +339,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, included
+            activeGroup, className, included, hideRemove
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -363,6 +363,7 @@ class Group extends Component {
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': activeGroup,
                     'orizzonte__group--removing': removing,
+                    'orizzonte__group--removable': !hideRemove,
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
                 }) }

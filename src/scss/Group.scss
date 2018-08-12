@@ -15,10 +15,6 @@
 		.orizzonte__group-btn {
 			opacity: 1;
 		}
-
-		.orizzonte__group-label {
-			width: 100%;
-		}
 	}
 
 	&:last-child {
@@ -39,8 +35,10 @@
 			opacity: 1;
 		}
 
-		.orizzonte__group-label {
-			width: 100%;
+		&.orizzonte__group--removable {
+			.orizzonte__group-label {
+				width: 100%;
+			}
 		}
 
 		&:hover {
@@ -51,6 +49,14 @@
 	&--removing {
 		overflow: hidden;
 		animation: elementOut .3s forwards;
+	}
+
+	&--removable {
+		&:hover {
+			.orizzonte__group-label {
+				width: 100%;
+			}
+		}
 	}
 
 	&--empty {
