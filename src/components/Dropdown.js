@@ -317,12 +317,13 @@ class Dropdown extends Component {
         this.setState({
             remoteLoading: true
         }, () => {
-            axios
-                .get(remote.endpoint, {
-                    data: assign({}, remote.data || {}, {
-                        [remote.searchParam]: filter || ''
-                    })
+            axios({
+                method: remote.requestMethod || 'get',
+                url: remote.endpoint,
+                data: assign({}, remote.data || {}, {
+                    [remote.searchParam]: filter || ''
                 })
+            })
                 .then((response) => {
                     let { data } = response;
                     const newState = {
@@ -664,6 +665,9 @@ Dropdown.propTypes = {
     ),
     information: PropTypes.string,
     disabled: PropTypes.bool,
+    /** Field name for this filter, to be used in composed query */
+    // eslint-disable-next-line
+    fieldName: PropTypes.string.isRequired,
     /** Filter dropdown options and highlight matches */
     filter: PropTypes.shape({
         /** If filtering should be enabled */
@@ -672,7 +676,7 @@ Dropdown.propTypes = {
         matchCase: PropTypes.bool,
         /** If the filter should strictly match diacritics */
         matchDiacritics: PropTypes.bool,
-        /** Whether to match at any position in the string or from the start */
+        /** Whether to match at any position in the string or from the start */ 
         matchPosition: PropTypes.oneOf([
             'any',
             'start'
@@ -681,6 +685,7 @@ Dropdown.propTypes = {
         placeholder: PropTypes.string
     }),
     label: PropTypes.string.isRequired,
+    /** Allows selecting multiple options */
     multiple: PropTypes.bool,
     /** Label to shown when no options are selected */
     notSetLabel: PropTypes.string,
@@ -713,6 +718,8 @@ Dropdown.propTypes = {
         endpoint: PropTypes.string.isRequired,
         /** Text to show while loading data */
         loadingText: PropTypes.string,
+        /** Request method */
+        requestMethod: PropTypes.string,
         /** Query parameter to apply the filter value to */
         searchParam: PropTypes.string.isRequired,
         /** Function for transforming response data before consuming it */
