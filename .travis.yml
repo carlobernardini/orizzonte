@@ -11,6 +11,7 @@ cache:
 
 script:
   - npm test -- --coverage
+  - npm run storybook-deploy -- --ci
 
 branches:
   only:
