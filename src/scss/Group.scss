@@ -103,8 +103,13 @@
 		line-height: 15px;
 		text-transform: uppercase;
 		color: $color-a;
-		animation: topLabelIn .2s;
-		animation-timing-function: easeOut;
+		opacity: 0;
+		transform: translateY(5px);
+
+		&-shown {
+			animation: topLabelIn .2s forwards;
+			animation-timing-function: easeOut;
+		}
 	}
 }
 

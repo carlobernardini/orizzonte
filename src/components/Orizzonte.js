@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, identity, indexOf, isFunction, pick, pickBy
+    assign, difference, identity, isFunction, pick, pickBy
 } from 'lodash-es';
 import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
@@ -50,7 +50,7 @@ class Orizzonte extends Component {
             // If 'group' is an array of fieldNames it is assumed
             // you want those to be removed from the query
             if (Array.isArray(group)) {
-                return pickBy(q, (o) => (indexOf(group, o.fieldName) === -1));
+                return pick(q, difference(Object.keys(q), group));
             }
             // Merge group into query while excluding fields with falsey values
             return pickBy(assign({}, q, group), identity);

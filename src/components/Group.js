@@ -20,6 +20,7 @@ class Group extends Component {
             hasError: false
         };
 
+        this.groupTopLabel = React.createRef();
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
         this.updateGroupValues = this.updateGroupValues.bind(this);
@@ -52,6 +53,20 @@ class Group extends Component {
 
         return {
             groupValues: {}
+        };
+    }
+
+    getGroupMinWidth() {
+        if (!this.groupTopLabel || !this.groupTopLabel.current) {
+            return {
+                minWidth: '25px'
+            };
+        }
+
+        const { width } = this.groupTopLabel.current.getBoundingClientRect();
+
+        return {
+            minWidth: `${ width || 25 }px`
         };
     }
 
@@ -319,18 +334,19 @@ class Group extends Component {
 
         const queryPartKeys = Object.keys(queryPart);
 
-        if (!activeGroup
-            && (
-                !queryPartKeys.length
-                || !intersection(queryPartKeys, fieldNames).length
+        const isShown = (activeGroup
+            || (
+                queryPartKeys.length
+                && intersection(queryPartKeys, fieldNames).length
             )
-        ) {
-            return null;
-        }
+        );
 
         return (
             <span
-                className="orizzonte__group-label--top"
+                className={ classNames('orizzonte__group-label--top', {
+                    'orizzonte__group-label--top-shown': isShown
+                }) }
+                ref={ this.groupTopLabel }
             >
                 { label }
             </span>
@@ -367,6 +383,7 @@ class Group extends Component {
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
                 }) }
+                style={ this.getGroupMinWidth() }
             >
                 { this.renderTopLabel() }
                 <button
