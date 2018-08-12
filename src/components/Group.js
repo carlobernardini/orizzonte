@@ -59,14 +59,14 @@ class Group extends Component {
     getGroupMinWidth() {
         if (!this.groupTopLabel || !this.groupTopLabel.current) {
             return {
-                minWidth: '25px'
+                minWidth: '30px'
             };
         }
 
         const { width } = this.groupTopLabel.current.getBoundingClientRect();
 
         return {
-            minWidth: `${ width || 25 }px`
+            minWidth: `${ width + 30 || 30 }px`
         };
     }
 
