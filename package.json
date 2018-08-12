@@ -8,9 +8,10 @@
     "build": "webpack --progress --config ./config/webpack.config.prod.js",
     "prepublish": "npm run test && npm run build",
     "stats": "webpack --env production --profile --json --config ./config/webpack.config.prod.js > stats.json",
-    "storybook": "start-storybook -p 9001 -c ./storybook",
+    "storybook": "start-storybook -p 9001",
+    "storybook-deploy": "storybook-to-ghpages",
     "test": "jest"
-  },
+  },  
   "browserslist": [
     "last 1 version",
     "> 1%"
@@ -56,6 +57,7 @@
     "@storybook/addon-info": "^3.4.8",
     "@storybook/addon-knobs": "^3.4.10",
     "@storybook/react": "^3.4.8",
+    "@storybook/storybook-deployer": "^2.3.0",
     "array-move": "^1.0.0",
     "axios-mock-adapter": "^1.15.0",
     "babel-core": "^6.26.3",

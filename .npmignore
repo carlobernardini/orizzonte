@@ -11,6 +11,8 @@
 .eslintignore
 .eslintrc
 .travis.yml
+stats.json
+/out*
 
 ### VisualStudioCode template
 .vscode/*
