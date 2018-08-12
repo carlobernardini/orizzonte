@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, union, unionBy, without
+    isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
 import utils from '../utils';
 import List from './List';
@@ -287,11 +287,12 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
-            let { flatOptions } = utils.getFlattenedOptions(options);
-
-            if (fieldName in cache) {
-                flatOptions = unionBy(flatOptions, cache[fieldName], 'value');
-            }
+            const { flatOptions } = utils.getFlattenedOptions(
+                utils.mergeOptionsDeep(
+                    options,
+                    cache[child.props.fieldName] || []
+                ).mergedOptions
+            );
 
             const value = queryPart[fieldName];
 
