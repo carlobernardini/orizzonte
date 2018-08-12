@@ -229,18 +229,19 @@ A more advanced dropdown select with support for filtering options and select al
 #### FullText
 A single or multi line full text field
 
-| Prop            | Type               | Required | Description                                                   |
-|-----------------|--------------------|----------|---------------------------------------------------------------|
-| `disabled`      | boolean            | no       | Disables the input field                                      |
-| `fieldName`     | string             | yes      | Field name for this filter, to be used in composed query      |
-| `information`   | string             | no       | Help text for this filter, to be shown on mouseover           |
-| `label`         | string             | yes      | Label for this filter section                                 |
-| `maxHeight`     | number             | no       | Maximum textarea height (only applicable in `multiline` mode) |
-| `maxWidth`      | number             | no       | Maximum textarea width (only applicable in `multiline` mode)  |
-| `multiline`     | boolean            | no       | Whether to render a textarea (true) or input field (false)    |
-| `placeholder`   | string             | no       | Placeholder text for the input field                          |
-| `selectedLabel` | string or function | no       | Transforming function or placeholder for group label          |
-| `value`         | string             | no       | Current value                                                 |
+| Prop              | Type               | Required | Description                                                                  |
+|-------------------|--------------------|----------|------------------------------------------------------------------------------|
+| `disabled`        | boolean            | no       | Disables the input field                                                     |
+| `dispatchTimeout` | number             | no       | Custom debounce timeout before dispatching the new value to the query object |
+| `fieldName`       | string             | yes      | Field name for this filter, to be used in composed query                     |
+| `information`     | string             | no       | Help text for this filter, to be shown on mouseover                          |
+| `label`           | string             | yes      | Label for this filter section                                                |
+| `maxHeight`       | number             | no       | Maximum textarea height (only applicable in `multiline` mode)                |
+| `maxWidth`        | number             | no       | Maximum textarea width (only applicable in `multiline` mode)                 |
+| `multiline`       | boolean            | no       | Whether to render a textarea (true) or input field (false)                   |
+| `placeholder`     | string             | no       | Placeholder text for the input field                                         |
+| `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                         |
+| `value`           | string             | no       | Current value                                                                |
 
 #### Select
 A simple single-select filter (uses browser `<select />` element)

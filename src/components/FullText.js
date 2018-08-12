@@ -1,33 +1,85 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { assign } from 'lodash-es';
+import { assign, debounce } from 'lodash-es';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
 
-class FullText extends PureComponent {
+class FullText extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            derivedValue: props.value,
+            value: props.value || ''
+        };
+
+        this.dispatchToQuery = debounce(() => {
+            const { value = '' } = this.state;
+
+            if (!value.trim().length) {
+                return props.onUpdate(null);
+            }
+
+            return props.onUpdate(value);
+        }, props.dispatchTimeout);
+        this.dispatch = this.dispatch.bind(this);
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        const { value } = nextProps;
+        const { derivedValue } = prevState;
+
+        if (value === null && derivedValue !== value) {
+            return {
+                derivedValue: value,
+                value: ''
+            };
+        }
+
+        return {
+            derivedValue: value
+        };
+    }
+
+    dispatch() {
+        if (!this.dispatchToQuery) {
+            return true;
+        }
+        if (this.dispatchToQuery.cancel) {
+            this.dispatchToQuery.cancel();
+        }
+        this.dispatchToQuery();
+        return true;
+    }
+
     renderField() {
         const {
-            disabled, maxHeight, maxWidth, multiline, onUpdate, placeholder, value
+            disabled, maxHeight, maxWidth, multiline, placeholder, value: derivedValue
         } = this.props;
+        const { value = '' } = this.state;
 
         let fieldProps = {
             className: classNames('orizzonte__filter-fulltext', {
                 'orizzonte__filter-fulltext--disabled': disabled
             }),
             disabled,
+            onBlur: this.dispatch,
             onChange: (e) => {
-                const { value: val } = e.target;
+                const { value: val = '' } = e.target;
 
-                if (!(val || '').trim().length) {
-                    return onUpdate(null);
+                if (val === value) {
+                    return false;
                 }
 
-                return onUpdate(val);
+                this.setState({
+                    derivedValue,
+                    value: val
+                }, this.dispatch);
+                return true;
             },
             placeholder,
-            value: value || ''
+            value
         };
 
         if (multiline) {
@@ -84,6 +136,8 @@ FullText.displayName = 'OrizzonteFullText';
 FullText.propTypes = {
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
+    /** Custom debounce timeout before dispatching the new value to the query object */
+    dispatchTimeout: PropTypes.number,
     /** Field name for this filter, to be used in composed query */
     // eslint-disable-next-line
     fieldName: PropTypes.string,
@@ -111,6 +165,7 @@ FullText.propTypes = {
 
 FullText.defaultProps = {
     disabled: false,
+    dispatchTimeout: 300,
     fieldName: null,
     information: null,
     maxHeight: null,

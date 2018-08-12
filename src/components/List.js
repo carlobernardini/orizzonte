@@ -72,7 +72,7 @@ class List extends Component {
 
     renderClearBtn() {
         const {
-            clearBtn, clearBtnLabel, isFilterGroup, onClear, values: groupValues
+            clearBtn, clearBtnLabel, isFilterGroup, onClear, values: groupValues = {}
         } = this.props;
 
         if (!isFilterGroup || !clearBtn) {
@@ -83,7 +83,7 @@ class List extends Component {
             <button
                 type="button"
                 className={ classNames('orizzonte__list-control orizzonte__list-clear', {
-                    'orizzonte__list-clear--disabled': !compact(values(groupValues || {})).length
+                    'orizzonte__list-clear--disabled': !compact(values(groupValues)).length
                 }) }
                 onClick={ onClear }
             >

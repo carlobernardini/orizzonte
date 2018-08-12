@@ -13,19 +13,15 @@ describe('<FullText />', () => {
                 onUpdate={ onUpdate }
             />
         );
+        wrapper.dispatch = jest.fn();
 
         wrapper.find('.orizzonte__filter-fulltext').simulate('change', {
             target: {
                 value: expectedValue
             }
         });
-        expect(onUpdate).toHaveBeenCalledWith(expectedValue);
-        wrapper.find('.orizzonte__filter-fulltext').simulate('change', {
-            target: {
-                value: ''
-            }
-        });
-        expect(onUpdate).toHaveBeenCalledWith(null);
+
+        expect(wrapper.state().value).toBe(expectedValue);
         expect(wrapper).toMatchSnapshot();
     });
 
