@@ -8,7 +8,9 @@
 	white-space: nowrap;
 	margin-right: 5px;
 	box-sizing: border-box;
+	line-height: 30px;
 	@extend %btn;
+	padding: 0 15px;
 
 	&:hover {
 		background-color: $group-color-active;
