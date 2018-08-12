@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { assign } from 'lodash';
+import { assign } from 'lodash-es';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
@@ -86,7 +86,7 @@ FullText.propTypes = {
     disabled: PropTypes.bool,
     /** Field name for this filter, to be used in composed query */
     // eslint-disable-next-line
-    fieldName: PropTypes.string.isRequired,
+    fieldName: PropTypes.string,
     information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
@@ -98,7 +98,7 @@ FullText.propTypes = {
     multiline: PropTypes.bool,
     /** Internal callback for filter update */
     onUpdate: PropTypes.func,
-    /** Label for this filter section */
+    /** Placeholder text for the input field */
     placeholder: PropTypes.string,
     /** Transforming function or placeholder for group label */
     selectedLabel: PropTypes.oneOfType([
@@ -111,6 +111,7 @@ FullText.propTypes = {
 
 FullText.defaultProps = {
     disabled: false,
+    fieldName: null,
     information: null,
     maxHeight: null,
     maxWidth: null,

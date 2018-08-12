@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import {
     assign, debounce, filter as _filter, includes, indexOf,
     isEqual, isFunction, toArray, unionBy, uniqueId, without
-} from 'lodash';
+} from 'lodash-es';
 import diacritics from 'diacritics';
 import utils from '../utils';
 import CheckBox from './CheckBox';

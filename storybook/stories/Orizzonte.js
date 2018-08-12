@@ -2,7 +2,7 @@ import React from 'react';
 import Orizzonte, {
     Choices, Dropdown, FullText, Group, Select
 } from 'orizzonte';
-import { truncate } from 'lodash';
+import { truncate } from 'lodash-es';
 import axios from 'axios';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MockAdapter from 'axios-mock-adapter';

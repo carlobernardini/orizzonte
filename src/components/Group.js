@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, unionBy, without
-} from 'lodash';
+} from 'lodash-es';
 import utils from '../utils';
 import List from './List';
 import '../scss/Group.scss';

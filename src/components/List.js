@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { compact, values } from 'lodash';
+import { compact, values } from 'lodash-es';
 import '../scss/List.scss';
 
 class List extends Component {
