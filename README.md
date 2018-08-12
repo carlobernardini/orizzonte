@@ -123,6 +123,26 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte
 </Orizzonte>
 ```
 
+## Examples
+
+[Click here](https://carlobernardini.github.io/orizzonte/) for a live demo
+
+### Storybook
+Orizzonte comes with a [Storybook](https://storybook.js.org/) that you can run yourself
+
+1. Make sure you have Storybook installed (globally):
+    ```bash
+    $ npm i -g @storybook/cli
+    ```
+
+2. Run `npm run storybook`
+
+3. Go to `http://localhost:9001` to see all examples
+
+Click on 'Show info' to see additional implementation details such as supported prop types and their definitions.
+
+## Configuration
+
 ### Orizzonte
 
 | Prop                          | Type          | Required | Description                                                                                                       |
@@ -236,22 +256,6 @@ A simple single-select filter (uses browser `<select />` element)
 | `placeholder`   | string             | no       | Placeholder text for the input field                                                                                                                                                                                   |
 | `selectedLabel` | string or function | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
 | `value`         | string or number   | no       | Currently selected value                                                                                                                                                                                               |
-
-## Examples
-
-### Storybook
-Orizzonte comes with a [Storybook](https://storybook.js.org/)
-
-1. Make sure you have Storybook installed (globally):
-    ```bash
-    $ npm i -g @storybook/cli
-    ```
-
-2. Run `npm run storybook`
-
-3. Go to `http://localhost:9001` to see all examples
-
-Click on 'Show info' to see additional implementation details such as supported prop types and their definitions.
 
 ## Tests
 
