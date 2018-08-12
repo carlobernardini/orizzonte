@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
 import {
-    assign, debounce, filter as _filter, includes, indexOf,
-    isEqual, isFunction, toArray, unionBy, uniqueId, without
+    assign, debounce, filter as _filter, includes, indexOf, isEqual, isFunction,
+    toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
 import utils from '../utils';
@@ -146,10 +146,16 @@ class Dropdown extends Component {
     }
 
     getMergedOptions() {
-        const { options } = this.props;
+        const { cache = [], options } = this.props;
         const { remoteOptions } = this.state;
 
-        return unionBy(options, remoteOptions, 'value');
+        if (!remoteOptions.length && !cache.length) {
+            return options;
+        }
+
+        const { mergedOptions } = utils.mergeOptionsDeep(options, remoteOptions, cache);
+
+        return mergedOptions;
     }
 
     dispatchUpdate(newValue) {
@@ -157,13 +163,13 @@ class Dropdown extends Component {
         const { cache, onUpdate, syncCache } = this.props;
 
         if (remoteOptions && isFunction(syncCache)) {
-            const { flatOptions } = utils.getFlattenedOptions(remoteOptions);
-            const subset = _filter(flatOptions, (o) => (
-                includes(toArray(newValue), o.value)
-            ));
+            const { selectedOptions } = utils.getSelectedOptionsDeep(
+                remoteOptions,
+                toArray(newValue)
+            );
 
-            if (!isEqual(cache, subset)) {
-                syncCache(subset);
+            if (!isEqual(cache, selectedOptions)) {
+                syncCache(selectedOptions);
             }
         }
 
@@ -349,7 +355,7 @@ class Dropdown extends Component {
     }
 
     renderButtonLabel() {
-        const { cache, notSetLabel, value, selectedLabel } = this.props;
+        const { notSetLabel, value, selectedLabel } = this.props;
         const mergedOptions = this.getMergedOptions();
         const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
 
@@ -357,21 +363,12 @@ class Dropdown extends Component {
             return notSetLabel || 'None selected';
         }
 
-        let selectedOptions = _filter(flatOptions, (option) => {
+        const selectedOptions = _filter(flatOptions, (option) => {
             if (Array.isArray(value)) {
                 return indexOf(value, option.value) > -1;
             }
             return option.value === value;
         });
-
-        // Enrich selected options with ones from cache
-        if (cache) {
-            selectedOptions = unionBy(
-                selectedOptions,
-                cache,
-                'value'
-            );
-        }
 
         if (!selectedLabel) {
             if (selectedOptions.length === 1) {

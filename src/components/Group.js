@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, union, unionBy, without
+    isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
 import utils from '../utils';
 import List from './List';
@@ -20,6 +20,7 @@ class Group extends Component {
             hasError: false
         };
 
+        this.groupTopLabel = React.createRef();
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
         this.updateGroupValues = this.updateGroupValues.bind(this);
@@ -52,6 +53,20 @@ class Group extends Component {
 
         return {
             groupValues: {}
+        };
+    }
+
+    getGroupMinWidth() {
+        if (!this.groupTopLabel || !this.groupTopLabel.current) {
+            return {
+                minWidth: '25px'
+            };
+        }
+
+        const { width } = this.groupTopLabel.current.getBoundingClientRect();
+
+        return {
+            minWidth: `${ width || 25 }px`
         };
     }
 
@@ -272,11 +287,12 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
-            let { flatOptions } = utils.getFlattenedOptions(options);
-
-            if (fieldName in cache) {
-                flatOptions = unionBy(flatOptions, cache[fieldName], 'value');
-            }
+            const { flatOptions } = utils.getFlattenedOptions(
+                utils.mergeOptionsDeep(
+                    options,
+                    cache[child.props.fieldName] || []
+                ).mergedOptions
+            );
 
             const value = queryPart[fieldName];
 
@@ -319,18 +335,19 @@ class Group extends Component {
 
         const queryPartKeys = Object.keys(queryPart);
 
-        if (!activeGroup
-            && (
-                !queryPartKeys.length
-                || !intersection(queryPartKeys, fieldNames).length
+        const isShown = (activeGroup
+            || (
+                queryPartKeys.length
+                && intersection(queryPartKeys, fieldNames).length
             )
-        ) {
-            return null;
-        }
+        );
 
         return (
             <span
-                className="orizzonte__group-label--top"
+                className={ classNames('orizzonte__group-label--top', {
+                    'orizzonte__group-label--top-shown': isShown
+                }) }
+                ref={ this.groupTopLabel }
             >
                 { label }
             </span>
@@ -367,6 +384,7 @@ class Group extends Component {
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
                 }) }
+                style={ this.getGroupMinWidth() }
             >
                 { this.renderTopLabel() }
                 <button

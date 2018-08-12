@@ -34,17 +34,23 @@ const remoteOptions = [{
     label: 'Germany',
     value: 'de'
 }, {
-    label: 'The Netherlands',
-    value: 'nl'
+    value: 'Benelux',
+    children: [{
+        label: 'The Netherlands',
+        value: 'nl',
+    }, {
+        label: 'Belgium',
+        value: 'be'
+    }, {
+        label: 'Luxembourg',
+        value: 'lu'
+    }]
 }, {
     label: 'Spain',
     value: 'es'
 }, {
     label: 'Italy',
     value: 'it'
-}, {
-    label: 'Belgium',
-    value: 'be'
 }];
 
 // eslint-disable-next-line react/prop-types
