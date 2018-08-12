@@ -19,7 +19,7 @@ const BtnSave = ({ saveLabel, disabled, onSave, position, shown }) => (
                 onSave();
             }}
         >
-            { saveLabel || 'Save' }
+            { saveLabel && saveLabel.length ? saveLabel : 'Save' }
         </button>
     </div>
 );

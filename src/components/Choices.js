@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     includes, isEqual, uniqueId, without
-} from 'lodash';
+} from 'lodash-es';
 import CheckBox from './CheckBox';
 import FilterInfo from './FilterInfo';
 import RadioButton from './RadioButton';

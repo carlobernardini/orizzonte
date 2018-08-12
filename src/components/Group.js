@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, unionBy, without
-} from 'lodash';
+} from 'lodash-es';
 import utils from '../utils';
 import List from './List';
 import '../scss/Group.scss';
@@ -304,7 +304,7 @@ class Group extends Component {
 
     renderTopLabel() {
         const {
-            children, groupTopLabels, label, queryPart
+            activeGroup, children, groupTopLabels, label, queryPart
         } = this.props;
 
         if (!groupTopLabels) {
@@ -319,7 +319,12 @@ class Group extends Component {
 
         const queryPartKeys = Object.keys(queryPart);
 
-        if (!queryPartKeys.length || !intersection(queryPartKeys, fieldNames).length) {
+        if (!activeGroup
+            && (
+                !queryPartKeys.length
+                || !intersection(queryPartKeys, fieldNames).length
+            )
+        ) {
             return null;
         }
 
@@ -334,7 +339,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, groupTopLabels, included, label
+            activeGroup, className, included, hideRemove
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -358,6 +363,7 @@ class Group extends Component {
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': activeGroup,
                     'orizzonte__group--removing': removing,
+                    'orizzonte__group--removable': !hideRemove,
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
                 }) }
@@ -367,9 +373,6 @@ class Group extends Component {
                     type="button"
                     onClick={ this.toggleGroup }
                     className="orizzonte__group-label"
-                    style={{
-                        minWidth: groupTopLabels && label ? `${ (label.length * 5) + 40 }px` : null
-                    }}
                 >
                     { this.renderLabel() }
                 </button>
@@ -385,6 +388,24 @@ Group.displayName = 'OrizzonteGroup';
 Group.propTypes = {
     /** Internal flag if current group is expanded */
     activeGroup: PropTypes.bool,
+    /** Internal list of filters in this group */
+    children: PropTypes.array,
+    /** Custom additional class name for top-level component element */
+    className: PropTypes.string,
+    /** A description for this group of filters */
+    description: PropTypes.string,
+    /** Internal prop */
+    dispatchOnFilterChange: PropTypes.bool,
+    /** Internal flag if a label should be shown at the top */
+    groupTopLabels: PropTypes.bool,
+    /** Hides the button to remove this group */
+    hideRemove: PropTypes.bool,
+    /** Internal filter group list index */
+    i: PropTypes.number,
+    /** If the group should be present in the bar */
+    included: PropTypes.bool,
+    /** Group label */
+    label: PropTypes.string.isRequired,
     /** When true, only one filter can be selected for this group
         When you want only specific filters to be mutually exclusive,
         you can provide an array of (two or more) field names */
@@ -392,24 +413,6 @@ Group.propTypes = {
         PropTypes.bool,
         PropTypes.array
     ]),
-    /** Internal list of filters in this group */
-    children: PropTypes.array,
-    /** Custom additional class name for top-level component element */
-    className: PropTypes.string,
-    /** A description for this group of filters */
-    description: PropTypes.string,
-    /** Internal flag if a label should be shown at the top */
-    groupTopLabels: PropTypes.bool,
-    /** If a remove button should be present */
-    hideRemove: PropTypes.bool,
-    /** Internal filter group list index */
-    i: PropTypes.number,
-    /** Internal prop */
-    dispatchOnFilterChange: PropTypes.bool,
-    /** If the group should be present in the bar */
-    included: PropTypes.bool,
-    /** Group label */
-    label: PropTypes.string.isRequired,
     /** Internal callback for group removal */
     onGroupRemove: PropTypes.func,
     /** Internal callback for setting currently expanded group */
@@ -421,21 +424,21 @@ Group.propTypes = {
         'left',
         'right'
     ]),
-    /** Part of current query object representing this group */
+    /** Internal prop representing part of current query object for this group */
     queryPart: PropTypes.object
 };
 
 Group.defaultProps = {
     activeGroup: null,
-    mutuallyExclusiveFilters: false,
     children: [],
     className: null,
     description: null,
+    dispatchOnFilterChange: false,
     groupTopLabels: false,
     hideRemove: false,
     i: null,
-    dispatchOnFilterChange: false,
     included: false,
+    mutuallyExclusiveFilters: false,
     onGroupRemove: () => {},
     onGroupToggle: () => {},
     onUpdate: () => {},

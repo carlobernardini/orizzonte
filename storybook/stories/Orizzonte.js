@@ -2,7 +2,7 @@ import React from 'react';
 import Orizzonte, {
     Choices, Dropdown, FullText, Group, Select
 } from 'orizzonte';
-import { truncate } from 'lodash';
+import { truncate } from 'lodash-es';
 import axios from 'axios';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import MockAdapter from 'axios-mock-adapter';
@@ -14,8 +14,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { withState } from '@dump247/storybook-state';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { withKnobs, text, boolean, object, select } from '@storybook/addon-knobs/react';
 
 const stories = storiesOf('Orizzonte', module);
+stories.addDecorator(withKnobs);
 
 const mockAPI = new MockAdapter(axios, {
     delayResponse: 750
@@ -65,11 +68,14 @@ const component = ({ store }) => {
 
     return (
         <Orizzonte
-            autoHideControls
-            query={ query }
-            collapseGroupOnClickOutside
-            groupTopLabels
-            dispatchOnFilterChange
+            autoHideControls={ boolean('Auto-hide controls (add, clear, save)', true) }
+            query={ object('Query', query) }
+            collapseGroupOnClickOutside={ boolean('Collapse groups on click outside', true) }
+            clearAllLabel={ text('Label for Clear All button', '') }
+            saveLabel={ text('Label for Save button', '') }
+            groupTopLabels={ boolean('Labels on top of groups', true) }
+            dispatchOnFilterChange={ boolean('Dispatch query on filter change', true) }
+            orientation={ select('Orientation', ['left', 'right'], 'left') }
             onChange={ (queryObject) => {
                 console.log(queryObject);
                 store.set({

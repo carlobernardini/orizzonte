@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, identity, isFunction, omit, pick, pickBy
-} from 'lodash';
+    assign, identity, indexOf, isFunction, pick, pickBy
+} from 'lodash-es';
 import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
 import BtnClearAll from './BtnClearAll';
@@ -50,7 +50,7 @@ class Orizzonte extends Component {
             // If 'group' is an array of fieldNames it is assumed
             // you want those to be removed from the query
             if (Array.isArray(group)) {
-                return omit(q, group);
+                return pickBy(q, (o) => (indexOf(group, o.fieldName) === -1));
             }
             // Merge group into query while excluding fields with falsey values
             return pickBy(assign({}, q, group), identity);
@@ -300,7 +300,7 @@ class Orizzonte extends Component {
 Orizzonte.displayName = 'Orizzonte';
 
 Orizzonte.propTypes = {
-    /** Indicates if a newly added group should auto expand */
+    /** Makes a newly added group auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
     /** If true, add, clear and save buttons will hide automatically */
     autoHideControls: PropTypes.bool,

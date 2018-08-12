@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { assign } from 'lodash';
+import { assign } from 'lodash-es';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
@@ -84,18 +84,21 @@ FullText.displayName = 'OrizzonteFullText';
 FullText.propTypes = {
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
+    /** Field name for this filter, to be used in composed query */
+    // eslint-disable-next-line
+    fieldName: PropTypes.string,
     information: PropTypes.string,
     /** Label for this filter section */
     label: PropTypes.string.isRequired,
-    /** Maximum textarea height (only applicable for multiline mode) */
+    /** Maximum textarea height (only applicable in multiline mode) */
     maxHeight: PropTypes.number,
-    /** Maximum textarea width (only applicable for multiline mode) */
+    /** Maximum textarea width (only applicable in multiline mode) */
     maxWidth: PropTypes.number,
     /** Whether to render a textarea (true) or input field (false) */
     multiline: PropTypes.bool,
     /** Internal callback for filter update */
     onUpdate: PropTypes.func,
-    /** Label for this filter section */
+    /** Placeholder text for the input field */
     placeholder: PropTypes.string,
     /** Transforming function or placeholder for group label */
     selectedLabel: PropTypes.oneOfType([
@@ -108,6 +111,7 @@ FullText.propTypes = {
 
 FullText.defaultProps = {
     disabled: false,
+    fieldName: null,
     information: null,
     maxHeight: null,
     maxWidth: null,

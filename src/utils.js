@@ -1,4 +1,4 @@
-import { flatMap } from 'lodash';
+import { flatMap } from 'lodash-es';
 
 export default {
     getFlattenedOptions: (nestedOptions) => ({

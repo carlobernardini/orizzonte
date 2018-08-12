@@ -19,7 +19,7 @@ const BtnClearAll = ({ clearAllLabel, disabled, onClearAll, position, shown }) =
                 onClearAll();
             }}
         >
-            { clearAllLabel || 'Clear all' }
+            { clearAllLabel && clearAllLabel.length ? clearAllLabel : 'Clear all' }
         </button>
     </div>
 );
