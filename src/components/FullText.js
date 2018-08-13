@@ -14,16 +14,12 @@ class FullText extends Component {
             value: props.value || ''
         };
 
-        this.dispatchToQuery = debounce(() => {
-            const { value = '' } = this.state;
-
-            if (!value.trim().length) {
-                return props.onUpdate(null);
-            }
-
-            return props.onUpdate(value);
-        }, props.dispatchTimeout);
-        this.dispatch = this.dispatch.bind(this);
+        this.dispatchDebounced = debounce(
+            this.dispatchToQuery,
+            props.dispatchTimeout
+        );
+        this.dispatchDebouncedWrapper = this.dispatchDebouncedWrapper.bind(this);
+        this.dispatchToQuery = this.dispatchToQuery.bind(this);
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -42,15 +38,26 @@ class FullText extends Component {
         };
     }
 
-    dispatch() {
-        if (!this.dispatchToQuery) {
+    dispatchDebouncedWrapper() {
+        if (!this.dispatchDebounced) {
             return true;
         }
-        if (this.dispatchToQuery.cancel) {
-            this.dispatchToQuery.cancel();
+        if (this.dispatchDebounced.cancel) {
+            this.dispatchDebounced.cancel();
         }
-        this.dispatchToQuery();
+        this.dispatchDebounced();
         return true;
+    }
+
+    dispatchToQuery() {
+        const { onUpdate } = this.props;
+        const { value = '' } = this.state;
+
+        if (!value.trim().length) {
+            return onUpdate(null);
+        }
+
+        return onUpdate(value);
     }
 
     renderField() {
@@ -64,7 +71,7 @@ class FullText extends Component {
                 'orizzonte__filter-fulltext--disabled': disabled
             }),
             disabled,
-            onBlur: this.dispatch,
+            onBlur: this.dispatchToQuery,
             onChange: (e) => {
                 const { value: val = '' } = e.target;
 
@@ -75,7 +82,7 @@ class FullText extends Component {
                 this.setState({
                     derivedValue,
                     value: val
-                }, this.dispatch);
+                }, this.dispatchDebouncedWrapper);
                 return true;
             },
             placeholder,
@@ -107,6 +114,16 @@ class FullText extends Component {
         return (
             <input
                 type="text"
+                onKeyUp={ (e) => {
+                    const key = e.keyCode || e.which;
+
+                    if (key !== 13) {
+                        return true;
+                    }
+
+                    this.dispatchToQuery();
+                    return true;
+                }}
                 { ...fieldProps }
             />
         );
