@@ -14,10 +14,6 @@
 
 	&:hover {
 		background-color: $group-color-active;
-
-		.orizzonte__group-btn {
-			opacity: 1;
-		}
 	}
 
 	&:last-child {
@@ -32,18 +28,6 @@
 		background-color: lighten($group-color-active, 10%);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 
-		.orizzonte__group-btn {
-			width: 20px;
-			transform: scale(1);
-			opacity: 1;
-		}
-
-		&.orizzonte__group--removable {
-			.orizzonte__group-label {
-				width: 100%;
-			}
-		}
-
 		&:hover {
 			background-color: lighten($group-color-active, 10%);
 		}
@@ -55,9 +39,11 @@
 	}
 
 	&--removable {
-		&:hover {
-			.orizzonte__group-label {
-				width: 100%;
+		.orizzonte__group-btn-wrapper {
+			&:hover {
+				.orizzonte__group-label {
+					width: 100%;
+				}
 			}
 		}
 	}
@@ -112,6 +98,16 @@
 		&-shown {
 			animation: topLabelIn .2s forwards;
 			animation-timing-function: easeOut;
+		}
+	}
+}
+
+.orizzonte__group-btn-wrapper {
+	&:hover {
+		.orizzonte__group-btn {
+			width: 20px;
+			transform: scale(1);
+			opacity: 1;
 		}
 	}
 }

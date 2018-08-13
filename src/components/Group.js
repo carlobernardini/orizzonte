@@ -387,14 +387,18 @@ class Group extends Component {
                 style={ this.getGroupMinWidth() }
             >
                 { this.renderTopLabel() }
-                <button
-                    type="button"
-                    onClick={ this.toggleGroup }
-                    className="orizzonte__group-label"
+                <div
+                    className="orizzonte__group-btn-wrapper"
                 >
-                    { this.renderLabel() }
-                </button>
-                { this.renderBtn() }
+                    <button
+                        type="button"
+                        onClick={ this.toggleGroup }
+                        className="orizzonte__group-label"
+                    >
+                        { this.renderLabel() }
+                    </button>
+                    { this.renderBtn() }
+                </div>
                 { this.renderList() }
             </div>
         );
