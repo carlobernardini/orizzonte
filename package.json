@@ -11,7 +11,7 @@
     "storybook": "start-storybook -p 9001",
     "storybook-deploy": "storybook-to-ghpages",
     "test": "jest"
-  },  
+  },
   "browserslist": [
     "last 1 version",
     "> 1%"
