@@ -353,7 +353,7 @@ class Dropdown extends Component {
 
             axios(requestOptions)
                 .then((response) => {
-                    let { data } = response;
+                    const { data } = response;
                     const newState = {
                         remoteLoading: false
                     };
