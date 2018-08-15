@@ -334,14 +334,14 @@ class Dropdown extends Component {
                 requestOptions.params = remote.params;
             }
 
+            const filterOption = filter && filter.length ? {
+                [remote.searchParam]: filter
+            } : {};
+
             if (method.toLowerCase() === 'post') {
-                requestOptions.data = assign({}, remote.data || {}, {
-                    [remote.searchParam]: filter || ''
-                });
+                requestOptions.data = assign({}, remote.data || {}, filterOption);
             } else {
-                requestOptions.params = assign({}, requestOptions.params || {}, {
-                    [remote.searchParam]: filter || ''
-                });
+                requestOptions.params = assign({}, requestOptions.params || {}, filterOption);
             }
 
             if (remote.transformer && isFunction(remote.transformer)) {
