@@ -323,25 +323,40 @@ class Dropdown extends Component {
         this.setState({
             remoteLoading: true
         }, () => {
-            axios({
-                method: remote.requestMethod || 'get',
-                url: remote.endpoint,
-                data: assign({}, remote.data || {}, {
+            const method = remote.method || 'get';
+
+            const requestOptions = {
+                method,
+                url: remote.endpoint
+            };
+
+            if (remote.params) {
+                requestOptions.params = remote.params;
+            }
+
+            if (method.toLowerCase() === 'post') {
+                requestOptions.data = assign({}, remote.data || {}, {
                     [remote.searchParam]: filter || ''
-                })
-            })
+                });
+            } else {
+                requestOptions.params = assign({}, requestOptions.params || {}, {
+                    [remote.searchParam]: filter || ''
+                });
+            }
+
+            if (remote.transformer && isFunction(remote.transformer)) {
+                // Use a custom callback to transform the remote response
+                // so the result conforms to the expected data structure
+                // (collection of options)
+                requestOptions.transformResponse = remote.transformer;
+            }
+
+            axios(requestOptions)
                 .then((response) => {
-                    let { data } = response;
+                    const { data } = response;
                     const newState = {
                         remoteLoading: false
                     };
-
-                    if (remote.transformer && isFunction(remote.transformer)) {
-                        // Use a custom callback to transform the remote response
-                        // so the result conforms to the expected data structure
-                        // (collection of options)
-                        data = remote.transformer(data);
-                    }
 
                     if (!isEqual(data, remoteOptions)) {
                         newState.remoteOptions = data;
@@ -715,6 +730,7 @@ Dropdown.propTypes = {
         endpoint: PropTypes.string.isRequired,
         /** Text to show while loading data */
         loadingText: PropTypes.string,
+        params: PropTypes.object,
         /** Request method */
         requestMethod: PropTypes.string,
         /** Query parameter to apply the filter value to */

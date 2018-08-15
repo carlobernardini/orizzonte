@@ -1,6 +1,6 @@
 {
   "name": "orizzonte",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "React components for a horizontal, filtered search UI",
   "main": "./dist/orizzonte.min.js",
   "scripts": {

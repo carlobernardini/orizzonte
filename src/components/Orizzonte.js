@@ -123,7 +123,7 @@ class Orizzonte extends Component {
             return false;
         }
 
-        if (groupIndex && groupIndex === activeGroup) {
+        if (groupIndex !== false && groupIndex === activeGroup) {
             return false;
         }
 

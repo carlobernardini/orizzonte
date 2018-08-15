@@ -57,7 +57,7 @@ const remoteOptions = [{
 const component = ({ store }) => {
     const { groups, query } = store.state;
 
-    mockAPI.onGet(apiRequest).reply((config) => {
+    mockAPI.onAny(apiRequest).reply((config) => {
         let filter = null;
 
         try {
@@ -197,7 +197,7 @@ stories.add('Default', withState({
                 remote={{
                     endpoint: 'https://orizzonte.io/suggestions',
                     searchParam: 'q',
-                    data: {
+                    params: {
                         some: 'additional data'
                     },
                     transformer: (response) => (response.options)
