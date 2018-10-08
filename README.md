@@ -152,6 +152,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `autoHideTimeout`             | number        | no       | Custom timeout interval for auto-hiding controls                                                                  |
 | `className`                   | string        | no       | Custom additional class name for the top-level element                                                            |
 | `clearAllLabel`               | string        | no       | Custom label for the button to clear all of the query. `onClear` prop needs to be defined for the button to show. |
+| `clearedQuerySnapshot`        | object        | no       | Snapshot of initial query state. If set, this will be used to determine if the query diverged from blank-slate.   |
 | `collapseGroupOnClickOutside` | boolean       | no       | Whether the group should collapse when the user clicks outside of it. Changes will not be applied to the query.   |
 | `groupTopLabels`              | boolean       | no       | Whether the group label should be shown at the top if some of it's filters have selected values                   |
 | `dispatchOnFilterChange`      | boolean       | no       |  If true, the query object will be updated right after any filter change                                          |

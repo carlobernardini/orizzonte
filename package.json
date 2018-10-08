@@ -1,12 +1,12 @@
 {
   "name": "orizzonte",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "React components for a horizontal, filtered search UI",
   "main": "./dist/orizzonte.min.js",
   "scripts": {
     "analyze": "npm run stats && webpack-bundle-analyzer ./stats.json ./dist",
     "build": "webpack --progress --config ./config/webpack.config.prod.js",
-    "prepublish": "npm run test && npm run build",
+    "prepare": "npm run test && npm run build",
     "stats": "webpack --env production --profile --json --config ./config/webpack.config.prod.js > stats.json",
     "storybook": "start-storybook -p 9001",
     "storybook-deploy": "storybook-to-ghpages",

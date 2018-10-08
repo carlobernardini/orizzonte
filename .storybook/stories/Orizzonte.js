@@ -78,6 +78,10 @@ const component = ({ store }) => {
             query={ object('Query', query) }
             collapseGroupOnClickOutside={ boolean('Collapse groups on click outside', true) }
             clearAllLabel={ text('Label for Clear All button', '') }
+            clearedQuerySnapshot={{
+                language: 'fr',
+                calendarPeriod: ['3m', '1y']
+            }}
             saveLabel={ text('Label for Save button', '') }
             groupTopLabels={ boolean('Labels on top of groups', true) }
             dispatchOnFilterChange={ boolean('Dispatch query on filter change', true) }
@@ -88,9 +92,9 @@ const component = ({ store }) => {
                     query: queryObject
                 });
             }}
-            onClearAll={ () => {
+            onClearAll={ (clearedQuerySnapshot) => {
                 store.set({
-                    query: {}
+                    query: clearedQuerySnapshot
                 });
             }}
             onGroupAdd={ (i) => {
