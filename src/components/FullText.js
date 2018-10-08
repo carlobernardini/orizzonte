@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign, debounce } from 'lodash-es';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
@@ -136,12 +137,12 @@ class FullText extends Component {
             <div
                 className="orizzonte__filter"
             >
-                <FilterInfo information={ information } />
-                <div
-                    className="orizzonte__filter-caption"
-                >
+                <FilterInfo
+                    information={ information }
+                />
+                <Caption>
                     { label }
-                </div>
+                </Caption>
                 { this.renderField() }
             </div>
         );

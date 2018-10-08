@@ -7,11 +7,9 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Country
-  </div>
+  </OrizzonteFilterCaption>
   <div
     className="orizzonte__dropdown"
   >
@@ -68,11 +66,9 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Country
-  </div>
+  </OrizzonteFilterCaption>
   <div
     className="orizzonte__dropdown orizzonte__dropdown--focused orizzonte__dropdown--expanded"
   >
@@ -146,11 +142,9 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Country
-  </div>
+  </OrizzonteFilterCaption>
   <div
     className="orizzonte__dropdown orizzonte__dropdown--focused orizzonte__dropdown--expanded"
   >

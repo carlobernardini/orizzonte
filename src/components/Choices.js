@@ -4,6 +4,7 @@ import {
     includes, isEqual, uniqueId, without
 } from 'lodash-es';
 import CheckBox from './CheckBox';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
@@ -82,12 +83,12 @@ class Choices extends Component {
             <div
                 className="orizzonte__filter"
             >
-                <FilterInfo information={ information } />
-                <div
-                    className="orizzonte__filter-caption"
-                >
+                <FilterInfo
+                    information={ information }
+                />
+                <Caption>
                     { label }
-                </div>
+                </Caption>
                 { this.renderNoPreference() }
                 { this.renderChoices() }
             </div>

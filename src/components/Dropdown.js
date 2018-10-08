@@ -10,6 +10,7 @@ import diacritics from 'diacritics';
 import utils from '../utils';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import '../scss/Dropdown.scss';
 
@@ -641,12 +642,12 @@ class Dropdown extends Component {
             <div
                 className="orizzonte__filter"
             >
-                <FilterInfo information={ information } />
-                <div
-                    className="orizzonte__filter-caption"
-                >
+                <FilterInfo
+                    information={ information }
+                />
+                <Caption>
                     { label }
-                </div>
+                </Caption>
                 <div
                     className={ classNames('orizzonte__dropdown', {
                         'orizzonte__dropdown--focused': expanded || focused,

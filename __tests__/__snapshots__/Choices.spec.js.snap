@@ -7,11 +7,9 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Test multiple choices
-  </div>
+  </OrizzonteFilterCaption>
   <OrizzonteCheckBox
     disabled={false}
     id="checkbox-4"
@@ -52,11 +50,9 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Test multiple choices
-  </div>
+  </OrizzonteFilterCaption>
   <OrizzonteCheckBox
     disabled={true}
     id="checkbox-1"
@@ -97,11 +93,9 @@ exports[`<Choices /> should render a series of radios with selected value 1`] = 
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Test multiple choices
-  </div>
+  </OrizzonteFilterCaption>
   <OrizzonteRadioButton
     disabled={true}
     id="radio-10"
@@ -142,11 +136,9 @@ exports[`<Choices /> should render a series of radios with some disabled ones 1`
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Test multiple choices
-  </div>
+  </OrizzonteFilterCaption>
   <OrizzonteRadioButton
     disabled={true}
     id="radio-7"

@@ -7,11 +7,9 @@ exports[`<FullText /> should render a disabled fulltext filter 1`] = `
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Fulltext filter
-  </div>
+  </OrizzonteFilterCaption>
   <input
     className="orizzonte__filter-fulltext orizzonte__filter-fulltext--disabled"
     disabled={true}
@@ -32,11 +30,9 @@ exports[`<FullText /> should render a fulltext filter 1`] = `
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Fulltext filter
-  </div>
+  </OrizzonteFilterCaption>
   <input
     className="orizzonte__filter-fulltext"
     disabled={false}
@@ -57,11 +53,9 @@ exports[`<FullText /> should render a fulltext filter with current value 1`] = `
   <OrizzonteFilterInfo
     information={null}
   />
-  <div
-    className="orizzonte__filter-caption"
-  >
+  <OrizzonteFilterCaption>
     Fulltext filter
-  </div>
+  </OrizzonteFilterCaption>
   <input
     className="orizzonte__filter-fulltext"
     disabled={false}
