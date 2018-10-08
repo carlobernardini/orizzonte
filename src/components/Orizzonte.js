@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, difference, identity, isFunction, pick, pickBy
+    assign, difference, identity, isEqual, isFunction, pick, pickBy
 } from 'lodash-es';
 import classNames from 'classnames';
 import BtnAdd from './BtnAdd';
@@ -190,7 +190,9 @@ class Orizzonte extends Component {
     }
 
     renderClearBtn(position) {
-        const { autoHideControls, clearAllLabel, onClearAll, orientation, query } = this.props;
+        const {
+            autoHideControls, clearAllLabel, clearedQuerySnapshot, onClearAll, orientation, query
+        } = this.props;
         const { showControls } = this.state;
 
         if (orientation === position) {
@@ -201,14 +203,16 @@ class Orizzonte extends Component {
             return null;
         }
 
+        const isClearedState = isEqual(clearedQuerySnapshot, query) || !Object.keys(query).length;
+
         return (
             <BtnClearAll
-                disabled={ !Object.keys(query).length }
+                disabled={ isClearedState }
                 shown={ showControls || !autoHideControls }
                 clearAllLabel={ clearAllLabel }
                 onClearAll={ () => {
                     this.toggleGroup(null);
-                    onClearAll();
+                    onClearAll(clearedQuerySnapshot);
                 }}
                 position={ orientation === 'right' ? 'left' : 'right' }
             />
@@ -313,6 +317,10 @@ Orizzonte.propTypes = {
     /** Custom label for the button to clear all of the query
         onClear prop needs to be defined for the button to show */
     clearAllLabel: PropTypes.string,
+    /** A snapshot of the initial query state. This will be used to determine
+        if the query is different from the initial state, if the initial state
+        isn't an empty object */
+    clearedQuerySnapshot: PropTypes.object,
     /** Whether the group should collapse when the user clicks outside of it
         Changes will not be applied to the query */
     collapseGroupOnClickOutside: PropTypes.bool,
@@ -352,6 +360,7 @@ Orizzonte.defaultProps = {
     children: [],
     className: null,
     clearAllLabel: null,
+    clearedQuerySnapshot: {},
     collapseGroupOnClickOutside: false,
     groupTopLabels: false,
     dispatchOnFilterChange: false,
