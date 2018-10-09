@@ -7,6 +7,7 @@ exports[`<Orizzonte /> should render an empty filter container 1`] = `
   onFocus={[Function]}
   onMouseOut={[Function]}
   onMouseOver={[Function]}
+  style={null}
 >
   <OrizzonteBtnAdd
     available={Array []}

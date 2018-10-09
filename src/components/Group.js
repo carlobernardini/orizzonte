@@ -356,7 +356,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, included, hideRemove
+            activeGroup, className, included, hideRemove, style
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -384,7 +384,10 @@ class Group extends Component {
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
                 }) }
-                style={ this.getGroupMinWidth() }
+                style={{
+                    ...style,
+                    ...this.getGroupMinWidth()
+                }}
             >
                 { this.renderTopLabel() }
                 <div
@@ -447,7 +450,9 @@ Group.propTypes = {
         'right'
     ]),
     /** Internal prop representing part of current query object for this group */
-    queryPart: PropTypes.object
+    queryPart: PropTypes.object,
+    /** Custom inline styles for top-level component element */
+    style: PropTypes.object
 };
 
 Group.defaultProps = {
@@ -465,7 +470,8 @@ Group.defaultProps = {
     onGroupToggle: () => {},
     onUpdate: () => {},
     orientation: 'left',
-    queryPart: {}
+    queryPart: {},
+    style: {}
 };
 
 export default Group;

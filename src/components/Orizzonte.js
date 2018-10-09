@@ -248,7 +248,7 @@ class Orizzonte extends Component {
     render() {
         const {
             children, className, collapseGroupOnClickOutside,
-            groupTopLabels, dispatchOnFilterChange, orientation
+            groupTopLabels, dispatchOnFilterChange, orientation, style
         } = this.props;
         const { activeGroup } = this.state;
 
@@ -271,6 +271,7 @@ class Orizzonte extends Component {
                     this.toggleControls(false);
                 }}
                 ref={ this.orizzonte }
+                style={ style }
             >
                 { this.renderSaveBtn('left') }
                 { this.renderClearBtn('left') }
@@ -350,7 +351,9 @@ Orizzonte.propTypes = {
     query: PropTypes.object,
     /** Custom label for the button to save the current query
         onSave prop needs to be defined for the button to show */
-    saveLabel: PropTypes.string
+    saveLabel: PropTypes.string,
+    /** Custom inline styles for the top-level element */
+    style: PropTypes.object
 };
 
 Orizzonte.defaultProps = {
@@ -372,7 +375,8 @@ Orizzonte.defaultProps = {
     onSave: null,
     orientation: 'left',
     query: {},
-    saveLabel: null
+    saveLabel: null,
+    style: null
 };
 
 export default Orizzonte;

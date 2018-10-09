@@ -165,6 +165,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `orientation`                 | left or right | no       | Show the button for adding new filter groups on the left or right                                                 |
 | `query`                       | object        | no       | The current query object                                                                                          |
 | `saveLabel`                   | string        | no       | Custom label for the button to save the current query. `onSave` prop needs to be defined for the button to show.  |
+| `style`                       | object        | no       | Custom inline styles for the top-level element                                                                    |
 
 ### Group
 Groups contain one or more filters for which it make sense to be shown together. Each group has its own name and can be provided with a description.
@@ -177,7 +178,8 @@ Groups contain one or more filters for which it make sense to be shown together.
 | `hideRemove`               | boolean          | no       | Hides the button to remove this group                                                                                                                                           |
 | `included`                 | boolean          | no       | If the group should be present in the bar                                                                                                                                       |
 | `label`                    | string           | yes      | Label for this group                                                                                                                                                            |
-| `orientation`              | left or right    | no       | Default orientation of the group dropdown list                                                                                                                                  |
+| `orientation`              | `left` or `right`| no       | Default orientation of the group dropdown list                                                                                                                                  |
+| `style`                    | object           | no       | Custom inline styles for top-level component elemen                                                                                                                                |
 
 ### Filters
 A filter is responsible for controlling the value of a particular field in the query object. Orizzonte comes with the following filter types:
