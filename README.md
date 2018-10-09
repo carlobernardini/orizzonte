@@ -179,7 +179,7 @@ Groups contain one or more filters for which it make sense to be shown together.
 | `included`                 | boolean          | no       | If the group should be present in the bar                                                                                                                                       |
 | `label`                    | string           | yes      | Label for this group                                                                                                                                                            |
 | `orientation`              | `left` or `right`| no       | Default orientation of the group dropdown list                                                                                                                                  |
-| `style`                    | object           | no       | Custom inline styles for top-level component elemen                                                                                                                                |
+| `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                               |
 
 ### Filters
 A filter is responsible for controlling the value of a particular field in the query object. Orizzonte comes with the following filter types:
