@@ -5,7 +5,7 @@ import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
-import { DEFAULT_STR_EXCEPTION, GROUP_MIN_WIDTH } from '../constants';
+import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, GROUP_MIN_WIDTH } from '../constants';
 import { getFlattenedOptions, mergeOptionsDeep } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
@@ -470,7 +470,7 @@ Group.defaultProps = {
     onGroupRemove: () => {},
     onGroupToggle: () => {},
     onUpdate: () => {},
-    orientation: 'left',
+    orientation: DEFAULT_ORIENTATION,
     queryPart: {},
     style: {}
 };
