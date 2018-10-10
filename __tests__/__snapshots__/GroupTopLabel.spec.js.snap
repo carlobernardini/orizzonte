@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GroupTopLabel /> should render a hidden group top label 1`] = `
+<span
+  className="orizzonte__group-label--top"
+>
+  Test
+</span>
+`;
+
+exports[`<GroupTopLabel /> should render a shown group top label 1`] = `
+<span
+  className="orizzonte__group-label--top orizzonte__group-label--top-shown"
+>
+  Test
+</span>
+`;

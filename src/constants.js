@@ -19,6 +19,7 @@ export const DISPLAY_NAME_FILTER_FULLTEXT = 'OrizzonteFullText';
 export const DISPLAY_NAME_FILTER_INFO = 'OrizzonteFilterInfo';
 export const DISPLAY_NAME_FILTER_SELECT = 'OrizzonteSelect';
 export const DISPLAY_NAME_GROUP = 'OrizzonteGroup';
+export const DISPLAY_NAME_GROUP_BTN = 'OrizzonteGroupBtn';
 export const DISPLAY_NAME_LIST = 'OrizzonteList';
 export const DISPLAY_NAME_LOADING = 'OrizzonteLoadingIndicator';
 export const DISPLAY_NAME_ORIZZONTE = 'Orizzonte';

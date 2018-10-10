@@ -7,6 +7,8 @@ import {
 } from 'lodash-es';
 import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
 import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../utils';
+import GroupTopLabel from './GroupTopLabel';
+import GroupBtn from './GroupBtn';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -193,24 +195,6 @@ class Group extends Component {
         return true;
     }
 
-    renderBtn() {
-        const { hideRemove } = this.props;
-
-        if (hideRemove) {
-            return null;
-        }
-
-        return (
-            <button
-                type="button"
-                className="orizzonte__group-btn"
-                onClick={ this.removeGroup }
-            >
-                &nbsp;
-            </button>
-        );
-    }
-
     renderList() {
         const { cache, groupValues } = this.state;
         const {
@@ -328,22 +312,19 @@ class Group extends Component {
 
         const queryPartKeys = Object.keys(queryPart);
 
-        const isShown = (activeGroup
+        const isShown = Boolean(activeGroup
             || (
                 queryPartKeys.length
                 && intersection(queryPartKeys, fieldNames).length
-            )
-        );
+            ));
 
         return (
-            <span
-                className={ classNames('orizzonte__group-label--top', {
-                    'orizzonte__group-label--top-shown': isShown
-                }) }
+            <GroupTopLabel
+                shown={ isShown }
                 ref={ this.groupTopLabel }
             >
                 { label }
-            </span>
+            </GroupTopLabel>
         );
     }
 
@@ -363,7 +344,10 @@ class Group extends Component {
                     className="orizzonte__group orizzonte__group--error"
                 >
                     { DEFAULT_STR_EXCEPTION }
-                    { this.renderBtn() }
+                    <GroupBtn
+                        hidden={ hideRemove }
+                        onClick={ this.removeGroup }
+                    />
                 </div>
             );
         }
@@ -393,7 +377,10 @@ class Group extends Component {
                     >
                         { this.renderLabel() }
                     </button>
-                    { this.renderBtn() }
+                    <GroupBtn
+                        hidden={ hideRemove }
+                        onClick={ this.removeGroup }
+                    />
                 </div>
                 { this.renderList() }
             </div>

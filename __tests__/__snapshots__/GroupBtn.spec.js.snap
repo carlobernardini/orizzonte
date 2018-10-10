@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GroupBtn /> should render a default group button 1`] = `
+<button
+  className="orizzonte__group-btn"
+  onClick={[MockFunction]}
+  type="button"
+>
+   
+</button>
+`;
+
+exports[`<GroupBtn /> should render a hidden group button 1`] = `""`;
