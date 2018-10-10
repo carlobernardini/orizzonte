@@ -5,7 +5,7 @@ import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
-import utils from '../utils';
+import { getFlattenedOptions, mergeOptionsDeep } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -287,8 +287,8 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
-            const { flatOptions } = utils.getFlattenedOptions(
-                utils.mergeOptionsDeep(
+            const { flatOptions } = getFlattenedOptions(
+                mergeOptionsDeep(
                     options,
                     cache[child.props.fieldName] || []
                 ).mergedOptions

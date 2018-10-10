@@ -7,7 +7,7 @@ import {
     toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
-import utils from '../utils';
+import { getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
 import Caption from './Caption';
@@ -154,7 +154,7 @@ class Dropdown extends Component {
             return options;
         }
 
-        const { mergedOptions } = utils.mergeOptionsDeep(options, remoteOptions, cache);
+        const { mergedOptions } = mergeOptionsDeep(options, remoteOptions, cache);
 
         return mergedOptions;
     }
@@ -164,7 +164,7 @@ class Dropdown extends Component {
         const { cache, onUpdate, syncCache } = this.props;
 
         if (remoteOptions && isFunction(syncCache)) {
-            const { selectedOptions } = utils.getSelectedOptionsDeep(
+            const { selectedOptions } = getSelectedOptionsDeep(
                 remoteOptions,
                 toArray(newValue)
             );
@@ -204,7 +204,7 @@ class Dropdown extends Component {
         const { multiple } = this.props;
         const { cursor } = this.state;
         const mergedOptions = this.getMergedOptions();
-        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
+        const { flatOptions } = getFlattenedOptions(mergedOptions);
         const options = flatOptions.filter((o) => (!o.disabled));
         const key = e.keyCode || e.which;
 
@@ -373,7 +373,7 @@ class Dropdown extends Component {
     renderButtonLabel() {
         const { notSetLabel, value, selectedLabel } = this.props;
         const mergedOptions = this.getMergedOptions();
-        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
+        const { flatOptions } = getFlattenedOptions(mergedOptions);
 
         if (!value || !value.length) {
             return notSetLabel || 'None selected';
@@ -605,7 +605,7 @@ class Dropdown extends Component {
             return null;
         }
 
-        const { flatOptions } = utils.getFlattenedOptions(options);
+        const { flatOptions } = getFlattenedOptions(options);
 
         return (
             <li
