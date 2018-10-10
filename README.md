@@ -3,6 +3,7 @@
 
 [![npm version](https://img.shields.io/npm/v/orizzonte.svg)](https://www.npmjs.com/package/orizzonte)
 [![Build Status](https://travis-ci.org/carlobernardini/orizzonte.svg?branch=master)](https://travis-ci.org/carlobernardini/orizzonte)
+[![Coverage Status](https://coveralls.io/repos/github/carlobernardini/orizzonte/badge.svg?branch=master)](https://coveralls.io/github/carlobernardini/orizzonte?branch=master)
 ![gzip size](http://img.badgesize.io/https://npmcdn.com/orizzonte/dist/orizzonte.min.js?compression=gzip)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/carlobernardini/orizzonte/blob/master/LICENSE)
 

@@ -1,8 +1,6 @@
-### nice-react project
+### orizzonte
 !/dist
-/lib
 /storybook
-/storybook-static
 /tests
 /config
 /coverage
