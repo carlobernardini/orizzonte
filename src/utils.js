@@ -1,5 +1,5 @@
 import {
-    filter, flatMap, indexOf, keyBy, map, mergeWith, reduce, unionBy, values
+    filter, flatMap, indexOf, isFunction, isNumber, keyBy, map, mergeWith, reduce, unionBy, values
 } from 'lodash-es';
 
 export const getFlattenedOptions = (nestedOptions) => ({
@@ -50,4 +50,20 @@ export const mergeOptionsDeep = (...options) => {
         )
     );
     return { mergedOptions };
+};
+
+export const transformLabel = (selectedLabel, value, totalOptionCount) => {
+    if (!selectedLabel) {
+        return null;
+    }
+    if (isFunction(selectedLabel)) {
+        return selectedLabel(value, totalOptionCount);
+    }
+    if (Array.isArray(value)) {
+        return selectedLabel.replace('%d', value.length);
+    }
+    if (isNumber(value)) {
+        return selectedLabel.replace('%d', value.toString());
+    }
+    return selectedLabel.replace('%s', value.label || value);
 };

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, union, without
+    isEqual, isNil, pick, union, without
 } from 'lodash-es';
 import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
-import { getFlattenedOptions, mergeOptionsDeep } from '../utils';
+import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -124,22 +124,6 @@ class Group extends Component {
         }
 
         return onGroupToggle(i);
-    }
-
-    transformLabel(selectedLabel, value, totalOptionCount) {
-        if (!selectedLabel) {
-            return null;
-        }
-        if (isFunction(selectedLabel)) {
-            return selectedLabel(value, totalOptionCount);
-        }
-        if (Array.isArray(value)) {
-            return selectedLabel.replace('%d', value.length);
-        }
-        if (isNumber(value)) {
-            return selectedLabel.replace('%d', value.toString());
-        }
-        return selectedLabel.replace('%s', value.label || value);
     }
 
     updateGroupValues(fieldName, value) {
@@ -298,18 +282,18 @@ class Group extends Component {
             const value = queryPart[fieldName];
 
             if (!options) {
-                return this.transformLabel(selectedLabel, value);
+                return transformLabel(selectedLabel, value);
             }
             if (!Array.isArray(value) && flatOptions) {
                 const selectedOption = find(flatOptions, (option) => (option.value === value));
-                return this.transformLabel(selectedLabel, selectedOption);
+                return transformLabel(selectedLabel, selectedOption);
             }
 
             const selectedOptions = filter(flatOptions, (option) => (
                 indexOf(value, option.value) > -1
             ));
 
-            return this.transformLabel(selectedLabel, selectedOptions, flatOptions.length);
+            return transformLabel(selectedLabel, selectedOptions, flatOptions.length);
         });
 
         if (!selectedLabels.length) {
