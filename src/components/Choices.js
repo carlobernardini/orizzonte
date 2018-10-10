@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     includes, isEqual, uniqueId, without
 } from 'lodash-es';
-import { NAME_PREFIX_CHECKBOX, NAME_PREFIX_RADIO } from '../constants';
+import { DISPLAY_NAME_FILTER_CHOICES, NAME_PREFIX_CHECKBOX, NAME_PREFIX_RADIO } from '../constants';
 import CheckBox from './CheckBox';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
@@ -97,7 +97,7 @@ class Choices extends Component {
     }
 }
 
-Choices.displayName = 'OrizzonteChoices';
+Choices.displayName = DISPLAY_NAME_FILTER_CHOICES;
 
 Choices.propTypes = {
     /** Field name for this filter, to be used in composed query */

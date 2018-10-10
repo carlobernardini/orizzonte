@@ -4,6 +4,7 @@ import {
     assign, difference, identity, isEqual, isFunction, pick, pickBy
 } from 'lodash-es';
 import classNames from 'classnames';
+import { DISPLAY_NAME_GROUP, DISPLAY_NAME_ORIZZONTE } from '../constants';
 import BtnAdd from './BtnAdd';
 import BtnClearAll from './BtnClearAll';
 import BtnSave from './BtnSave';
@@ -165,7 +166,7 @@ class Orizzonte extends Component {
         }
 
         const includedCount = React.Children.map(children, (child) => {
-            if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
+            if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                 return null;
             }
             return child;
@@ -277,7 +278,7 @@ class Orizzonte extends Component {
                 { this.renderClearBtn('left') }
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
-                    if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
+                    if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                         return null;
                     }
 
@@ -302,7 +303,7 @@ class Orizzonte extends Component {
     }
 }
 
-Orizzonte.displayName = 'Orizzonte';
+Orizzonte.displayName = DISPLAY_NAME_ORIZZONTE;
 
 Orizzonte.propTypes = {
     /** Makes a newly added group auto expand */

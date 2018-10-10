@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { compact, values } from 'lodash-es';
-import { DEFAULT_STR_DONE, DEFAULT_STR_CLEAR, DEFAULT_ORIENTATION } from '../constants';
+import { DEFAULT_STR_DONE, DEFAULT_STR_CLEAR, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../constants';
 import '../scss/List.scss';
 
 class List extends Component {
@@ -181,7 +181,7 @@ class List extends Component {
     }
 }
 
-List.displayName = 'OrizzonteList';
+List.displayName = DISPLAY_NAME_LIST;
 
 List.propTypes = {
     cache: PropTypes.object,

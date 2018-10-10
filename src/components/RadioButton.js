@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DEFAULT_CHOICES_VIEWBOX } from '../constants';
+import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_RADIO } from '../constants';
 import '../scss/RadioButton.scss';
 
 const RadioButton = ({ disabled, id, label, name, onChange, value, viewBox, selected }) => (
@@ -51,7 +51,7 @@ const RadioButton = ({ disabled, id, label, name, onChange, value, viewBox, sele
     </div>
 );
 
-RadioButton.displayName = 'OrizzonteRadioButton';
+RadioButton.displayName = DISPLAY_NAME_RADIO;
 
 RadioButton.propTypes = {
     /** If the radio button should be disabled */

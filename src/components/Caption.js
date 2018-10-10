@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DISPLAY_NAME_CAPTION } from '../constants';
 
 const Caption = ({ children }) => {
     if (!children) {
@@ -15,7 +16,7 @@ const Caption = ({ children }) => {
     );
 };
 
-Caption.displayName = 'OrizzonteFilterCaption';
+Caption.displayName = DISPLAY_NAME_CAPTION;
 
 Caption.propTypes = {
     children: PropTypes.string

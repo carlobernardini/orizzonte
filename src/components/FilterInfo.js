@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DISPLAY_NAME_FILTER_INFO } from '../constants';
 import '../scss/FilterInfo.scss';
 
 const FilterInfo = (({ information }) => (
@@ -19,7 +20,7 @@ const FilterInfo = (({ information }) => (
         : null
 ));
 
-FilterInfo.displayName = 'OrizzonteFilterInfo';
+FilterInfo.displayName = DISPLAY_NAME_FILTER_INFO;
 
 FilterInfo.propTypes = {
     information: PropTypes.string

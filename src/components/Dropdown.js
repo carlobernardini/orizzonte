@@ -8,7 +8,9 @@ import {
 } from 'lodash-es';
 import diacritics from 'diacritics';
 import { getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
-import { DEFAULT_STR_LOADING, DEFAULT_STR_NO_MATCH, DEFAULT_STR_NO_OPTIONS } from '../constants';
+import {
+    DEFAULT_STR_LOADING, DEFAULT_STR_NO_MATCH, DEFAULT_STR_NO_OPTIONS, DISPLAY_NAME_FILTER_DROPDOWN
+} from '../constants';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
 import Caption from './Caption';
@@ -670,7 +672,7 @@ class Dropdown extends Component {
     }
 }
 
-Dropdown.displayName = 'OrizzonteDropdown';
+Dropdown.displayName = DISPLAY_NAME_FILTER_DROPDOWN;
 
 Dropdown.propTypes = {
     /** Currently cached selected options from remote endpoint */

@@ -5,7 +5,7 @@ import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
-import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, GROUP_MIN_WIDTH } from '../constants';
+import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
 import { getFlattenedOptions, mergeOptionsDeep } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
@@ -409,7 +409,7 @@ class Group extends Component {
     }
 }
 
-Group.displayName = 'OrizzonteGroup';
+Group.displayName = DISPLAY_NAME_GROUP;
 
 Group.propTypes = {
     /** Internal flag if current group is expanded */

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign, debounce } from 'lodash-es';
+import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
@@ -149,7 +150,7 @@ class FullText extends Component {
     }
 }
 
-FullText.displayName = 'OrizzonteFullText';
+FullText.displayName = DISPLAY_NAME_FILTER_FULLTEXT;
 
 FullText.propTypes = {
     /** If the textarea should be disabled */

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LOADING_SVG_VIEWBOX, LOADING_SVG_CENTER, LOADING_SVG_STROKE_WIDTH, LOADING_SVG_RADIUS } from '../constants';
+import {
+    DISPLAY_NAME_LOADING, LOADING_SVG_VIEWBOX, LOADING_SVG_CENTER,
+    LOADING_SVG_STROKE_WIDTH, LOADING_SVG_RADIUS
+} from '../constants';
 import '../scss/LoadingIndicator.scss';
 
 const LoadingIndicator = ({ size }) => (
@@ -28,7 +31,7 @@ const LoadingIndicator = ({ size }) => (
     </svg>
 );
 
-LoadingIndicator.displayName = 'OrizzonteLoadingIndicator';
+LoadingIndicator.displayName = DISPLAY_NAME_LOADING;
 
 LoadingIndicator.propTypes = {
     size: PropTypes.oneOfType([

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DEFAULT_CHOICES_VIEWBOX } from '../constants';
+import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_CHECKBOX } from '../constants';
 import '../scss/CheckBox.scss';
 
 /**
@@ -54,7 +54,7 @@ const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) =
     </div>
 );
 
-CheckBox.displayName = 'OrizzonteCheckBox';
+CheckBox.displayName = DISPLAY_NAME_CHECKBOX;
 
 CheckBox.propTypes = {
     /** If the checkbox should be disabled */
