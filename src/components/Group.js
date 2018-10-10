@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, fromPairs, indexOf, intersection,
-    isEqual, isFunction, isNil, isNumber, pick, union, without
+    concat, filter, find, fromPairs, indexOf, intersection,
+    isEqual, isNil, pick, union, without
 } from 'lodash-es';
-import utils from '../utils';
+import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
+import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
 
@@ -59,14 +60,14 @@ class Group extends Component {
     getGroupMinWidth() {
         if (!this.groupTopLabel || !this.groupTopLabel.current) {
             return {
-                minWidth: '30px'
+                minWidth: `${ GROUP_MIN_WIDTH }px`
             };
         }
 
         const { width } = this.groupTopLabel.current.getBoundingClientRect();
 
         return {
-            minWidth: `${ width + 30 || 30 }px`
+            minWidth: `${ width + GROUP_MIN_WIDTH || GROUP_MIN_WIDTH }px`
         };
     }
 
@@ -125,22 +126,6 @@ class Group extends Component {
         return onGroupToggle(i);
     }
 
-    transformLabel(selectedLabel, value, totalOptionCount) {
-        if (!selectedLabel) {
-            return null;
-        }
-        if (isFunction(selectedLabel)) {
-            return selectedLabel(value, totalOptionCount);
-        }
-        if (Array.isArray(value)) {
-            return selectedLabel.replace('%d', value.length);
-        }
-        if (isNumber(value)) {
-            return selectedLabel.replace('%d', value.toString());
-        }
-        return selectedLabel.replace('%s', value.label || value);
-    }
-
     updateGroupValues(fieldName, value) {
         const { dispatchOnFilterChange, mutuallyExclusiveFilters, onUpdate } = this.props;
         const { groupValues } = this.state;
@@ -154,9 +139,10 @@ class Group extends Component {
         let values;
 
         if (!mutuallyExclusiveFilters || isNil(value)) {
-            values = assign({}, groupValues, {
+            values = {
+                ...groupValues,
                 [fieldName]: value
-            });
+            };
         } else if (
             Array.isArray(mutuallyExclusiveFilters)
             && mutuallyExclusiveFilters.length >= 2
@@ -175,9 +161,11 @@ class Group extends Component {
                 ).map((field) => ([field, null]))
             );
 
-            values = assign({}, groupValues, reset, {
+            values = {
+                ...groupValues,
+                ...reset,
                 [fieldName]: value
-            });
+            };
         } else {
             const reset = fromPairs(
                 without(
@@ -186,9 +174,10 @@ class Group extends Component {
                 ).map((field) => ([field, null]))
             );
 
-            values = assign({}, reset, {
+            values = {
+                ...reset,
                 [fieldName]: value
-            });
+            };
         }
 
         this.setState({
@@ -233,7 +222,10 @@ class Group extends Component {
         }
 
         const filterFields = this.queryHasGroupFilters();
-        const listValues = assign({}, pick(queryPart, filterFields), groupValues);
+        const listValues = {
+            ...pick(queryPart, filterFields),
+            ...groupValues
+        };
 
         const filters = description ? concat([
             <div
@@ -262,9 +254,10 @@ class Group extends Component {
                 onUpdate={ this.updateGroupValues }
                 syncCacheToGroup={ (fieldName, options) => {
                     this.setState({
-                        cache: assign({}, cache, {
+                        cache: {
+                            ...cache,
                             [fieldName]: options
-                        })
+                        }
                     });
                 }}
             />
@@ -287,8 +280,8 @@ class Group extends Component {
             }
 
             const { fieldName, options, selectedLabel } = child.props;
-            const { flatOptions } = utils.getFlattenedOptions(
-                utils.mergeOptionsDeep(
+            const { flatOptions } = getFlattenedOptions(
+                mergeOptionsDeep(
                     options,
                     cache[child.props.fieldName] || []
                 ).mergedOptions
@@ -297,18 +290,18 @@ class Group extends Component {
             const value = queryPart[fieldName];
 
             if (!options) {
-                return this.transformLabel(selectedLabel, value);
+                return transformLabel(selectedLabel, value);
             }
             if (!Array.isArray(value) && flatOptions) {
                 const selectedOption = find(flatOptions, (option) => (option.value === value));
-                return this.transformLabel(selectedLabel, selectedOption);
+                return transformLabel(selectedLabel, selectedOption);
             }
 
             const selectedOptions = filter(flatOptions, (option) => (
                 indexOf(value, option.value) > -1
             ));
 
-            return this.transformLabel(selectedLabel, selectedOptions, flatOptions.length);
+            return transformLabel(selectedLabel, selectedOptions, flatOptions.length);
         });
 
         if (!selectedLabels.length) {
@@ -356,7 +349,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, included, hideRemove
+            activeGroup, className, included, hideRemove, style
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -369,7 +362,7 @@ class Group extends Component {
                 <div
                     className="orizzonte__group orizzonte__group--error"
                 >
-                    Something went wrong...
+                    { DEFAULT_STR_EXCEPTION }
                     { this.renderBtn() }
                 </div>
             );
@@ -384,7 +377,10 @@ class Group extends Component {
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
                     [className]: className
                 }) }
-                style={ this.getGroupMinWidth() }
+                style={{
+                    ...style,
+                    ...this.getGroupMinWidth()
+                }}
             >
                 { this.renderTopLabel() }
                 <div
@@ -405,7 +401,7 @@ class Group extends Component {
     }
 }
 
-Group.displayName = 'OrizzonteGroup';
+Group.displayName = DISPLAY_NAME_GROUP;
 
 Group.propTypes = {
     /** Internal flag if current group is expanded */
@@ -447,7 +443,9 @@ Group.propTypes = {
         'right'
     ]),
     /** Internal prop representing part of current query object for this group */
-    queryPart: PropTypes.object
+    queryPart: PropTypes.object,
+    /** Custom inline styles for top-level component element */
+    style: PropTypes.object
 };
 
 Group.defaultProps = {
@@ -464,8 +462,9 @@ Group.defaultProps = {
     onGroupRemove: () => {},
     onGroupToggle: () => {},
     onUpdate: () => {},
-    orientation: 'left',
-    queryPart: {}
+    orientation: DEFAULT_ORIENTATION,
+    queryPart: {},
+    style: {}
 };
 
 export default Group;

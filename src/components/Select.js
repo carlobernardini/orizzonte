@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { DISPLAY_NAME_FILTER_SELECT } from '../constants';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
@@ -9,12 +11,12 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
     <div
         className="orizzonte__filter"
     >
-        <FilterInfo information={ information } />
-        <div
-            className="orizzonte__filter-caption"
-        >
+        <FilterInfo
+            information={ information }
+        />
+        <Caption>
             { label }
-        </div>
+        </Caption>
         <select
             className={ classNames('orizzonte__filter-select', {
                 'orizzonte__filter-select--disabled': disabled
@@ -75,7 +77,7 @@ const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, 
     </div>
 );
 
-Select.displayName = 'OrizzonteSelect';
+Select.displayName = DISPLAY_NAME_FILTER_SELECT;
 
 Select.propTypes = {
     /** If the select should be disabled */

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { assign, debounce } from 'lodash-es';
+import { debounce } from 'lodash-es';
+import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/FullText.scss';
@@ -90,7 +92,8 @@ class FullText extends Component {
         };
 
         if (multiline) {
-            fieldProps = assign({}, fieldProps, {
+            fieldProps = {
+                ...fieldProps,
                 className: classNames(fieldProps.className, 'orizzonte__filter-fulltext--multiline'),
                 style: ((mh, mw) => {
                     if (!mh && !mw) {
@@ -102,7 +105,7 @@ class FullText extends Component {
                         maxWidth: mw ? `${ mw }px` : null
                     };
                 })(maxHeight, maxWidth)
-            });
+            };
 
             return (
                 <textarea
@@ -136,19 +139,19 @@ class FullText extends Component {
             <div
                 className="orizzonte__filter"
             >
-                <FilterInfo information={ information } />
-                <div
-                    className="orizzonte__filter-caption"
-                >
+                <FilterInfo
+                    information={ information }
+                />
+                <Caption>
                     { label }
-                </div>
+                </Caption>
                 { this.renderField() }
             </div>
         );
     }
 }
 
-FullText.displayName = 'OrizzonteFullText';
+FullText.displayName = DISPLAY_NAME_FILTER_FULLTEXT;
 
 FullText.propTypes = {
     /** If the textarea should be disabled */

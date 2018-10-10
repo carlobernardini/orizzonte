@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { DISPLAY_NAME_BTN_ADD } from '../constants';
 import List from './List';
 import '../scss/Button.scss';
 
@@ -98,7 +99,7 @@ class BtnAdd extends PureComponent {
     }
 }
 
-BtnAdd.displayName = 'OrizzonteBtnAdd';
+BtnAdd.displayName = DISPLAY_NAME_BTN_ADD;
 
 BtnAdd.propTypes = {
     available: PropTypes.array,

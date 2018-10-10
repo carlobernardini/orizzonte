@@ -24,7 +24,14 @@ exports[`<RadioButton /> should render a disabled radio button 1`] = `
       <svg
         className="orizzonte__radio-svg"
         height="10px"
-        viewBox="0 0 10 10"
+        viewBox={
+          Array [
+            0,
+            0,
+            10,
+            10,
+          ]
+        }
         width="12px"
       >
         <circle
@@ -67,7 +74,14 @@ exports[`<RadioButton /> should render a radio button 1`] = `
       <svg
         className="orizzonte__radio-svg"
         height="10px"
-        viewBox="0 0 10 10"
+        viewBox={
+          Array [
+            0,
+            0,
+            10,
+            10,
+          ]
+        }
         width="12px"
       >
         <circle
@@ -110,7 +124,14 @@ exports[`<RadioButton /> should render a selected radio button 1`] = `
       <svg
         className="orizzonte__radio-svg"
         height="10px"
-        viewBox="0 0 10 10"
+        viewBox={
+          Array [
+            0,
+            0,
+            10,
+            10,
+          ]
+        }
         width="12px"
       >
         <circle

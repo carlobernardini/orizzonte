@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import {
     includes, isEqual, uniqueId, without
 } from 'lodash-es';
+import { DISPLAY_NAME_FILTER_CHOICES, NAME_PREFIX_CHECKBOX, NAME_PREFIX_RADIO } from '../constants';
 import CheckBox from './CheckBox';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import RadioButton from './RadioButton';
 import '../scss/Filter.scss';
@@ -18,7 +20,7 @@ class Choices extends Component {
             return options.map((option, i) => (
                 <CheckBox
                     key={ i }
-                    id={ uniqueId('checkbox-') }
+                    id={ uniqueId(NAME_PREFIX_CHECKBOX) }
                     disabled={ option.disabled }
                     value={ option.value }
                     selected={ (value || []).indexOf(option.value) > -1 }
@@ -44,7 +46,7 @@ class Choices extends Component {
         return options.map((option, i) => (
             <RadioButton
                 key={ i }
-                id={ uniqueId('radio-') }
+                id={ uniqueId(NAME_PREFIX_RADIO) }
                 name={ fieldName }
                 disabled={ option.disabled }
                 value={ option.value }
@@ -66,7 +68,7 @@ class Choices extends Component {
 
         return (
             <RadioButton
-                id={ uniqueId('radio-') }
+                id={ uniqueId(NAME_PREFIX_RADIO) }
                 name={ fieldName }
                 value="no-preference"
                 selected={ !value }
@@ -82,12 +84,12 @@ class Choices extends Component {
             <div
                 className="orizzonte__filter"
             >
-                <FilterInfo information={ information } />
-                <div
-                    className="orizzonte__filter-caption"
-                >
+                <FilterInfo
+                    information={ information }
+                />
+                <Caption>
                     { label }
-                </div>
+                </Caption>
                 { this.renderNoPreference() }
                 { this.renderChoices() }
             </div>
@@ -95,7 +97,7 @@ class Choices extends Component {
     }
 }
 
-Choices.displayName = 'OrizzonteChoices';
+Choices.displayName = DISPLAY_NAME_FILTER_CHOICES;
 
 Choices.propTypes = {
     /** Field name for this filter, to be used in composed query */

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, difference, identity, isEqual, isFunction, pick, pickBy
+    difference, identity, isEqual, isFunction, pick, pickBy
 } from 'lodash-es';
 import classNames from 'classnames';
+import { DISPLAY_NAME_GROUP, DISPLAY_NAME_ORIZZONTE } from '../constants';
 import BtnAdd from './BtnAdd';
 import BtnClearAll from './BtnClearAll';
 import BtnSave from './BtnSave';
@@ -53,7 +54,10 @@ class Orizzonte extends Component {
                 return pick(q, difference(Object.keys(q), group));
             }
             // Merge group into query while excluding fields with falsey values
-            return pickBy(assign({}, q, group), identity);
+            return pickBy({
+                ...q,
+                ...group
+            }, identity);
         })(query));
     }
 
@@ -165,7 +169,7 @@ class Orizzonte extends Component {
         }
 
         const includedCount = React.Children.map(children, (child) => {
-            if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
+            if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                 return null;
             }
             return child;
@@ -248,7 +252,7 @@ class Orizzonte extends Component {
     render() {
         const {
             children, className, collapseGroupOnClickOutside,
-            groupTopLabels, dispatchOnFilterChange, orientation
+            groupTopLabels, dispatchOnFilterChange, orientation, style
         } = this.props;
         const { activeGroup } = this.state;
 
@@ -271,12 +275,13 @@ class Orizzonte extends Component {
                     this.toggleControls(false);
                 }}
                 ref={ this.orizzonte }
+                style={ style }
             >
                 { this.renderSaveBtn('left') }
                 { this.renderClearBtn('left') }
                 { this.renderAddBtn('left') }
                 { React.Children.map(children, (child, i) => {
-                    if (child.type.displayName !== 'OrizzonteGroup' || !child.props.included) {
+                    if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                         return null;
                     }
 
@@ -301,7 +306,7 @@ class Orizzonte extends Component {
     }
 }
 
-Orizzonte.displayName = 'Orizzonte';
+Orizzonte.displayName = DISPLAY_NAME_ORIZZONTE;
 
 Orizzonte.propTypes = {
     /** Makes a newly added group auto expand */
@@ -350,7 +355,9 @@ Orizzonte.propTypes = {
     query: PropTypes.object,
     /** Custom label for the button to save the current query
         onSave prop needs to be defined for the button to show */
-    saveLabel: PropTypes.string
+    saveLabel: PropTypes.string,
+    /** Custom inline styles for the top-level element */
+    style: PropTypes.object
 };
 
 Orizzonte.defaultProps = {
@@ -372,7 +379,8 @@ Orizzonte.defaultProps = {
     onSave: null,
     orientation: 'left',
     query: {},
-    saveLabel: null
+    saveLabel: null,
+    style: null
 };
 
 export default Orizzonte;

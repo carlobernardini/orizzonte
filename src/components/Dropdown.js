@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
 import {
-    assign, debounce, filter as _filter, includes, indexOf, isEqual, isFunction,
+    debounce, filter as _filter, includes, indexOf, isEqual, isFunction,
     toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
-import utils from '../utils';
+import { getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
+import {
+    DEFAULT_STR_LOADING, DEFAULT_STR_NO_MATCH, DEFAULT_STR_NO_OPTIONS, DISPLAY_NAME_FILTER_DROPDOWN
+} from '../constants';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
+import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import '../scss/Dropdown.scss';
 
@@ -139,7 +143,7 @@ class Dropdown extends Component {
         const { remote } = this.props;
 
         if (!remote || !remote.loadingText) {
-            return 'Loading...';
+            return DEFAULT_STR_LOADING;
         }
 
         return remote.loadingText;
@@ -153,7 +157,7 @@ class Dropdown extends Component {
             return options;
         }
 
-        const { mergedOptions } = utils.mergeOptionsDeep(options, remoteOptions, cache);
+        const { mergedOptions } = mergeOptionsDeep(options, remoteOptions, cache);
 
         return mergedOptions;
     }
@@ -163,7 +167,7 @@ class Dropdown extends Component {
         const { cache, onUpdate, syncCache } = this.props;
 
         if (remoteOptions && isFunction(syncCache)) {
-            const { selectedOptions } = utils.getSelectedOptionsDeep(
+            const { selectedOptions } = getSelectedOptionsDeep(
                 remoteOptions,
                 toArray(newValue)
             );
@@ -203,7 +207,7 @@ class Dropdown extends Component {
         const { multiple } = this.props;
         const { cursor } = this.state;
         const mergedOptions = this.getMergedOptions();
-        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
+        const { flatOptions } = getFlattenedOptions(mergedOptions);
         const options = flatOptions.filter((o) => (!o.disabled));
         const key = e.keyCode || e.which;
 
@@ -339,9 +343,15 @@ class Dropdown extends Component {
             } : {};
 
             if (method.toLowerCase() === 'post') {
-                requestOptions.data = assign({}, remote.data || {}, filterOption);
+                requestOptions.data = {
+                    ...(remote.data || {}),
+                    ...filterOption
+                };
             } else {
-                requestOptions.params = assign({}, requestOptions.params || {}, filterOption);
+                requestOptions.params = {
+                    ...(requestOptions.params || {}),
+                    ...filterOption
+                };
             }
 
             if (remote.transformer && isFunction(remote.transformer)) {
@@ -372,7 +382,7 @@ class Dropdown extends Component {
     renderButtonLabel() {
         const { notSetLabel, value, selectedLabel } = this.props;
         const mergedOptions = this.getMergedOptions();
-        const { flatOptions } = utils.getFlattenedOptions(mergedOptions);
+        const { flatOptions } = getFlattenedOptions(mergedOptions);
 
         if (!value || !value.length) {
             return notSetLabel || 'None selected';
@@ -537,7 +547,7 @@ class Dropdown extends Component {
         const options = this.getFilteredOptions();
 
         if (!options.length) {
-            const noOptionsLabel = filter ? 'No matches' : 'No options available';
+            const noOptionsLabel = filter ? DEFAULT_STR_NO_MATCH : DEFAULT_STR_NO_OPTIONS;
 
             return (
                 <li
@@ -604,7 +614,7 @@ class Dropdown extends Component {
             return null;
         }
 
-        const { flatOptions } = utils.getFlattenedOptions(options);
+        const { flatOptions } = getFlattenedOptions(options);
 
         return (
             <li
@@ -641,12 +651,12 @@ class Dropdown extends Component {
             <div
                 className="orizzonte__filter"
             >
-                <FilterInfo information={ information } />
-                <div
-                    className="orizzonte__filter-caption"
-                >
+                <FilterInfo
+                    information={ information }
+                />
+                <Caption>
                     { label }
-                </div>
+                </Caption>
                 <div
                     className={ classNames('orizzonte__dropdown', {
                         'orizzonte__dropdown--focused': expanded || focused,
@@ -668,7 +678,7 @@ class Dropdown extends Component {
     }
 }
 
-Dropdown.displayName = 'OrizzonteDropdown';
+Dropdown.displayName = DISPLAY_NAME_FILTER_DROPDOWN;
 
 Dropdown.propTypes = {
     /** Currently cached selected options from remote endpoint */

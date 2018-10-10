@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+    DISPLAY_NAME_LOADING, LOADING_SVG_VIEWBOX, LOADING_SVG_CENTER,
+    LOADING_SVG_STROKE_WIDTH, LOADING_SVG_RADIUS
+} from '../constants';
 import '../scss/LoadingIndicator.scss';
 
 const LoadingIndicator = ({ size }) => (
     <svg
         className="orizzonte__loading"
-        viewBox={ [0, 0, 44, 44] }
+        viewBox={ LOADING_SVG_VIEWBOX }
         style={ ((s) => {
             if (!s) {
                 return null;
@@ -18,16 +22,16 @@ const LoadingIndicator = ({ size }) => (
     >
         <circle
             className="orizzonte__loading-path"
-            cx="22"
-            cy="22"
-            r="20"
+            cx={ LOADING_SVG_CENTER }
+            cy={ LOADING_SVG_CENTER }
+            r={ LOADING_SVG_RADIUS }
             fill="none"
-            strokeWidth="4"
+            strokeWidth={ LOADING_SVG_STROKE_WIDTH }
         />
     </svg>
 );
 
-LoadingIndicator.displayName = 'OrizzonteLoadingIndicator';
+LoadingIndicator.displayName = DISPLAY_NAME_LOADING;
 
 LoadingIndicator.propTypes = {
     size: PropTypes.oneOfType([
