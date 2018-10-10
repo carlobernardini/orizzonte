@@ -5,7 +5,7 @@ import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
-import { DEFAULT_STR_EXCEPTION } from '../constants';
+import { DEFAULT_STR_EXCEPTION, GROUP_MIN_WIDTH } from '../constants';
 import { getFlattenedOptions, mergeOptionsDeep } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
@@ -60,14 +60,14 @@ class Group extends Component {
     getGroupMinWidth() {
         if (!this.groupTopLabel || !this.groupTopLabel.current) {
             return {
-                minWidth: '30px'
+                minWidth: `${ GROUP_MIN_WIDTH }px`
             };
         }
 
         const { width } = this.groupTopLabel.current.getBoundingClientRect();
 
         return {
-            minWidth: `${ width + 30 || 30 }px`
+            minWidth: `${ width + GROUP_MIN_WIDTH || GROUP_MIN_WIDTH }px`
         };
     }
 

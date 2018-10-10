@@ -8,6 +8,7 @@ export const DEFAULT_STR_CLEAR = 'Clear';
 export const DEFAULT_STR_SAVE = 'Save';
 export const DEFAULT_ORIENTATION = 'left';
 export const DEFAULT_CHOICES_VIEWBOX = [0, 0, 10, 10];
+export const GROUP_MIN_WIDTH = 30;
 export const LOADING_SVG_VIEWBOX = [0, 0, 44, 44];
 export const LOADING_SVG_STROKE_WIDTH = '4';
 export const LOADING_SVG_RADIUS = '20';
