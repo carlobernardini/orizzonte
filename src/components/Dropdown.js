@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
 import {
-    assign, debounce, filter as _filter, includes, indexOf, isEqual, isFunction,
+    debounce, filter as _filter, includes, indexOf, isEqual, isFunction,
     toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
@@ -343,9 +343,15 @@ class Dropdown extends Component {
             } : {};
 
             if (method.toLowerCase() === 'post') {
-                requestOptions.data = assign({}, remote.data || {}, filterOption);
+                requestOptions.data = {
+                    ...(remote.data || {}),
+                    ...filterOption
+                };
             } else {
-                requestOptions.params = assign({}, requestOptions.params || {}, filterOption);
+                requestOptions.params = {
+                    ...(requestOptions.params || {}),
+                    ...filterOption
+                };
             }
 
             if (remote.transformer && isFunction(remote.transformer)) {

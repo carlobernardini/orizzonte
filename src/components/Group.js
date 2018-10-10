@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    assign, concat, filter, find, fromPairs, indexOf, intersection,
+    concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isNil, pick, union, without
 } from 'lodash-es';
 import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
@@ -139,9 +139,10 @@ class Group extends Component {
         let values;
 
         if (!mutuallyExclusiveFilters || isNil(value)) {
-            values = assign({}, groupValues, {
+            values = {
+                ...groupValues,
                 [fieldName]: value
-            });
+            };
         } else if (
             Array.isArray(mutuallyExclusiveFilters)
             && mutuallyExclusiveFilters.length >= 2
@@ -160,9 +161,11 @@ class Group extends Component {
                 ).map((field) => ([field, null]))
             );
 
-            values = assign({}, groupValues, reset, {
+            values = {
+                ...groupValues,
+                ...reset,
                 [fieldName]: value
-            });
+            };
         } else {
             const reset = fromPairs(
                 without(
@@ -171,9 +174,10 @@ class Group extends Component {
                 ).map((field) => ([field, null]))
             );
 
-            values = assign({}, reset, {
+            values = {
+                ...reset,
                 [fieldName]: value
-            });
+            };
         }
 
         this.setState({
@@ -218,7 +222,10 @@ class Group extends Component {
         }
 
         const filterFields = this.queryHasGroupFilters();
-        const listValues = assign({}, pick(queryPart, filterFields), groupValues);
+        const listValues = {
+            ...pick(queryPart, filterFields),
+            ...groupValues
+        };
 
         const filters = description ? concat([
             <div
@@ -247,9 +254,10 @@ class Group extends Component {
                 onUpdate={ this.updateGroupValues }
                 syncCacheToGroup={ (fieldName, options) => {
                     this.setState({
-                        cache: assign({}, cache, {
+                        cache: {
+                            ...cache,
                             [fieldName]: options
-                        })
+                        }
                     });
                 }}
             />

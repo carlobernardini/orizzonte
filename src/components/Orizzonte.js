@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    assign, difference, identity, isEqual, isFunction, pick, pickBy
+    difference, identity, isEqual, isFunction, pick, pickBy
 } from 'lodash-es';
 import classNames from 'classnames';
 import { DISPLAY_NAME_GROUP, DISPLAY_NAME_ORIZZONTE } from '../constants';
@@ -54,7 +54,10 @@ class Orizzonte extends Component {
                 return pick(q, difference(Object.keys(q), group));
             }
             // Merge group into query while excluding fields with falsey values
-            return pickBy(assign({}, q, group), identity);
+            return pickBy({
+                ...q,
+                ...group
+            }, identity);
         })(query));
     }
 

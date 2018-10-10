@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { assign, debounce } from 'lodash-es';
+import { debounce } from 'lodash-es';
 import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
@@ -92,7 +92,8 @@ class FullText extends Component {
         };
 
         if (multiline) {
-            fieldProps = assign({}, fieldProps, {
+            fieldProps = {
+                ...fieldProps,
                 className: classNames(fieldProps.className, 'orizzonte__filter-fulltext--multiline'),
                 style: ((mh, mw) => {
                     if (!mh && !mw) {
@@ -104,7 +105,7 @@ class FullText extends Component {
                         maxWidth: mw ? `${ mw }px` : null
                     };
                 })(maxHeight, maxWidth)
-            });
+            };
 
             return (
                 <textarea
