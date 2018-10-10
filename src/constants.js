@@ -1,0 +1,16 @@
+export const DEFAULT_STR_LOADING = 'Loading...';
+export const DEFAULT_STR_NO_MATCH = 'No matches';
+export const DEFAULT_STR_NO_OPTIONS = 'No options available';
+export const DEFAULT_STR_EXCEPTION = 'Something went wrong...';
+export const DEFAULT_STR_CLEAR_ALL = 'Clear all';
+export const DEFAULT_STR_DONE = 'Done';
+export const DEFAULT_STR_CLEAR = 'Clear';
+export const DEFAULT_STR_SAVE = 'Save';
+export const DEFAULT_ORIENTATION = 'left';
+export const DEFAULT_CHOICES_VIEWBOX = [0, 0, 10, 10];
+export const LOADING_SVG_VIEWBOX = [0, 0, 44, 44];
+export const LOADING_SVG_STROKE_WIDTH = '4';
+export const LOADING_SVG_RADIUS = '20';
+export const LOADING_SVG_CENTER = '22';
+export const NAME_PREFIX_CHECKBOX = 'checkbox-';
+export const NAME_PREFIX_RADIO = 'radio-';

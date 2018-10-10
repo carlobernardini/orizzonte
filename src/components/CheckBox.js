@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { DEFAULT_CHOICES_VIEWBOX } from '../constants';
 import '../scss/CheckBox.scss';
 
 /**
@@ -37,7 +38,7 @@ const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) =
                     className="orizzonte__checkbox-svg"
                     width="12px"
                     height="10px"
-                    viewBox={ viewBox || [0, 0, 10, 10] }
+                    viewBox={ viewBox || DEFAULT_CHOICES_VIEWBOX }
                 >
                     <polyline
                         points="1.5 6 3.5 9 8 3"

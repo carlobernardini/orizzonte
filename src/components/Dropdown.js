@@ -8,6 +8,7 @@ import {
 } from 'lodash-es';
 import diacritics from 'diacritics';
 import { getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
+import { DEFAULT_STR_LOADING, DEFAULT_STR_NO_MATCH, DEFAULT_STR_NO_OPTIONS } from '../constants';
 import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
 import Caption from './Caption';
@@ -140,7 +141,7 @@ class Dropdown extends Component {
         const { remote } = this.props;
 
         if (!remote || !remote.loadingText) {
-            return 'Loading...';
+            return DEFAULT_STR_LOADING;
         }
 
         return remote.loadingText;
@@ -538,7 +539,7 @@ class Dropdown extends Component {
         const options = this.getFilteredOptions();
 
         if (!options.length) {
-            const noOptionsLabel = filter ? 'No matches' : 'No options available';
+            const noOptionsLabel = filter ? DEFAULT_STR_NO_MATCH : DEFAULT_STR_NO_OPTIONS;
 
             return (
                 <li

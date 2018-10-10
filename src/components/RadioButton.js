@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { DEFAULT_CHOICES_VIEWBOX } from '../constants';
 import '../scss/RadioButton.scss';
 
-const RadioButton = ({ disabled, id, label, name, onChange, value, selected }) => (
+const RadioButton = ({ disabled, id, label, name, onChange, value, viewBox, selected }) => (
     <div
         className={ classNames('orizzonte__radio', {
             'orizzonte__radio--disabled': disabled
@@ -32,7 +33,7 @@ const RadioButton = ({ disabled, id, label, name, onChange, value, selected }) =
                     className="orizzonte__radio-svg"
                     width="12px"
                     height="10px"
-                    viewBox="0 0 10 10"
+                    viewBox={ viewBox || DEFAULT_CHOICES_VIEWBOX }
                 >
                     <circle
                         cx="5"
@@ -68,13 +69,15 @@ RadioButton.propTypes = {
     value: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
-    ]).isRequired
+    ]).isRequired,
+    viewBox: PropTypes.array
 };
 
 RadioButton.defaultProps = {
     disabled: false,
     onChange: () => {},
-    selected: false
+    selected: false,
+    viewBox: null
 };
 
 export default RadioButton;

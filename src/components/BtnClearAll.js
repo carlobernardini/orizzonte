@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { DEFAULT_STR_CLEAR_ALL } from '../constants';
 
 const BtnClearAll = ({ clearAllLabel, disabled, onClearAll, position, shown }) => (
     <div
@@ -19,7 +20,7 @@ const BtnClearAll = ({ clearAllLabel, disabled, onClearAll, position, shown }) =
                 onClearAll();
             }}
         >
-            { clearAllLabel && clearAllLabel.length ? clearAllLabel : 'Clear all' }
+            { clearAllLabel && clearAllLabel.length ? clearAllLabel : DEFAULT_STR_CLEAR_ALL }
         </button>
     </div>
 );

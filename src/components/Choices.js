@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
     includes, isEqual, uniqueId, without
 } from 'lodash-es';
+import { NAME_PREFIX_CHECKBOX, NAME_PREFIX_RADIO } from '../constants';
 import CheckBox from './CheckBox';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
@@ -19,7 +20,7 @@ class Choices extends Component {
             return options.map((option, i) => (
                 <CheckBox
                     key={ i }
-                    id={ uniqueId('checkbox-') }
+                    id={ uniqueId(NAME_PREFIX_CHECKBOX) }
                     disabled={ option.disabled }
                     value={ option.value }
                     selected={ (value || []).indexOf(option.value) > -1 }
@@ -45,7 +46,7 @@ class Choices extends Component {
         return options.map((option, i) => (
             <RadioButton
                 key={ i }
-                id={ uniqueId('radio-') }
+                id={ uniqueId(NAME_PREFIX_RADIO) }
                 name={ fieldName }
                 disabled={ option.disabled }
                 value={ option.value }
@@ -67,7 +68,7 @@ class Choices extends Component {
 
         return (
             <RadioButton
-                id={ uniqueId('radio-') }
+                id={ uniqueId(NAME_PREFIX_RADIO) }
                 name={ fieldName }
                 value="no-preference"
                 selected={ !value }

@@ -5,6 +5,7 @@ import {
     assign, concat, filter, find, fromPairs, indexOf, intersection,
     isEqual, isFunction, isNil, isNumber, pick, union, without
 } from 'lodash-es';
+import { DEFAULT_STR_EXCEPTION } from '../constants';
 import { getFlattenedOptions, mergeOptionsDeep } from '../utils';
 import List from './List';
 import '../scss/Group.scss';
@@ -369,7 +370,7 @@ class Group extends Component {
                 <div
                     className="orizzonte__group orizzonte__group--error"
                 >
-                    Something went wrong...
+                    { DEFAULT_STR_EXCEPTION }
                     { this.renderBtn() }
                 </div>
             );
