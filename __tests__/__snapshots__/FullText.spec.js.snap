@@ -46,7 +46,7 @@ exports[`<FullText /> should render a fulltext filter 1`] = `
 </div>
 `;
 
-exports[`<FullText /> should render a fulltext filter with current value 1`] = `
+exports[`<FullText /> should render a multiline fulltext filter with current value and max width / height 1`] = `
 <div
   className="orizzonte__filter"
 >
@@ -56,14 +56,18 @@ exports[`<FullText /> should render a fulltext filter with current value 1`] = `
   <OrizzonteFilterCaption>
     Fulltext filter
   </OrizzonteFilterCaption>
-  <input
-    className="orizzonte__filter-fulltext"
+  <textarea
+    className="orizzonte__filter-fulltext orizzonte__filter-fulltext--multiline"
     disabled={false}
     onBlur={[Function]}
     onChange={[Function]}
-    onKeyUp={[Function]}
     placeholder="This is a textarea placeholder..."
-    type="text"
+    style={
+      Object {
+        "maxHeight": "500px",
+        "maxWidth": "500px",
+      }
+    }
     value="Current textarea value"
   />
 </div>
