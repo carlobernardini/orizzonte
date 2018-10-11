@@ -75,7 +75,32 @@ describe('<Select />', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a grouped select', () => {
+    it('should render a grouped select with some options that only have values and no labels', () => {
+        const wrapper = shallow(
+            <Select
+                label="Test select"
+                options={ [{
+                    value: 'fallback_label_0'
+                }, {
+                    value: 'Grouped values',
+                    children: [{
+                        value: 'fallback_label_1'
+                    }, {
+                        label: 'Test value 3',
+                        value: 3
+                    }]
+                }, {
+                    value: 4,
+                    label: 'Test value 4'
+                }] }
+                value={ 3 }
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render a select a group that has no children', () => {
         const wrapper = shallow(
             <Select
                 label="Test select"
@@ -84,18 +109,9 @@ describe('<Select />', () => {
                     value: 1
                 }, {
                     value: 'Grouped values',
-                    children: [{
-                        label: 'Test value 2',
-                        value: 2
-                    }, {
-                        label: 'Test value 3',
-                        value: 3
-                    }]
-                }, {
-                    value: 4,
-                    label: 'Test value 4'
-                }]}
-                value={ 3 }
+                    children: []
+                }] }
+                value={ 1 }
             />
         );
 

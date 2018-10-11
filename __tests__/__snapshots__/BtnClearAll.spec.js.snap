@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BtnClearAll /> should render a default clear all button 1`] = `
+<div
+  className="orizzonte__btn-wrapper orizzonte__btn-wrapper--left"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-text orizzonte__btn--shown"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Clear all
+  </button>
+</div>
+`;
+
+exports[`<BtnClearAll /> should render a disabled clear all button 1`] = `
+<div
+  className="orizzonte__btn-wrapper orizzonte__btn-wrapper--left"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-text orizzonte__btn--shown orizzonte__btn--disabled"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    Clear all
+  </button>
+</div>
+`;
+
+exports[`<BtnClearAll /> should render a hidden clear all button 1`] = `
+<OrizzonteBtnClearAll
+  clearAllLabel={null}
+  disabled={false}
+  onClearAll={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  position="left"
+  shown={false}
+/>
+`;
+
+exports[`<BtnClearAll /> should render a right-positioned clear all button with custom label 1`] = `
+<div
+  className="orizzonte__btn-wrapper"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-text orizzonte__btn--shown"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Reset
+  </button>
+</div>
+`;

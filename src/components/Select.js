@@ -7,7 +7,7 @@ import FilterInfo from './FilterInfo';
 import '../scss/Filter.scss';
 import '../scss/Select.scss';
 
-const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, value = '' }) => (
+const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, value }) => (
     <div
         className="orizzonte__filter"
     >
