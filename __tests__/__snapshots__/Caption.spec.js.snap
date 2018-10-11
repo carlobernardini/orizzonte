@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Caption /> should not render an empty caption 1`] = `""`;
+
+exports[`<Caption /> should render a filter caption 1`] = `
+<div
+  className="orizzonte__filter-caption"
+>
+  This is a filter caption
+</div>
+`;

@@ -1,11 +1,13 @@
 import React from 'react';
 import FullText from '../src/components/FullText';
 
-const onUpdate = jest.fn();
-
 describe('<FullText />', () => {
+    jest.useFakeTimers();
+
     it('should render a fulltext filter', () => {
         const expectedValue = 'some keywords';
+        const onUpdate = jest.fn();
+
         const wrapper = shallow(
             <FullText
                 label="Fulltext filter"
@@ -13,7 +15,6 @@ describe('<FullText />', () => {
                 onUpdate={ onUpdate }
             />
         );
-        wrapper.dispatch = jest.fn();
 
         wrapper.find('.orizzonte__filter-fulltext').simulate('change', {
             target: {
@@ -22,7 +23,18 @@ describe('<FullText />', () => {
         });
 
         expect(wrapper.state().value).toBe(expectedValue);
+        jest.runAllTimers();
+        expect(onUpdate).toHaveBeenCalledWith(expectedValue);
         expect(wrapper).toMatchSnapshot();
+
+        wrapper.find('.orizzonte__filter-fulltext').simulate('change', {
+            target: {
+                value: ''
+            }
+        });
+
+        jest.runAllTimers();
+        expect(onUpdate).toHaveBeenCalledWith(null);
     });
 
     it('should render a disabled fulltext filter', () => {
@@ -37,15 +49,33 @@ describe('<FullText />', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a fulltext filter with current value', () => {
+    it('should render a multiline fulltext filter with current value and max width / height', () => {
         const wrapper = shallow(
             <FullText
                 label="Fulltext filter"
                 placeholder="This is a textarea placeholder..."
                 value="Current textarea value"
+                maxWidth={ 500 }
+                maxHeight={ 500 }
+                multiline
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+
+        wrapper.setProps({
+            value: 'updated value'
+        });
+
+        expect(wrapper.state().derivedValue).toBe('updated value');
+
+        wrapper.setProps({
+            value: null
+        });
+
+        expect(wrapper.state()).toEqual({
+            derivedValue: null,
+            value: ''
+        });
     });
 });

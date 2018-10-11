@@ -31,7 +31,10 @@ BtnClearAll.propTypes = {
     clearAllLabel: PropTypes.string,
     disabled: PropTypes.bool.isRequired,
     onClearAll: PropTypes.func.isRequired,
-    position: PropTypes.string.isRequired,
+    position: PropTypes.oneOf([
+        'left',
+        'right'
+    ]).isRequired,
     shown: PropTypes.bool.isRequired
 };
 

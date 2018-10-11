@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BtnSave /> should render a default save button 1`] = `
+<div
+  className="orizzonte__btn-wrapper orizzonte__btn-wrapper--left"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-text orizzonte__btn--shown"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Save
+  </button>
+</div>
+`;
+
+exports[`<BtnSave /> should render a disabled save button 1`] = `
+<div
+  className="orizzonte__btn-wrapper orizzonte__btn-wrapper--left"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-text orizzonte__btn--shown orizzonte__btn--disabled"
+    disabled={true}
+    onClick={[Function]}
+    type="button"
+  >
+    Save
+  </button>
+</div>
+`;
+
+exports[`<BtnSave /> should render a hidden save button 1`] = `
+<OrizzonteBtnSave
+  disabled={false}
+  onSave={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  position="left"
+  saveLabel={null}
+  shown={false}
+/>
+`;
+
+exports[`<BtnSave /> should render a right-positioned save button with custom label 1`] = `
+<div
+  className="orizzonte__btn-wrapper"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-text orizzonte__btn--shown"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Store
+  </button>
+</div>
+`;

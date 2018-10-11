@@ -43,7 +43,7 @@ exports[`<Select /> should render a disabled select that allows empty value 1`] 
 </div>
 `;
 
-exports[`<Select /> should render a grouped select 1`] = `
+exports[`<Select /> should render a grouped select with some options that only have values and no labels 1`] = `
 <div
   className="orizzonte__filter"
 >
@@ -60,20 +60,20 @@ exports[`<Select /> should render a grouped select 1`] = `
     value={3}
   >
     <option
-      key="1.0"
-      value={1}
+      key="fallback_label_0.0"
+      value="fallback_label_0"
     >
-      Test value 1
+      fallback_label_0
     </option>
     <optgroup
       key="Grouped values.1"
       label="Grouped values"
     >
       <option
-        key="2.1.0"
-        value={2}
+        key="fallback_label_1.1.0"
+        value="fallback_label_1"
       >
-        Test value 2
+        fallback_label_1
       </option>
       <option
         key="3.1.1"
@@ -125,6 +125,32 @@ exports[`<Select /> should render a normal select 1`] = `
       value={3}
     >
       Test value 3
+    </option>
+  </select>
+</div>
+`;
+
+exports[`<Select /> should render a select a group that has no children 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Test select
+  </OrizzonteFilterCaption>
+  <select
+    className="orizzonte__filter-select"
+    disabled={false}
+    onChange={[Function]}
+    value={1}
+  >
+    <option
+      key="1.0"
+      value={1}
+    >
+      Test value 1
     </option>
   </select>
 </div>

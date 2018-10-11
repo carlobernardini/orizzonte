@@ -35,11 +35,11 @@ class Group extends Component {
     }
 
     onKeyUp(e) {
-        const { activeGroup, onGroupToggle } = this.props;
+        const { active, onGroupToggle } = this.props;
 
         const key = e.which || e.keyCode;
 
-        if (!activeGroup || key !== 27) {
+        if (!active || key !== 27) {
             return false;
         }
 
@@ -47,10 +47,10 @@ class Group extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        const { activeGroup } = props;
+        const { active } = props;
         const { groupValues } = state;
 
-        if (activeGroup || !Object.keys(groupValues).length) {
+        if (active || !Object.keys(groupValues).length) {
             return null;
         }
 
@@ -95,10 +95,10 @@ class Group extends Component {
 
     removeGroup() {
         const {
-            activeGroup, i, onGroupRemove, onGroupToggle, onUpdate
+            active, i, onGroupRemove, onGroupToggle, onUpdate
         } = this.props;
 
-        if (activeGroup) {
+        if (active) {
             onGroupToggle();
         }
 
@@ -119,9 +119,9 @@ class Group extends Component {
     }
 
     toggleGroup() {
-        const { activeGroup, i, onGroupToggle } = this.props;
+        const { active, i, onGroupToggle } = this.props;
 
-        if (activeGroup) {
+        if (active) {
             return onGroupToggle(false);
         }
 
@@ -198,10 +198,10 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            activeGroup, children, description, onUpdate, orientation, queryPart
+            active, children, description, onUpdate, orientation, queryPart
         } = this.props;
 
-        if (!activeGroup || !children.length) {
+        if (!active || !children.length) {
             return null;
         }
 
@@ -297,7 +297,7 @@ class Group extends Component {
 
     renderTopLabel() {
         const {
-            activeGroup, children, groupTopLabels, label, queryPart
+            active, children, groupTopLabels, label, queryPart
         } = this.props;
 
         if (!groupTopLabels) {
@@ -312,7 +312,7 @@ class Group extends Component {
 
         const queryPartKeys = Object.keys(queryPart);
 
-        const isShown = Boolean(activeGroup
+        const isShown = Boolean(active
             || (
                 queryPartKeys.length
                 && intersection(queryPartKeys, fieldNames).length
@@ -330,7 +330,7 @@ class Group extends Component {
 
     render() {
         const {
-            activeGroup, className, included, hideRemove, style
+            active, className, included, hideRemove, style
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -355,7 +355,7 @@ class Group extends Component {
         return (
             <div
                 className={ classNames('orizzonte__group', {
-                    'orizzonte__group--shown': activeGroup,
+                    'orizzonte__group--shown': active,
                     'orizzonte__group--removing': removing,
                     'orizzonte__group--removable': !hideRemove,
                     'orizzonte__group--empty': !this.queryHasGroupFilters(),
@@ -392,9 +392,14 @@ Group.displayName = DISPLAY_NAME_GROUP;
 
 Group.propTypes = {
     /** Internal flag if current group is expanded */
-    activeGroup: PropTypes.bool,
+    active: PropTypes.bool,
     /** Internal list of filters in this group */
-    children: PropTypes.array,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(
+            PropTypes.node
+        ),
+        PropTypes.node
+    ]),
     /** Custom additional class name for top-level component element */
     className: PropTypes.string,
     /** A description for this group of filters */
@@ -436,7 +441,7 @@ Group.propTypes = {
 };
 
 Group.defaultProps = {
-    activeGroup: null,
+    active: null,
     children: [],
     className: null,
     description: null,

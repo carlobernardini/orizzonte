@@ -1,5 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Orizzonte /> should render a simple filter container with custom className / styles 1`] = `
+<div
+  className="orizzonte__container orizzonte__clearfix custom__class"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
+  style={
+    Object {
+      "border": "3px solid #000",
+    }
+  }
+>
+  <OrizzonteGroup
+    active={false}
+    className={null}
+    collapseGroupOnClickOutside={false}
+    description={null}
+    dispatchOnFilterChange={false}
+    groupTopLabels={false}
+    hideRemove={false}
+    i={0}
+    included={true}
+    key=".0"
+    label="Test group"
+    mutuallyExclusiveFilters={false}
+    onGroupRemove={[Function]}
+    onGroupToggle={[Function]}
+    onUpdate={[Function]}
+    orientation="left"
+    queryPart={
+      Object {
+        "testSelect": 2,
+      }
+    }
+    style={Object {}}
+  >
+    <OrizzonteSelect
+      disabled={false}
+      fieldName="testSelect"
+      information={null}
+      label="Test select"
+      notSetLabel={false}
+      onUpdate={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Test value 1",
+            "value": 1,
+          },
+          Object {
+            "label": "Test value 2",
+            "value": 2,
+          },
+        ]
+      }
+      value=""
+    />
+  </OrizzonteGroup>
+  <OrizzonteBtnAdd
+    available={Array []}
+    disabled={false}
+    onGroupAdd={[Function]}
+    position="right"
+    shown={true}
+  />
+  <OrizzonteBtnClearAll
+    clearAllLabel={null}
+    disabled={false}
+    onClearAll={[Function]}
+    position="right"
+    shown={true}
+  />
+  <OrizzonteBtnSave
+    disabled={false}
+    onSave={[Function]}
+    position="right"
+    saveLabel={null}
+    shown={true}
+  />
+</div>
+`;
+
 exports[`<Orizzonte /> should render an empty filter container 1`] = `
 <div
   className="orizzonte__container orizzonte__clearfix"

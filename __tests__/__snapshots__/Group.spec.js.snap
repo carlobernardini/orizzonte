@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Group /> should render a basic group 1`] = `
+<div
+  className="orizzonte__group orizzonte__group--removable"
+  style={
+    Object {
+      "minWidth": "30px",
+    }
+  }
+>
+  <[object Object]
+    shown={true}
+  >
+    Test group
+  </[object Object]>
+  <div
+    className="orizzonte__group-btn-wrapper"
+  >
+    <button
+      className="orizzonte__group-label"
+      onClick={[Function]}
+      type="button"
+    >
+      Test group
+    </button>
+    <OrizzonteGroupBtn
+      hidden={false}
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`<Group /> should render an active group with description 1`] = `
+<div
+  className="orizzonte__group orizzonte__group--shown orizzonte__group--removable orizzonte__group--empty"
+  style={
+    Object {
+      "minWidth": "30px",
+    }
+  }
+>
+  <[object Object]
+    shown={true}
+  >
+    Test group
+  </[object Object]>
+  <div
+    className="orizzonte__group-btn-wrapper"
+  >
+    <button
+      className="orizzonte__group-label"
+      onClick={[Function]}
+      type="button"
+    >
+      Test group
+    </button>
+    <OrizzonteGroupBtn
+      hidden={false}
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`<Group /> should render an active group without top label and no remove button 1`] = `
+<div
+  className="orizzonte__group orizzonte__group--shown orizzonte__group--empty"
+  style={
+    Object {
+      "minWidth": "30px",
+    }
+  }
+>
+  <div
+    className="orizzonte__group-btn-wrapper"
+  >
+    <button
+      className="orizzonte__group-label"
+      onClick={[Function]}
+      type="button"
+    >
+      Test group
+    </button>
+    <OrizzonteGroupBtn
+      hidden={true}
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`<Group /> should render nothing when the group is not included 1`] = `""`;
