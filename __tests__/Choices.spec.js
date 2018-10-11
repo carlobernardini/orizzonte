@@ -5,6 +5,8 @@ import RadioButton from '../src/components/RadioButton';
 
 describe('<Choices />', () => {
     it('should render a series of checkboxes with some disabled ones', () => {
+        const onUpdate = jest.fn();
+
         const wrapper = shallow(
             <Choices
                 fieldName="myAPIField"
@@ -21,12 +23,44 @@ describe('<Choices />', () => {
                     value: 3,
                     disabled: true
                 }]}
-                onUpdate={ () => {} }
+                onUpdate={ onUpdate }
                 multiple
             />
         );
 
         expect(wrapper).toMatchSnapshot();
+
+        wrapper.find(CheckBox).at(1).prop('onChange')(true);
+        expect(onUpdate).toHaveBeenCalledWith([2]);
+    });
+
+    it('should not update anything if option already checked', () => {
+        const onUpdate = jest.fn();
+
+        const wrapper = shallow(
+            <Choices
+                fieldName="myAPIField"
+                label="Test multiple choices"
+                options={ [{
+                    value: 1,
+                    disabled: true
+                }, {
+                    value: 2
+                }, {
+                    value: 3,
+                    disabled: true
+                }]}
+                onUpdate={ onUpdate }
+                value={[2]}
+                multiple
+            />
+        );
+
+        wrapper.find(CheckBox).at(1).prop('onChange')(true);
+        expect(onUpdate).not.toHaveBeenCalled();
+
+        wrapper.find(CheckBox).at(1).prop('onChange')(false);
+        expect(onUpdate).toHaveBeenCalledWith(null);
     });
 
     it('should render a series of checkboxes with selected values', () => {
@@ -93,15 +127,12 @@ describe('<Choices />', () => {
                 fieldName="myAPIField"
                 label="Test multiple choices"
                 options={ [{
-                    label: 'Test value 1',
-                    value: 1,
+                    value: '1',
                     disabled: true
                 }, {
-                    label: 'Test value 2',
-                    value: 2
+                    value: '2'
                 }, {
-                    label: 'Test value 3',
-                    value: 3,
+                    value: '3',
                     disabled: true
                 }] }
                 onUpdate={ onUpdate }
@@ -111,8 +142,8 @@ describe('<Choices />', () => {
 
         expect(wrapper).toMatchSnapshot();
 
-        wrapper.find(RadioButton).at(1).prop('onChange')(2);
-        expect(onUpdate).toHaveBeenCalledWith(2);
+        wrapper.find(RadioButton).at(1).prop('onChange')('2');
+        expect(onUpdate).toHaveBeenCalledWith('2');
     });
 
     it('should render a series of radios with no preference option', () => {
