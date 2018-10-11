@@ -31,6 +31,7 @@ class Orizzonte extends Component {
     }
 
     onClickOutside(e) {
+        console.log('boink');
         const { collapseGroupOnClickOutside } = this.props;
 
         if (!collapseGroupOnClickOutside || !this.orizzonte || !this.orizzonte.current) {
@@ -38,6 +39,7 @@ class Orizzonte extends Component {
         }
 
         if (this.orizzonte.current.contains(e.target)) {
+            console.log('help');
             return false;
         }
 
@@ -316,7 +318,12 @@ Orizzonte.propTypes = {
     /** Custom timeout interval for auto-hiding controls */
     autoHideTimeout: PropTypes.number,
     /** List of filter groups */
-    children: PropTypes.array,
+    children: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.arrayOf(
+            PropTypes.node
+        )
+    ]),
     /** Custom additional class name for the top-level element */
     className: PropTypes.string,
     /** Custom label for the button to clear all of the query
