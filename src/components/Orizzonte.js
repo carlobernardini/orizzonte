@@ -286,7 +286,7 @@ class Orizzonte extends Component {
                     }
 
                     return React.cloneElement(child, {
-                        activeGroup: activeGroup === i,
+                        active: activeGroup === i,
                         collapseGroupOnClickOutside,
                         groupTopLabels,
                         i,
