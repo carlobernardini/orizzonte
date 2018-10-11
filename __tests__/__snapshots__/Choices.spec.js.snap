@@ -86,6 +86,62 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
 </div>
 `;
 
+exports[`<Choices /> should render a series of radios with no preference option 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Test multiple choices
+  </OrizzonteFilterCaption>
+  <OrizzonteRadioButton
+    disabled={false}
+    id="radio-13"
+    label="No preference"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value="no-preference"
+    viewBox={null}
+  />
+  <OrizzonteRadioButton
+    disabled={false}
+    id="radio-14"
+    key="0"
+    label="Test value 1"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={1}
+    viewBox={null}
+  />
+  <OrizzonteRadioButton
+    disabled={false}
+    id="radio-15"
+    key="1"
+    label="Test value 2"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={2}
+    viewBox={null}
+  />
+  <OrizzonteRadioButton
+    disabled={false}
+    id="radio-16"
+    key="2"
+    label="Test value 3"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={true}
+    value={3}
+    viewBox={null}
+  />
+</div>
+`;
+
 exports[`<Choices /> should render a series of radios with selected value 1`] = `
 <div
   className="orizzonte__filter"
