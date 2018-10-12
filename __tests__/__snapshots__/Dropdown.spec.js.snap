@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Dropdown /> should render a default, collapsed dropdown without filtering and selected values 1`] = `
+exports[`<Dropdown /> should render a default dropdown without filtering and selected values 1`] = `
 <div
   className="orizzonte__filter"
 >
@@ -59,12 +59,71 @@ exports[`<Dropdown /> should render a default, collapsed dropdown without filter
 </div>
 `;
 
-exports[`<Dropdown /> should render an expanded dropdown multiselect with filtering 1`] = `
+exports[`<Dropdown /> should render a default dropdown without filtering and selected values 2`] = `
 <div
   className="orizzonte__filter"
 >
   <OrizzonteFilterInfo
     information={null}
+  />
+  <OrizzonteFilterCaption>
+    Country
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__dropdown orizzonte__dropdown--focused orizzonte__dropdown--expanded"
+  >
+    <button
+      className="orizzonte__dropdown-button"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      type="button"
+    >
+      None selected
+    </button>
+    <ul
+      className="orizzonte__dropdown-list"
+    >
+      <li
+        className="orizzonte__dropdown-item"
+        key="at.0"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex="-1"
+      >
+        Austria
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
+        key="pt.1"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex="-1"
+      >
+        Portugal
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
+        key="ie.2"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        tabIndex="-1"
+      >
+        Ireland
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`<Dropdown /> should render an expanded dropdown multiselect with filtering 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information="This is some information for this filter"
   />
   <OrizzonteFilterCaption>
     Country
@@ -101,7 +160,7 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
       >
         <OrizzonteCheckBox
           disabled={false}
-          id="checkbox-4"
+          id="checkbox-7"
           label={
             <span>
               <span>
@@ -135,7 +194,7 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
 </div>
 `;
 
-exports[`<Dropdown /> should render an expanded, grouped dropdown with a few checked options 1`] = `
+exports[`<Dropdown /> should render an expanded, grouped dropdown with a few checked options and select-all 1`] = `
 <div
   className="orizzonte__filter"
 >
@@ -164,13 +223,33 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
     >
       <li
         className="orizzonte__dropdown-item"
+      >
+        <OrizzonteCheckBox
+          disabled={false}
+          id="checkbox-23"
+          label="Select all options"
+          onChange={[Function]}
+          selected={false}
+          value="select-all"
+          viewBox={
+            Array [
+              0,
+              0,
+              13,
+              13,
+            ]
+          }
+        />
+      </li>
+      <li
+        className="orizzonte__dropdown-item"
         key="at.0"
         onKeyDown={[Function]}
         tabIndex="-1"
       >
         <OrizzonteCheckBox
           disabled={false}
-          id="checkbox-10"
+          id="checkbox-24"
           label="Austria"
           onChange={[Function]}
           selected={false}
@@ -193,7 +272,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       >
         <OrizzonteCheckBox
           disabled={false}
-          id="checkbox-11"
+          id="checkbox-25"
           label="Portugal"
           onChange={[Function]}
           selected={false}
@@ -216,7 +295,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       >
         <OrizzonteCheckBox
           disabled={false}
-          id="checkbox-12"
+          id="checkbox-26"
           label="Ireland"
           onChange={[Function]}
           selected={false}
@@ -248,7 +327,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
         >
           <OrizzonteCheckBox
             disabled={false}
-            id="checkbox-13"
+            id="checkbox-27"
             label="United States"
             onChange={[Function]}
             selected={true}
@@ -271,7 +350,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
         >
           <OrizzonteCheckBox
             disabled={false}
-            id="checkbox-14"
+            id="checkbox-28"
             label="Canada"
             onChange={[Function]}
             selected={false}
