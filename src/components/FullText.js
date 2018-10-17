@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { debounce } from 'lodash-es';
+import { debounce, isFunction } from 'lodash-es';
 import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
@@ -52,10 +52,10 @@ class FullText extends Component {
     }
 
     dispatchToQuery() {
-        const { onUpdate } = this.props;
+        const { onUpdate, validateInput } = this.props;
         const { value = '' } = this.state;
 
-        if (!value.trim().length) {
+        if (!value.trim().length || (isFunction(validateInput) && !validateInput(value))) {
             return onUpdate(null);
         }
 
@@ -64,13 +64,16 @@ class FullText extends Component {
 
     renderField() {
         const {
-            disabled, maxHeight, maxWidth, multiline, placeholder, value: derivedValue
+            disabled, maxHeight, maxWidth, multiline, validateInput,
+            placeholder, value: derivedValue
         } = this.props;
+
         const { value = '' } = this.state;
 
         let fieldProps = {
             className: classNames('orizzonte__filter-fulltext', {
-                'orizzonte__filter-fulltext--disabled': disabled
+                'orizzonte__filter-fulltext--disabled': disabled,
+                'orizzonte__filter-fulltext--invalid': value.length && isFunction(validateInput) && !validateInput(value)
             }),
             disabled,
             onBlur: this.dispatchToQuery,
@@ -179,6 +182,8 @@ FullText.propTypes = {
         PropTypes.func,
         PropTypes.string
     ]),
+    /** Function to validate user input, should return true (valid) or false (invalid) */
+    validateInput: PropTypes.func,
     /** Current value for this filter */
     value: PropTypes.string
 };
@@ -194,6 +199,7 @@ FullText.defaultProps = {
     onUpdate: () => {},
     placeholder: null,
     selectedLabel: '%s',
+    validateInput: null,
     value: null
 };
 

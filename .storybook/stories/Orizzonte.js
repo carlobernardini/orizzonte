@@ -313,7 +313,10 @@ stories.add('Default', withState({
                 selectedLabel={ (value) => (truncate(value.trim(), {
                     length: 20
                 }))}
-                placeholder="Enter some keywords..."
+                placeholder="Enter some keywords, but no numbers..."
+                validateInput={ (value) => (
+                    !(/[0-9]/g.test(value))
+                )}
                 multiline
             />,
             <FullText
