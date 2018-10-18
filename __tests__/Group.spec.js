@@ -52,7 +52,7 @@ describe('<Group />', () => {
         expect(onGroupRemove).toHaveBeenCalledWith(1);
     });
 
-    it('should render an active group with description', () => {
+    it('should render an active group with description and min width', () => {
         const map = {};
 
         document.addEventListener = jest.fn((event, callback) => {
@@ -93,10 +93,11 @@ describe('<Group />', () => {
         expect(onGroupToggle).toHaveBeenCalledWith(false);
     });
 
-    it('should render group without clear / done buttons', () => {
+    it('should render group without clear / done buttons, and higher min width', () => {
         const wrapper = shallow(
             <Group
                 label="Test group"
+                listMinWidth={ 400 }
                 groupTopLabels
                 included
                 active

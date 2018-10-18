@@ -306,6 +306,7 @@ stories.add('Default', withState({
     }, {
         label: 'Keywords',
         hideDone: true,
+        listMinWidth: 400,
         filters: [
             <FullText
                 key="keywords"

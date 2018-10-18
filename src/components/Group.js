@@ -198,7 +198,8 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            active, children, description, hideClear, hideDone, onUpdate, orientation, queryPart
+            active, children, description, hideClear, hideDone, listMinWidth,
+            onUpdate, orientation, queryPart
         } = this.props;
 
         if (!active || !children.length) {
@@ -226,7 +227,7 @@ class Group extends Component {
                 doneBtn={ !hideDone }
                 isFilterGroup
                 items={ filters }
-                values={ listValues }
+                minWidth={ listMinWidth }
                 orientation={ orientation }
                 onApply={ () => {
                     this.toggleGroup();
@@ -245,6 +246,7 @@ class Group extends Component {
                         }
                     });
                 }}
+                values={ listValues }
             />
         );
     }
@@ -421,6 +423,8 @@ Group.propTypes = {
     included: PropTypes.bool,
     /** Group label */
     label: PropTypes.string.isRequired,
+    /** Minimum width for the dropdown list */
+    listMinWidth: PropTypes.number,
     /** When true, only one filter can be selected for this group
         When you want only specific filters to be mutually exclusive,
         you can provide an array of (two or more) field names */
@@ -457,6 +461,7 @@ Group.defaultProps = {
     hideRemove: false,
     i: null,
     included: false,
+    listMinWidth: null,
     mutuallyExclusiveFilters: false,
     onGroupRemove: () => {},
     onGroupToggle: () => {},

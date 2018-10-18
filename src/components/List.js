@@ -164,7 +164,7 @@ class List extends Component {
     }
 
     render() {
-        const { orientation } = this.props;
+        const { orientation, minWidth } = this.props;
         const { fromRight } = this.state;
 
         return (
@@ -172,6 +172,9 @@ class List extends Component {
                 className={ classNames('orizzonte__list', {
                     'orizzonte__list--right': orientation === 'right' || fromRight
                 }) }
+                style={{
+                    minWidth
+                }}
                 ref={ this.list }
             >
                 { this.renderItems() }
@@ -189,9 +192,9 @@ List.propTypes = {
     clearBtnLabel: PropTypes.string,
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
-    values: PropTypes.object,
     isFilterGroup: PropTypes.bool,
     items: PropTypes.array.isRequired,
+    minWidth: PropTypes.number,
     onApply: PropTypes.func,
     onClear: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -199,7 +202,8 @@ List.propTypes = {
         'left',
         'right'
     ]),
-    syncCacheToGroup: PropTypes.func
+    syncCacheToGroup: PropTypes.func,
+    values: PropTypes.object,
 };
 
 List.defaultProps = {
@@ -208,13 +212,14 @@ List.defaultProps = {
     clearBtnLabel: null,
     doneBtn: true,
     doneBtnLabel: null,
-    values: {},
     isFilterGroup: false,
+    minWidth: null,
     onApply: () => {},
     onClear: () => {},
     onUpdate: () => {},
     orientation: DEFAULT_ORIENTATION,
-    syncCacheToGroup: () => {}
+    syncCacheToGroup: () => {},
+    values: {}
 };
 
 export default List;
