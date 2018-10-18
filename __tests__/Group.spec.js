@@ -53,7 +53,7 @@ describe('<Group />', () => {
     });
 
     it('should render an active group with description', () => {
-        const map = {}
+        const map = {};
 
         document.addEventListener = jest.fn((event, callback) => {
             map[event] = callback;
@@ -91,6 +91,33 @@ describe('<Group />', () => {
         });
 
         expect(onGroupToggle).toHaveBeenCalledWith(false);
+    });
+
+    it('should render group without clear / done buttons', () => {
+        const wrapper = shallow(
+            <Group
+                label="Test group"
+                groupTopLabels
+                included
+                active
+                hideClear
+                hideDone
+            >
+                <Select
+                    fieldName="testSelect"
+                    label="Test select"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }] }
+                />
+            </Group>
+        );
+
+        expect(wrapper).toMatchSnapshot();
     });
 
     it('should render an active group without top label and no remove button', () => {

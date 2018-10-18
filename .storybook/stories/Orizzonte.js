@@ -305,6 +305,7 @@ stories.add('Default', withState({
         ]
     }, {
         label: 'Keywords',
+        hideDone: true,
         filters: [
             <FullText
                 key="keywords"
@@ -313,7 +314,10 @@ stories.add('Default', withState({
                 selectedLabel={ (value) => (truncate(value.trim(), {
                     length: 20
                 }))}
-                placeholder="Enter some keywords..."
+                placeholder="Enter some keywords, but no numbers..."
+                validateInput={ (value) => (
+                    !(/[0-9]/g.test(value))
+                )}
                 multiline
             />,
             <FullText
@@ -327,6 +331,7 @@ stories.add('Default', withState({
     }, {
         included: true,
         label: 'Dates',
+        hideClear: true,
         description: 'You can narrow your search to any of the time spans listed below',
         filters: [
             <Choices

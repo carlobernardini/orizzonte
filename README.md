@@ -177,11 +177,13 @@ Groups contain one or more filters for which it make sense to be shown together.
 | `className`                | string           | no       | Custom additional class name for top-level component element                                                                                                                    |
 | `mutuallyExclusiveFilters` | boolean or array | no       | When true, only one filter can be selected for this group. When you want only specific filters to be mutually exclusive,,you can provide an array of (two or more) field names. |
 | `description`              | string           | no       | A description for this group of filters                                                                                                                                         |
+| `hideClear`                | boolean          | no       | Hides the clear button in the dropdown                                                                                                                                          |
+| `hideDone`                 | boolean          | no       | Hides the done button in the dropdown                                                                                                                                           |
 | `hideRemove`               | boolean          | no       | Hides the button to remove this group                                                                                                                                           |
 | `included`                 | boolean          | no       | If the group should be present in the bar                                                                                                                                       |
 | `label`                    | string           | yes      | Label for this group                                                                                                                                                            |
 | `orientation`              | `left` or `right`| no       | Default orientation of the group dropdown list                                                                                                                                  |
-| `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                               |
+| `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                            |
 
 ### Filters
 A filter is responsible for controlling the value of a particular field in the query object. Orizzonte comes with the following filter types:
@@ -247,6 +249,7 @@ A single or multi line full text field
 | `multiline`       | boolean            | no       | Whether to render a textarea (true) or input field (false)                   |
 | `placeholder`     | string             | no       | Placeholder text for the input field                                         |
 | `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                         |
+| `validateInput`   | function           | no       | Function to validate input, should return true (valid) or false (invalid)    |
 | `value`           | string             | no       | Current value                                                                |
 
 #### Select

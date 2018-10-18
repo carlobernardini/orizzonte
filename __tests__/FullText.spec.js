@@ -78,4 +78,31 @@ describe('<FullText />', () => {
             value: ''
         });
     });
+
+    it('should render a fulltext filter with input validation', () => {
+        const onUpdate = jest.fn();
+
+        const wrapper = shallow(
+            <FullText
+                label="Fulltext filter"
+                placeholder="This is a textarea placeholder..."
+                onUpdate={ onUpdate }
+                validateInput={ (value) => (
+                    !(/[0-9]/g.test(value))
+                )}
+            />
+        );
+
+        wrapper.find('.orizzonte__filter-fulltext').simulate('change', {
+            target: {
+                value: '123'
+            }
+        });
+
+        expect(wrapper.state().value).toBe('123');
+        jest.runAllTimers();
+        expect(wrapper.find('.orizzonte__filter-fulltext').hasClass('orizzonte__filter-fulltext--invalid')).toBe(true);
+        expect(onUpdate).not.toHaveBeenCalled();
+        expect(wrapper.state().derivedValue).toBeNull();
+    });
 });

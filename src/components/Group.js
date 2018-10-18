@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    concat, filter, find, fromPairs, indexOf, intersection,
+    concat, filter, find, fromPairs, intersection,
     isEqual, isNil, pick, union, without
 } from 'lodash-es';
 import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
@@ -148,7 +148,7 @@ class Group extends Component {
         } else if (
             Array.isArray(mutuallyExclusiveFilters)
             && mutuallyExclusiveFilters.length >= 2
-            && indexOf(mutuallyExclusiveFilters, fieldName) > -1
+            && mutuallyExclusiveFilters.indexOf(fieldName) > -1
         ) {
             const reset = fromPairs(
                 intersection(
@@ -198,7 +198,7 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            active, children, description, onUpdate, orientation, queryPart
+            active, children, description, hideClear, hideDone, onUpdate, orientation, queryPart
         } = this.props;
 
         if (!active || !children.length) {
@@ -222,7 +222,8 @@ class Group extends Component {
         return (
             <List
                 cache={ cache || {} }
-                clearBtn
+                clearBtn={ !hideClear }
+                doneBtn={ !hideDone }
                 isFilterGroup
                 items={ filters }
                 values={ listValues }
@@ -282,7 +283,7 @@ class Group extends Component {
             }
 
             const selectedOptions = filter(flatOptions, (option) => (
-                indexOf(value, option.value) > -1
+                value.indexOf(option.value) > -1
             ));
 
             return transformLabel(selectedLabel, selectedOptions, flatOptions.length);
@@ -408,6 +409,10 @@ Group.propTypes = {
     dispatchOnFilterChange: PropTypes.bool,
     /** Internal flag if a label should be shown at the top */
     groupTopLabels: PropTypes.bool,
+    /** Hides the clear button in the dropdown */
+    hideClear: PropTypes.bool,
+    /** Hides the done button in the dropdown */
+    hideDone: PropTypes.bool,
     /** Hides the button to remove this group */
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
@@ -447,6 +452,8 @@ Group.defaultProps = {
     description: null,
     dispatchOnFilterChange: false,
     groupTopLabels: false,
+    hideClear: false,
+    hideDone: false,
     hideRemove: false,
     i: null,
     included: false,

@@ -18,11 +18,16 @@
 
     &:focus {
         border-color: $color-a;
+        &.orizzonte__filter-fulltext--invalid {
+            border-color: $color-e;
+        }
     }
-
     &--disabled {
         cursor: not-allowed;
         background-color: $background-color-muted;
+    }
+    &--invalid {
+        border-color: $color-e;
     }
     &--multiline {
         height: auto;

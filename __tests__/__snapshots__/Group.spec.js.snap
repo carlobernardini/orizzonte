@@ -91,4 +91,36 @@ exports[`<Group /> should render an active group without top label and no remove
 </div>
 `;
 
+exports[`<Group /> should render group without clear / done buttons 1`] = `
+<div
+  className="orizzonte__group orizzonte__group--shown orizzonte__group--removable orizzonte__group--empty"
+  style={
+    Object {
+      "minWidth": "30px",
+    }
+  }
+>
+  <[object Object]
+    shown={true}
+  >
+    Test group
+  </[object Object]>
+  <div
+    className="orizzonte__group-btn-wrapper"
+  >
+    <button
+      className="orizzonte__group-label"
+      onClick={[Function]}
+      type="button"
+    >
+      Test group
+    </button>
+    <OrizzonteGroupBtn
+      hidden={false}
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;
+
 exports[`<Group /> should render nothing when the group is not included 1`] = `""`;
