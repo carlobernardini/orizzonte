@@ -31,7 +31,6 @@ class Orizzonte extends Component {
     }
 
     onClickOutside(e) {
-        console.log('boink');
         const { collapseGroupOnClickOutside } = this.props;
 
         if (!collapseGroupOnClickOutside || !this.orizzonte || !this.orizzonte.current) {
@@ -39,7 +38,6 @@ class Orizzonte extends Component {
         }
 
         if (this.orizzonte.current.contains(e.target)) {
-            console.log('help');
             return false;
         }
 
