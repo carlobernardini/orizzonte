@@ -55,7 +55,11 @@ class FullText extends Component {
         const { onUpdate, validateInput } = this.props;
         const { value = '' } = this.state;
 
-        if (!value.trim().length || (isFunction(validateInput) && !validateInput(value))) {
+        if (isFunction(validateInput) && !validateInput(value)) {
+            return false;
+        }
+
+        if (!value.trim().length) {
             return onUpdate(null);
         }
 
