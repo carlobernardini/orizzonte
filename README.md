@@ -247,6 +247,7 @@ A single or multi line full text field
 | `multiline`       | boolean            | no       | Whether to render a textarea (true) or input field (false)                   |
 | `placeholder`     | string             | no       | Placeholder text for the input field                                         |
 | `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                         |
+| `validateInput`   | function           | no       | Function to validate input, should return true (valid) or false (invalid)    |
 | `value`           | string             | no       | Current value                                                                |
 
 #### Select
