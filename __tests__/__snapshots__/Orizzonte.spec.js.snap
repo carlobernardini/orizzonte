@@ -20,6 +20,8 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
     description={null}
     dispatchOnFilterChange={false}
     groupTopLabels={false}
+    hideClear={false}
+    hideDone={false}
     hideRemove={false}
     i={0}
     included={true}

@@ -305,6 +305,7 @@ stories.add('Default', withState({
         ]
     }, {
         label: 'Keywords',
+        hideDone: true,
         filters: [
             <FullText
                 key="keywords"
@@ -330,6 +331,7 @@ stories.add('Default', withState({
     }, {
         included: true,
         label: 'Dates',
+        hideClear: true,
         description: 'You can narrow your search to any of the time spans listed below',
         filters: [
             <Choices
