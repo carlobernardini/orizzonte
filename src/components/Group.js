@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-    concat, filter, find, fromPairs, indexOf, intersection,
+    concat, filter, find, fromPairs, intersection,
     isEqual, isNil, pick, union, without
 } from 'lodash-es';
 import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
@@ -148,7 +148,7 @@ class Group extends Component {
         } else if (
             Array.isArray(mutuallyExclusiveFilters)
             && mutuallyExclusiveFilters.length >= 2
-            && indexOf(mutuallyExclusiveFilters, fieldName) > -1
+            && mutuallyExclusiveFilters.indexOf(fieldName) > -1
         ) {
             const reset = fromPairs(
                 intersection(
@@ -283,7 +283,7 @@ class Group extends Component {
             }
 
             const selectedOptions = filter(flatOptions, (option) => (
-                indexOf(value, option.value) > -1
+                value.indexOf(option.value) > -1
             ));
 
             return transformLabel(selectedLabel, selectedOptions, flatOptions.length);

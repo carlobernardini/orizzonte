@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
 import {
-    debounce, filter as _filter, includes, indexOf, isEqual, isFunction,
+    debounce, filter as _filter, includes, isEqual, isFunction,
     toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
@@ -390,7 +390,7 @@ class Dropdown extends Component {
 
         const selectedOptions = _filter(flatOptions, (option) => {
             if (Array.isArray(value)) {
-                return indexOf(value, option.value) > -1;
+                return value.indexOf(option.value) > -1;
             }
             return option.value === value;
         });

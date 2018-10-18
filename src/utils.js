@@ -1,5 +1,5 @@
 import {
-    filter, flatMap, indexOf, isFunction, isNumber, keyBy, map, mergeWith, reduce, unionBy, values
+    filter, flatMap, isFunction, isNumber, keyBy, map, mergeWith, reduce, unionBy, values
 } from 'lodash-es';
 
 export const getFlattenedOptions = (nestedOptions) => ({
@@ -18,14 +18,14 @@ export const getSelectedOptionsDeep = (options, selectedValues) => {
 
     const selectedOptions = reduce(options, (result, o) => {
         if ('children' in o && Array.isArray(o.children)) {
-            const subset = filter(o.children, (c) => (indexOf(selectedValues, c.value) > -1));
+            const subset = filter(o.children, (c) => (selectedValues.indexOf(c.value) > -1));
             if (subset.length) {
                 result.push({
                     value: o.value,
                     children: subset
                 });
             }
-        } else if (indexOf(selectedValues, o.value) > -1) {
+        } else if (selectedValues.indexOf(o.value) > -1) {
             result.push(o);
         }
         return result;
