@@ -27,6 +27,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
     included={true}
     key=".0"
     label="Test group"
+    listMinWidth={null}
     mutuallyExclusiveFilters={false}
     onGroupRemove={[Function]}
     onGroupToggle={[Function]}

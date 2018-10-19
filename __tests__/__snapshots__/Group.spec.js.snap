@@ -2,50 +2,18 @@
 
 exports[`<Group /> should render a basic group 1`] = `
 <div
-  className="orizzonte__group orizzonte__group--removable"
+  className="orizzonte__group orizzonte__group--clearable"
   style={
     Object {
       "minWidth": "30px",
     }
   }
 >
-  <[object Object]
+  <ForwardRef
     shown={true}
   >
     Test group
-  </[object Object]>
-  <div
-    className="orizzonte__group-btn-wrapper"
-  >
-    <button
-      className="orizzonte__group-label"
-      onClick={[Function]}
-      type="button"
-    >
-      Test group
-    </button>
-    <OrizzonteGroupBtn
-      hidden={false}
-      onClick={[Function]}
-    />
-  </div>
-</div>
-`;
-
-exports[`<Group /> should render an active group with description 1`] = `
-<div
-  className="orizzonte__group orizzonte__group--shown orizzonte__group--removable orizzonte__group--empty"
-  style={
-    Object {
-      "minWidth": "30px",
-    }
-  }
->
-  <[object Object]
-    shown={true}
-  >
-    Test group
-  </[object Object]>
+  </ForwardRef>
   <div
     className="orizzonte__group-btn-wrapper"
   >
@@ -66,18 +34,18 @@ exports[`<Group /> should render an active group with description 1`] = `
 
 exports[`<Group /> should render an active group with description and min width 1`] = `
 <div
-  className="orizzonte__group orizzonte__group--shown orizzonte__group--removable orizzonte__group--empty"
+  className="orizzonte__group orizzonte__group--shown orizzonte__group--empty"
   style={
     Object {
       "minWidth": "30px",
     }
   }
 >
-  <[object Object]
+  <ForwardRef
     shown={true}
   >
     Test group
-  </[object Object]>
+  </ForwardRef>
   <div
     className="orizzonte__group-btn-wrapper"
   >
@@ -89,10 +57,55 @@ exports[`<Group /> should render an active group with description and min width 
       Test group
     </button>
     <OrizzonteGroupBtn
-      hidden={false}
+      hidden={true}
       onClick={[Function]}
     />
   </div>
+  <OrizzonteList
+    cache={Object {}}
+    doneBtn={true}
+    doneBtnLabel={null}
+    isFilterGroup={true}
+    items={
+      Array [
+        <div
+          className="orizzonte__group-description"
+        >
+          Description for this group
+        </div>,
+        <OrizzonteSelect
+          disabled={false}
+          fieldName="testSelect"
+          information={null}
+          label="Test select"
+          notSetLabel={false}
+          onUpdate={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Test value 1",
+                "value": 1,
+              },
+              Object {
+                "label": "Test value 2",
+                "value": 2,
+              },
+            ]
+          }
+          value=""
+        />,
+      ]
+    }
+    minWidth={null}
+    onApply={[Function]}
+    onRemove={[Function]}
+    onUpdate={[Function]}
+    orientation="left"
+    removeBtn={true}
+    removeBtnLabel={null}
+    syncCacheToGroup={[Function]}
+    values={Object {}}
+  />
 </div>
 `;
 
@@ -120,23 +133,68 @@ exports[`<Group /> should render an active group without top label and no remove
       onClick={[Function]}
     />
   </div>
+  <OrizzonteList
+    cache={Object {}}
+    doneBtn={true}
+    doneBtnLabel={null}
+    isFilterGroup={true}
+    items={
+      Array [
+        <div
+          className="orizzonte__group-description"
+        >
+          Description for this group
+        </div>,
+        <OrizzonteSelect
+          disabled={false}
+          fieldName="testSelect"
+          information={null}
+          label="Test select"
+          notSetLabel={false}
+          onUpdate={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Test value 1",
+                "value": 1,
+              },
+              Object {
+                "label": "Test value 2",
+                "value": 2,
+              },
+            ]
+          }
+          value=""
+        />,
+      ]
+    }
+    minWidth={null}
+    onApply={[Function]}
+    onRemove={[Function]}
+    onUpdate={[Function]}
+    orientation="left"
+    removeBtn={false}
+    removeBtnLabel={null}
+    syncCacheToGroup={[Function]}
+    values={Object {}}
+  />
 </div>
 `;
 
-exports[`<Group /> should render group without clear / done buttons 1`] = `
+exports[`<Group /> should render group without clear / remove / done buttons, and higher min width 1`] = `
 <div
-  className="orizzonte__group orizzonte__group--shown orizzonte__group--removable orizzonte__group--empty"
+  className="orizzonte__group orizzonte__group--shown orizzonte__group--empty"
   style={
     Object {
       "minWidth": "30px",
     }
   }
 >
-  <[object Object]
+  <ForwardRef
     shown={true}
   >
     Test group
-  </[object Object]>
+  </ForwardRef>
   <div
     className="orizzonte__group-btn-wrapper"
   >
@@ -148,42 +206,48 @@ exports[`<Group /> should render group without clear / done buttons 1`] = `
       Test group
     </button>
     <OrizzonteGroupBtn
-      hidden={false}
+      hidden={true}
       onClick={[Function]}
     />
   </div>
-</div>
-`;
-
-exports[`<Group /> should render group without clear / done buttons, and higher min width 1`] = `
-<div
-  className="orizzonte__group orizzonte__group--shown orizzonte__group--removable orizzonte__group--empty"
-  style={
-    Object {
-      "minWidth": "30px",
+  <OrizzonteList
+    cache={Object {}}
+    doneBtn={false}
+    doneBtnLabel={null}
+    isFilterGroup={true}
+    items={
+      <OrizzonteSelect
+        disabled={false}
+        fieldName="testSelect"
+        information={null}
+        label="Test select"
+        notSetLabel={false}
+        onUpdate={[Function]}
+        options={
+          Array [
+            Object {
+              "label": "Test value 1",
+              "value": 1,
+            },
+            Object {
+              "label": "Test value 2",
+              "value": 2,
+            },
+          ]
+        }
+        value=""
+      />
     }
-  }
->
-  <[object Object]
-    shown={true}
-  >
-    Test group
-  </[object Object]>
-  <div
-    className="orizzonte__group-btn-wrapper"
-  >
-    <button
-      className="orizzonte__group-label"
-      onClick={[Function]}
-      type="button"
-    >
-      Test group
-    </button>
-    <OrizzonteGroupBtn
-      hidden={false}
-      onClick={[Function]}
-    />
-  </div>
+    minWidth={400}
+    onApply={[Function]}
+    onRemove={[Function]}
+    onUpdate={[Function]}
+    orientation="left"
+    removeBtn={false}
+    removeBtnLabel={null}
+    syncCacheToGroup={[Function]}
+    values={Object {}}
+  />
 </div>
 `;
 

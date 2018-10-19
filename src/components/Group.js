@@ -24,6 +24,7 @@ class Group extends Component {
         };
 
         this.groupTopLabel = React.createRef();
+        this.clearGroup = this.clearGroup.bind(this);
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
         this.updateGroupValues = this.updateGroupValues.bind(this);
@@ -93,6 +94,14 @@ class Group extends Component {
         return fieldsInQueryPart;
     }
 
+    clearGroup() {
+        const { onUpdate } = this.props;
+        const filterFields = this.queryHasGroupFilters();
+
+        this.toggleGroup(null, true);
+        onUpdate(filterFields);
+    }
+
     removeGroup() {
         const {
             active, i, onGroupRemove, onGroupToggle, onUpdate
@@ -118,10 +127,10 @@ class Group extends Component {
         setTimeout(onGroupRemove.bind(null, i), 300);
     }
 
-    toggleGroup() {
+    toggleGroup(e, forceCollapse = false) {
         const { active, i, onGroupToggle } = this.props;
 
-        if (active) {
+        if (active || forceCollapse) {
             return onGroupToggle(false);
         }
 
@@ -198,11 +207,11 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            active, children, description, hideClear, hideDone, listMinWidth,
+            active, children, description, hideRemove, hideDone, listMinWidth,
             onUpdate, orientation, queryPart
         } = this.props;
 
-        if (!active || !children.length) {
+        if (!active || !children) {
             return null;
         }
 
@@ -223,7 +232,7 @@ class Group extends Component {
         return (
             <List
                 cache={ cache || {} }
-                clearBtn={ !hideClear }
+                removeBtn={ !hideRemove }
                 doneBtn={ !hideDone }
                 isFilterGroup
                 items={ filters }
@@ -233,10 +242,7 @@ class Group extends Component {
                     this.toggleGroup();
                     onUpdate(groupValues);
                 }}
-                onClear={ () => {
-                    this.toggleGroup();
-                    onUpdate(filterFields);
-                }}
+                onRemove={ this.removeGroup }
                 onUpdate={ this.updateGroupValues }
                 syncCacheToGroup={ (fieldName, options) => {
                     this.setState({
@@ -333,7 +339,7 @@ class Group extends Component {
 
     render() {
         const {
-            active, className, included, hideRemove, style
+            active, className, included, hideClear, style
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -347,21 +353,19 @@ class Group extends Component {
                     className="orizzonte__group orizzonte__group--error"
                 >
                     { DEFAULT_STR_EXCEPTION }
-                    <GroupBtn
-                        hidden={ hideRemove }
-                        onClick={ this.removeGroup }
-                    />
                 </div>
             );
         }
+
+        const queryHasFilters = this.queryHasGroupFilters().length;
 
         return (
             <div
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': active,
                     'orizzonte__group--removing': removing,
-                    'orizzonte__group--removable': !hideRemove,
-                    'orizzonte__group--empty': !this.queryHasGroupFilters(),
+                    'orizzonte__group--clearable': queryHasFilters && !hideClear,
+                    'orizzonte__group--empty': !queryHasFilters,
                     [className]: className
                 }) }
                 style={{
@@ -381,8 +385,8 @@ class Group extends Component {
                         { this.renderLabel() }
                     </button>
                     <GroupBtn
-                        hidden={ hideRemove }
-                        onClick={ this.removeGroup }
+                        hidden={ !queryHasFilters || hideClear }
+                        onClick={ this.clearGroup }
                     />
                 </div>
                 { this.renderList() }

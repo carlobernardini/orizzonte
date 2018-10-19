@@ -25,6 +25,17 @@ class FullText extends Component {
         this.dispatchToQuery = this.dispatchToQuery.bind(this);
     }
 
+    componentDidMount() {
+        const { autoFocus } = this.props;
+
+        if (!autoFocus || !this.input || !this.input.current) {
+            return false;
+        }
+
+        this.input.current.focus();
+        return true;
+    }
+
     static getDerivedStateFromProps(nextProps, prevState) {
         const { value } = nextProps;
         const { derivedValue } = prevState;
@@ -39,16 +50,6 @@ class FullText extends Component {
         return {
             derivedValue: value
         };
-    }
-
-    componentDidMount() {
-        const { autoFocus } = this.props;
-
-        if (!autoFocus || !this.input || !this.input.current) {
-            return false;
-        }
-
-        this.input.current.focus();
     }
 
     dispatchDebouncedWrapper() {

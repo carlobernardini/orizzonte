@@ -3,7 +3,7 @@
 .orizzonte__list {
     @extend %list;
     margin: 5px 0 0;
-    min-width: 200px;
+    min-width: 260px;
     animation: listIn .1s linear;
     transform-origin: top left;
 
@@ -42,7 +42,7 @@
 .orizzonte__list-done {
     background-color: $color-c;
     border-radius: 5px;
-    flex-grow: 1.5;
+    flex-grow: 1;
     font: {
         weight: 500;
     }
@@ -52,14 +52,10 @@
     }
 }
 
-.orizzonte__list-clear {
+.orizzonte__list-remove {
     background-color: #FFF;
     color: $color-a;
     transition: color .3s;
-
-    &--disabled {
-        color: $text-color-muted;
-    }
 }
 
 .orizzonte__item {
