@@ -149,6 +149,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 
 | Prop                          | Type             | Required | Description                                                                                                       |
 |-------------------------------|------------------|----------|-------------------------------------------------------------------------------------------------------------------|
+| `addBtnLabel`                 | string           | no       | Custom label for add-button                                                                                       |
 | `autoExpandOnGroupAdd`        | boolean          | no       | Makes a newly added group auto expand                                                                             |
 | `autoHideControls`            | boolean          | no       | If true, add, clear and save buttons will hide automatically                                                      |
 | `autoHideTimeout`             | number           | no       | Custom timeout interval for auto-hiding controls                                                                  |
@@ -157,7 +158,8 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `clearedQuerySnapshot`        | object           | no       | Snapshot of initial query state. If set, this will be used to determine if the query diverged from blank-slate.   |
 | `collapseGroupOnClickOutside` | boolean          | no       | Whether the group should collapse when the user clicks outside of it. Changes will not be applied to the query.   |
 | `groupTopLabels`              | boolean          | no       | Whether the group label should be shown at the top if some of it's filters have selected values                   |
-| `dispatchOnFilterChange`      | boolean          | no       |  If true, the query object will be updated right after any filter change                                          |
+| `hideAddOnAllGroupsIncluded`  | boolean          | no       | Hide the add-button when there are no more groups to add                                                          |
+| `dispatchOnFilterChange`      | boolean          | no       | If true, the query object will be updated right after any filter change                                           |
 | `maxGroups`                   | number           | no       | Maximum number of groups to be added                                                                              |
 | `onChange`                    | function         | yes      | Callback function that triggers when the final query object is updated                                            |
 | `onClear`                     | function         | no       | Callback function for clearing all of the query                                                                   |
