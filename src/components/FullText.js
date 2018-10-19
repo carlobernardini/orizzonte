@@ -186,7 +186,7 @@ FullText.propTypes = {
     fieldName: PropTypes.string,
     information: PropTypes.string,
     /** Label for this filter section */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     /** Maximum textarea height (only applicable in multiline mode) */
     maxHeight: PropTypes.number,
     /** Maximum textarea width (only applicable in multiline mode) */
@@ -214,6 +214,7 @@ FullText.defaultProps = {
     dispatchTimeout: 300,
     fieldName: null,
     information: null,
+    label: null,
     maxHeight: null,
     maxWidth: null,
     multiline: false,

@@ -104,7 +104,7 @@ Choices.propTypes = {
     fieldName: PropTypes.string.isRequired,
     information: PropTypes.string,
     /** Label for this filter section */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     /** Whether to show checkboxes (true) or radios (false) */
     multiple: PropTypes.bool,
     /** Label to show if you want to include a 'no preference' option
@@ -137,6 +137,7 @@ Choices.propTypes = {
 
 Choices.defaultProps = {
     information: null,
+    label: null,
     multiple: false,
     noPreferenceLabel: null,
     onUpdate: () => {},

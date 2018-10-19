@@ -340,7 +340,6 @@ stories.add('Default', withState({
                 multiple
                 key="period"
                 fieldName="calendarPeriod"
-                label="Calendar Period"
                 selectedLabel={ (value) => {
                     if (value.length === 1) {
                         return value[0].label;
