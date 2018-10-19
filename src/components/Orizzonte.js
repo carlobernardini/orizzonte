@@ -152,8 +152,10 @@ class Orizzonte extends Component {
 
     renderAddBtn(position) {
         const {
-            autoHideControls, orientation, children, maxGroups
+            addBtnLabel, autoHideControls, orientation, children,
+            hideAddOnAllGroupsIncluded, maxGroups
         } = this.props;
+
         const { showControls } = this.state;
 
         if (orientation === position) {
@@ -168,6 +170,20 @@ class Orizzonte extends Component {
             return null;
         }
 
+        const availableGroups = React.Children.map(children, (child, i) => {
+            if (child.props.included) {
+                return null;
+            }
+            return {
+                i,
+                label: child.props.label
+            };
+        });
+
+        if (!availableGroups.length && hideAddOnAllGroupsIncluded) {
+            return null;
+        }
+
         const includedCount = React.Children.map(children, (child) => {
             if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                 return null;
@@ -177,6 +193,7 @@ class Orizzonte extends Component {
 
         return (
             <BtnAdd
+                label={ addBtnLabel }
                 shown={ !includedCount || showControls || !autoHideControls }
                 position={ orientation === 'right' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
@@ -309,6 +326,8 @@ class Orizzonte extends Component {
 Orizzonte.displayName = DISPLAY_NAME_ORIZZONTE;
 
 Orizzonte.propTypes = {
+    /** Custom label for add-button */
+    addBtnLabel: PropTypes.string,
     /** Makes a newly added group auto expand */
     autoExpandOnGroupAdd: PropTypes.bool,
     /** If true, add, clear and save buttons will hide automatically */
@@ -337,6 +356,8 @@ Orizzonte.propTypes = {
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
+    /** Hide the add-button when there are no more groups to add */
+    hideAddOnAllGroupsIncluded: PropTypes.bool,
     /** If true, the query object will be updated right after any filter change */
     dispatchOnFilterChange: PropTypes.bool,
     /** Maximum number of groups to be added */
@@ -366,6 +387,7 @@ Orizzonte.propTypes = {
 };
 
 Orizzonte.defaultProps = {
+    addBtnLabel: null,
     autoExpandOnGroupAdd: true,
     autoHideControls: false,
     autoHideTimeout: 750,
@@ -375,6 +397,7 @@ Orizzonte.defaultProps = {
     clearedQuerySnapshot: {},
     collapseGroupOnClickOutside: false,
     groupTopLabels: false,
+    hideAddOnAllGroupsIncluded: false,
     dispatchOnFilterChange: false,
     maxGroups: null,
     onChange: () => {},

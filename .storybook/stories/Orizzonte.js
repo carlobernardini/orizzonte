@@ -74,6 +74,7 @@ const component = ({ store }) => {
 
     return (
         <Orizzonte
+            addBtnLabel={ text('Add button label', '') }
             autoHideControls={ boolean('Auto-hide controls (add, clear, save)', true) }
             query={ object('Query', query) }
             collapseGroupOnClickOutside={ boolean('Collapse groups on click outside', true) }
@@ -84,6 +85,7 @@ const component = ({ store }) => {
             }}
             saveLabel={ text('Label for Save button', '') }
             groupTopLabels={ boolean('Labels on top of groups', true) }
+            hideAddOnAllGroupsIncluded={ boolean('Hide add-button when no more groups available', true) }
             dispatchOnFilterChange={ boolean('Dispatch query on filter change', true) }
             orientation={ select('Orientation', ['left', 'right'], 'left') }
             onChange={ (queryObject) => {
@@ -306,6 +308,7 @@ stories.add('Default', withState({
     }, {
         label: 'Keywords',
         hideDone: true,
+        listMinWidth: 400,
         filters: [
             <FullText
                 key="keywords"
@@ -318,6 +321,7 @@ stories.add('Default', withState({
                 validateInput={ (value) => (
                     !(/[0-9]/g.test(value))
                 )}
+                autoFocus
                 multiline
             />,
             <FullText
@@ -338,7 +342,6 @@ stories.add('Default', withState({
                 multiple
                 key="period"
                 fieldName="calendarPeriod"
-                label="Calendar Period"
                 selectedLabel={ (value) => {
                     if (value.length === 1) {
                         return value[0].label;

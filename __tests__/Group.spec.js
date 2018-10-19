@@ -1,6 +1,7 @@
 import React from 'react';
 import Group from '../src/components/Group';
 import GroupBtn from '../src/components/GroupBtn';
+import List from '../src/components/List';
 import Select from '../src/components/Select';
 
 describe('<Group />', () => {
@@ -44,7 +45,11 @@ describe('<Group />', () => {
         wrapper.find('.orizzonte__group-label').simulate('click');
         expect(onGroupToggle).toHaveBeenCalledWith(1);
 
-        wrapper.find(GroupBtn).first().prop('onClick')();
+        wrapper.setProps({
+            active: true
+        });
+
+        wrapper.find(List).first().prop('onRemove')();
         expect(wrapper.state().removing).toBe(true);
 
         expect(onUpdate).toHaveBeenCalledWith(Object.keys(queryPart));
@@ -52,7 +57,7 @@ describe('<Group />', () => {
         expect(onGroupRemove).toHaveBeenCalledWith(1);
     });
 
-    it('should render an active group with description', () => {
+    it('should render an active group with description and min width', () => {
         const map = {};
 
         document.addEventListener = jest.fn((event, callback) => {
@@ -93,14 +98,16 @@ describe('<Group />', () => {
         expect(onGroupToggle).toHaveBeenCalledWith(false);
     });
 
-    it('should render group without clear / done buttons', () => {
+    it('should render group without clear / remove / done buttons, and higher min width', () => {
         const wrapper = shallow(
             <Group
                 label="Test group"
+                listMinWidth={ 400 }
                 groupTopLabels
                 included
                 active
                 hideClear
+                hideRemove
                 hideDone
             >
                 <Select

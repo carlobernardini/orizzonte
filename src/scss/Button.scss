@@ -31,14 +31,25 @@
         size: 1.1em;
     }
 
+    &:hover {
+        transform: scale(1.1);
+    }
     &--shown {
         transform: scale(1);
     }
     &--disabled {
         opacity: .5;
     }
-    &:hover {
-        transform: scale(1.1);
+    &--labeled {
+        width: auto;
+        padding: {
+            left: 10px;
+            right: 10px;
+        }
+        font: {
+            size: inherit;
+        }
+        border-radius: 15px;
     }
 }
 
@@ -59,6 +70,12 @@
         font: {
             size: 18px;
             weight: 200;
+        }
+    }
+    &.orizzonte__btn--labeled {
+        &:after {
+            content: '';
+            display: none;
         }
     }
 }

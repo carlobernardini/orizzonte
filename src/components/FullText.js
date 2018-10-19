@@ -20,8 +20,20 @@ class FullText extends Component {
             this.dispatchToQuery,
             props.dispatchTimeout
         );
+        this.input = React.createRef();
         this.dispatchDebouncedWrapper = this.dispatchDebouncedWrapper.bind(this);
         this.dispatchToQuery = this.dispatchToQuery.bind(this);
+    }
+
+    componentDidMount() {
+        const { autoFocus } = this.props;
+
+        if (!autoFocus || !this.input || !this.input.current) {
+            return false;
+        }
+
+        this.input.current.focus();
+        return true;
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -95,6 +107,7 @@ class FullText extends Component {
                 return true;
             },
             placeholder,
+            ref: this.input,
             value
         };
 
@@ -161,6 +174,9 @@ class FullText extends Component {
 FullText.displayName = DISPLAY_NAME_FILTER_FULLTEXT;
 
 FullText.propTypes = {
+    /** If the textarea should focus when group is expanded
+        Only works when group has only one (enabled) fulltext filter */
+    autoFocus: PropTypes.bool,
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
     /** Custom debounce timeout before dispatching the new value to the query object */
@@ -170,7 +186,7 @@ FullText.propTypes = {
     fieldName: PropTypes.string,
     information: PropTypes.string,
     /** Label for this filter section */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     /** Maximum textarea height (only applicable in multiline mode) */
     maxHeight: PropTypes.number,
     /** Maximum textarea width (only applicable in multiline mode) */
@@ -193,10 +209,12 @@ FullText.propTypes = {
 };
 
 FullText.defaultProps = {
+    autoFocus: false,
     disabled: false,
     dispatchTimeout: 300,
     fieldName: null,
     information: null,
+    label: null,
     maxHeight: null,
     maxWidth: null,
     multiline: false,

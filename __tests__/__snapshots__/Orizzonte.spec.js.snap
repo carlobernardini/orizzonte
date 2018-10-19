@@ -27,6 +27,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
     included={true}
     key=".0"
     label="Test group"
+    listMinWidth={null}
     mutuallyExclusiveFilters={false}
     onGroupRemove={[Function]}
     onGroupToggle={[Function]}
@@ -64,6 +65,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
   <OrizzonteBtnAdd
     available={Array []}
     disabled={false}
+    label={null}
     onGroupAdd={[Function]}
     position="right"
     shown={true}
@@ -97,6 +99,7 @@ exports[`<Orizzonte /> should render an empty filter container 1`] = `
   <OrizzonteBtnAdd
     available={Array []}
     disabled={false}
+    label={null}
     onGroupAdd={[Function]}
     position="right"
     shown={true}

@@ -3,6 +3,11 @@
 exports[`<List /> should render a list of clickable items 1`] = `
 <ul
   className="orizzonte__list"
+  style={
+    Object {
+      "minWidth": null,
+    }
+  }
 >
   <li
     className="orizzonte__item"
@@ -34,6 +39,11 @@ exports[`<List /> should render a list of clickable items 1`] = `
 exports[`<List /> should render a list of filters 1`] = `
 <ul
   className="orizzonte__list"
+  style={
+    Object {
+      "minWidth": null,
+    }
+  }
 >
   <li
     className="orizzonte__item orizzonte__item--filters"
@@ -111,9 +121,14 @@ exports[`<List /> should render a list of filters 1`] = `
 </ul>
 `;
 
-exports[`<List /> should render a list of filters with clear button, custom done button and custom orientation 1`] = `
+exports[`<List /> should render a list of filters with remove button, custom done button and custom orientation 1`] = `
 <ul
   className="orizzonte__list orizzonte__list--right"
+  style={
+    Object {
+      "minWidth": null,
+    }
+  }
 >
   <li
     className="orizzonte__item orizzonte__item--filters"
@@ -180,11 +195,11 @@ exports[`<List /> should render a list of filters with clear button, custom done
     className="orizzonte__list-controls"
   >
     <button
-      className="orizzonte__list-control orizzonte__list-clear orizzonte__list-clear--disabled"
+      className="orizzonte__list-control orizzonte__list-remove"
       onClick={[MockFunction]}
       type="button"
     >
-      Clear
+      Remove group
     </button>
     <button
       className="orizzonte__list-control orizzonte__list-done"
@@ -200,6 +215,11 @@ exports[`<List /> should render a list of filters with clear button, custom done
 exports[`<List /> should render a list of filters without done button 1`] = `
 <ul
   className="orizzonte__list"
+  style={
+    Object {
+      "minWidth": null,
+    }
+  }
 >
   <li
     className="orizzonte__item orizzonte__item--filters"

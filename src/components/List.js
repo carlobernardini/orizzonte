@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { compact, values } from 'lodash-es';
-import { DEFAULT_STR_DONE, DEFAULT_STR_CLEAR, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../constants';
+import { DEFAULT_STR_DONE, DEFAULT_STR_REMOVE, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../constants';
 import '../scss/List.scss';
 
 class List extends Component {
@@ -71,32 +70,30 @@ class List extends Component {
         );
     }
 
-    renderClearBtn() {
+    renderRemoveBtn() {
         const {
-            clearBtn, clearBtnLabel, isFilterGroup, onClear, values: groupValues = {}
+            removeBtn, removeBtnLabel, isFilterGroup, onRemove
         } = this.props;
 
-        if (!isFilterGroup || !clearBtn) {
+        if (!isFilterGroup || !removeBtn) {
             return null;
         }
 
         return (
             <button
                 type="button"
-                className={ classNames('orizzonte__list-control orizzonte__list-clear', {
-                    'orizzonte__list-clear--disabled': !compact(values(groupValues)).length
-                }) }
-                onClick={ onClear }
+                className="orizzonte__list-control orizzonte__list-remove"
+                onClick={ onRemove }
             >
-                { clearBtnLabel || DEFAULT_STR_CLEAR }
+                { removeBtnLabel || DEFAULT_STR_REMOVE }
             </button>
         );
     }
 
     renderListControls() {
-        const { clearBtn, doneBtn, isFilterGroup } = this.props;
+        const { removeBtn, doneBtn, isFilterGroup } = this.props;
 
-        if (!isFilterGroup || (!clearBtn && !doneBtn)) {
+        if (!isFilterGroup || (!removeBtn && !doneBtn)) {
             return null;
         }
 
@@ -104,7 +101,7 @@ class List extends Component {
             <li
                 className="orizzonte__list-controls"
             >
-                { this.renderClearBtn() }
+                { this.renderRemoveBtn() }
                 { this.renderDoneBtn() }
             </li>
         );
@@ -164,7 +161,7 @@ class List extends Component {
     }
 
     render() {
-        const { orientation } = this.props;
+        const { orientation, minWidth } = this.props;
         const { fromRight } = this.state;
 
         return (
@@ -172,6 +169,9 @@ class List extends Component {
                 className={ classNames('orizzonte__list', {
                     'orizzonte__list--right': orientation === 'right' || fromRight
                 }) }
+                style={{
+                    minWidth
+                }}
                 ref={ this.list }
             >
                 { this.renderItems() }
@@ -185,36 +185,43 @@ List.displayName = DISPLAY_NAME_LIST;
 
 List.propTypes = {
     cache: PropTypes.object,
-    clearBtn: PropTypes.bool,
-    clearBtnLabel: PropTypes.string,
+    removeBtn: PropTypes.bool,
+    removeBtnLabel: PropTypes.string,
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
-    values: PropTypes.object,
     isFilterGroup: PropTypes.bool,
-    items: PropTypes.array.isRequired,
+    items: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.arrayOf(
+            PropTypes.node
+        )
+    ]).isRequired,
+    minWidth: PropTypes.number,
     onApply: PropTypes.func,
-    onClear: PropTypes.func,
+    onRemove: PropTypes.func,
     onUpdate: PropTypes.func,
     orientation: PropTypes.oneOf([
         'left',
         'right'
     ]),
-    syncCacheToGroup: PropTypes.func
+    syncCacheToGroup: PropTypes.func,
+    values: PropTypes.object,
 };
 
 List.defaultProps = {
     cache: {},
-    clearBtn: false,
-    clearBtnLabel: null,
+    removeBtn: false,
+    removeBtnLabel: null,
     doneBtn: true,
     doneBtnLabel: null,
-    values: {},
     isFilterGroup: false,
+    minWidth: null,
     onApply: () => {},
-    onClear: () => {},
+    onRemove: () => {},
     onUpdate: () => {},
     orientation: DEFAULT_ORIENTATION,
-    syncCacheToGroup: () => {}
+    syncCacheToGroup: () => {},
+    values: {}
 };
 
 export default List;

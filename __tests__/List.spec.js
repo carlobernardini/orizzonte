@@ -104,16 +104,16 @@ describe('<List />', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('should render a list of filters with clear button, custom done button and custom orientation', () => {
-        const onClear = jest.fn();
+    it('should render a list of filters with remove button, custom done button and custom orientation', () => {
+        const onRemove = jest.fn();
 
         const wrapper = shallow(
             <List
                 isFilterGroup
-                clearBtn
+                removeBtn
                 doneBtnLabel="Apply"
                 orientation="right"
-                onClear={ onClear }
+                onRemove={ onRemove }
                 items={ [
                     <Select
                         label="Test select"
@@ -153,8 +153,8 @@ describe('<List />', () => {
 
         expect(wrapper).toMatchSnapshot();
 
-        wrapper.find('.orizzonte__list-clear').simulate('click');
-        expect(onClear).toHaveBeenCalled();
+        wrapper.find('.orizzonte__list-remove').simulate('click');
+        expect(onRemove).toHaveBeenCalled();
     });
 
     it('should render a list of clickable items', () => {

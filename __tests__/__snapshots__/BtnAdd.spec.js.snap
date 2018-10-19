@@ -74,8 +74,6 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
   </button>
   <OrizzonteList
     cache={Object {}}
-    clearBtn={false}
-    clearBtnLabel={null}
     doneBtn={true}
     doneBtnLabel={null}
     isFilterGroup={false}
@@ -97,10 +95,13 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
         </a>,
       ]
     }
+    minWidth={null}
     onApply={[Function]}
-    onClear={[Function]}
+    onRemove={[Function]}
     onUpdate={[Function]}
     orientation="right"
+    removeBtn={false}
+    removeBtnLabel={null}
     syncCacheToGroup={[Function]}
     values={Object {}}
   />

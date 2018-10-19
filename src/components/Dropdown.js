@@ -706,7 +706,7 @@ Dropdown.propTypes = {
         /** Input placeholder when filter is empty */
         placeholder: PropTypes.string
     }),
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     /** Allows selecting multiple options */
     multiple: PropTypes.bool,
     /** Label to shown when no options are selected */
@@ -771,6 +771,7 @@ Dropdown.defaultProps = {
     information: null,
     disabled: false,
     filter: null,
+    label: null,
     multiple: false,
     notSetLabel: null,
     onUpdate: () => {},

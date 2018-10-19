@@ -84,7 +84,7 @@ Select.propTypes = {
     disabled: PropTypes.bool,
     information: PropTypes.string,
     /** Label for this filter section */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     /** Which label the first (empty) option should have in case the select can be empty */
     notSetLabel: PropTypes.oneOfType([
         PropTypes.bool,
@@ -122,6 +122,7 @@ Select.propTypes = {
 Select.defaultProps = {
     disabled: false,
     information: null,
+    label: null,
     notSetLabel: false,
     onUpdate: () => {},
     value: ''
