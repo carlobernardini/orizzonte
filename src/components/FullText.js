@@ -20,6 +20,7 @@ class FullText extends Component {
             this.dispatchToQuery,
             props.dispatchTimeout
         );
+        this.input = React.createRef();
         this.dispatchDebouncedWrapper = this.dispatchDebouncedWrapper.bind(this);
         this.dispatchToQuery = this.dispatchToQuery.bind(this);
     }
@@ -38,6 +39,16 @@ class FullText extends Component {
         return {
             derivedValue: value
         };
+    }
+
+    componentDidMount() {
+        const { autoFocus } = this.props;
+
+        if (!autoFocus || !this.input || !this.input.current) {
+            return false;
+        }
+
+        this.input.current.focus();
     }
 
     dispatchDebouncedWrapper() {
@@ -95,6 +106,7 @@ class FullText extends Component {
                 return true;
             },
             placeholder,
+            ref: this.input,
             value
         };
 
@@ -161,6 +173,9 @@ class FullText extends Component {
 FullText.displayName = DISPLAY_NAME_FILTER_FULLTEXT;
 
 FullText.propTypes = {
+    /** If the textarea should focus when group is expanded
+        Only works when group has only one (enabled) fulltext filter */
+    autoFocus: PropTypes.bool,
     /** If the textarea should be disabled */
     disabled: PropTypes.bool,
     /** Custom debounce timeout before dispatching the new value to the query object */
@@ -193,6 +208,7 @@ FullText.propTypes = {
 };
 
 FullText.defaultProps = {
+    autoFocus: false,
     disabled: false,
     dispatchTimeout: 300,
     fieldName: null,

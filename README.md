@@ -239,6 +239,7 @@ A single or multi line full text field
 
 | Prop              | Type               | Required | Description                                                                  |
 |-------------------|--------------------|----------|------------------------------------------------------------------------------|
+| `autoFocus`       | boolean            | no       | If the input should automatically receive focus when group is expanded       |
 | `disabled`        | boolean            | no       | Disables the input field                                                     |
 | `dispatchTimeout` | number             | no       | Custom debounce timeout before dispatching the new value to the query object |
 | `fieldName`       | string             | yes      | Field name for this filter, to be used in composed query                     |

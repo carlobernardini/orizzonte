@@ -319,6 +319,7 @@ stories.add('Default', withState({
                 validateInput={ (value) => (
                     !(/[0-9]/g.test(value))
                 )}
+                autoFocus
                 multiline
             />,
             <FullText
