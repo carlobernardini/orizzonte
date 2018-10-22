@@ -68,10 +68,15 @@ const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLab
 };
 
 Toggle.propTypes = {
+    /** Disables the toggle switch */
     disabled: PropTypes.bool,
+    /** Information tooltip for this filter (requires label prop to be defined */
     information: PropTypes.string,
+    /** Label for this filter section */
     label: PropTypes.string,
+    /** Internal callback for when filter state has changed */
     onUpdate: PropTypes.func,
+    /** The label and value for this field. Value is used when switched on. */
     option: PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.oneOfType([
@@ -79,6 +84,8 @@ Toggle.propTypes = {
             PropTypes.string
         ]).isRequired
     }).isRequired,
+    /** String indicators for the current toggle state, to be shown next to
+        the toggle switch button */
     toggleStateLabel: PropTypes.shape({
         on: PropTypes.string.isRequired,
         off: PropTypes.string.isRequired
