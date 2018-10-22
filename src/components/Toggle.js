@@ -55,7 +55,7 @@ const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLab
                                 'orizzonte__toggle-state--on': !!value
                             }) }
                         >
-                            { !!value ? toggleStateLabel.on : toggleStateLabel.off }
+                            { value ? toggleStateLabel.on : toggleStateLabel.off }
                         </span>
                     ) }
                     <span
@@ -82,7 +82,11 @@ Toggle.propTypes = {
     toggleStateLabel: PropTypes.shape({
         on: PropTypes.string.isRequired,
         off: PropTypes.string.isRequired
-    })
+    }),
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ])
 };
 
 Toggle.defaultProps = {
@@ -90,7 +94,8 @@ Toggle.defaultProps = {
     information: null,
     label: null,
     onUpdate: () => {},
-    toggleStateLabel: null
+    toggleStateLabel: null,
+    value: null
 };
 
 export default Toggle;
