@@ -181,6 +181,7 @@ stories.add('Default', withState({
                     label: 'Toggle me on or off',
                     value: 'on'
                 }}
+                selectedLabel="Toggle is on"
                 toggleStateLabel={{
                     on: 'Active',
                     off: 'Inactive'
