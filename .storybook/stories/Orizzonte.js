@@ -181,6 +181,10 @@ stories.add('Default', withState({
                     label: 'Toggle me on or off',
                     value: 'on'
                 }}
+                toggleStateLabel={{
+                    on: 'Active',
+                    off: 'Inactive'
+                }}
             />,
             <Dropdown
                 key="country"

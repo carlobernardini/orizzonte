@@ -8,7 +8,7 @@ import { NAME_PREFIX_TOGGLE } from '../constants';
 import '../scss/Filter.scss';
 import '../scss/Toggle.scss';
 
-const Toggle = ({ disabled, information, label, onUpdate, option, value }) => {
+const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLabel, value }) => {
     const id = uniqueId(NAME_PREFIX_TOGGLE);
 
     return (
@@ -49,6 +49,15 @@ const Toggle = ({ disabled, information, label, onUpdate, option, value }) => {
                     >
                         { option.label || option.value }
                     </span>
+                    { !!toggleStateLabel && (
+                        <span
+                            className={ classNames('orizzonte__toggle-state', {
+                                'orizzonte__toggle-state--on': !!value
+                            }) }
+                        >
+                            { !!value ? toggleStateLabel.on : toggleStateLabel.off }
+                        </span>
+                    ) }
                     <span
                         className="orizzonte__toggle-control"
                     />
@@ -69,14 +78,19 @@ Toggle.propTypes = {
             PropTypes.number,
             PropTypes.string
         ]).isRequired
-    }).isRequired
+    }).isRequired,
+    toggleStateLabel: PropTypes.shape({
+        on: PropTypes.string.isRequired,
+        off: PropTypes.string.isRequired
+    })
 };
 
 Toggle.defaultProps = {
     disabled: false,
     information: null,
     label: null,
-    onUpdate: () => {}
+    onUpdate: () => {},
+    toggleStateLabel: null
 };
 
 export default Toggle;

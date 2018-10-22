@@ -62,4 +62,27 @@ describe('<Toggle />', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('should render a toggle filter with toggle state indicators', () => {
+        const wrapper = shallow(
+            <Toggle
+                label="Some toggle"
+                option={{
+                    label: 'Toggle me on or off',
+                    value: 'on'
+                }}
+                toggleStateLabel={{
+                    on: 'Active',
+                    off: 'Inactive'
+                }}
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+
+        wrapper.setProps({
+            value: 'on'
+        });
+        expect(wrapper).toMatchSnapshot();        
+    });
 });

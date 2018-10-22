@@ -116,3 +116,91 @@ exports[`<Toggle /> should render a toggle filter that only has a value property
   </div>
 </div>
 `;
+
+exports[`<Toggle /> should render a toggle filter with toggle state indicators 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle"
+  >
+    <input
+      checked={false}
+      className="orizzonte__toggle-input"
+      disabled={false}
+      id="toggle-5"
+      onChange={[Function]}
+      type="checkbox"
+      value="on"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-5"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Toggle me on or off
+      </span>
+      <span
+        className="orizzonte__toggle-state"
+      >
+        Inactive
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<Toggle /> should render a toggle filter with toggle state indicators 2`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle"
+  >
+    <input
+      checked={true}
+      className="orizzonte__toggle-input"
+      disabled={false}
+      id="toggle-6"
+      onChange={[Function]}
+      type="checkbox"
+      value="on"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-6"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Toggle me on or off
+      </span>
+      <span
+        className="orizzonte__toggle-state orizzonte__toggle-state--on"
+      >
+        Active
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;
