@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Toggle /> should render a disabled toggle filter 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle orizzonte__toggle--disabled"
+  >
+    <input
+      checked={false}
+      className="orizzonte__toggle-input"
+      disabled={true}
+      id="toggle-4"
+      onChange={[Function]}
+      type="checkbox"
+      value="on"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-4"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Toggle me on or off
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<Toggle /> should render a toggle filter 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle"
+  >
+    <input
+      checked={false}
+      className="orizzonte__toggle-input"
+      disabled={false}
+      id="toggle-1"
+      onChange={[Function]}
+      type="checkbox"
+      value="on"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-1"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Toggle me on or off
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<Toggle /> should render a toggle filter that only has a value property (no label) 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle"
+  >
+    <input
+      checked={false}
+      className="orizzonte__toggle-input"
+      disabled={false}
+      id="toggle-3"
+      onChange={[Function]}
+      type="checkbox"
+      value="Active"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-3"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Active
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<Toggle /> should render a toggle filter with toggle state indicators 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle"
+  >
+    <input
+      checked={false}
+      className="orizzonte__toggle-input"
+      disabled={false}
+      id="toggle-5"
+      onChange={[Function]}
+      type="checkbox"
+      value="on"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-5"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Toggle me on or off
+      </span>
+      <span
+        className="orizzonte__toggle-state"
+      >
+        Inactive
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;
+
+exports[`<Toggle /> should render a toggle filter with toggle state indicators 2`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Some toggle
+  </OrizzonteFilterCaption>
+  <div
+    className="orizzonte__toggle"
+  >
+    <input
+      checked={true}
+      className="orizzonte__toggle-input"
+      disabled={false}
+      id="toggle-6"
+      onChange={[Function]}
+      type="checkbox"
+      value="on"
+    />
+    <label
+      className="orizzonte__toggle-label"
+      htmlFor="toggle-6"
+    >
+      <span
+        className="orizzonte__toggle-text"
+      >
+        Toggle me on or off
+      </span>
+      <span
+        className="orizzonte__toggle-state orizzonte__toggle-state--on"
+      >
+        Active
+      </span>
+      <span
+        className="orizzonte__toggle-control"
+      />
+    </label>
+  </div>
+</div>
+`;

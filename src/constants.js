@@ -31,3 +31,4 @@ export const LOADING_SVG_RADIUS = '20';
 export const LOADING_SVG_CENTER = '22';
 export const NAME_PREFIX_CHECKBOX = 'checkbox-';
 export const NAME_PREFIX_RADIO = 'radio-';
+export const NAME_PREFIX_TOGGLE = 'toggle-';
