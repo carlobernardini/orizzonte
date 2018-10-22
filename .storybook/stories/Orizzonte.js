@@ -1,6 +1,6 @@
 import React from 'react';
 import Orizzonte, {
-    Choices, Dropdown, FullText, Group, Select
+    Choices, Dropdown, FullText, Group, Select, Toggle
 } from 'orizzonte';
 import { truncate } from 'lodash-es';
 import axios from 'axios';
@@ -141,7 +141,8 @@ const component = ({ store }) => {
 stories.add('Default', withState({
     query: {
         language: 'fr',
-        calendarPeriod: ['3m', '1y']
+        calendarPeriod: ['3m', '1y'],
+        toggle: 'on'
     },
     groups: [{
         included: true,
@@ -172,6 +173,14 @@ stories.add('Default', withState({
                     label: 'Dutch',
                     value: 'nl'
                 }] }
+            />,
+            <Toggle
+                key="mytoggle"
+                fieldName="toggle"
+                option={{
+                    label: 'Toggle me on or off',
+                    value: 'on'
+                }}
             />,
             <Dropdown
                 key="country"

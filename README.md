@@ -271,6 +271,17 @@ A simple single-select filter (uses browser `<select />` element)
 | `selectedLabel` | string or function | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
 | `value`         | string or number   | no       | Currently selected value                                                                                                                                                                                               |
 
+#### Toggle
+A toggle switch button (affects single value)
+
+| Prop            | Type               | Required | Description                                                                                                                                                                                                            |
+|-----------------|--------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `disabled`      | boolean            | no       | Disables the toggle switch                                                                                                                                                                                             |
+| `fieldName`     | string             | yes      | Field name for this filter, to be used in composed query                                                                                                                                                               |
+| `information`   | string             | no       | Help text for this filter, to be shown on mouseover                                                                                                                                                                    |
+| `label`         | string             | no       | Label for this filter                                                                                                                                                                                                  |
+| `option`        | object             | yes      | Option that can be toggled (property `value` is required, `label` and `disabled` are optional). A toggle can only take one option. When switched on, the field will be included in the query with the option value     |
+
 ## Tests
 
 * Run tests: `npm test`
