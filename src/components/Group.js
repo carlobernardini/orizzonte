@@ -207,8 +207,8 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            active, children, description, hideRemove, hideDone, listMinWidth,
-            onUpdate, orientation, queryPart
+            active, children, description, doneBtnLabel, hideRemove, hideDone,
+            listMinWidth, onUpdate, orientation, queryPart, removeBtnLabel
         } = this.props;
 
         if (!active || !children) {
@@ -234,6 +234,7 @@ class Group extends Component {
                 cache={ cache || {} }
                 removeBtn={ !hideRemove }
                 doneBtn={ !hideDone }
+                doneBtnLabel={ doneBtnLabel }
                 isFilterGroup
                 items={ filters }
                 minWidth={ listMinWidth }
@@ -244,6 +245,7 @@ class Group extends Component {
                 }}
                 onRemove={ this.removeGroup }
                 onUpdate={ this.updateGroupValues }
+                removeBtnLabel={ removeBtnLabel }
                 syncCacheToGroup={ (fieldName, options) => {
                     this.setState({
                         cache: {
@@ -413,6 +415,8 @@ Group.propTypes = {
     description: PropTypes.string,
     /** Internal prop */
     dispatchOnFilterChange: PropTypes.bool,
+    /** Custom label for done button */
+    doneBtnLabel: PropTypes.string,
     /** Internal flag if a label should be shown at the top */
     groupTopLabels: PropTypes.bool,
     /** Hides the clear button in the dropdown */
@@ -449,6 +453,8 @@ Group.propTypes = {
     ]),
     /** Internal prop representing part of current query object for this group */
     queryPart: PropTypes.object,
+    /** Custom label for remove group button */
+    removeBtnLabel: PropTypes.string,
     /** Custom inline styles for top-level component element */
     style: PropTypes.object
 };
@@ -459,6 +465,7 @@ Group.defaultProps = {
     className: null,
     description: null,
     dispatchOnFilterChange: false,
+    doneBtnLabel: null,
     groupTopLabels: false,
     hideClear: false,
     hideDone: false,
@@ -472,6 +479,7 @@ Group.defaultProps = {
     onUpdate: () => {},
     orientation: DEFAULT_ORIENTATION,
     queryPart: {},
+    removeBtnLabel: null,
     style: {}
 };
 

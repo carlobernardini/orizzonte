@@ -147,6 +147,8 @@ stories.add('Default', withState({
     groups: [{
         included: true,
         label: 'Locale',
+        doneBtnLabel: 'OK',
+        removeBtnLabel: 'Remove me',
         filters: [
             <Select
                 key="language"
