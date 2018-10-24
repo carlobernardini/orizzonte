@@ -94,6 +94,11 @@ class Group extends Component {
         return fieldsInQueryPart;
     }
 
+    isDefaultState() {
+        const { queryPart, initialState } = this.props;
+        return isEqual(queryPart, initialState);
+    }
+
     clearGroup() {
         const { onUpdate } = this.props;
         const filterFields = this.queryHasGroupFilters();
@@ -207,8 +212,8 @@ class Group extends Component {
     renderList() {
         const { cache, groupValues } = this.state;
         const {
-            active, children, description, hideRemove, hideDone, listMinWidth,
-            onUpdate, orientation, queryPart
+            active, children, description, doneBtnLabel, hideRemove, hideDone,
+            listMinWidth, onUpdate, orientation, queryPart, removeBtnLabel
         } = this.props;
 
         if (!active || !children) {
@@ -234,6 +239,7 @@ class Group extends Component {
                 cache={ cache || {} }
                 removeBtn={ !hideRemove }
                 doneBtn={ !hideDone }
+                doneBtnLabel={ doneBtnLabel }
                 isFilterGroup
                 items={ filters }
                 minWidth={ listMinWidth }
@@ -244,6 +250,7 @@ class Group extends Component {
                 }}
                 onRemove={ this.removeGroup }
                 onUpdate={ this.updateGroupValues }
+                removeBtnLabel={ removeBtnLabel }
                 syncCacheToGroup={ (fieldName, options) => {
                     this.setState({
                         cache: {
@@ -358,13 +365,14 @@ class Group extends Component {
         }
 
         const queryHasFilters = this.queryHasGroupFilters().length;
+        const isDefaultState = this.isDefaultState();
 
         return (
             <div
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': active,
                     'orizzonte__group--removing': removing,
-                    'orizzonte__group--clearable': queryHasFilters && !hideClear,
+                    'orizzonte__group--clearable': queryHasFilters && !isDefaultState && !hideClear,
                     'orizzonte__group--empty': !queryHasFilters,
                     [className]: className
                 }) }
@@ -385,7 +393,7 @@ class Group extends Component {
                         { this.renderLabel() }
                     </button>
                     <GroupBtn
-                        hidden={ !queryHasFilters || hideClear }
+                        hidden={ !queryHasFilters || isDefaultState || hideClear }
                         onClick={ this.clearGroup }
                     />
                 </div>
@@ -413,6 +421,8 @@ Group.propTypes = {
     description: PropTypes.string,
     /** Internal prop */
     dispatchOnFilterChange: PropTypes.bool,
+    /** Custom label for done button */
+    doneBtnLabel: PropTypes.string,
     /** Internal flag if a label should be shown at the top */
     groupTopLabels: PropTypes.bool,
     /** Hides the clear button in the dropdown */
@@ -425,6 +435,8 @@ Group.propTypes = {
     i: PropTypes.number,
     /** If the group should be present in the bar */
     included: PropTypes.bool,
+    /** Interal object of initial (reset) query part from snapshot */
+    initialState: PropTypes.object,
     /** Group label */
     label: PropTypes.string.isRequired,
     /** Minimum width for the dropdown list */
@@ -449,6 +461,8 @@ Group.propTypes = {
     ]),
     /** Internal prop representing part of current query object for this group */
     queryPart: PropTypes.object,
+    /** Custom label for remove group button */
+    removeBtnLabel: PropTypes.string,
     /** Custom inline styles for top-level component element */
     style: PropTypes.object
 };
@@ -459,12 +473,14 @@ Group.defaultProps = {
     className: null,
     description: null,
     dispatchOnFilterChange: false,
+    doneBtnLabel: null,
     groupTopLabels: false,
     hideClear: false,
     hideDone: false,
     hideRemove: false,
     i: null,
     included: false,
+    initialState: {},
     listMinWidth: null,
     mutuallyExclusiveFilters: false,
     onGroupRemove: () => {},
@@ -472,6 +488,7 @@ Group.defaultProps = {
     onUpdate: () => {},
     orientation: DEFAULT_ORIENTATION,
     queryPart: {},
+    removeBtnLabel: null,
     style: {}
 };
 

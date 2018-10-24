@@ -15,13 +15,16 @@ Groups can be in- or excluded from the Orizzonte bar, so users can include only 
 object with all new values from all groups that are currently visible. Here is a basic example.
 
 ```js
-import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte';
+import Orizzonte, { Choices, Dropdown, FullText, Group, Select, Toggle } from 'orizzonte';
 
 <Orizzonte
   query={{
     language: 'fr',
     waistSize: 32,
     shirtSize: ['m', 'xl']
+  }}
+  clearedQuerySnapshot={{
+    language: 'en'
   }}
   onChange={(query) => {}}
   onGroupAdd={(groupIndex) => {}}
@@ -86,6 +89,18 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select } from 'orizzonte
         {label: 'German',value: 'de'},
         …
       ]}
+    />
+    <Toggle
+      fieldName="toggle"
+      option={{
+        label: 'Toggle me on or off',
+        value: 'on'
+      }}
+      selectedLabel="Toggle is on"
+      toggleStateLabel={{
+        on: 'Active',
+        off: 'Inactive'
+      }}
     />
     <Dropdown
       fieldName="country"
@@ -162,7 +177,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `dispatchOnFilterChange`      | boolean          | no       | If true, the query object will be updated right after any filter change                                           |
 | `maxGroups`                   | number           | no       | Maximum number of groups to be added                                                                              |
 | `onChange`                    | function         | yes      | Callback function that triggers when the final query object is updated                                            |
-| `onClear`                     | function         | no       | Callback function for clearing all of the query                                                                   |
+| `onClear`                     | function         | no       | Callback function for clearing all of the query. A snapshot of the cleared query state is given as argument.      |
 | `onGroupAdd`                  | function         | no       | Callback function for when a new filter group is added                                                            |
 | `onGroupRemove`               | function         | no       | Callback function for when a filter group is removed                                                              |
 | `onSave`                      | function         | no       | Callback function saving the current query object                                                                 |
@@ -179,12 +194,14 @@ Groups contain one or more filters for which it make sense to be shown together.
 | `className`                | string           | no       | Custom additional class name for top-level component element                                                                                                                    |
 | `mutuallyExclusiveFilters` | boolean or array | no       | When true, only one filter can be selected for this group. When you want only specific filters to be mutually exclusive,,you can provide an array of (two or more) field names. |
 | `description`              | string           | no       | A description for this group of filters                                                                                                                                         |
+| `doneBtnLabel`             | string           | no       | Custom label for Done-button                                                                                                                                                    |
 | `hideClear`                | boolean          | no       | Hides the clear button in the dropdown                                                                                                                                          |
 | `hideDone`                 | boolean          | no       | Hides the done button in the dropdown                                                                                                                                           |
 | `hideRemove`               | boolean          | no       | Hides the button to remove this group                                                                                                                                           |
 | `included`                 | boolean          | no       | If the group should be present in the bar                                                                                                                                       |
 | `label`                    | string           | yes      | Label for this group                                                                                                                                                            |
 | `orientation`              | `left` or `right`| no       | Default orientation of the group dropdown list                                                                                                                                  |
+| `removeBtnLabel`           | string           | no       | Custom label for Remove-button.                                                                                                                                                 |
 | `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                            |
 
 ### Filters
@@ -231,8 +248,9 @@ A more advanced dropdown select with support for filtering options and select al
 | `remote.loadingText`     | string                  | no       | Text to show while loading data                                                                                                                                                                                        |
 | `remote.searchParam`     | string                  | yes      | Query parameter to apply the filter value to                                                                                                                                                                           |
 | `remote.transformer`     | function                | no       | Function for transforming response data before consuming it                                                                                                                                                            |
-| `remote.requestMethod`   | string                  | no       | Request method (GET by default)                                                                                                                                                                                           |
+| `remote.requestMethod`   | string                  | no       | Request method (GET by default)                                                                                                                                                                                        |
 | `selectAll`              | boolean                 | no       | Whether to include a select all option on multiselects. This is not supported when remote source is configured.                                                                                                        |
+| `selectAllCount`         | boolean                 | no       | Show total option count (excl. disabled options) in select all label                                                                                                                                                   |
 | `selectAllLabel`         | string                  | no       | What label to show for the select all option                                                                                                                                                                           |
 | `selectedLabel`          | string or function      | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
 | `value`                  | string, number or array | no       | Currently selected value(s)                                                                                                                                                                                            |

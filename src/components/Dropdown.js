@@ -607,7 +607,7 @@ class Dropdown extends Component {
 
     renderSelectAll() {
         const {
-            multiple, onUpdate, options, remote, selectAll, selectAllLabel, value
+            multiple, onUpdate, options, remote, selectAll, selectAllCount, selectAllLabel, value
         } = this.props;
 
         if (!selectAll || !multiple || remote) {
@@ -615,6 +615,11 @@ class Dropdown extends Component {
         }
 
         const { flatOptions } = getFlattenedOptions(options);
+        const totalOptionCount = flatOptions
+            .filter((option) => (!option.disabled))
+            .length;
+
+        const label = selectAllLabel || 'Select all';
 
         return (
             <li
@@ -623,11 +628,8 @@ class Dropdown extends Component {
                 <CheckBox
                     id={ uniqueId('checkbox-') }
                     value="select-all"
-                    label={ selectAllLabel || 'Select all' }
-                    selected={ (value || []).length === flatOptions
-                        .filter((option) => (!option.disabled))
-                        .length
-                    }
+                    label={ selectAllCount ? `${ label } (${ totalOptionCount })` : label }
+                    selected={ (value || []).length === totalOptionCount }
                     onChange={ (selected) => {
                         const newValue = selected
                             ? flatOptions
@@ -752,6 +754,8 @@ Dropdown.propTypes = {
         This is not supported when remote source is configured
      */
     selectAll: PropTypes.bool,
+    /** Show option count in select all label */
+    selectAllCount: PropTypes.bool,
     /** What label to show for the select all option */
     selectAllLabel: PropTypes.string,
     selectedLabel: PropTypes.oneOfType([
@@ -778,6 +782,7 @@ Dropdown.defaultProps = {
     options: [],
     remote: null,
     selectAll: false,
+    selectAllCount: false,
     selectAllLabel: null,
     selectedLabel: null,
     syncCache: () => {},

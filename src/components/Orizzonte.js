@@ -45,14 +45,19 @@ class Orizzonte extends Component {
     }
 
     onGroupUpdate(group) {
-        const { onChange, query } = this.props;
+        const { clearedQuerySnapshot, onChange, query } = this.props;
 
         onChange(((q) => {
             // If 'group' is an array of fieldNames it is assumed
             // you want those to be removed from the query
             if (Array.isArray(group)) {
-                return pick(q, difference(Object.keys(q), group));
+                return {
+                    ...pick(q, difference(Object.keys(q), group)),
+                    // Reset fields to initial value from snapshot if available
+                    ...pick(clearedQuerySnapshot, group)
+                };
             }
+
             // Merge group into query while excluding fields with falsey values
             return pickBy({
                 ...q,
@@ -137,8 +142,8 @@ class Orizzonte extends Component {
         return true;
     }
 
-    extractQueryPart(group) {
-        const { query } = this.props;
+    extractQueryPart(group, fromSnapshot = false) {
+        const { clearedQuerySnapshot, query } = this.props;
 
         const fieldNames = React.Children.map(
             group.props.children,
@@ -147,7 +152,7 @@ class Orizzonte extends Component {
             )
         );
 
-        return pick(query, fieldNames);
+        return pick(fromSnapshot ? clearedQuerySnapshot : query, fieldNames);
     }
 
     renderAddBtn(position) {
@@ -312,7 +317,8 @@ class Orizzonte extends Component {
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
                         orientation,
-                        queryPart: this.extractQueryPart(child)
+                        queryPart: this.extractQueryPart(child),
+                        initialState: this.extractQueryPart(child, true)
                     });
                 }) }
                 { this.renderAddBtn('right') }
