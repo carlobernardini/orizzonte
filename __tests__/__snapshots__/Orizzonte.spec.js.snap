@@ -26,6 +26,11 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
     hideRemove={false}
     i={0}
     included={true}
+    initialState={
+      Object {
+        "testSelect": 1,
+      }
+    }
     key=".0"
     label="Test group"
     listMinWidth={null}

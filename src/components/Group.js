@@ -94,6 +94,11 @@ class Group extends Component {
         return fieldsInQueryPart;
     }
 
+    isDefaultState() {
+        const { queryPart, initialState } = this.props;
+        return isEqual(queryPart, initialState);
+    }
+
     clearGroup() {
         const { onUpdate } = this.props;
         const filterFields = this.queryHasGroupFilters();
@@ -360,13 +365,14 @@ class Group extends Component {
         }
 
         const queryHasFilters = this.queryHasGroupFilters().length;
+        const isDefaultState = this.isDefaultState();
 
         return (
             <div
                 className={ classNames('orizzonte__group', {
                     'orizzonte__group--shown': active,
                     'orizzonte__group--removing': removing,
-                    'orizzonte__group--clearable': queryHasFilters && !hideClear,
+                    'orizzonte__group--clearable': queryHasFilters && !isDefaultState && !hideClear,
                     'orizzonte__group--empty': !queryHasFilters,
                     [className]: className
                 }) }
@@ -387,7 +393,7 @@ class Group extends Component {
                         { this.renderLabel() }
                     </button>
                     <GroupBtn
-                        hidden={ !queryHasFilters || hideClear }
+                        hidden={ !queryHasFilters || isDefaultState || hideClear }
                         onClick={ this.clearGroup }
                     />
                 </div>
@@ -429,6 +435,8 @@ Group.propTypes = {
     i: PropTypes.number,
     /** If the group should be present in the bar */
     included: PropTypes.bool,
+    /** Interal object of initial (reset) query part from snapshot */
+    initialState: PropTypes.object,
     /** Group label */
     label: PropTypes.string.isRequired,
     /** Minimum width for the dropdown list */
@@ -472,6 +480,7 @@ Group.defaultProps = {
     hideRemove: false,
     i: null,
     included: false,
+    initialState: {},
     listMinWidth: null,
     mutuallyExclusiveFilters: false,
     onGroupRemove: () => {},
