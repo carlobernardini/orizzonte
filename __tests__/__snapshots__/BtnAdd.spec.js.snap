@@ -77,24 +77,6 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
     doneBtn={true}
     doneBtnLabel={null}
     isFilterGroup={false}
-    items={
-      Array [
-        <a
-          className="orizzonte__item-clickable"
-          href="#"
-          onClick={[Function]}
-        >
-          Filter 1
-        </a>,
-        <a
-          className="orizzonte__item-clickable"
-          href="#"
-          onClick={[Function]}
-        >
-          Filter 2
-        </a>,
-      ]
-    }
     minWidth={null}
     onApply={[Function]}
     onRemove={[Function]}
@@ -104,6 +86,23 @@ exports[`<BtnAdd /> should render an add-button with expanded list of available 
     removeBtnLabel={null}
     syncCacheToGroup={[Function]}
     values={Object {}}
-  />
+  >
+    <a
+      className="orizzonte__item-clickable"
+      href="#"
+      key="orizzonte-add-0"
+      onClick={[Function]}
+    >
+      Filter 1
+    </a>
+    <a
+      className="orizzonte__item-clickable"
+      href="#"
+      key="orizzonte-add-1"
+      onClick={[Function]}
+    >
+      Filter 2
+    </a>
+  </OrizzonteList>
 </div>
 `;

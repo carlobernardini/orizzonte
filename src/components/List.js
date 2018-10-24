@@ -109,11 +109,11 @@ class List extends Component {
 
     renderItems() {
         const {
-            cache, values: groupValues, items, isFilterGroup, onUpdate, syncCacheToGroup
+            cache, values: groupValues, children, isFilterGroup, onUpdate, syncCacheToGroup
         } = this.props;
 
         if (isFilterGroup) {
-            return React.Children.map(items, (item, i) => {
+            return React.Children.map(children, (item, i) => {
                 const props = {};
 
                 if (typeof item.type === typeof Function) {
@@ -148,11 +148,9 @@ class List extends Component {
             });
         }
 
-        return items.map((item, i) => (
+        return React.Children.map(children, (item, i) => (
             <li
-                className={ classNames('orizzonte__item', {
-                    'orizzonte__item--filters': isFilterGroup
-                }) }
+                className="orizzonte__item"
                 key={ i }
             >
                 { item }
@@ -190,7 +188,7 @@ List.propTypes = {
     doneBtn: PropTypes.bool,
     doneBtnLabel: PropTypes.string,
     isFilterGroup: PropTypes.bool,
-    items: PropTypes.oneOfType([
+    children: PropTypes.oneOfType([
         PropTypes.node,
         PropTypes.arrayOf(
             PropTypes.node

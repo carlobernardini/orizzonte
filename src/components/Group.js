@@ -229,6 +229,7 @@ class Group extends Component {
         const filters = description ? concat([
             <div
                 className="orizzonte__group-description"
+                key="orizzonte-description"
             >
                 { description }
             </div>
@@ -241,7 +242,6 @@ class Group extends Component {
                 doneBtn={ !hideDone }
                 doneBtnLabel={ doneBtnLabel }
                 isFilterGroup
-                items={ filters }
                 minWidth={ listMinWidth }
                 orientation={ orientation }
                 onApply={ () => {
@@ -260,7 +260,9 @@ class Group extends Component {
                     });
                 }}
                 values={ listValues }
-            />
+            >
+                { filters }
+            </List>
         );
     }
 

@@ -13,41 +13,40 @@ describe('<List />', () => {
                 isFilterGroup
                 onApply={ onApply }
                 onUpdate={ onUpdate }
-                items={ [
-                    <Select
-                        fieldName={ fieldName }
-                        label="Test select"
-                        options={ [{
-                            label: 'Test value 1',
-                            value: 1
-                        }, {
-                            label: 'Test value 2',
-                            value: 2
-                        }, {
-                            label: 'Test value 3',
-                            value: 3
-                        }]}
-                        notSetLabel="None"
-                    />,
-                    <Choices
-                        fieldName="myAPIField"
-                        label="Test multiple choices"
-                        options={ [{
-                            label: 'Test value 1',
-                            value: 1,
-                            disabled: true
-                        }, {
-                            label: 'Test value 2',
-                            value: 2
-                        }, {
-                            label: 'Test value 3',
-                            value: 3,
-                            disabled: true
-                        }]}
-                        multiple
-                    />
-                ]}
-            />
+            >
+                <Select
+                    fieldName={ fieldName }
+                    label="Test select"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3
+                    }]}
+                    notSetLabel="None"
+                />
+                <Choices
+                    fieldName="myAPIField"
+                    label="Test multiple choices"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1,
+                        disabled: true
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3,
+                        disabled: true
+                    }]}
+                    multiple
+                />
+            </List>
         );
 
         expect(wrapper).toMatchSnapshot();
@@ -64,41 +63,40 @@ describe('<List />', () => {
             <List
                 isFilterGroup
                 doneBtn={ false }
-                items={ [
-                    <Select
-                        label="Test select"
-                        options={ [{
-                            label: 'Test value 1',
-                            value: 1
-                        }, {
-                            label: 'Test value 2',
-                            value: 2
-                        }, {
-                            label: 'Test value 3',
-                            value: 3
-                        }]}
-                        onUpdate={() => {}}
-                    />,
-                    <Choices
-                        fieldName="myAPIField"
-                        label="Test multiple choices"
-                        options={ [{
-                            label: 'Test value 1',
-                            value: 1,
-                            disabled: true
-                        }, {
-                            label: 'Test value 2',
-                            value: 2
-                        }, {
-                            label: 'Test value 3',
-                            value: 3,
-                            disabled: true
-                        }]}
-                        onUpdate={() => {}}
-                        multiple
-                    />
-                ]}
-            />
+            >
+                <Select
+                    label="Test select"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3
+                    }]}
+                    onUpdate={() => {}}
+                />
+                <Choices
+                    fieldName="myAPIField"
+                    label="Test multiple choices"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1,
+                        disabled: true
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3,
+                        disabled: true
+                    }]}
+                    onUpdate={() => {}}
+                    multiple
+                />
+            </List>
         );
 
         expect(wrapper).toMatchSnapshot();
@@ -114,41 +112,40 @@ describe('<List />', () => {
                 doneBtnLabel="Apply"
                 orientation="right"
                 onRemove={ onRemove }
-                items={ [
-                    <Select
-                        label="Test select"
-                        options={ [{
-                            label: 'Test value 1',
-                            value: 1
-                        }, {
-                            label: 'Test value 2',
-                            value: 2
-                        }, {
-                            label: 'Test value 3',
-                            value: 3
-                        }]}
-                        onUpdate={() => {}}
-                    />,
-                    <Choices
-                        fieldName="myAPIField"
-                        label="Test multiple choices"
-                        options={ [{
-                            label: 'Test value 1',
-                            value: 1,
-                            disabled: true
-                        }, {
-                            label: 'Test value 2',
-                            value: 2
-                        }, {
-                            label: 'Test value 3',
-                            value: 3,
-                            disabled: true
-                        }]}
-                        onUpdate={() => {}}
-                        multiple
-                    />
-                ]}
-            />
+            >
+                <Select
+                    label="Test select"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3
+                    }]}
+                    onUpdate={() => {}}
+                />
+                <Choices
+                    fieldName="myAPIField"
+                    label="Test multiple choices"
+                    options={ [{
+                        label: 'Test value 1',
+                        value: 1,
+                        disabled: true
+                    }, {
+                        label: 'Test value 2',
+                        value: 2
+                    }, {
+                        label: 'Test value 3',
+                        value: 3,
+                        disabled: true
+                    }]}
+                    onUpdate={() => {}}
+                    multiple
+                />
+            </List>
         );
 
         expect(wrapper).toMatchSnapshot();
@@ -165,18 +162,19 @@ describe('<List />', () => {
         }];
 
         const wrapper = shallow(
-            <List
-                items={ items.map((item) => (
+            <List>
+                { items.map((item) => (
                     // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a
                         href="#"
+                        key={ item.label.replace(' ', '') }
                         className="orizzonte__item-clickable"
                         onClick={ jest.fn() }
                     >
                         { item.label }
                     </a>
-                ))}
-            />
+                )) }
+            </List>
         );
 
         expect(wrapper).toMatchSnapshot();

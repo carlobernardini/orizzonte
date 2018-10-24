@@ -37,7 +37,7 @@ describe('<BtnAdd />', () => {
         expect(wrapper).toMatchSnapshot();
         wrapper.find('.orizzonte__btn-add').simulate('click');
         expect(wrapper.state().active).toBe(true);
-        wrapper.find(List).prop('items')[0].props.onClick({
+        wrapper.find(List).childAt(0).simulate('click', {
             preventDefault: () => {}
         });
         expect(onGroupAdd).toHaveBeenCalledWith(0, 'Filter 1');
