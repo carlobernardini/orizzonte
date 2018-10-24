@@ -19,6 +19,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
     collapseGroupOnClickOutside={false}
     description={null}
     dispatchOnFilterChange={false}
+    doneBtnLabel={null}
     groupTopLabels={false}
     hideClear={false}
     hideDone={false}
@@ -38,6 +39,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
         "testSelect": 2,
       }
     }
+    removeBtnLabel={null}
     style={Object {}}
   >
     <OrizzonteSelect

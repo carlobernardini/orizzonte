@@ -289,6 +289,7 @@ stories.add('Default', withState({
                 notSetLabel="None"
                 multiple
                 selectAll
+                selectAllCount
             />,
             <Choices
                 key="waist-size"
