@@ -217,13 +217,25 @@ A filter is responsible for controlling the value of a particular field in the q
 #### Choices
 A series of inline checkboxes (multiple selections) or radios (single selection)
 
-| Prop                | Type    | Required | Description                                                                                   |
-|---------------------|---------|----------|-----------------------------------------------------------------------------------------------|
-| `fieldName`         | string  | yes      | Field name for this filter, to be used in composed query                                      |
-| `information`       | string  | no       | Help text for this filter, to be shown on mouseover                                           |
-| `label`             | string  | no       | Label for this filter                                                                         |
-| `multiple`          | boolean | no       | Whether to show checkboxes (`true`) or radios (`false`)                                       |
-| `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option Only available for radio groups |
+| Prop                | Type    | Required | Description                                                                                        |
+|---------------------|---------|----------|----------------------------------------------------------------------------------------------------|
+| `fieldName`         | string  | yes      | Field name for this filter, to be used in composed query                                           |
+| `information`       | string  | no       | Help text for this filter, to be shown on mouseover                                                |
+| `label`             | string  | no       | Label for this filter                                                                              |
+| `multiple`          | boolean | no       | Whether to show checkboxes (`true`) or radios (`false`)                                            |
+| `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option Only available for radio groups      |
+| `options`           | array   | yes      | Collection of possible options for this group of choices. Each option must at least have a value   |
+
+##### Option
+Each option is represented by an object that can have the following properties. All possible options are provided as an array of objects (collection).
+
+| Prop                | Type              | Description                                                                                        |
+|---------------------|-------------------|----------------------------------------------------------------------------------------------------|
+| `option.disabled`   | bool              | Field name for this filter, to be used in composed query                                           |
+| `option.facetCount` | string or number  | Help text for this filter, to be shown on mouseover                                                |
+| `option.label`      | string            | Label for this option. If no label is defined, `option.value` will be used instead.                |
+| `option.value`      | string or number  | Selected value for this option (required).                                                         |
+
 
 #### Dropdown
 A more advanced dropdown select with support for filtering options and select all

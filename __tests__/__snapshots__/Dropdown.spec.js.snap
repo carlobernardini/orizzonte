@@ -160,6 +160,7 @@ exports[`<Dropdown /> should render an expanded dropdown multiselect with filter
       >
         <OrizzonteCheckBox
           disabled={false}
+          facetCount={null}
           id="checkbox-7"
           label={
             <span>
@@ -226,6 +227,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       >
         <OrizzonteCheckBox
           disabled={false}
+          facetCount={null}
           id="checkbox-23"
           label="Select all options"
           onChange={[Function]}
@@ -249,6 +251,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       >
         <OrizzonteCheckBox
           disabled={false}
+          facetCount={null}
           id="checkbox-24"
           label="Austria"
           onChange={[Function]}
@@ -272,6 +275,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       >
         <OrizzonteCheckBox
           disabled={false}
+          facetCount={null}
           id="checkbox-25"
           label="Portugal"
           onChange={[Function]}
@@ -295,6 +299,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
       >
         <OrizzonteCheckBox
           disabled={false}
+          facetCount={null}
           id="checkbox-26"
           label="Ireland"
           onChange={[Function]}
@@ -327,6 +332,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
         >
           <OrizzonteCheckBox
             disabled={false}
+            facetCount={null}
             id="checkbox-27"
             label="United States"
             onChange={[Function]}
@@ -350,6 +356,7 @@ exports[`<Dropdown /> should render an expanded, grouped dropdown with a few che
         >
           <OrizzonteCheckBox
             disabled={false}
+            facetCount={null}
             id="checkbox-28"
             label="Canada"
             onChange={[Function]}

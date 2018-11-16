@@ -174,4 +174,55 @@ describe('<Choices />', () => {
         wrapper.find(RadioButton).first().prop('onChange')();
         expect(onUpdate).toHaveBeenCalledWith(null);
     });
+
+    it('should render a series of checkboxes with facet counts', () => {
+        const wrapper = shallow(
+            <Choices
+                fieldName="myAPIField"
+                label="Test facet counts on checkboxes"
+                options={ [{
+                    label: 'Test value 1',
+                    value: 1,
+                    facetCount: 123
+                }, {
+                    label: 'Test value 2',
+                    value: 2,
+                    facetCount: 123
+                }, {
+                    label: 'Test value 3',
+                    value: 3,
+                    facetCount: 123
+                }] }
+                value={ [1, 3] }
+                multiple
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render a series of radios with facet counts', () => {
+        const wrapper = shallow(
+            <Choices
+                fieldName="myAPIField"
+                label="Test facet counts on radios"
+                options={ [{
+                    label: 'Test value 1',
+                    value: 1,
+                    facetCount: 123
+                }, {
+                    label: 'Test value 2',
+                    value: 2,
+                    facetCount: 123
+                }, {
+                    label: 'Test value 3',
+                    value: 3,
+                    facetCount: 123
+                }] }
+                value={ 3 }
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });

@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_RADIO } from '../constants';
 import '../scss/RadioButton.scss';
 
-const RadioButton = ({ disabled, id, label, name, onChange, value, viewBox, selected }) => (
+// eslint-disable-next-line max-len
+const RadioButton = ({ disabled, facetCount, id, label, name, onChange, value, viewBox, selected }) => (
     <div
         className={ classNames('orizzonte__radio', {
             'orizzonte__radio--disabled': disabled
@@ -47,6 +48,13 @@ const RadioButton = ({ disabled, id, label, name, onChange, value, viewBox, sele
             >
                 { label }
             </span>
+            { facetCount && (
+                <span
+                    className="orizzonte__radio-span orizzonte__radio-span--count"
+                >
+                    { facetCount }
+                </span>
+            ) }
         </label>
     </div>
 );
@@ -56,6 +64,11 @@ RadioButton.displayName = DISPLAY_NAME_RADIO;
 RadioButton.propTypes = {
     /** If the radio button should be disabled */
     disabled: PropTypes.bool,
+    /** Facet count to be shown at the right of the option */
+    facetCount: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     /** Internal ID for this radio button */
     id: PropTypes.string.isRequired,
     /** Label for this radio button */
@@ -75,6 +88,7 @@ RadioButton.propTypes = {
 
 RadioButton.defaultProps = {
     disabled: false,
+    facetCount: null,
     onChange: () => {},
     selected: false,
     viewBox: null

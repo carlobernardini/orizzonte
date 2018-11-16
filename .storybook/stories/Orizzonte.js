@@ -300,11 +300,13 @@ stories.add('Default', withState({
                 options={ [{
                     label: 'Extra Small (28)',
                     selectedLabel: 'Extra Small',
-                    value: 28
+                    value: 28,
+                    facetCount: 345
                 }, {
                     label: 'Small (30)',
                     selectedLabel: 'Small',
-                    value: 30
+                    value: 30,
+                    facetCount: 12
                 }, {
                     label: 'Medium (32)',
                     selectedLabel: 'Medium',
@@ -313,11 +315,13 @@ stories.add('Default', withState({
                     label: 'Large (34)',
                     selectedLabel: 'Large',
                     value: 34,
+                    facetCount: 192,
                     disabled: true
                 }, {
                     label: 'Extra Large (36)',
                     selectedLabel: 'Extra Large',
                     value: 36,
+                    facetCount: 73,
                     disabled: true
                 }] }
             />
@@ -368,20 +372,25 @@ stories.add('Default', withState({
                 options={ [{
                     label: 'Last Month',
                     value: '1m',
+                    facetCount: 23,
                     disabled: true
                 }, {
                     label: 'Last 2 Months',
                     value: '2m',
+                    facetCount: 543,
                     disabled: true
                 }, {
                     label: 'Last 3 Months',
-                    value: '3m'
+                    value: '3m',
+                    facetCount: 1228
                 }, {
                     label: 'Last 6 Months',
-                    value: '6m'
+                    value: '6m',
+                    facetCount: 1830
                 }, {
                     label: 'Last Year',
-                    value: '1y'
+                    value: '1y',
+                    facetCount: 3247
                 }] }
             />
         ]

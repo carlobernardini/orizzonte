@@ -22,6 +22,7 @@ class Choices extends Component {
                     key={ i }
                     id={ uniqueId(NAME_PREFIX_CHECKBOX) }
                     disabled={ option.disabled }
+                    facetCount={ option.facetCount }
                     value={ option.value }
                     selected={ (value || []).indexOf(option.value) > -1 }
                     label={ option.label || option.value }
@@ -49,6 +50,7 @@ class Choices extends Component {
                 id={ uniqueId(NAME_PREFIX_RADIO) }
                 name={ fieldName }
                 disabled={ option.disabled }
+                facetCount={ option.facetCount }
                 value={ option.value }
                 selected={ value === option.value }
                 label={ option.label || option.value }
@@ -116,6 +118,10 @@ Choices.propTypes = {
     options: PropTypes.arrayOf(
         PropTypes.shape({
             disabled: PropTypes.bool,
+            facetCount: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number
+            ]),
             label: PropTypes.string,
             value: PropTypes.oneOfType([
                 PropTypes.number,
