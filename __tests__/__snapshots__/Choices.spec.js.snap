@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Choices /> should render a series of checkboxes with facet counts 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Test facet counts on checkboxes
+  </OrizzonteFilterCaption>
+  <OrizzonteCheckBox
+    disabled={false}
+    facetCount={123}
+    id="checkbox-20"
+    key="0"
+    label="Test value 1"
+    onChange={[Function]}
+    selected={true}
+    value={1}
+    viewBox={null}
+  />
+  <OrizzonteCheckBox
+    disabled={false}
+    facetCount={123}
+    id="checkbox-21"
+    key="1"
+    label="Test value 2"
+    onChange={[Function]}
+    selected={false}
+    value={2}
+    viewBox={null}
+  />
+  <OrizzonteCheckBox
+    disabled={false}
+    facetCount={123}
+    id="checkbox-22"
+    key="2"
+    label="Test value 3"
+    onChange={[Function]}
+    selected={true}
+    value={3}
+    viewBox={null}
+  />
+</div>
+`;
+
 exports[`<Choices /> should render a series of checkboxes with selected values 1`] = `
 <div
   className="orizzonte__filter"
@@ -12,6 +58,7 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
   </OrizzonteFilterCaption>
   <OrizzonteCheckBox
     disabled={false}
+    facetCount={null}
     id="checkbox-7"
     key="0"
     label="Test value 1"
@@ -22,6 +69,7 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
   />
   <OrizzonteCheckBox
     disabled={false}
+    facetCount={null}
     id="checkbox-8"
     key="1"
     label="Test value 2"
@@ -32,6 +80,7 @@ exports[`<Choices /> should render a series of checkboxes with selected values 1
   />
   <OrizzonteCheckBox
     disabled={false}
+    facetCount={null}
     id="checkbox-9"
     key="2"
     label="Test value 3"
@@ -55,6 +104,7 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
   </OrizzonteFilterCaption>
   <OrizzonteCheckBox
     disabled={true}
+    facetCount={null}
     id="checkbox-1"
     key="0"
     label="Test value 1"
@@ -65,6 +115,7 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
   />
   <OrizzonteCheckBox
     disabled={false}
+    facetCount={null}
     id="checkbox-2"
     key="1"
     label="Test value 2"
@@ -75,11 +126,61 @@ exports[`<Choices /> should render a series of checkboxes with some disabled one
   />
   <OrizzonteCheckBox
     disabled={true}
+    facetCount={null}
     id="checkbox-3"
     key="2"
     label="Test value 3"
     onChange={[Function]}
     selected={false}
+    value={3}
+    viewBox={null}
+  />
+</div>
+`;
+
+exports[`<Choices /> should render a series of radios with facet counts 1`] = `
+<div
+  className="orizzonte__filter"
+>
+  <OrizzonteFilterInfo
+    information={null}
+  />
+  <OrizzonteFilterCaption>
+    Test facet counts on radios
+  </OrizzonteFilterCaption>
+  <OrizzonteRadioButton
+    disabled={false}
+    facetCount={123}
+    id="radio-23"
+    key="0"
+    label="Test value 1"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={1}
+    viewBox={null}
+  />
+  <OrizzonteRadioButton
+    disabled={false}
+    facetCount={123}
+    id="radio-24"
+    key="1"
+    label="Test value 2"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={false}
+    value={2}
+    viewBox={null}
+  />
+  <OrizzonteRadioButton
+    disabled={false}
+    facetCount={123}
+    id="radio-25"
+    key="2"
+    label="Test value 3"
+    name="myAPIField"
+    onChange={[Function]}
+    selected={true}
     value={3}
     viewBox={null}
   />
@@ -98,6 +199,7 @@ exports[`<Choices /> should render a series of radios with no preference option 
   </OrizzonteFilterCaption>
   <OrizzonteRadioButton
     disabled={false}
+    facetCount={null}
     id="radio-16"
     label="No preference"
     name="myAPIField"
@@ -108,6 +210,7 @@ exports[`<Choices /> should render a series of radios with no preference option 
   />
   <OrizzonteRadioButton
     disabled={false}
+    facetCount={null}
     id="radio-17"
     key="0"
     label="Test value 1"
@@ -119,6 +222,7 @@ exports[`<Choices /> should render a series of radios with no preference option 
   />
   <OrizzonteRadioButton
     disabled={false}
+    facetCount={null}
     id="radio-18"
     key="1"
     label="Test value 2"
@@ -130,6 +234,7 @@ exports[`<Choices /> should render a series of radios with no preference option 
   />
   <OrizzonteRadioButton
     disabled={false}
+    facetCount={null}
     id="radio-19"
     key="2"
     label="Test value 3"
@@ -154,6 +259,7 @@ exports[`<Choices /> should render a series of radios with selected value 1`] = 
   </OrizzonteFilterCaption>
   <OrizzonteRadioButton
     disabled={true}
+    facetCount={null}
     id="radio-13"
     key="0"
     label="1"
@@ -165,6 +271,7 @@ exports[`<Choices /> should render a series of radios with selected value 1`] = 
   />
   <OrizzonteRadioButton
     disabled={false}
+    facetCount={null}
     id="radio-14"
     key="1"
     label="2"
@@ -176,6 +283,7 @@ exports[`<Choices /> should render a series of radios with selected value 1`] = 
   />
   <OrizzonteRadioButton
     disabled={true}
+    facetCount={null}
     id="radio-15"
     key="2"
     label="3"
@@ -200,6 +308,7 @@ exports[`<Choices /> should render a series of radios with some disabled ones 1`
   </OrizzonteFilterCaption>
   <OrizzonteRadioButton
     disabled={true}
+    facetCount={null}
     id="radio-10"
     key="0"
     label="Test value 1"
@@ -211,6 +320,7 @@ exports[`<Choices /> should render a series of radios with some disabled ones 1`
   />
   <OrizzonteRadioButton
     disabled={false}
+    facetCount={null}
     id="radio-11"
     key="1"
     label="Test value 2"
@@ -222,6 +332,7 @@ exports[`<Choices /> should render a series of radios with some disabled ones 1`
   />
   <OrizzonteRadioButton
     disabled={true}
+    facetCount={null}
     id="radio-12"
     key="2"
     label="Test value 3"

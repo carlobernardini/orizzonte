@@ -52,9 +52,11 @@ class BtnAdd extends PureComponent {
         return (
             <List
                 orientation={ position === 'right' ? 'left' : 'right' }
-                items={ available.map((filter) => (
+            >
+                { available.map((filter, i) => (
                     // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a
+                        key={ `orizzonte-add-${ i }` }
                         href="#"
                         className="orizzonte__item-clickable"
                         onClick={ (e) => {
@@ -66,7 +68,7 @@ class BtnAdd extends PureComponent {
                         { filter.label }
                     </a>
                 )) }
-            />
+            </List>
         );
     }
 

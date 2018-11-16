@@ -66,36 +66,6 @@ exports[`<Group /> should render an active group with description and min width 
     doneBtn={true}
     doneBtnLabel={null}
     isFilterGroup={true}
-    items={
-      Array [
-        <div
-          className="orizzonte__group-description"
-        >
-          Description for this group
-        </div>,
-        <OrizzonteSelect
-          disabled={false}
-          fieldName="testSelect"
-          information={null}
-          label="Test select"
-          notSetLabel={false}
-          onUpdate={[Function]}
-          options={
-            Array [
-              Object {
-                "label": "Test value 1",
-                "value": 1,
-              },
-              Object {
-                "label": "Test value 2",
-                "value": 2,
-              },
-            ]
-          }
-          value=""
-        />,
-      ]
-    }
     minWidth={null}
     onApply={[Function]}
     onRemove={[Function]}
@@ -105,7 +75,35 @@ exports[`<Group /> should render an active group with description and min width 
     removeBtnLabel={null}
     syncCacheToGroup={[Function]}
     values={Object {}}
-  />
+  >
+    <div
+      className="orizzonte__group-description"
+      key="orizzonte-description"
+    >
+      Description for this group
+    </div>
+    <OrizzonteSelect
+      disabled={false}
+      fieldName="testSelect"
+      information={null}
+      label="Test select"
+      notSetLabel={false}
+      onUpdate={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Test value 1",
+            "value": 1,
+          },
+          Object {
+            "label": "Test value 2",
+            "value": 2,
+          },
+        ]
+      }
+      value=""
+    />
+  </OrizzonteList>
 </div>
 `;
 
@@ -138,36 +136,6 @@ exports[`<Group /> should render an active group without top label and no remove
     doneBtn={true}
     doneBtnLabel={null}
     isFilterGroup={true}
-    items={
-      Array [
-        <div
-          className="orizzonte__group-description"
-        >
-          Description for this group
-        </div>,
-        <OrizzonteSelect
-          disabled={false}
-          fieldName="testSelect"
-          information={null}
-          label="Test select"
-          notSetLabel={false}
-          onUpdate={[Function]}
-          options={
-            Array [
-              Object {
-                "label": "Test value 1",
-                "value": 1,
-              },
-              Object {
-                "label": "Test value 2",
-                "value": 2,
-              },
-            ]
-          }
-          value=""
-        />,
-      ]
-    }
     minWidth={null}
     onApply={[Function]}
     onRemove={[Function]}
@@ -177,7 +145,35 @@ exports[`<Group /> should render an active group without top label and no remove
     removeBtnLabel={null}
     syncCacheToGroup={[Function]}
     values={Object {}}
-  />
+  >
+    <div
+      className="orizzonte__group-description"
+      key="orizzonte-description"
+    >
+      Description for this group
+    </div>
+    <OrizzonteSelect
+      disabled={false}
+      fieldName="testSelect"
+      information={null}
+      label="Test select"
+      notSetLabel={false}
+      onUpdate={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Test value 1",
+            "value": 1,
+          },
+          Object {
+            "label": "Test value 2",
+            "value": 2,
+          },
+        ]
+      }
+      value=""
+    />
+  </OrizzonteList>
 </div>
 `;
 
@@ -215,29 +211,6 @@ exports[`<Group /> should render group without clear / remove / done buttons, an
     doneBtn={false}
     doneBtnLabel={null}
     isFilterGroup={true}
-    items={
-      <OrizzonteSelect
-        disabled={false}
-        fieldName="testSelect"
-        information={null}
-        label="Test select"
-        notSetLabel={false}
-        onUpdate={[Function]}
-        options={
-          Array [
-            Object {
-              "label": "Test value 1",
-              "value": 1,
-            },
-            Object {
-              "label": "Test value 2",
-              "value": 2,
-            },
-          ]
-        }
-        value=""
-      />
-    }
     minWidth={400}
     onApply={[Function]}
     onRemove={[Function]}
@@ -247,7 +220,29 @@ exports[`<Group /> should render group without clear / remove / done buttons, an
     removeBtnLabel={null}
     syncCacheToGroup={[Function]}
     values={Object {}}
-  />
+  >
+    <OrizzonteSelect
+      disabled={false}
+      fieldName="testSelect"
+      information={null}
+      label="Test select"
+      notSetLabel={false}
+      onUpdate={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Test value 1",
+            "value": 1,
+          },
+          Object {
+            "label": "Test value 2",
+            "value": 2,
+          },
+        ]
+      }
+      value=""
+    />
+  </OrizzonteList>
 </div>
 `;
 

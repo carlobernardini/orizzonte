@@ -24,6 +24,7 @@ export const DISPLAY_NAME_LIST = 'OrizzonteList';
 export const DISPLAY_NAME_LOADING = 'OrizzonteLoadingIndicator';
 export const DISPLAY_NAME_ORIZZONTE = 'Orizzonte';
 export const DISPLAY_NAME_RADIO = 'OrizzonteRadioButton';
+export const DISPLAY_NAME_TOGGLE = 'OrizzonteToggle';
 export const GROUP_MIN_WIDTH = 30;
 export const LOADING_SVG_VIEWBOX = [0, 0, 44, 44];
 export const LOADING_SVG_STROKE_WIDTH = '4';

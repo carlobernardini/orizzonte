@@ -9,7 +9,7 @@ import '../scss/CheckBox.scss';
  * Source: https://codepen.io/andreasstorm/pen/yjLGGN
  */
 
-const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) => (
+const CheckBox = ({ disabled, facetCount, id, label, onChange, selected, value, viewBox }) => (
     <div
         className={ classNames('orizzonte__checkbox', {
             'orizzonte__checkbox--disabled': disabled
@@ -50,6 +50,13 @@ const CheckBox = ({ disabled, id, label, onChange, selected, value, viewBox }) =
             >
                 { label }
             </span>
+            { facetCount && (
+                <span
+                    className="orizzonte__checkbox-span orizzonte__checkbox-span--count"
+                >
+                    { facetCount }
+                </span>
+            ) }
         </label>
     </div>
 );
@@ -59,6 +66,11 @@ CheckBox.displayName = DISPLAY_NAME_CHECKBOX;
 CheckBox.propTypes = {
     /** If the checkbox should be disabled */
     disabled: PropTypes.bool,
+    /** Facet count to be shown at the right of the option */
+    facetCount: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     /** Internal ID for this checkbox */
     id: PropTypes.string.isRequired,
     /** Label for this checkbox */
@@ -79,6 +91,7 @@ CheckBox.propTypes = {
 
 CheckBox.defaultProps = {
     disabled: false,
+    facetCount: null,
     onChange: () => {},
     selected: false,
     viewBox: null

@@ -11,11 +11,12 @@ exports[`<List /> should render a list of clickable items 1`] = `
 >
   <li
     className="orizzonte__item"
-    key="0"
+    key="0/.$Filter1"
   >
     <a
       className="orizzonte__item-clickable"
       href="#"
+      key="Filter1"
       onClick={[MockFunction]}
     >
       Filter 1
@@ -23,11 +24,12 @@ exports[`<List /> should render a list of clickable items 1`] = `
   </li>
   <li
     className="orizzonte__item"
-    key="1"
+    key="1/.$Filter2"
   >
     <a
       className="orizzonte__item-clickable"
       href="#"
+      key="Filter2"
       onClick={[MockFunction]}
     >
       Filter 2

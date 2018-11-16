@@ -84,6 +84,12 @@
         padding: 5px 0 5px 7px;
         color: #000;
     }
+    &--count {
+        float: right;
+        color: $text-color-muted;
+        font-size: .9em;
+        padding: 5px 0 5px 7px;
+    }
 }
 
 .orizzonte__radio-svg {
