@@ -117,6 +117,9 @@
 		&--last {
 			padding: 0 0 0 5px;
 		}
+		&--count {
+			padding: 1px 0 0 5px;
+		}
 	}
 
 	&:hover,
@@ -128,6 +131,9 @@
 			}
 		    &--last {
 		        color: #fff;
+		    }
+		    &--count {
+		    	color: #fff;
 		    }
 		}
 	}
@@ -159,7 +165,8 @@
 				&--first {
 					border-color: $border-color;
 				}
-			    &--last {
+			    &--last,
+			    &--count {
 			        color: $text-color-muted;
 			    }
 			}

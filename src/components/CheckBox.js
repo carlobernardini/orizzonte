@@ -50,7 +50,7 @@ const CheckBox = ({ disabled, facetCount, id, label, onChange, selected, value, 
             >
                 { label }
             </span>
-            { facetCount && (
+            { facetCount !== null && (
                 <span
                     className="orizzonte__checkbox-span orizzonte__checkbox-span--count"
                 >

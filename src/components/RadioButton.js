@@ -48,7 +48,7 @@ const RadioButton = ({ disabled, facetCount, id, label, name, onChange, value, v
             >
                 { label }
             </span>
-            { facetCount && (
+            { facetCount !== null && (
                 <span
                     className="orizzonte__radio-span orizzonte__radio-span--count"
                 >

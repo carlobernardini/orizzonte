@@ -531,6 +531,7 @@ class Dropdown extends Component {
             >
                 <CheckBox
                     disabled={ option.disabled }
+                    facetCount={ option.facetCount }
                     id={ uniqueId('checkbox-') }
                     value={ option.value }
                     label={ highlightedLabel }
@@ -718,6 +719,10 @@ Dropdown.propTypes = {
     options: PropTypes.arrayOf(
         PropTypes.shape({
             disabled: PropTypes.bool,
+            facetCount: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string
+            ]),
             value: PropTypes.oneOfType([
                 PropTypes.number,
                 PropTypes.string

@@ -268,22 +268,27 @@ stories.add('Default', withState({
                     children: [{
                         label: 'Extra Small',
                         value: 'xs',
-                        disabled: true
+                        disabled: true,
+                        facetCount: 0
                     }, {
                         label: 'Small',
-                        value: 's'
+                        value: 's',
+                        facetCount: 129
                     }]
                 }, {
                     label: 'Medium',
-                    value: 'm'
+                    value: 'm',
+                    facetCount: 213
                 }, {
                     value: 'Large sizes',
                     children: [{
                         label: 'Large',
-                        value: 'l'
+                        value: 'l',
+                        facetCount: 1982
                     }, {
                         label: 'Extra Large',
-                        value: 'xl'
+                        value: 'xl',
+                        facetCount: 94
                     }]
                 }] }
                 notSetLabel="None"
@@ -310,7 +315,8 @@ stories.add('Default', withState({
                 }, {
                     label: 'Medium (32)',
                     selectedLabel: 'Medium',
-                    value: 32
+                    value: 32,
+                    facetCount: 228
                 }, {
                     label: 'Large (34)',
                     selectedLabel: 'Large',

@@ -52,11 +52,11 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select, Toggle } from 'o
         {
           value: 'Small sizes',
           children: [
-            {label: 'Extra Small',value: 'xs',disabled: true},
-            {label: 'Small',value: 's'}
+            {label: 'Extra Small',value: 'xs',disabled: true,facetCount: 0},
+            {label: 'Small',value: 's',facetCount: 129}
           ]
         },
-        {label: 'Medium',value: 'm'},
+        {label: 'Medium',value: 'm',facetCount: 213},
         …
       ]}
       multiple
@@ -67,9 +67,9 @@ import Orizzonte, { Choices, Dropdown, FullText, Group, Select, Toggle } from 'o
       label="Waist Size"
       selectedLabel={ (value) => (`${ value.selectedLabel || value.label } waist size`) }
       options={[
-        {label: 'Extra Small (28)',selectedLabel: 'Extra Small',value: 28},
-        {label: 'Small (30)',selectedLabel: 'Small',value: 30},
-        {label: 'Medium (32)',selectedLabel: 'Medium',value: 32},
+        {label: 'Extra Small (28)',selectedLabel: 'Extra Small',value: 28,facetCount: 345},
+        {label: 'Small (30)',selectedLabel: 'Small',value: 30,facetCount: 12},
+        {label: 'Medium (32)',selectedLabel: 'Medium',value: 32,facetCount: 228},
         …
       ]}
       multiple
@@ -238,7 +238,7 @@ Each option is represented by an object that can have the following properties. 
 
 
 #### Dropdown
-A more advanced dropdown select with support for filtering options and select all
+A more advanced dropdown select with support for filtering options and select all. Facet counts for individual options are supported.
 
 | Prop                     | Type                    | Required | Description                                                                                                                                                                                                            |
 |--------------------------|-------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
