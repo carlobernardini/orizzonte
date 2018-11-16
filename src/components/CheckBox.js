@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { isNil } from 'lodash-es';
 import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_CHECKBOX } from '../constants';
 import '../scss/CheckBox.scss';
 
@@ -50,7 +51,7 @@ const CheckBox = ({ disabled, facetCount, id, label, onChange, selected, value, 
             >
                 { label }
             </span>
-            { facetCount !== null && (
+            { !isNil(facetCount) && (
                 <span
                     className="orizzonte__checkbox-span orizzonte__checkbox-span--count"
                 >

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { isNil } from 'lodash-es';
 import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_RADIO } from '../constants';
 import '../scss/RadioButton.scss';
 
@@ -48,7 +49,7 @@ const RadioButton = ({ disabled, facetCount, id, label, name, onChange, value, v
             >
                 { label }
             </span>
-            { facetCount !== null && (
+            { !isNil(facetCount) && (
                 <span
                     className="orizzonte__radio-span orizzonte__radio-span--count"
                 >

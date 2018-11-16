@@ -4,7 +4,7 @@ import axios from 'axios';
 import classNames from 'classnames';
 import {
     debounce, filter as _filter, includes, isEqual, isFunction,
-    toArray, uniqueId, without
+    isNil, toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
 import { getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
@@ -512,6 +512,13 @@ class Dropdown extends Component {
                     tabIndex="-1"
                 >
                     { highlightedLabel }
+                    { !isNil(option.facetCount) && (
+                        <span
+                            className="orizzonte__checkbox-span--count"
+                        >
+                            { option.facetCount }
+                        </span>
+                    ) }
                 </li>
             );
         }
