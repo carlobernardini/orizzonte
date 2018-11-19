@@ -10,7 +10,6 @@ import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../utils'
 import GroupTopLabel from './GroupTopLabel';
 import GroupBtn from './GroupBtn';
 import List from './List';
-import '../scss/Group.scss';
 
 class Group extends Component {
     constructor(props) {

@@ -8,7 +8,6 @@ import CheckBox from './CheckBox';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import RadioButton from './RadioButton';
-import '../scss/Filter.scss';
 
 class Choices extends Component {
     renderChoices() {

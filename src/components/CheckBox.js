@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { isNil } from 'lodash-es';
 import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_CHECKBOX } from '../constants';
-import '../scss/CheckBox.scss';
 
 /**
  * Styled checkbox courtesy from Andreas Storm

@@ -1,29 +1,35 @@
-$color-a: #0496FF;
-$color-b: #35A7FF;
-$color-c: #F5B700;
-$color-d: #8FC93A;
-$color-e: #F42534;
+@import 'theme';
 
-$gray-lighter: #EEE;
-$gray-light: #B2B2B2;
-$gray-medium: #999;
-$gray-dark: #D0D1D5;
-$gray-darker: #1D1D1B;
+$google-fonts: (
+    'Roboto:300,400,500'
+) !default;
 
-$font-family: 'Roboto', sans-serif;
-$font-size: 14px;
+$color-a: #0496FF !default;
+$color-b: #35A7FF !default;
+$color-c: #F5B700 !default;
+$color-d: #8FC93A !default;
+$color-e: #F42534 !default;
 
-$text-color: $gray-darker;
-$text-color-muted: $gray-light;
-$border-color: $gray-dark;
-$border-color-inside: $gray-lighter;
-$background-color-muted: $gray-lighter;
+$gray-lighter: #EEE !default;
+$gray-light: #B2B2B2 !default;
+$gray-medium: #999 !default;
+$gray-dark: #D0D1D5 !default;
+$gray-darker: #1D1D1B !default;
 
-$group-radius: 20px;
-$group-color-idle: $color-a;
-$group-color-active: $color-b;
-$group-color-label: #fff;
+$font-family: 'Roboto', sans-serif !default;
+$font-size: 14px !default;
 
-$btn-add-color: $color-d;
+$text-color: $gray-darker !default;
+$text-color-muted: $gray-light !default;
+$border-color: $gray-dark !default;
+$border-color-inside: $gray-lighter !default;
+$background-color-muted: $gray-lighter !default;
 
-$loading-indicator-color: $gray-darker;
+$group-radius: 20px !default;
+$group-color-idle: $color-a !default;
+$group-color-active: $color-b !default;
+$group-color-label: #fff !default;
+
+$btn-add-color: $color-d !default;
+
+$loading-indicator-color: $gray-darker !default;

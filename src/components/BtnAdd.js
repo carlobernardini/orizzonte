@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DISPLAY_NAME_BTN_ADD } from '../constants';
 import List from './List';
-import '../scss/Button.scss';
 
 class BtnAdd extends PureComponent {
     constructor(props) {

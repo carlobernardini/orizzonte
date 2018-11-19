@@ -5,8 +5,6 @@ import { uniqueId } from 'lodash-es';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import { NAME_PREFIX_TOGGLE } from '../constants';
-import '../scss/Filter.scss';
-import '../scss/Toggle.scss';
 
 const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLabel, value }) => {
     const id = uniqueId(NAME_PREFIX_TOGGLE);
