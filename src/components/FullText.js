@@ -5,8 +5,6 @@ import { debounce, isFunction } from 'lodash-es';
 import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
-import '../scss/Filter.scss';
-import '../scss/FullText.scss';
 
 class FullText extends Component {
     constructor(props) {

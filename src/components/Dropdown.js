@@ -15,7 +15,6 @@ import CheckBox from './CheckBox';
 import LoadingIndicator from './LoadingIndicator';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
-import '../scss/Dropdown.scss';
 
 class Dropdown extends Component {
     constructor(props) {

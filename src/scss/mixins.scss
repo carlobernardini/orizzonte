@@ -1,0 +1,5 @@
+@mixin import-google-fonts($fonts) {
+    @each $set in $fonts {
+        @import url('//fonts.googleapis.com/css?family=#{$set}');
+    }
+}

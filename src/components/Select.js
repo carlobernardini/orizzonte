@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import { DISPLAY_NAME_FILTER_SELECT } from '../constants';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
-import '../scss/Filter.scss';
-import '../scss/Select.scss';
 
 const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, value }) => (
     <div

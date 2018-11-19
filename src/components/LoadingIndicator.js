@@ -4,7 +4,6 @@ import {
     DISPLAY_NAME_LOADING, LOADING_SVG_VIEWBOX, LOADING_SVG_CENTER,
     LOADING_SVG_STROKE_WIDTH, LOADING_SVG_RADIUS
 } from '../constants';
-import '../scss/LoadingIndicator.scss';
 
 const LoadingIndicator = ({ size }) => (
     <svg
