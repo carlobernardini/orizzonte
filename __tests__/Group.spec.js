@@ -53,7 +53,7 @@ describe('<Group />', () => {
         expect(wrapper.state().removing).toBe(true);
 
         expect(onUpdate).toHaveBeenCalledWith(Object.keys(queryPart));
-        jest.advanceTimersByTime(300);
+        jest.advanceTimersByTime(500);
         expect(onGroupRemove).toHaveBeenCalledWith(1);
     });
 
