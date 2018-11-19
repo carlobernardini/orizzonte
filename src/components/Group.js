@@ -61,6 +61,12 @@ class Group extends Component {
     }
 
     getGroupMinWidth() {
+        const { removing } = this.state;
+
+        if (removing) {
+            return null;
+        }
+
         if (!this.groupTopLabel || !this.groupTopLabel.current) {
             return {
                 minWidth: `${ GROUP_MIN_WIDTH }px`
@@ -129,7 +135,7 @@ class Group extends Component {
             return true;
         });
 
-        setTimeout(onGroupRemove.bind(null, i), 300);
+        setTimeout(onGroupRemove.bind(null, i), 500);
     }
 
     toggleGroup(e, forceCollapse = false) {
