@@ -111,4 +111,39 @@ describe('<Orizzonte />', () => {
         });
         expect(wrapper.state().activeGroup).toBeNull();
     });
+
+    it('should test top-level element event handlers', () => {
+        const InvalidNode = () => (
+            <div />
+        );
+
+        const wrapper = shallow(
+            <Orizzonte
+                hideOnAllGroupsIncluded
+            >
+                <InvalidNode />
+            </Orizzonte>
+        );
+
+        const instance = wrapper.instance();
+        jest.spyOn(instance, 'toggleControls');
+
+        wrapper.simulate('focus');
+        expect(instance.toggleControls).toHaveBeenCalledWith(true);
+
+        wrapper.simulate('blur', {
+            target: {
+                contains: jest.fn()
+            }
+        });
+        expect(instance.toggleControls).toHaveBeenCalledWith(true);
+
+        wrapper.simulate('mouseover');
+        expect(instance.toggleControls).toHaveBeenCalledWith(true);
+
+        wrapper.simulate('mouseout');
+        expect(instance.toggleControls).toHaveBeenCalledWith(false);
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });
