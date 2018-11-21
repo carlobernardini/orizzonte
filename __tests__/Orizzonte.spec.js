@@ -73,6 +73,8 @@ describe('<Orizzonte />', () => {
     it('should unset an active group when clicking outside of the main component', () => {
         const map = {}
 
+        const onGroupRemove = jest.fn();
+
         document.addEventListener = jest.fn((event, callback) => {
             map[event] = callback;
         });
@@ -84,6 +86,9 @@ describe('<Orizzonte />', () => {
                     border: '3px solid #000'
                 }}
                 collapseGroupOnClickOutside
+                maxGroups={ 1 }
+                onGroupRemove={ onGroupRemove }
+                autoHideTimeout={ 300 }
             >
                 <Group
                     i={ 1 }
@@ -106,10 +111,30 @@ describe('<Orizzonte />', () => {
             </Orizzonte>
         );
 
+        expect(wrapper.instance().renderAddBtn()).toBeNull();
+
         map.click({
             target: null
         });
         expect(wrapper.state().activeGroup).toBeNull();
+
+        wrapper.setState({
+            activeGroup: null
+        });
+
+        expect(wrapper.instance().toggleGroup(false)).toBe(false);
+
+        wrapper.find(Group).first().prop('onGroupRemove')(0)
+        expect(onGroupRemove).toHaveBeenCalledWith(0);
+
+        jest.useFakeTimers();
+        wrapper.setState({
+            showControls: true
+        });
+        expect(wrapper.instance().toggleControls(false)).toBe(true);
+        jest.runAllTimers();
+        expect(wrapper.state('showControls')).toBe(false);
+
     });
 
     it('should test top-level element event handlers', () => {
