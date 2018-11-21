@@ -60,6 +60,14 @@ describe('<Group />', () => {
         expect(onUpdate).toHaveBeenCalledWith(Object.keys(queryPart));
         jest.advanceTimersByTime(500);
         expect(onGroupRemove).toHaveBeenCalledWith(1);
+
+        wrapper.find(List).prop('onApply')();
+        expect(onUpdate).toHaveBeenCalled();
+
+        wrapper.find(List).prop('syncCacheToGroup')('testField', [1,2,3]);
+        expect(wrapper.state('cache')).toEqual({
+            testField: [1,2,3]
+        });
     });
 
     it('should render an active group with description and min width', () => {
