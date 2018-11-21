@@ -2,9 +2,8 @@ import React from 'react';
 import FullText from '../src/components/FullText';
 
 describe('<FullText />', () => {
-    jest.useFakeTimers();
-
     it('should render a fulltext filter', () => {
+        jest.useFakeTimers();
         const expectedValue = 'some keywords';
         const onUpdate = jest.fn();
 
@@ -80,6 +79,7 @@ describe('<FullText />', () => {
     });
 
     it('should render a fulltext filter with input validation', () => {
+        jest.useFakeTimers();
         const onUpdate = jest.fn();
 
         const wrapper = shallow(
@@ -93,6 +93,9 @@ describe('<FullText />', () => {
             />
         );
 
+        const instance = wrapper.instance();
+        jest.spyOn(instance, 'dispatchDebouncedWrapper');
+
         wrapper.find('.orizzonte__filter-fulltext').simulate('change', {
             target: {
                 value: '123'
@@ -101,8 +104,25 @@ describe('<FullText />', () => {
 
         expect(wrapper.state().value).toBe('123');
         jest.runAllTimers();
+        expect(instance.dispatchDebouncedWrapper).toHaveBeenCalled();
         expect(wrapper.find('.orizzonte__filter-fulltext').hasClass('orizzonte__filter-fulltext--invalid')).toBe(true);
         expect(onUpdate).not.toHaveBeenCalled();
         expect(wrapper.state().derivedValue).toBeNull();
+    });
+
+    it('should check some component methods', () => {
+        const wrapper = shallow(
+            <FullText
+                label="Fulltext filter"
+                placeholder="This is a textarea placeholder..."
+            />
+        );
+
+        const instance = wrapper.instance();
+        jest.spyOn(instance, 'dispatchToQuery');
+        wrapper.find('.orizzonte__filter-fulltext').simulate('keyup', {
+            keyCode: 13
+        });
+        expect(instance.dispatchToQuery).toHaveBeenCalled();
     });
 });
