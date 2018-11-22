@@ -160,7 +160,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 
 ## Configuration
 
-### Orizzonte
+### `<Orizzonte />` component
 
 | Prop                          | Type             | Required | Description                                                                                                       |
 |-------------------------------|------------------|----------|-------------------------------------------------------------------------------------------------------------------|
@@ -186,7 +186,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `saveLabel`                   | string           | no       | Custom label for the button to save the current query. `onSave` prop needs to be defined for the button to show.  |
 | `style`                       | object           | no       | Custom inline styles for the top-level element                                                                    |
 
-### Group
+### `<Group />` component
 Groups contain one or more filters for which it make sense to be shown together. Each group has its own name and can be provided with a description.
 
 | Prop                       | Type             | Required | Description                                                                                                                                                                     |
@@ -214,7 +214,7 @@ A filter is responsible for controlling the value of a particular field in the q
 | `FullText` | A single or multi line full text field                                            |
 | `Select`   | A simple single-select filter (uses browser `<select />` element)                 |
 
-#### Choices
+#### `<Choices />` filter
 A series of inline checkboxes (multiple selections) or radios (single selection)
 
 | Prop                | Type    | Required | Description                                                                                        |
@@ -226,7 +226,7 @@ A series of inline checkboxes (multiple selections) or radios (single selection)
 | `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option Only available for radio groups      |
 | `options`           | array   | yes      | Collection of possible options for this group of choices. Each option must at least have a value   |
 
-##### Option
+##### `Option` properties
 Each option is represented by an object that can have the following properties. All possible options are provided as an array of objects (collection).
 
 | Prop                | Type              | Description                                                                                        |
@@ -237,7 +237,7 @@ Each option is represented by an object that can have the following properties. 
 | `option.value`      | string or number  | Selected value for this option (required).                                                         |
 
 
-#### Dropdown
+#### `<Dropdown />` filter
 A more advanced dropdown select with support for filtering options and select all. Facet counts for individual options are supported.
 
 | Prop                     | Type                    | Required | Description                                                                                                                                                                                                            |
@@ -267,7 +267,7 @@ A more advanced dropdown select with support for filtering options and select al
 | `selectedLabel`          | string or function      | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
 | `value`                  | string, number or array | no       | Currently selected value(s)                                                                                                                                                                                            |
 
-#### FullText
+#### `<FullText />` filter
 A single or multi line full text field
 
 | Prop              | Type               | Required | Description                                                                  |
@@ -286,7 +286,7 @@ A single or multi line full text field
 | `validateInput`   | function           | no       | Function to validate input, should return true (valid) or false (invalid)    |
 | `value`           | string             | no       | Current value                                                                |
 
-#### Select
+#### `<Select />` filter
 A simple single-select filter (uses browser `<select />` element)
 
 | Prop            | Type               | Required | Description                                                                                                                                                                                                            |
@@ -301,7 +301,7 @@ A simple single-select filter (uses browser `<select />` element)
 | `selectedLabel` | string or function | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
 | `value`         | string or number   | no       | Currently selected value                                                                                                                                                                                               |
 
-#### Toggle
+#### `<Toggle />` filter
 A toggle switch button (affects single value)
 
 | Prop            | Type               | Required | Description                                                                                                                                                                                                            |
@@ -315,3 +315,5 @@ A toggle switch button (affects single value)
 ## Tests
 
 * Run tests: `npm test`
+* Test a specific component: `npm test -- <component>.spec.js`
+* Run a coverage report: `npm test -- --coverage`
