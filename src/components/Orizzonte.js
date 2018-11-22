@@ -176,14 +176,14 @@ class Orizzonte extends Component {
         }
 
         const availableGroups = React.Children.map(children, (child, i) => {
-            if (child.props.included) {
+            if (child.type.displayName !== DISPLAY_NAME_GROUP || child.props.included) {
                 return null;
             }
             return {
                 i,
                 label: child.props.label
             };
-        });
+        }).filter(n => !!n);
 
         if (!availableGroups.length && hideAddOnAllGroupsIncluded) {
             return null;
@@ -200,7 +200,7 @@ class Orizzonte extends Component {
             <BtnAdd
                 label={ addBtnLabel }
                 shown={ !includedCount || showControls || !autoHideControls }
-                position={ orientation === 'right' ? 'left' : 'right' }
+                position={ orientation === 'rtl' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
                 available={ React.Children.map(children, (child, i) => {
                     if (child.props.included) {
@@ -240,7 +240,7 @@ class Orizzonte extends Component {
                     this.toggleGroup(null);
                     onClearAll(clearedQuerySnapshot);
                 }}
-                position={ orientation === 'right' ? 'left' : 'right' }
+                position={ orientation === 'rtl' ? 'left' : 'right' }
             />
         );
     }
@@ -266,7 +266,7 @@ class Orizzonte extends Component {
                     this.toggleGroup(null);
                     onSave(query);
                 }}
-                position={ orientation === 'right' ? 'left' : 'right' }
+                position={ orientation === 'rtl' ? 'left' : 'right' }
             />
         );
     }
@@ -299,9 +299,9 @@ class Orizzonte extends Component {
                 ref={ this.orizzonte }
                 style={ style }
             >
-                { this.renderSaveBtn('left') }
-                { this.renderClearBtn('left') }
-                { this.renderAddBtn('left') }
+                { this.renderSaveBtn('ltr') }
+                { this.renderClearBtn('ltr') }
+                { this.renderAddBtn('ltr') }
                 { React.Children.map(children, (child, i) => {
                     if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                         return null;
@@ -316,14 +316,14 @@ class Orizzonte extends Component {
                         onGroupRemove: this.removeGroup,
                         onGroupToggle: this.toggleGroup,
                         onUpdate: this.onGroupUpdate,
-                        orientation,
+                        orientation: orientation === 'ltr' ? 'left' : 'right',
                         queryPart: this.extractQueryPart(child),
                         initialState: this.extractQueryPart(child, true)
                     });
                 }) }
-                { this.renderAddBtn('right') }
-                { this.renderClearBtn('right') }
-                { this.renderSaveBtn('right') }
+                { this.renderAddBtn('rtl') }
+                { this.renderClearBtn('rtl') }
+                { this.renderSaveBtn('rtl') }
             </div>
         );
     }
@@ -380,8 +380,8 @@ Orizzonte.propTypes = {
     onSave: PropTypes.func,
     /** Show the button for adding new filter groups on the left or right */
     orientation: PropTypes.oneOf([
-        'left',
-        'right'
+        'ltr',
+        'rtl'
     ]),
     /** The current query object */
     query: PropTypes.object,
@@ -411,7 +411,7 @@ Orizzonte.defaultProps = {
     onGroupAdd: () => {},
     onGroupRemove: () => {},
     onSave: null,
-    orientation: 'left',
+    orientation: 'ltr',
     query: {},
     saveLabel: null,
     style: null

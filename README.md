@@ -181,7 +181,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `onGroupAdd`                  | function         | no       | Callback function for when a new filter group is added                                                            |
 | `onGroupRemove`               | function         | no       | Callback function for when a filter group is removed                                                              |
 | `onSave`                      | function         | no       | Callback function saving the current query object                                                                 |
-| `orientation`                 | `left` or `right`| no       | Show the button for adding new filter groups on the left or right                                                 |
+| `orientation`                 | `ltr` or `rtl`   | no       | Render groups and controls from left-to-right (`ltr`, default) or right-to-left (`rtl`)                           |
 | `query`                       | object           | no       | The current query object                                                                                          |
 | `saveLabel`                   | string           | no       | Custom label for the button to save the current query. `onSave` prop needs to be defined for the button to show.  |
 | `style`                       | object           | no       | Custom inline styles for the top-level element                                                                    |

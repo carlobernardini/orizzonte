@@ -87,7 +87,7 @@ const component = ({ store }) => {
             groupTopLabels={ boolean('Labels on top of groups', true) }
             hideAddOnAllGroupsIncluded={ boolean('Hide add-button when no more groups available', true) }
             dispatchOnFilterChange={ boolean('Dispatch query on filter change', true) }
-            orientation={ select('Orientation', ['left', 'right'], 'left') }
+            orientation={ select('Orientation', ['ltr', 'rtl'], 'ltr') }
             onChange={ (queryObject) => {
                 console.log(queryObject);
                 store.set({
