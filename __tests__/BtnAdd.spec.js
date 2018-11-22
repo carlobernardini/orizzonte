@@ -103,4 +103,19 @@ describe('<BtnAdd />', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('should render a labeled add-button', () => {
+        const wrapper = shallow(
+            <BtnAdd
+                available={ [{
+                    label: 'Filter 1'
+                }, {
+                    label: 'Filter 2'
+                }] }
+                label="Add more groups"
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });

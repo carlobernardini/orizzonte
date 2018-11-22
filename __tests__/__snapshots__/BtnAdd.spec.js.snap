@@ -30,6 +30,21 @@ exports[`<BtnAdd /> should render a disabled add-button 1`] = `
 </div>
 `;
 
+exports[`<BtnAdd /> should render a labeled add-button 1`] = `
+<div
+  className="orizzonte__btn-wrapper"
+>
+  <button
+    className="orizzonte__btn orizzonte__btn-add orizzonte__btn--labeled"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Add more groups
+  </button>
+</div>
+`;
+
 exports[`<BtnAdd /> should render a left-positioned add-button 1`] = `
 <div
   className="orizzonte__btn-wrapper orizzonte__btn-wrapper--left"
