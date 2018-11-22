@@ -255,4 +255,39 @@ describe('<Dropdown />', () => {
 
         expect(wrapper.instance().renderList()).toEqual([null]);
     });
+
+    it('should properly set focus / blur', () => {
+        const map = {};
+
+        document.addEventListener = jest.fn((event, callback) => {
+            map[event] = callback;
+        });
+
+        const wrapper = shallow(
+            <Dropdown
+                fieldName="country"
+                label="Country"
+                options={[{
+                    value: 'Austria',
+                    children: []
+                }]}
+            />
+        );
+
+        const instance = wrapper.instance();
+        const onFocus = jest.spyOn(instance, 'onFocus');
+        const onBlur = jest.spyOn(instance, 'onFocus');
+        const toggleDropdown = jest.spyOn(instance, 'toggleDropdown');
+        instance.forceUpdate();
+
+        wrapper.find('.orizzonte__dropdown-button').simulate('focus');
+
+        expect(onFocus).toHaveBeenCalled();
+        expect(wrapper.state('focused')).toBe(true);
+
+        wrapper.find('.orizzonte__dropdown-button').simulate('blur');
+        
+        expect(onBlur).toHaveBeenCalled();
+        expect(wrapper.state('focused')).toBe(false);
+    });
 });
