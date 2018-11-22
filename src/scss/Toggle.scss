@@ -5,7 +5,7 @@
         &:checked {
             + .orizzonte__toggle-label {
                 .orizzonte__toggle-control {
-                    background: $color-d;
+                    background: $toggle-color-active;
 
                     &:before {
                         transform: translate(18px, 2px) scale(2);
@@ -52,7 +52,7 @@
             transform: translate(2px, 2px);
             width: 18px;
             height: 18px;
-            background: $color-a;
+            background: $toggle-color-highlight;
             display: block;
             transform: scale(0);
             opacity: 1;
@@ -82,7 +82,7 @@
         text-overflow: ellipsis;
 
         &--on {
-            color: $color-a;
+            color: $toggle-color-highlight;
         }
     }
     &--disabled {

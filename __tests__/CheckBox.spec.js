@@ -49,4 +49,17 @@ describe('<CheckBox />', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('should render a checkbox with facet count', () => {
+        const wrapper = shallow(
+            <CheckBox
+                id="testCheckbox"
+                label="Test checkbox"
+                value="test"
+                facetCount={ 123 }
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });

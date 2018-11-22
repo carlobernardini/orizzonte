@@ -38,7 +38,7 @@
 }
 
 .orizzonte__list-done {
-    background-color: $color-c;
+    background-color: $btn-done-color;
     border-radius: 5px;
     flex-grow: 1;
     font: {
@@ -46,13 +46,13 @@
     }
 
     &:hover {
-        background-color: lighten($color-c, 5%);
+        background-color: lighten($btn-done-color, 5%);
     }
 }
 
 .orizzonte__list-remove {
     background-color: #FFF;
-    color: $color-a;
+    color: $btn-remove-color;
     transition: color .3s;
 }
 

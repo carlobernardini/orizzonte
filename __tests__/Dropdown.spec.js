@@ -1,6 +1,7 @@
 import React from 'react';
-import Dropdown from '../src/components/Dropdown';
 import CheckBox from '../src/components/CheckBox';
+import Dropdown from '../src/components/Dropdown';
+import List from '../src/components/List';
 
 const labelTransformerFunction = (value) => (
     value.length === 1 ? value[0].label : `${ value.length } Countries`
@@ -37,12 +38,17 @@ describe('<Dropdown />', () => {
         expect(wrapper.state().expanded).toBe(true);
         expect(wrapper).toMatchSnapshot();
 
+        const instance = wrapper.instance();
+        jest.spyOn(instance, 'handleSingleSelection');
+        wrapper.find('.orizzonte__dropdown-item').first().simulate('click');
+        expect(instance.handleSingleSelection).toHaveBeenCalledWith('at');
+
         // Browse using arrow key up
         wrapper.find('.orizzonte__dropdown-item').first().simulate('keydown', {
             preventDefault: () => {},
             keyCode: 40
         });
-        expect(wrapper.state().cursor).toBe(0);        
+        expect(wrapper.state().cursor).toBe(0);
 
         // Browse using arrow key up
         wrapper.find('.orizzonte__dropdown-item').first().simulate('keydown', {
@@ -98,6 +104,17 @@ describe('<Dropdown />', () => {
 
         expect(wrapper.state().filter).toBe('aus');
         expect(wrapper).toMatchSnapshot();
+
+        const instance = wrapper.instance();
+        const event = {
+            keyCode: 32
+        };
+        jest.spyOn(instance, 'handleKeyDown');
+        wrapper.find('.orizzonte__dropdown-item').first().simulate('keydown', event);
+        expect(instance.handleKeyDown).toHaveBeenCalledWith(event, {
+            label: 'Austria',
+            value: 'at'
+        }, false);
     });
 
     it('should render a dropdown with custom matching requirements on the filter', () => {
@@ -222,5 +239,55 @@ describe('<Dropdown />', () => {
 
         wrapper.find(CheckBox).first().prop('onChange')(true);
         expect(onUpdate).toHaveBeenCalledWith(['at', 'pt', 'ie', 'us', 'ca']);
+    });
+
+    it('should handle empty lists of children properly', () => {
+        const wrapper = shallow(
+            <Dropdown
+                fieldName="country"
+                label="Country"
+                options={[{
+                    value: 'Austria',
+                    children: []
+                }]}
+            />
+        );
+
+        expect(wrapper.instance().renderList()).toEqual([null]);
+    });
+
+    it('should properly set focus / blur', () => {
+        const map = {};
+
+        document.addEventListener = jest.fn((event, callback) => {
+            map[event] = callback;
+        });
+
+        const wrapper = shallow(
+            <Dropdown
+                fieldName="country"
+                label="Country"
+                options={[{
+                    value: 'Austria',
+                    children: []
+                }]}
+            />
+        );
+
+        const instance = wrapper.instance();
+        const onFocus = jest.spyOn(instance, 'onFocus');
+        const onBlur = jest.spyOn(instance, 'onFocus');
+        const toggleDropdown = jest.spyOn(instance, 'toggleDropdown');
+        instance.forceUpdate();
+
+        wrapper.find('.orizzonte__dropdown-button').simulate('focus');
+
+        expect(onFocus).toHaveBeenCalled();
+        expect(wrapper.state('focused')).toBe(true);
+
+        wrapper.find('.orizzonte__dropdown-button').simulate('blur');
+        
+        expect(onBlur).toHaveBeenCalled();
+        expect(wrapper.state('focused')).toBe(false);
     });
 });

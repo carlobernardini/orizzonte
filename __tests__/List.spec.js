@@ -1,5 +1,6 @@
 import React from 'react';
 import Choices from '../src/components/Choices';
+import Dropdown from '../src/components/Dropdown';
 import List from '../src/components/List';
 import Select from '../src/components/Select';
 
@@ -178,5 +179,88 @@ describe('<List />', () => {
         );
 
         expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should add a syncCache callback for remote dropdown filters', () => {
+        const syncCacheToGroup = jest.fn();
+
+        const remoteOptions = [{
+            value: 1,
+            label: 'test'
+        }];
+
+        const wrapper = shallow(
+            <List
+                cache={{
+                    country: remoteOptions
+                }}
+                syncCacheToGroup={ syncCacheToGroup }
+                isFilterGroup
+            >
+                <Dropdown
+                    fieldName="country"
+                    label="Country"
+                    selectedLabel={ (value) => {
+                        if (value.length === 1) {
+                            return value[0].label;
+                        }
+                        return `${ value.length } Countries`;
+                    }}
+                    filter={{
+                        enabled: true,
+                        matchPosition: 'start',
+                        placeholder: 'Search options...'
+                    }}
+                    remote={{
+                        endpoint: 'https://orizzonte.io/suggestions',
+                        searchParam: 'q',
+                        params: {
+                            some: 'additional data'
+                        },
+                        transformer: (response) => (response.options)
+                    }}
+                    multiple
+                />
+            </List>
+        );
+
+        expect(wrapper.find(Dropdown).prop('cache')).toEqual(remoteOptions);
+
+        wrapper.find(Dropdown).prop('syncCache')(remoteOptions);
+
+        expect(syncCacheToGroup).toHaveBeenCalledWith('country', remoteOptions);
+    });
+
+    it('should test changes to the viewport dimensions', () => {
+        const component = mount(
+            <List>
+                { Array(5).fill().map((_, i) => (
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    <a
+                        href="#"
+                        key={ i }
+                        className="orizzonte__item-clickable"
+                    >
+                        { `Some sample list item number ${ i + 1 }` }
+                    </a>
+                )) }
+            </List>
+        );
+
+        component.instance().list.current.getBoundingClientRect = () => ({
+            right: 1024
+        });
+
+        global.innerWidth = 1000;
+        global.dispatchEvent(new Event('resize'));
+
+        expect(component.state().fromRight).toBe(1024);
+
+        global.innerWidth = 1280;
+        global.dispatchEvent(new Event('resize'));
+
+        expect(component.state().fromRight).toBe(false);
+
+
     });
 });

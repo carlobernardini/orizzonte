@@ -48,4 +48,18 @@ describe('<RadioButton />', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('should render a radio button with facet count', () => {
+        const wrapper = shallow(
+            <RadioButton
+                id="testRadio1"
+                name="testRadioGroup"
+                label="Test radio"
+                value="test"
+                facetCount={ 123 }
+            />
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });

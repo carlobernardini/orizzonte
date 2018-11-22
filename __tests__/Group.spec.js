@@ -1,4 +1,6 @@
 import React from 'react';
+import Dropdown from '../src/components/Dropdown';
+import FullText from '../src/components/FullText';
 import Group from '../src/components/Group';
 import GroupBtn from '../src/components/GroupBtn';
 import List from '../src/components/List';
@@ -36,11 +38,14 @@ describe('<Group />', () => {
                         label: 'Test value 2',
                         value: 2
                     }] }
+                    selectedLabel="testSelect: %s"
                 />
             </Group>
         );
 
         expect(wrapper).toMatchSnapshot();
+
+        expect(wrapper.instance().renderLabel()).toBe('testSelect: Test value 1');
 
         wrapper.find('.orizzonte__group-label').simulate('click');
         expect(onGroupToggle).toHaveBeenCalledWith(1);
@@ -55,6 +60,14 @@ describe('<Group />', () => {
         expect(onUpdate).toHaveBeenCalledWith(Object.keys(queryPart));
         jest.advanceTimersByTime(500);
         expect(onGroupRemove).toHaveBeenCalledWith(1);
+
+        wrapper.find(List).prop('onApply')();
+        expect(onUpdate).toHaveBeenCalled();
+
+        wrapper.find(List).prop('syncCacheToGroup')('testField', [1,2,3]);
+        expect(wrapper.state('cache')).toEqual({
+            testField: [1,2,3]
+        });
     });
 
     it('should render an active group with description and min width', () => {
@@ -103,6 +116,9 @@ describe('<Group />', () => {
             <Group
                 label="Test group"
                 listMinWidth={ 400 }
+                queryPart={{
+                    testSelect: 1
+                }}
                 groupTopLabels
                 included
                 active
@@ -174,4 +190,73 @@ describe('<Group />', () => {
 
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('should return a correct label for multiselects', () => {
+        const wrapper = shallow(
+            <Group
+                queryPart={{
+                    testDropdown: [1, 2]
+                }}
+                label="Some group"
+            >
+                <Dropdown
+                    fieldName="testDropdown"
+                    label="My dropdown"
+                    options={ [{
+                        label: 'First',
+                        value: 1
+                    }, {
+                        label: 'Second',
+                        value: 2
+                    }, {
+                        label: 'Third',
+                        value: 3
+                    }] }
+                    selectedLabel={ (options) => {
+                        const labels = options.map((option) => (option.label.toLowerCase()));
+                        return `Selected ${ labels.join(', ') }`;
+                    }}
+                />
+            </Group>
+        );
+
+        expect(wrapper.instance().renderLabel()).toBe('Selected first, second');
+    });
+
+    it('should render a correct label for filters without options (e.g. fulltext)', () => {
+        const wrapper = shallow(
+            <Group
+                queryPart={{
+                    testFullText: 'test'
+                }}
+                label="Some group"
+            >
+                <FullText
+                    fieldName="testFullText"
+                    label="My fulltext filter"
+                    selectedLabel="Value equals %s"
+                />
+            </Group>
+        );
+
+        expect(wrapper.instance().renderLabel()).toBe('Value equals test');
+    });
+
+    it('should not render top labels if no filters available and test error boundary', () => {
+        const wrapper = shallow(
+            <Group
+                label="Test group"
+                groupTopLabels
+                included
+            />
+        );
+
+        expect(wrapper.instance().renderTopLabel()).toBeNull();
+
+        wrapper.setState({
+            hasError: true
+        });
+
+        expect(wrapper).toMatchSnapshot();
+    })
 });

@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Group /> should not render top labels if no filters available and test error boundary 1`] = `
+<div
+  className="orizzonte__group orizzonte__group--error"
+>
+  Something went wrong...
+</div>
+`;
+
 exports[`<Group /> should render a basic group 1`] = `
 <div
   className="orizzonte__group orizzonte__group--clearable"
@@ -22,7 +30,7 @@ exports[`<Group /> should render a basic group 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Test group
+      testSelect: Test value 1
     </button>
     <OrizzonteGroupBtn
       hidden={false}
@@ -179,7 +187,7 @@ exports[`<Group /> should render an active group without top label and no remove
 
 exports[`<Group /> should render group without clear / remove / done buttons, and higher min width 1`] = `
 <div
-  className="orizzonte__group orizzonte__group--shown orizzonte__group--empty"
+  className="orizzonte__group orizzonte__group--shown"
   style={
     Object {
       "minWidth": "30px",
@@ -219,7 +227,11 @@ exports[`<Group /> should render group without clear / remove / done buttons, an
     removeBtn={false}
     removeBtnLabel={null}
     syncCacheToGroup={[Function]}
-    values={Object {}}
+    values={
+      Object {
+        "testSelect": 1,
+      }
+    }
   >
     <OrizzonteSelect
       disabled={false}
