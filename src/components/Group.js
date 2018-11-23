@@ -353,7 +353,7 @@ class Group extends Component {
 
     render() {
         const {
-            active, className, included, hideClear, style
+            active, className, icon, included, hideClear, style
         } = this.props;
         const { hasError, removing } = this.state;
 
@@ -398,6 +398,7 @@ class Group extends Component {
                         className="orizzonte__group-label"
                     >
                         { this.renderLabel() }
+                        { icon }
                     </button>
                     <GroupBtn
                         hidden={ !queryHasFilters || isDefaultState || hideClear }
@@ -440,6 +441,9 @@ Group.propTypes = {
     hideRemove: PropTypes.bool,
     /** Internal filter group list index */
     i: PropTypes.number,
+    /** Internal prop for group toggling icon
+        Should be configured in the Orizzonte component */
+    icon: PropTypes.node,
     /** If the group should be present in the bar */
     included: PropTypes.bool,
     /** Interal object of initial (reset) query part from snapshot */
@@ -486,6 +490,7 @@ Group.defaultProps = {
     hideDone: false,
     hideRemove: false,
     i: null,
+    icon: null,
     included: false,
     initialState: {},
     listMinWidth: null,

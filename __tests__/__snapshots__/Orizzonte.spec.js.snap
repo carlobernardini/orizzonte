@@ -25,6 +25,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
     hideDone={false}
     hideRemove={false}
     i={0}
+    icon={null}
     included={true}
     initialState={
       Object {
@@ -72,7 +73,6 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
   <OrizzonteBtnAdd
     available={Array []}
     disabled={false}
-    label={null}
     onGroupAdd={[Function]}
     position="right"
     shown={true}
@@ -106,11 +106,87 @@ exports[`<Orizzonte /> should render an empty filter container 1`] = `
   <OrizzonteBtnAdd
     available={Array []}
     disabled={false}
-    label={null}
     onGroupAdd={[Function]}
     position="right"
     shown={true}
   />
+</div>
+`;
+
+exports[`<Orizzonte /> should render toggle icons and a custom label for the add button 1`] = `
+<div
+  className="orizzonte__container orizzonte__clearfix"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
+  style={null}
+>
+  <OrizzonteGroup
+    active={false}
+    className={null}
+    collapseGroupOnClickOutside={false}
+    description={null}
+    dispatchOnFilterChange={false}
+    doneBtnLabel={null}
+    groupTopLabels={false}
+    hideClear={false}
+    hideDone={false}
+    hideRemove={false}
+    i={0}
+    icon={
+      <span>
+        ▼
+      </span>
+    }
+    included={true}
+    initialState={Object {}}
+    key=".0"
+    label="Test group"
+    listMinWidth={null}
+    mutuallyExclusiveFilters={false}
+    onGroupRemove={[Function]}
+    onGroupToggle={[Function]}
+    onUpdate={[Function]}
+    orientation="left"
+    queryPart={Object {}}
+    removeBtnLabel={null}
+    style={Object {}}
+  >
+    <OrizzonteSelect
+      disabled={false}
+      fieldName="testSelect"
+      information={null}
+      label="Test select"
+      notSetLabel={false}
+      onUpdate={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Test value 1",
+            "value": 1,
+          },
+          Object {
+            "label": "Test value 2",
+            "value": 2,
+          },
+        ]
+      }
+      value=""
+    />
+  </OrizzonteGroup>
+  <OrizzonteBtnAdd
+    available={Array []}
+    disabled={false}
+    onGroupAdd={[Function]}
+    position="right"
+    shown={true}
+  >
+    Add more groups
+    <span>
+      ▼
+    </span>
+  </OrizzonteBtnAdd>
 </div>
 `;
 
@@ -133,7 +209,6 @@ exports[`<Orizzonte /> should test top-level element event handlers 1`] = `
       ]
     }
     disabled={false}
-    label={null}
     onGroupAdd={[Function]}
     position="right"
     shown={true}

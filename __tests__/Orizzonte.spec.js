@@ -221,4 +221,36 @@ describe('<Orizzonte />', () => {
         wrapper.find(BtnAdd).prop('onGroupAdd')(1);
         expect(instance.toggleGroup).not.toHaveBeenCalled();
     });
+
+    it('should render toggle icons and a custom label for the add button', () => {
+        const wrapper = shallow(
+            <Orizzonte
+                addBtnLabel="Add more groups"
+                groupToggleIcon={
+                    <span>▼</span>
+                }
+            >
+                <Group
+                    i={ 1 }
+                    label="Test group"
+                    groupTopLabels
+                    included
+                >
+                    <Select
+                        fieldName="testSelect"
+                        label="Test select"
+                        options={ [{
+                            label: 'Test value 1',
+                            value: 1
+                        }, {
+                            label: 'Test value 2',
+                            value: 2
+                        }] }
+                    />
+                </Group>
+            </Orizzonte>
+        );
+
+        expect(wrapper).toMatchSnapshot();
+    });
 });

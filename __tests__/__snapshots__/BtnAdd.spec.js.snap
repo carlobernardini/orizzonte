@@ -35,12 +35,12 @@ exports[`<BtnAdd /> should render a labeled add-button 1`] = `
   className="orizzonte__btn-wrapper"
 >
   <button
-    className="orizzonte__btn orizzonte__btn-add orizzonte__btn--labeled"
+    className="orizzonte__btn orizzonte__btn-add"
     disabled={false}
     onClick={[Function]}
     type="button"
   >
-    Add more groups
+     
   </button>
 </div>
 `;

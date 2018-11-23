@@ -73,7 +73,7 @@ class BtnAdd extends PureComponent {
 
     render() { 
         const {
-            available, disabled, label, position, shown
+            available, children, disabled, position, shown
         } = this.props;
 
         return (
@@ -87,13 +87,13 @@ class BtnAdd extends PureComponent {
                     className={ classNames('orizzonte__btn orizzonte__btn-add', {
                         'orizzonte__btn--shown': shown,
                         'orizzonte__btn--disabled': disabled || !available.length,
-                        'orizzonte__btn--labeled': label && label.trim().length
+                        'orizzonte__btn--labeled': children
                     }) }
                     disabled={ !available.length }
                     onClick={ this.toggleButton }
                     type="button"
                 >
-                    { label || String.fromCharCode(160) }
+                    { children || String.fromCharCode(160) }
                 </button>
                 { this.renderList() }
             </div>
@@ -105,8 +105,11 @@ BtnAdd.displayName = DISPLAY_NAME_BTN_ADD;
 
 BtnAdd.propTypes = {
     available: PropTypes.array,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ]),
     disabled: PropTypes.bool,
-    label: PropTypes.string,
     onGroupAdd: PropTypes.func,
     position: PropTypes.string,
     shown: PropTypes.bool
@@ -114,8 +117,8 @@ BtnAdd.propTypes = {
 
 BtnAdd.defaultProps = {
     available: [],
+    children: null,
     disabled: false,
-    label: null,
     onGroupAdd: () => {},
     position: null,
     shown: false
