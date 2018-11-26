@@ -54,10 +54,10 @@ $caret-base64: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
     left: 0;
     display: block;
     border: 1px solid $border-color;
-    border-radius: 5px;
+    border-radius: $list-border-radius;
     box-sizing: border-box;
-    box-shadow: 0 5px 10px rgba(0,0,0,.1);
-    background-color: #fff;
+    box-shadow: $list-box-shadow;
+    background-color: $list-background-color;
     z-index: 999;
     line-height: normal;
 }
@@ -65,7 +65,7 @@ $caret-base64: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 %list-item {
 	display: block;
     margin: 0 -1px;
-    padding: 7px 10px;
+    padding: $list-item-padding;
     color: $text-color;
     cursor: pointer;
     text-decoration: none;
@@ -73,29 +73,29 @@ $caret-base64: 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 
     &:hover,
     &:focus {
-        background-color: lighten($color-a, 15%);
-        color: #fff;
+        background-color: $list-item-background-hover;
+        color: $list-item-color-hover;
     }
     &:active {
-        background-color: lighten($color-a, 20%);
+        background-color: $list-item-background-active;
     }
 }
 
 %select {
 	position: relative;
     width: 100%;
-    height: 32px;
-    line-height: 32px;
+    height: $select-height;
+    line-height: $select-height;
     appearance: none;
-    padding: 0 25px 0 5px;
+    padding: $select-padding;
     background: #fff url($caret-base64);
     background-repeat: no-repeat;
     background-position: right 10px top 50%;
     background-size: 8px auto;
     border: 1px solid $border-color;
-    border-radius: 3px;
+    border-radius: $select-border-radius;
     outline: none;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    box-shadow: $select-box-shadow;
     transition: border-color .3s;
     @extend %fonts;
     font: {

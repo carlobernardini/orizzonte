@@ -4,7 +4,7 @@
 	&--focused {
 		.orizzonte__dropdown-button,
 		.orizzonte__dropdown-filter {
-			border-color: $color-a;
+			border-color: $filter-border-active;
 		}
 	}
 	&--expanded {
@@ -75,7 +75,7 @@
 	overflow: auto;
 	overflow-x: hidden;
 	font: {
-		size: .9em;
+		size: $font-size-filter;
 	}
 	animation: dropdownListIn .1s linear;
 }

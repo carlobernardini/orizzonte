@@ -313,6 +313,23 @@ A toggle switch button (affects single value)
 | `label`         | string             | no       | Label for this filter                                                                                                                                                                                                  |
 | `option`        | object             | yes      | Option that can be toggled (property `value` is required, `label` and `disabled` are optional). A toggle can only take one option. When switched on, the field will be included in the query with the option value     |
 
+## Theming
+All customizable variables defaults are found in [`src/scss/variables.scss`](src/scss/variables.scss). To override any variable, 
+don't import the compiled distribution CSS that comes with the package but instead, import the Sass source 
+in your project's source and redeclare the variables you want before that statement. For example:
+
+```
+// Custom variable values
+$color-a: blue;
+$color-b: red;
+
+// Import Sass source
+@import 'orizzonte/src/scss/Orizzonte.scss';
+```
+
+Following this method, the styles should be compiled as part of your own project's build process while taking 
+in consideration the customizations applied.
+
 ## Tests
 
 * Run tests: `npm test`
