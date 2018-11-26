@@ -188,7 +188,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `style`                       | object           | no       | Custom inline styles for the top-level element                                                                    |
 
 ### `<Group />` component
-Groups contain one or more filters for which it make sense to be shown together. Each group has its own name and can be provided with a description.
+Groups contain one or more [filters](#filters) for which it make sense to be shown together. Each group has its own name and can be provided with a description.
 
 | Prop                       | Type             | Required | Description                                                                                                                                                                     |
 |----------------------------|------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -215,9 +215,10 @@ Orizzonte comes with the following filter types:
 | `Dropdown` | A more advanced dropdown select with support for filtering options and select all |
 | `FullText` | A single or multi line full text field                                            |
 | `Select`   | A simple single-select filter (uses browser `<select />` element)                 |
+| `Toggle`   | A toggle switch filter for toggling a single-value field on and off               |
 
 #### `<Choices />` filter
-A series of inline checkboxes (multiple selections) or radios (single selection)
+A series of inline checkboxes (multiple selections) or radios (single selection). Each Choices filter can have multiple [options](#option-properties).
 
 | Prop                | Type    | Required | Description                                                                                        |
 |---------------------|---------|----------|----------------------------------------------------------------------------------------------------|
@@ -240,7 +241,7 @@ Each option is represented by an object that can have the following properties. 
 
 
 #### `<Dropdown />` filter
-A more advanced dropdown select with support for filtering options and select all. Facet counts for individual options are supported.
+A more advanced dropdown select with support for filtering options and select all. Facet counts for individual [options](#option-properties) are supported.
 
 | Prop                     | Type                    | Required | Description                                                                                                                                                                                                            |
 |--------------------------|-------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -267,26 +268,24 @@ A more advanced dropdown select with support for filtering options and select al
 | `selectAllCount`         | boolean                 | no       | Show total option count (excl. disabled options) in select all label                                                                                                                                                   |
 | `selectAllLabel`         | string                  | no       | What label to show for the select all option                                                                                                                                                                           |
 | `selectedLabel`          | string or function      | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
-| `value`                  | string, number or array | no       | Currently selected value(s)                                                                                                                                                                                            |
 
 #### `<FullText />` filter
 A single or multi line full text field
 
-| Prop              | Type               | Required | Description                                                                  |
-|-------------------|--------------------|----------|------------------------------------------------------------------------------|
-| `autoFocus`       | boolean            | no       | If the input should automatically receive focus when group is expanded       |
-| `disabled`        | boolean            | no       | Disables the input field                                                     |
-| `dispatchTimeout` | number             | no       | Custom debounce timeout before dispatching the new value to the query object |
-| `fieldName`       | string             | yes      | Field name for this filter, to be used in composed query                     |
-| `information`     | string             | no       | Help text for this filter, to be shown on mouseover                          |
-| `label`           | string             | no       | Label for this filter section                                                |
-| `maxHeight`       | number             | no       | Maximum textarea height (only applicable in `multiline` mode)                |
-| `maxWidth`        | number             | no       | Maximum textarea width (only applicable in `multiline` mode)                 |
-| `multiline`       | boolean            | no       | Whether to render a textarea (true) or input field (false)                   |
-| `placeholder`     | string             | no       | Placeholder text for the input field                                         |
-| `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                         |
-| `validateInput`   | function           | no       | Function to validate input, should return true (valid) or false (invalid)    |
-| `value`           | string             | no       | Current value                                                                |
+| Prop              | Type               | Required | Description                                                                   |
+|-------------------|--------------------|----------|-------------------------------------------------------------------------------|
+| `autoFocus`       | boolean            | no       | If the input should automatically receive focus when group is expanded        |
+| `disabled`        | boolean            | no       | Disables the input field                                                      |
+| `dispatchTimeout` | number             | no       | Custom debounce timeout before dispatching the new value to the query object  |
+| `fieldName`       | string             | yes      | Field name for this filter, to be used in composed query                      |
+| `information`     | string             | no       | Help text for this filter, to be shown on mouseover                           |
+| `label`           | string             | no       | Label for this filter section                                                 |
+| `maxHeight`       | number             | no       | Maximum textarea height (only applicable in `multiline` mode)                 |
+| `maxWidth`        | number             | no       | Maximum textarea width (only applicable in `multiline` mode)                  |
+| `multiline`       | boolean            | no       | Whether to render a textarea (`true`) or input field (`false`)                |
+| `placeholder`     | string             | no       | Placeholder text for the input field                                          |
+| `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                          |
+| `validateInput`   | function           | no       | Function to validate input, should return `true` (valid) or `false` (invalid) |
 
 #### `<Select />` filter
 A simple single-select filter (uses browser `<select />` element)
@@ -301,7 +300,6 @@ A simple single-select filter (uses browser `<select />` element)
 | `options`       | array              | yes      | Collection of selectable options (property `value` is required, `label` and `disabled` are optional). To create a group of options, use `value` for the group label and add an array of grouped options as `children`. |
 | `placeholder`   | string             | no       | Placeholder text for the input field                                                                                                                                                                                   |
 | `selectedLabel` | string or function | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
-| `value`         | string or number   | no       | Currently selected value                                                                                                                                                                                               |
 
 #### `<Toggle />` filter
 A toggle switch button (affects single value)
