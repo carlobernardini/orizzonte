@@ -324,7 +324,7 @@ $color-a: blue;
 $color-b: red;
 
 // Import Sass source
-@import 'orizzonte/src/scss/Orizzonte.scss';
+@import '~orizzonte/src/scss/Orizzonte.scss';
 ```
 
 Following this method, the styles should be compiled as part of your own project's build process while taking 
