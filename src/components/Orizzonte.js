@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
     difference, identity, isEqual, isFunction, pick, pickBy
@@ -158,7 +158,7 @@ class Orizzonte extends Component {
     renderAddBtn(position) {
         const {
             addBtnLabel, autoHideControls, orientation, children,
-            hideAddOnAllGroupsIncluded, maxGroups
+            groupToggleIcon, hideAddOnAllGroupsIncluded, maxGroups
         } = this.props;
 
         const { showControls } = this.state;
@@ -198,7 +198,6 @@ class Orizzonte extends Component {
 
         return (
             <BtnAdd
-                label={ addBtnLabel }
                 shown={ !includedCount || showControls || !autoHideControls }
                 position={ orientation === 'rtl' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
@@ -211,7 +210,14 @@ class Orizzonte extends Component {
                         label: child.props.label
                     };
                 }) }
-            />
+            >
+                { addBtnLabel ? (
+                    <Fragment>
+                        { addBtnLabel }
+                        { groupToggleIcon }
+                    </Fragment>
+                ) : null }
+            </BtnAdd>
         );
     }
 
@@ -273,7 +279,7 @@ class Orizzonte extends Component {
 
     render() {
         const {
-            children, className, collapseGroupOnClickOutside,
+            children, className, collapseGroupOnClickOutside, groupToggleIcon,
             groupTopLabels, dispatchOnFilterChange, orientation, style
         } = this.props;
         const { activeGroup } = this.state;
@@ -312,6 +318,7 @@ class Orizzonte extends Component {
                         collapseGroupOnClickOutside,
                         groupTopLabels,
                         i,
+                        icon: groupToggleIcon,
                         dispatchOnFilterChange,
                         onGroupRemove: this.removeGroup,
                         onGroupToggle: this.toggleGroup,
@@ -359,6 +366,8 @@ Orizzonte.propTypes = {
     /** Whether the group should collapse when the user clicks outside of it
         Changes will not be applied to the query */
     collapseGroupOnClickOutside: PropTypes.bool,
+    /** Icon to use for group toggling */
+    groupToggleIcon: PropTypes.node,
     /** Whether the group label should be shown at the top if some of its
         filters have selected values */
     groupTopLabels: PropTypes.bool,
@@ -402,6 +411,7 @@ Orizzonte.defaultProps = {
     clearAllLabel: null,
     clearedQuerySnapshot: {},
     collapseGroupOnClickOutside: false,
+    groupToggleIcon: null,
     groupTopLabels: false,
     hideAddOnAllGroupsIncluded: false,
     dispatchOnFilterChange: false,

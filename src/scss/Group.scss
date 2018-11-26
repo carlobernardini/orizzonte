@@ -1,14 +1,17 @@
+$vPadding: round($group-padding / 2);
+
 .orizzonte__group {
 	position: relative;
-	background-color: $group-color-idle;
+	background-color: $group-color-normal;
 	border-radius: $group-radius;
 	transition: all .3s;
 	white-space: nowrap;
 	margin-right: 5px;
 	box-sizing: border-box;
-	line-height: 30px;
+	line-height: 2 * $group-padding;
+	border: $group-border;
 	@extend %btn;
-	padding: 0 15px;
+	padding: 0 $group-padding;
 
 	&:hover {
 		background-color: $group-color-active;
@@ -47,30 +50,31 @@
 	}
 
 	&--empty {
-		background-color: #999;
+		background-color: $group-color-empty;
+		border: $group-border-empty;
 	}
 	&--top-labels {
 		margin-top: 20px;
 	}
 	&--error {
-		background-color: #999;
+		background-color: $group-color-empty;
 
 		&:hover {
-			background-color: #999;
+			background-color: $group-color-empty;
 		}
 	}
 }
 
 .orizzonte__group-description {
 	color: $text-color-muted;
-	padding: 5px 10px;
+	padding: $group-description-padding;
 	white-space: normal;
-	font-size: .9em;
+	font-size: $group-description-font-size;
 }
 
 .orizzonte__group-label {
-	margin: -7px 0 -7px -15px;
-	padding: 7px 0 7px 15px;
+	margin: (-$vPadding) 0 (-$vPadding) (-$group-padding);
+	padding: $vPadding 0 $vPadding $group-padding;
 	background-color: transparent;
 	outline: none;
 	border: none;
@@ -84,12 +88,12 @@
 
 	&--top {
 		position: absolute;
-		font-size: .7em;
-		top: -15px;
-		left: 15px;
-		line-height: 15px;
-		text-transform: uppercase;
-		color: $color-a;
+		font-size: $top-label-font-size;
+		top: (-$top-label-spacing);
+		left: $group-padding;
+		line-height: $top-label-spacing;
+		text-transform: $top-label-transform;
+		color: $top-label-color;
 		opacity: 0;
 		transform: translateY(5px);
 
@@ -127,7 +131,7 @@
 	color: $group-color-active;
 	background-color: rgba(255, 255, 255, 1);
 	border-radius: 25px;
-	float:right;
+	float: right;
 	cursor: pointer;
 	transition: all .3s;
 

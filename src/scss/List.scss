@@ -1,9 +1,9 @@
 .orizzonte__list {
     @extend %list;
     margin: 5px 0 0;
-    min-width: 260px;
+    min-width: $list-min-width;
     animation: listIn .1s linear;
-    transform-origin: top left;
+    transform-origin: $list-transform-origin;
 
     &--right {
         left: auto;

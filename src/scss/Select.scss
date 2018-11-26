@@ -2,7 +2,7 @@
     @extend %select;
 
     &:focus {
-        border-color: $color-a;
+        border-color: $filter-border-active;
     }
 
     &--disabled {

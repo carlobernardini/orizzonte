@@ -84,6 +84,7 @@ const component = ({ store }) => {
                 calendarPeriod: ['3m', '1y']
             }}
             saveLabel={ text('Label for Save button', '') }
+            groupToggleIcon={ <i className="fas fa-caret-down" style={{ marginLeft: '7px' }} /> }
             groupTopLabels={ boolean('Labels on top of groups', true) }
             hideAddOnAllGroupsIncluded={ boolean('Hide add-button when no more groups available', true) }
             dispatchOnFilterChange={ boolean('Dispatch query on filter change', true) }
