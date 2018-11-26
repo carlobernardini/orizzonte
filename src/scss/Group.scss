@@ -2,7 +2,7 @@ $vPadding: round($group-padding / 2);
 
 .orizzonte__group {
 	position: relative;
-	background-color: $group-color-normal;
+	background-color: $group-background-normal;
 	border-radius: $group-radius;
 	transition: all .3s;
 	white-space: nowrap;
@@ -14,7 +14,7 @@ $vPadding: round($group-padding / 2);
 	padding: 0 $group-padding;
 
 	&:hover {
-		background-color: $group-color-active;
+		background-color: $group-background-active;
 	}
 
 	&:last-child {
@@ -26,11 +26,11 @@ $vPadding: round($group-padding / 2);
 	}
 
 	&--shown {
-		background-color: lighten($group-color-active, 10%);
+		background-color: lighten($group-background-active, 10%);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 
 		&:hover {
-			background-color: lighten($group-color-active, 10%);
+			background-color: lighten($group-background-active, 10%);
 		}
 	}
 
@@ -50,17 +50,25 @@ $vPadding: round($group-padding / 2);
 	}
 
 	&--empty {
-		background-color: $group-color-empty;
+		background-color: $group-background-empty;
 		border: $group-border-empty;
+
+		.orizzonte__group-label {
+			color: $group-color-label-empty;
+		}
 	}
 	&--top-labels {
 		margin-top: 20px;
 	}
 	&--error {
-		background-color: $group-color-empty;
+		background-color: $group-background-empty;
 
 		&:hover {
-			background-color: $group-color-empty;
+			background-color: $group-background-empty;
+		}
+
+		.orizzonte__group-label {
+			color: $group-color-label-error;
 		}
 	}
 }
@@ -120,7 +128,7 @@ $vPadding: round($group-padding / 2);
 	right: 5px;
 	opacity: 0;
 	overflow: hidden;
-	box-shadow: -2px 1px 4px $group-color-active;
+	box-shadow: -2px 1px 4px $group-background-active;
 	padding: 0;
 	width: 20px;
 	line-height: 20px;
@@ -128,7 +136,7 @@ $vPadding: round($group-padding / 2);
 	color: #FFF;
 	border: none;
 	outline: none;
-	color: $group-color-active;
+	color: $group-background-active;
 	background-color: rgba(255, 255, 255, 1);
 	border-radius: 25px;
 	float: right;

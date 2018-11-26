@@ -28,10 +28,12 @@ $group-radius: 20px !default;
 $group-padding: 15px !default;
 $group-border: none !default;
 $group-border-empty: none !default;
-$group-color-empty: $gray-medium !default;
-$group-color-normal: $color-a !default;
-$group-color-active: $color-b !default;
+$group-background-empty: $gray-medium !default;
+$group-background-normal: $color-a !default;
+$group-background-active: $color-b !default;
 $group-color-label: #FFF !default;
+$group-color-label-empty: #FFF !default;
+$group-color-label-error: #FFF !default;
 $group-description-font-size: .9em !default;
 $group-description-padding: 5px 10px !default;
 
