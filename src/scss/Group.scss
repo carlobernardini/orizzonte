@@ -15,7 +15,10 @@ $vPadding: round($group-padding / 2);
 
 	&:hover {
 		background-color: $group-background-active;
-		color: $group-color-label-active;
+
+		.orizzonte__group-label {
+			color: $group-color-label-active;
+		}
 	}
 
 	&:last-child {
@@ -60,7 +63,10 @@ $vPadding: round($group-padding / 2);
 
 		&:hover {
 			background-color: $group-background-empty-active;
-			color: $group-color-label-empty-active;
+
+			.orizzonte__group-label {
+				color: $group-color-label-empty-active;
+			}
 		}
 	}
 	&--top-labels {
@@ -97,6 +103,7 @@ $vPadding: round($group-padding / 2);
 	overflow: hidden;
 	text-overflow: ellipsis;
 	box-sizing: border-box;
+	transition: color .3s;
 	@extend %fonts;
 	@extend %btn-label;
 
