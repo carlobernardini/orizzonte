@@ -15,6 +15,7 @@ $vPadding: round($group-padding / 2);
 
 	&:hover {
 		background-color: $group-background-active;
+		color: $group-color-label-active;
 	}
 
 	&:last-child {
@@ -55,6 +56,11 @@ $vPadding: round($group-padding / 2);
 
 		.orizzonte__group-label {
 			color: $group-color-label-empty;
+		}
+
+		&:hover {
+			background-color: $group-background-empty-active;
+			color: $group-color-label-empty-active;
 		}
 	}
 	&--top-labels {
