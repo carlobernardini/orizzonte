@@ -206,7 +206,8 @@ Groups contain one or more filters for which it make sense to be shown together.
 | `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                            |
 
 ### Filters
-A filter is responsible for controlling the value of a particular field in the query object. Orizzonte comes with the following filter types:
+A filter is responsible for controlling the value of a particular field in the query object. Every filter should be included as part of a [group](#group--component).
+Orizzonte comes with the following filter types:
 
 | Filter     | Description                                                                       |
 |------------|-----------------------------------------------------------------------------------|
@@ -329,6 +330,26 @@ $color-b: red;
 
 Following this method, the styles should be compiled as part of your own project's build process while taking 
 in consideration the customizations applied.
+
+## Custom filters
+Orizzonte comes with a set of [default filters](#filters) out of the box. If these do not meet your requirements, you can choose
+to create a filter of your own. Internally, Orizzonte clones each filter component and adds a few props, in addition 
+to the props you configured, that are used to read and update filter values. Any other filter interactivity should 
+be managed within the filter component itself.
+
+* `fieldName`
+This prop is required to be defined and will be used as the field name (key) for this filter in the query object (if a value is set).
+It should only be of type `PropTypes.string`.
+
+* `value`
+The current filter value is provided through the `value`-prop and is derived directly from the current query object.
+Make sure to define which types you expect to receive for this prop.
+
+* `onUpdate(newValue)`
+The filter value can be updated by calling the `onUpdate` function and passing the new value as it's first and only 
+argument. Note that the value in the query object will be exactly as passed through the `onUpdate` callback. 
+If for any reason the component expects a value representation different from how it's stored in the query, you 
+should use a transformer function to convert the internal format from and to the query format.
 
 ## Tests
 
