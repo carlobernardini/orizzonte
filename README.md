@@ -10,8 +10,8 @@
 
 ## Usage
 
-The organization of Orizzonte is simple: first you have the encapsulating Orizzonte component, then there are groups and every group holds one or more filters of its own.
-Groups can be in- or excluded from the Orizzonte bar, so users can include only what is relevant to them. Whenever field values change, Orizzonte will compute a new query
+The organization of Orizzonte is simple: first you have the encapsulating Orizzonte component, then there are [groups](#group--component) and every group holds one or more [filters](#filters) of its own.
+Groups can be added and removed from the Orizzonte bar, so users can include only what is relevant to them. Whenever field values change, Orizzonte will compute a new query
 object with all new values from all groups that are currently visible. Here is a basic example.
 
 ```js
@@ -166,7 +166,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 |-------------------------------|------------------|----------|-------------------------------------------------------------------------------------------------------------------|
 | `addBtnLabel`                 | string           | no       | Custom label for add-button                                                                                       |
 | `autoExpandOnGroupAdd`        | boolean          | no       | Makes a newly added group auto expand                                                                             |
-| `autoHideControls`            | boolean          | no       | If true, add, clear and save buttons will hide automatically                                                      |
+| `autoHideControls`            | boolean          | no       | If `true`, add, clear and save buttons will hide automatically                                                    |
 | `autoHideTimeout`             | number           | no       | Custom timeout interval for auto-hiding controls                                                                  |
 | `className`                   | string           | no       | Custom additional class name for the top-level element                                                            |
 | `clearAllLabel`               | string           | no       | Custom label for the button to clear all of the query. `onClear` prop needs to be defined for the button to show. |
@@ -175,7 +175,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `groupToggleIcon`             | node             | no       | Toggle indicator icon to be shown in groups                                                                       |
 | `groupTopLabels`              | boolean          | no       | Whether the group label should be shown at the top if some of it's filters have selected values                   |
 | `hideAddOnAllGroupsIncluded`  | boolean          | no       | Hide the add-button when there are no more groups to add                                                          |
-| `dispatchOnFilterChange`      | boolean          | no       | If true, the query object will be updated right after any filter change                                           |
+| `dispatchOnFilterChange`      | boolean          | no       | If `true`, the query object will be updated right after any filter change                                         |
 | `maxGroups`                   | number           | no       | Maximum number of groups to be added                                                                              |
 | `onChange`                    | function         | yes      | Callback function that triggers when the final query object is updated                                            |
 | `onClear`                     | function         | no       | Callback function for clearing all of the query. A snapshot of the cleared query state is given as argument.      |
@@ -193,7 +193,7 @@ Groups contain one or more [filters](#filters) for which it make sense to be sho
 | Prop                       | Type             | Required | Description                                                                                                                                                                     |
 |----------------------------|------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `className`                | string           | no       | Custom additional class name for top-level component element                                                                                                                    |
-| `mutuallyExclusiveFilters` | boolean or array | no       | When true, only one filter can be selected for this group. When you want only specific filters to be mutually exclusive,,you can provide an array of (two or more) field names. |
+| `mutuallyExclusiveFilters` | boolean or array | no       | When `true`, only one filter can be selected for this group. When you want only specific filters to be mutually exclusive, you can provide an array of (two or more) field names. |
 | `description`              | string           | no       | A description for this group of filters                                                                                                                                         |
 | `doneBtnLabel`             | string           | no       | Custom label for Done-button                                                                                                                                                    |
 | `hideClear`                | boolean          | no       | Hides the clear button in the dropdown                                                                                                                                          |
@@ -226,8 +226,8 @@ A series of inline checkboxes (multiple selections) or radios (single selection)
 | `information`       | string  | no       | Help text for this filter, to be shown on mouseover                                                |
 | `label`             | string  | no       | Label for this filter                                                                              |
 | `multiple`          | boolean | no       | Whether to show checkboxes (`true`) or radios (`false`)                                            |
-| `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option Only available for radio groups      |
-| `options`           | array   | yes      | Collection of possible options for this group of choices. Each option must at least have a value   |
+| `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option. Only available for radio groups.    |
+| `options`           | array   | yes      | Collection of possible options for this group of choices. Each option must at least have a value.  |
 
 ##### `Option` properties
 Each option is represented by an object that can have the following properties. All possible options are provided as an array of objects (collection).
@@ -237,7 +237,7 @@ Each option is represented by an object that can have the following properties. 
 | `option.disabled`   | bool              | Field name for this filter, to be used in composed query                                           |
 | `option.facetCount` | string or number  | Help text for this filter, to be shown on mouseover                                                |
 | `option.label`      | string            | Label for this option. If no label is defined, `option.value` will be used instead.                |
-| `option.value`      | string or number  | Selected value for this option (required).                                                         |
+| `option.value`      | string or number  | Selected value for this option (required)                                                          |
 
 
 #### `<Dropdown />` filter
