@@ -32,4 +32,9 @@
         min-height: 50px;
         min-width: 190px;
     }
+    &__error {
+        color: $fulltext-error-color;
+        margin-top: 3px;
+        font-size: .9em;
+    }
 }

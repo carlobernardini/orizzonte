@@ -90,7 +90,7 @@ class List extends Component {
     }
 
     renderListControls() {
-        const { removeBtn, doneBtn, isFilterGroup } = this.props;
+        const { removeBtn, doneBtn, mouseoverControls, isFilterGroup } = this.props;
 
         if (!isFilterGroup || (!removeBtn && !doneBtn)) {
             return null;
@@ -98,7 +98,9 @@ class List extends Component {
 
         return (
             <li
-                className="orizzonte__list-controls"
+                className={ classNames('orizzonte__list-controls', {
+                    'orizzonte__list-controls--mouseover': mouseoverControls
+                }) }
             >
                 { this.renderRemoveBtn() }
                 { this.renderDoneBtn() }
@@ -194,6 +196,7 @@ List.propTypes = {
         )
     ]).isRequired,
     minWidth: PropTypes.number,
+    mouseoverControls: PropTypes.bool,
     onApply: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -213,6 +216,7 @@ List.defaultProps = {
     doneBtnLabel: null,
     isFilterGroup: false,
     minWidth: null,
+    mouseoverControls: false,
     onApply: () => {},
     onRemove: () => {},
     onUpdate: () => {},

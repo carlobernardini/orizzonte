@@ -218,7 +218,8 @@ class Group extends Component {
         const { cache, groupValues } = this.state;
         const {
             active, children, description, doneBtnLabel, hideRemove, hideDone,
-            listMinWidth, onUpdate, orientation, queryPart, removeBtnLabel
+            listMinWidth, onUpdate, orientation, queryPart,
+            removeBtnLabel, showGroupControlsOnMouseover
         } = this.props;
 
         if (!active || !children) {
@@ -248,6 +249,7 @@ class Group extends Component {
                 doneBtnLabel={ doneBtnLabel }
                 isFilterGroup
                 minWidth={ listMinWidth }
+                mouseoverControls={ showGroupControlsOnMouseover }
                 orientation={ orientation }
                 onApply={ () => {
                     this.toggleGroup();
@@ -474,6 +476,8 @@ Group.propTypes = {
     queryPart: PropTypes.object,
     /** Custom label for remove group button */
     removeBtnLabel: PropTypes.string,
+    /** Only show group controls (remove, done) when hovering over the dropdown */
+    showGroupControlsOnMouseover: PropTypes.bool,
     /** Custom inline styles for top-level component element */
     style: PropTypes.object
 };
@@ -501,6 +505,7 @@ Group.defaultProps = {
     orientation: DEFAULT_ORIENTATION,
     queryPart: {},
     removeBtnLabel: null,
+    showGroupControlsOnMouseover: false,
     style: {}
 };
 

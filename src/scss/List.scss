@@ -10,11 +10,28 @@
         right: 0;
         transform-origin: top right;
     }
+
+    &:hover {
+        .orizzonte__list-controls--mouseover {
+            margin: 5px 10px;
+            transform: scale(1);
+            max-height: 100px;
+            opacity: 1;
+        }
+    }
 }
 
 .orizzonte__list-controls {
     display: flex;
-    margin: 5px 10px;
+    margin: 0 10px 5px;
+
+    &--mouseover {
+        max-height: 0;
+        opacity: 0;
+        transform: scale(.9);
+        overflow: hidden;
+        transition: all .3s;
+    }
 }
 
 .orizzonte__list-control {
