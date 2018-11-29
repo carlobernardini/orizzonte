@@ -120,6 +120,7 @@ const component = ({ store }) => {
             onSave={ (queryObject) => {
                 console.log('Save query', queryObject);
             }}
+            showGroupControlsOnMouseover={ boolean('Only show group controls on mouseover', true) }
         >
             {
                 groups.map((group, i) => {
@@ -349,6 +350,7 @@ stories.add('Default', withState({
                 validateInput={ (value) => (
                     !(/[0-9]/g.test(value))
                 )}
+                validationErrorMessage="Numbers are not allowed"
                 autoFocus
                 multiline
             />,

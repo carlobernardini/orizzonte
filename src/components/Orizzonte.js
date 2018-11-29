@@ -280,7 +280,8 @@ class Orizzonte extends Component {
     render() {
         const {
             children, className, collapseGroupOnClickOutside, groupToggleIcon,
-            groupTopLabels, dispatchOnFilterChange, orientation, style
+            groupTopLabels, dispatchOnFilterChange, orientation,
+            showGroupControlsOnMouseover, style
         } = this.props;
         const { activeGroup } = this.state;
 
@@ -325,6 +326,7 @@ class Orizzonte extends Component {
                         onUpdate: this.onGroupUpdate,
                         orientation: orientation === 'ltr' ? 'left' : 'right',
                         queryPart: this.extractQueryPart(child),
+                        showGroupControlsOnMouseover,
                         initialState: this.extractQueryPart(child, true)
                     });
                 }) }
@@ -397,6 +399,8 @@ Orizzonte.propTypes = {
     /** Custom label for the button to save the current query
         onSave prop needs to be defined for the button to show */
     saveLabel: PropTypes.string,
+    /** Only show group controls (remove, done) when hovering over the dropdown */
+    showGroupControlsOnMouseover: PropTypes.bool,
     /** Custom inline styles for the top-level element */
     style: PropTypes.object
 };
@@ -424,6 +428,7 @@ Orizzonte.defaultProps = {
     orientation: 'ltr',
     query: {},
     saveLabel: null,
+    showGroupControlsOnMouseover: false,
     style: null
 };
 
