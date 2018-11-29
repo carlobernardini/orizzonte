@@ -185,7 +185,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `orientation`                 | `ltr` or `rtl`   | no       | Render groups and controls from left-to-right (`ltr`, default) or right-to-left (`rtl`)                           |
 | `query`                       | object           | no       | The current query object                                                                                          |
 | `saveLabel`                   | string           | no       | Custom label for the button to save the current query. `onSave` prop needs to be defined for the button to show.  |
-| `showGroupControlsOnMouseover`| boolean          | no       | Only show the group controls (remove, add) when hovering over the dropdown list                                   |
+| `showGroupControlsOnMouseover`| boolean          | no       | Only show the group controls (remove, done) when hovering over the dropdown list                                  |
 | `style`                       | object           | no       | Custom inline styles for the top-level element                                                                    |
 
 ### `<Group />` component
@@ -204,7 +204,7 @@ Groups contain one or more [filters](#filters) for which it make sense to be sho
 | `label`                    | string           | yes      | Label for this group                                                                                                                                                            |
 | `orientation`              | `left` or `right`| no       | Default orientation of the group dropdown list                                                                                                                                  |
 | `removeBtnLabel`           | string           | no       | Custom label for Remove-button.                                                                                                                                                 |
-| `showControlsOnMouseover`  | boolean          | no       | Only show group controls (remove, add) when hovering over the dropdown list element                                                                                                                            |
+| `showControlsOnMouseover`  | boolean          | no       | Only show group controls (remove, done) when hovering over the dropdown list element                                                                                                                           |
 | `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                            |
 
 ### Filters
