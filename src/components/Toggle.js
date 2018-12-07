@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { uniqueId } from 'lodash-es';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
-import { NAME_PREFIX_TOGGLE } from '../constants';
+import { DISPLAY_NAME_TOGGLE, NAME_PREFIX_TOGGLE } from '../constants';
 
 const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLabel, value }) => {
     const id = uniqueId(NAME_PREFIX_TOGGLE);
@@ -64,6 +64,8 @@ const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLab
         </div>
     );
 };
+
+Toggle.displayName = DISPLAY_NAME_TOGGLE;
 
 Toggle.propTypes = {
     /** Disables the toggle switch */

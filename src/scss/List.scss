@@ -17,6 +17,7 @@
             transform: scale(1);
             max-height: 100px;
             opacity: 1;
+            transition-delay: 0s;
         }
     }
 }
@@ -31,6 +32,7 @@
         transform: scale(.9);
         overflow: hidden;
         transition: all .3s;
+        transition-delay: .5s;
     }
 }
 
