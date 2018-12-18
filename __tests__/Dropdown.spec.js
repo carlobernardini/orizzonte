@@ -1,7 +1,6 @@
 import React from 'react';
 import CheckBox from '../src/components/CheckBox';
 import Dropdown from '../src/components/Dropdown';
-import List from '../src/components/List';
 
 const labelTransformerFunction = (value) => (
     value.length === 1 ? value[0].label : `${ value.length } Countries`
@@ -277,7 +276,6 @@ describe('<Dropdown />', () => {
         const instance = wrapper.instance();
         const onFocus = jest.spyOn(instance, 'onFocus');
         const onBlur = jest.spyOn(instance, 'onFocus');
-        const toggleDropdown = jest.spyOn(instance, 'toggleDropdown');
         instance.forceUpdate();
 
         wrapper.find('.orizzonte__dropdown-button').simulate('focus');

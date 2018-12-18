@@ -1,3 +1,5 @@
 /dist/
 /storybook
 /config/
+/coverage/
+/node_modules/

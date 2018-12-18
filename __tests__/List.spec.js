@@ -260,7 +260,5 @@ describe('<List />', () => {
         global.dispatchEvent(new Event('resize'));
 
         expect(component.state().fromRight).toBe(false);
-
-
     });
 });
