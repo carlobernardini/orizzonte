@@ -2,7 +2,6 @@ import React from 'react';
 import Dropdown from '../src/components/Dropdown';
 import FullText from '../src/components/FullText';
 import Group from '../src/components/Group';
-import GroupBtn from '../src/components/GroupBtn';
 import List from '../src/components/List';
 import Select from '../src/components/Select';
 
@@ -64,9 +63,9 @@ describe('<Group />', () => {
         wrapper.find(List).prop('onApply')();
         expect(onUpdate).toHaveBeenCalled();
 
-        wrapper.find(List).prop('syncCacheToGroup')('testField', [1,2,3]);
+        wrapper.find(List).prop('syncCacheToGroup')('testField', [1, 2, 3]);
         expect(wrapper.state('cache')).toEqual({
-            testField: [1,2,3]
+            testField: [1, 2, 3]
         });
     });
 
@@ -258,5 +257,5 @@ describe('<Group />', () => {
         });
 
         expect(wrapper).toMatchSnapshot();
-    })
+    });
 });

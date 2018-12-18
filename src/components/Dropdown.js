@@ -7,7 +7,7 @@ import {
     isNil, toArray, uniqueId, without
 } from 'lodash-es';
 import diacritics from 'diacritics';
-import { getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
+import { escapeRegExp, getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
 import {
     DEFAULT_STR_LOADING, DEFAULT_STR_NO_MATCH, DEFAULT_STR_NO_OPTIONS, DISPLAY_NAME_FILTER_DROPDOWN
 } from '../constants';
@@ -98,7 +98,7 @@ class Dropdown extends Component {
             return mergedOptions;
         }
 
-        const re = new RegExp(`${ filterProp.matchPosition === 'start' ? '^' : '' }(${ filter })`, `g${ !filterProp.matchCase ? 'i' : '' }`);
+        const re = new RegExp(`${ filterProp.matchPosition === 'start' ? '^' : '' }(${ escapeRegExp(filter) })`, `g${ !filterProp.matchCase ? 'i' : '' }`);
 
         return mergedOptions.filter((option) => {
             const label = option.label || option.value;
@@ -113,7 +113,7 @@ class Dropdown extends Component {
             return label;
         }
 
-        const parts = label.split(new RegExp(`(${ filter })`, 'gi'));
+        const parts = label.split(new RegExp(`(${ escapeRegExp(filter) })`, 'gi'));
 
         return (
             <span>

@@ -35,6 +35,7 @@
         "template-curly-spacing": "off"
     },
     "globals": {
+        "Event": true,
         "document": true,
         "mount": true,
         "shallow": true,
