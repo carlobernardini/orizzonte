@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { cloneElement, createRef, Children, Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
     difference, identity, isEqual, isFunction, pick, pickBy
@@ -17,7 +17,7 @@ class Orizzonte extends Component {
             activeGroup: null,
             showControls: false
         };
-        this.orizzonte = React.createRef();
+        this.orizzonte = createRef();
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
         this.addGroup = this.addGroup.bind(this);
@@ -75,7 +75,7 @@ class Orizzonte extends Component {
             return false;
         }
 
-        const newIndex = React.Children.map(children, (child) => (child.props.included)).length - 1;
+        const newIndex = Children.map(children, (child) => (child.props.included)).length - 1;
 
         this.toggleGroup(newIndex);
         return true;
@@ -101,7 +101,7 @@ class Orizzonte extends Component {
             return true;            
         }
 
-        const included = React.Children.map(children, (child) => {
+        const included = Children.map(children, (child) => {
             if (!child.props.included) {
                 return null;
             }
@@ -145,7 +145,7 @@ class Orizzonte extends Component {
     extractQueryPart(group, fromSnapshot = false) {
         const { clearedQuerySnapshot, query } = this.props;
 
-        const fieldNames = React.Children.map(
+        const fieldNames = Children.map(
             group.props.children,
             (filter) => (
                 filter.props.fieldName
@@ -169,13 +169,13 @@ class Orizzonte extends Component {
 
         if (
             maxGroups
-            && maxGroups === React.Children.count(children)
+            && maxGroups === Children.count(children)
             && !autoHideControls
         ) {
             return null;
         }
 
-        const availableGroups = React.Children.map(children, (child, i) => {
+        const availableGroups = Children.map(children, (child, i) => {
             if (child.type.displayName !== DISPLAY_NAME_GROUP || child.props.included) {
                 return null;
             }
@@ -189,7 +189,7 @@ class Orizzonte extends Component {
             return null;
         }
 
-        const includedCount = React.Children.map(children, (child) => {
+        const includedCount = Children.map(children, (child) => {
             if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                 return null;
             }
@@ -201,7 +201,7 @@ class Orizzonte extends Component {
                 shown={ !includedCount || showControls || !autoHideControls }
                 position={ orientation === 'rtl' ? 'left' : 'right' }
                 onGroupAdd={ this.addGroup }
-                available={ React.Children.map(children, (child, i) => {
+                available={ Children.map(children, (child, i) => {
                     if (child.props.included) {
                         return null;
                     }
@@ -309,12 +309,12 @@ class Orizzonte extends Component {
                 { this.renderSaveBtn('ltr') }
                 { this.renderClearBtn('ltr') }
                 { this.renderAddBtn('ltr') }
-                { React.Children.map(children, (child, i) => {
+                { Children.map(children, (child, i) => {
                     if (child.type.displayName !== DISPLAY_NAME_GROUP || !child.props.included) {
                         return null;
                     }
 
-                    return React.cloneElement(child, {
+                    return cloneElement(child, {
                         active: activeGroup === i,
                         collapseGroupOnClickOutside,
                         groupTopLabels,

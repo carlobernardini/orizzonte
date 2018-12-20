@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
@@ -30,9 +30,9 @@ class Dropdown extends Component {
         };
 
         this.debounceRemote = null;
-        this.dropdown = React.createRef();
-        this.dropdownButton = React.createRef();
-        this.filter = React.createRef();
+        this.dropdown = createRef();
+        this.dropdownButton = createRef();
+        this.filter = createRef();
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);

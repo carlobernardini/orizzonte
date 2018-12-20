@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { createRef, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DISPLAY_NAME_BTN_ADD } from '../constants';
@@ -11,7 +11,7 @@ class BtnAdd extends PureComponent {
         this.state = {
             active: false
         };
-        this.btnAdd = React.createRef();
+        this.btnAdd = createRef();
         this.toggleButton = this.toggleButton.bind(this);
         document.addEventListener('click', this.onBodyClick.bind(this), false);
     }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { cloneElement, createRef, Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DEFAULT_STR_DONE, DEFAULT_STR_REMOVE, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../constants';
@@ -11,7 +11,7 @@ class List extends Component {
             fromRight: false,
         };
 
-        this.list = React.createRef();
+        this.list = createRef();
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
     }
 
@@ -114,7 +114,7 @@ class List extends Component {
         } = this.props;
 
         if (isFilterGroup) {
-            return React.Children.map(children, (item, i) => {
+            return Children.map(children, (item, i) => {
                 const props = {};
 
                 if (typeof item.type === typeof Function) {
@@ -143,13 +143,13 @@ class List extends Component {
                         }) }
                         key={ i }
                     >
-                        { React.cloneElement(item, props) }
+                        { cloneElement(item, props) }
                     </li>
                 );
             });
         }
 
-        return React.Children.map(children, (item, i) => (
+        return Children.map(children, (item, i) => (
             <li
                 className="orizzonte__item"
                 key={ i }

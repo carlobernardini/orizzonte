@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createRef, Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
@@ -22,7 +22,7 @@ class Group extends Component {
             hasError: false
         };
 
-        this.groupTopLabel = React.createRef();
+        this.groupTopLabel = createRef();
         this.clearGroup = this.clearGroup.bind(this);
         this.removeGroup = this.removeGroup.bind(this);
         this.toggleGroup = this.toggleGroup.bind(this);
@@ -88,7 +88,7 @@ class Group extends Component {
     queryHasGroupFilters() {
         const { children, queryPart } = this.props;
 
-        const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+        const fieldNames = Children.map(children, (child) => (child.props.fieldName));
 
         const fieldsInQueryPart = intersection(Object.keys(queryPart), fieldNames);
 
@@ -283,7 +283,7 @@ class Group extends Component {
             return label;
         }
 
-        const selectedLabels = React.Children.map(children, (child) => {
+        const selectedLabels = Children.map(children, (child) => {
             if (!child.props || !child.props.fieldName || !(child.props.fieldName in queryPart)) {
                 return null;
             }
@@ -329,7 +329,7 @@ class Group extends Component {
             return null;
         }
 
-        const fieldNames = React.Children.map(children, (child) => (child.props.fieldName));
+        const fieldNames = Children.map(children, (child) => (child.props.fieldName));
 
         if (!fieldNames.length) {
             return null;

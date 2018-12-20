@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
@@ -18,7 +18,7 @@ class FullText extends Component {
             this.dispatchToQuery,
             props.dispatchTimeout
         );
-        this.input = React.createRef();
+        this.input = createRef();
         this.dispatchDebouncedWrapper = this.dispatchDebouncedWrapper.bind(this);
         this.dispatchToQuery = this.dispatchToQuery.bind(this);
     }
