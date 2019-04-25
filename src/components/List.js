@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { cloneElement, createRef, Children, Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DEFAULT_STR_DONE, DEFAULT_STR_REMOVE, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../constants';
@@ -11,7 +11,7 @@ class List extends Component {
             fromRight: false,
         };
 
-        this.list = React.createRef();
+        this.list = createRef();
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
     }
 
@@ -90,7 +90,7 @@ class List extends Component {
     }
 
     renderListControls() {
-        const { removeBtn, doneBtn, isFilterGroup } = this.props;
+        const { removeBtn, doneBtn, mouseoverControls, isFilterGroup } = this.props;
 
         if (!isFilterGroup || (!removeBtn && !doneBtn)) {
             return null;
@@ -98,7 +98,9 @@ class List extends Component {
 
         return (
             <li
-                className="orizzonte__list-controls"
+                className={ classNames('orizzonte__list-controls', {
+                    'orizzonte__list-controls--mouseover': mouseoverControls
+                }) }
             >
                 { this.renderRemoveBtn() }
                 { this.renderDoneBtn() }
@@ -112,7 +114,7 @@ class List extends Component {
         } = this.props;
 
         if (isFilterGroup) {
-            return React.Children.map(children, (item, i) => {
+            return Children.map(children, (item, i) => {
                 const props = {};
 
                 if (typeof item.type === typeof Function) {
@@ -141,13 +143,13 @@ class List extends Component {
                         }) }
                         key={ i }
                     >
-                        { React.cloneElement(item, props) }
+                        { cloneElement(item, props) }
                     </li>
                 );
             });
         }
 
-        return React.Children.map(children, (item, i) => (
+        return Children.map(children, (item, i) => (
             <li
                 className="orizzonte__item"
                 key={ i }
@@ -194,6 +196,7 @@ List.propTypes = {
         )
     ]).isRequired,
     minWidth: PropTypes.number,
+    mouseoverControls: PropTypes.bool,
     onApply: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func,
@@ -213,6 +216,7 @@ List.defaultProps = {
     doneBtnLabel: null,
     isFilterGroup: false,
     minWidth: null,
+    mouseoverControls: false,
     onApply: () => {},
     onRemove: () => {},
     onUpdate: () => {},

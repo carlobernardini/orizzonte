@@ -105,13 +105,13 @@ describe('transformLabel', () => {
             `${ value.length } / ${ totalCount } selected`
         );
         expect(
-            transformLabel(transformer, [1,2,3], 4)
+            transformLabel(transformer, [1, 2, 3], 4)
         ).toBe('3 / 4 selected');
     });
 
     it('should replace a placeholder in the label template with selected options length', () => {
         expect(
-            transformLabel('%d selected', [1,2,3])
+            transformLabel('%d selected', [1, 2, 3])
         ).toBe('3 selected');
     });
 

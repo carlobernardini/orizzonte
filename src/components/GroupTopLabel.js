@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const GroupTopLabel = React.forwardRef(({ children, shown }, ref) => (
+const GroupTopLabel = forwardRef(({ children, shown }, ref) => (
     <span
         className={ classNames('orizzonte__group-label--top', {
             'orizzonte__group-label--top-shown': shown

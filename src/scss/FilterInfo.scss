@@ -2,7 +2,7 @@
     position: absolute;
     top: 5px;
     right: 10px;
-    color: $color-a;
+    color: $tooltip-icon-color;
     width: 14px;
     height: 14px;
     text-align: center;
@@ -24,12 +24,12 @@
     z-index: 999;
     display: none;
     position: fixed;
-    max-width: 300px;
+    max-width: $tooltip-max-width;
     transform: translateX(25px);
-    background-color: #666;
-    color: #fff;
-    padding: 7px 10px;
-    border-radius: 3px;
+    background-color: $tooltip-background;
+    color: $tooltip-color;
+    padding: $tooltip-padding;
+    border-radius: $tooltip-border-radius;
     cursor: default;
     animation: infoTooltipIn .3s forwards;
     white-space: normal;
@@ -40,7 +40,7 @@
 
     &:after {
         right: 100%;
-        top: 15px;
+        top: $tooltip-caret-offset;
         border: solid transparent;
         content: " ";
         height: 0;
@@ -48,7 +48,7 @@
         position: absolute;
         pointer-events: none;
         border-color: transparent;
-        border-right-color: rgba(0,0,0, .6);
+        border-right-color: $tooltip-background;
         border-width: 3px;
         margin-top: -3px;
     }

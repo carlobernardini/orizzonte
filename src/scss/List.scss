@@ -1,20 +1,39 @@
 .orizzonte__list {
     @extend %list;
     margin: 5px 0 0;
-    min-width: 260px;
+    min-width: $list-min-width;
     animation: listIn .1s linear;
-    transform-origin: top left;
+    transform-origin: $list-transform-origin;
 
     &--right {
         left: auto;
         right: 0;
         transform-origin: top right;
     }
+
+    &:hover {
+        .orizzonte__list-controls--mouseover {
+            margin: 5px 10px;
+            transform: scale(1);
+            max-height: 100px;
+            opacity: 1;
+            transition-delay: 0s;
+        }
+    }
 }
 
 .orizzonte__list-controls {
     display: flex;
-    margin: 5px 10px;
+    margin: 0 10px 5px;
+
+    &--mouseover {
+        max-height: 0;
+        opacity: 0;
+        transform: scale(.9);
+        overflow: hidden;
+        transition: all .3s;
+        transition-delay: .5s;
+    }
 }
 
 .orizzonte__list-control {

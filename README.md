@@ -10,8 +10,8 @@
 
 ## Usage
 
-The organization of Orizzonte is simple: first you have the encapsulating Orizzonte component, then there are groups and every group holds one or more filters of its own.
-Groups can be in- or excluded from the Orizzonte bar, so users can include only what is relevant to them. Whenever field values change, Orizzonte will compute a new query
+The organization of Orizzonte is simple: first you have the encapsulating Orizzonte component, then there are [groups](#group--component) and every group holds one or more [filters](#filters) of its own.
+Groups can be added and removed from the Orizzonte bar, so users can include only what is relevant to them. Whenever field values change, Orizzonte will compute a new query
 object with all new values from all groups that are currently visible. Here is a basic example.
 
 ```js
@@ -166,7 +166,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 |-------------------------------|------------------|----------|-------------------------------------------------------------------------------------------------------------------|
 | `addBtnLabel`                 | string           | no       | Custom label for add-button                                                                                       |
 | `autoExpandOnGroupAdd`        | boolean          | no       | Makes a newly added group auto expand                                                                             |
-| `autoHideControls`            | boolean          | no       | If true, add, clear and save buttons will hide automatically                                                      |
+| `autoHideControls`            | boolean          | no       | If `true`, add, clear and save buttons will hide automatically                                                    |
 | `autoHideTimeout`             | number           | no       | Custom timeout interval for auto-hiding controls                                                                  |
 | `className`                   | string           | no       | Custom additional class name for the top-level element                                                            |
 | `clearAllLabel`               | string           | no       | Custom label for the button to clear all of the query. `onClear` prop needs to be defined for the button to show. |
@@ -175,7 +175,7 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `groupToggleIcon`             | node             | no       | Toggle indicator icon to be shown in groups                                                                       |
 | `groupTopLabels`              | boolean          | no       | Whether the group label should be shown at the top if some of it's filters have selected values                   |
 | `hideAddOnAllGroupsIncluded`  | boolean          | no       | Hide the add-button when there are no more groups to add                                                          |
-| `dispatchOnFilterChange`      | boolean          | no       | If true, the query object will be updated right after any filter change                                           |
+| `dispatchOnFilterChange`      | boolean          | no       | If `true`, the query object will be updated right after any filter change                                         |
 | `maxGroups`                   | number           | no       | Maximum number of groups to be added                                                                              |
 | `onChange`                    | function         | yes      | Callback function that triggers when the final query object is updated                                            |
 | `onClear`                     | function         | no       | Callback function for clearing all of the query. A snapshot of the cleared query state is given as argument.      |
@@ -185,15 +185,16 @@ Click on 'Show info' to see additional implementation details such as supported 
 | `orientation`                 | `ltr` or `rtl`   | no       | Render groups and controls from left-to-right (`ltr`, default) or right-to-left (`rtl`)                           |
 | `query`                       | object           | no       | The current query object                                                                                          |
 | `saveLabel`                   | string           | no       | Custom label for the button to save the current query. `onSave` prop needs to be defined for the button to show.  |
+| `showGroupControlsOnMouseover`| boolean          | no       | Only show the group controls (remove, done) when hovering over the dropdown list                                  |
 | `style`                       | object           | no       | Custom inline styles for the top-level element                                                                    |
 
 ### `<Group />` component
-Groups contain one or more filters for which it make sense to be shown together. Each group has its own name and can be provided with a description.
+Groups contain one or more [filters](#filters) for which it make sense to be shown together. Each group has its own name and can be provided with a description.
 
 | Prop                       | Type             | Required | Description                                                                                                                                                                     |
 |----------------------------|------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `className`                | string           | no       | Custom additional class name for top-level component element                                                                                                                    |
-| `mutuallyExclusiveFilters` | boolean or array | no       | When true, only one filter can be selected for this group. When you want only specific filters to be mutually exclusive,,you can provide an array of (two or more) field names. |
+| `mutuallyExclusiveFilters` | boolean or array | no       | When `true`, only one filter can be selected for this group. When you want only specific filters to be mutually exclusive, you can provide an array of (two or more) field names. |
 | `description`              | string           | no       | A description for this group of filters                                                                                                                                         |
 | `doneBtnLabel`             | string           | no       | Custom label for Done-button                                                                                                                                                    |
 | `hideClear`                | boolean          | no       | Hides the clear button in the dropdown                                                                                                                                          |
@@ -203,10 +204,12 @@ Groups contain one or more filters for which it make sense to be shown together.
 | `label`                    | string           | yes      | Label for this group                                                                                                                                                            |
 | `orientation`              | `left` or `right`| no       | Default orientation of the group dropdown list                                                                                                                                  |
 | `removeBtnLabel`           | string           | no       | Custom label for Remove-button.                                                                                                                                                 |
+| `showControlsOnMouseover`  | boolean          | no       | Only show group controls (remove, done) when hovering over the dropdown list element                                                                                                                           |
 | `style`                    | object           | no       | Custom inline styles for top-level component element                                                                                                                            |
 
 ### Filters
-A filter is responsible for controlling the value of a particular field in the query object. Orizzonte comes with the following filter types:
+A filter is responsible for controlling the value of a particular field in the query object. Every filter should be included as part of a [group](#group--component).
+Orizzonte comes with the following filter types:
 
 | Filter     | Description                                                                       |
 |------------|-----------------------------------------------------------------------------------|
@@ -214,9 +217,10 @@ A filter is responsible for controlling the value of a particular field in the q
 | `Dropdown` | A more advanced dropdown select with support for filtering options and select all |
 | `FullText` | A single or multi line full text field                                            |
 | `Select`   | A simple single-select filter (uses browser `<select />` element)                 |
+| `Toggle`   | A toggle switch filter for toggling a single-value field on and off               |
 
 #### `<Choices />` filter
-A series of inline checkboxes (multiple selections) or radios (single selection)
+A series of inline checkboxes (multiple selections) or radios (single selection). Each Choices filter can have multiple [options](#option-properties).
 
 | Prop                | Type    | Required | Description                                                                                        |
 |---------------------|---------|----------|----------------------------------------------------------------------------------------------------|
@@ -224,8 +228,8 @@ A series of inline checkboxes (multiple selections) or radios (single selection)
 | `information`       | string  | no       | Help text for this filter, to be shown on mouseover                                                |
 | `label`             | string  | no       | Label for this filter                                                                              |
 | `multiple`          | boolean | no       | Whether to show checkboxes (`true`) or radios (`false`)                                            |
-| `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option Only available for radio groups      |
-| `options`           | array   | yes      | Collection of possible options for this group of choices. Each option must at least have a value   |
+| `noPreferenceLabel` | string  | no       | Label to show if you want to include a 'no preference' option. Only available for radio groups.    |
+| `options`           | array   | yes      | Collection of possible options for this group of choices. Each option must at least have a value.  |
 
 ##### `Option` properties
 Each option is represented by an object that can have the following properties. All possible options are provided as an array of objects (collection).
@@ -235,11 +239,11 @@ Each option is represented by an object that can have the following properties. 
 | `option.disabled`   | bool              | Field name for this filter, to be used in composed query                                           |
 | `option.facetCount` | string or number  | Help text for this filter, to be shown on mouseover                                                |
 | `option.label`      | string            | Label for this option. If no label is defined, `option.value` will be used instead.                |
-| `option.value`      | string or number  | Selected value for this option (required).                                                         |
+| `option.value`      | string or number  | Selected value for this option (required)                                                          |
 
 
 #### `<Dropdown />` filter
-A more advanced dropdown select with support for filtering options and select all. Facet counts for individual options are supported.
+A more advanced dropdown select with support for filtering options and select all. Facet counts for individual [options](#option-properties) are supported.
 
 | Prop                     | Type                    | Required | Description                                                                                                                                                                                                            |
 |--------------------------|-------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -266,26 +270,24 @@ A more advanced dropdown select with support for filtering options and select al
 | `selectAllCount`         | boolean                 | no       | Show total option count (excl. disabled options) in select all label                                                                                                                                                   |
 | `selectAllLabel`         | string                  | no       | What label to show for the select all option                                                                                                                                                                           |
 | `selectedLabel`          | string or function      | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
-| `value`                  | string, number or array | no       | Currently selected value(s)                                                                                                                                                                                            |
 
 #### `<FullText />` filter
 A single or multi line full text field
 
-| Prop              | Type               | Required | Description                                                                  |
-|-------------------|--------------------|----------|------------------------------------------------------------------------------|
-| `autoFocus`       | boolean            | no       | If the input should automatically receive focus when group is expanded       |
-| `disabled`        | boolean            | no       | Disables the input field                                                     |
-| `dispatchTimeout` | number             | no       | Custom debounce timeout before dispatching the new value to the query object |
-| `fieldName`       | string             | yes      | Field name for this filter, to be used in composed query                     |
-| `information`     | string             | no       | Help text for this filter, to be shown on mouseover                          |
-| `label`           | string             | no       | Label for this filter section                                                |
-| `maxHeight`       | number             | no       | Maximum textarea height (only applicable in `multiline` mode)                |
-| `maxWidth`        | number             | no       | Maximum textarea width (only applicable in `multiline` mode)                 |
-| `multiline`       | boolean            | no       | Whether to render a textarea (true) or input field (false)                   |
-| `placeholder`     | string             | no       | Placeholder text for the input field                                         |
-| `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                         |
-| `validateInput`   | function           | no       | Function to validate input, should return true (valid) or false (invalid)    |
-| `value`           | string             | no       | Current value                                                                |
+| Prop              | Type               | Required | Description                                                                   |
+|-------------------|--------------------|----------|-------------------------------------------------------------------------------|
+| `autoFocus`       | boolean            | no       | If the input should automatically receive focus when group is expanded        |
+| `disabled`        | boolean            | no       | Disables the input field                                                      |
+| `dispatchTimeout` | number             | no       | Custom debounce timeout before dispatching the new value to the query object  |
+| `fieldName`       | string             | yes      | Field name for this filter, to be used in composed query                      |
+| `information`     | string             | no       | Help text for this filter, to be shown on mouseover                           |
+| `label`           | string             | no       | Label for this filter section                                                 |
+| `maxHeight`       | number             | no       | Maximum textarea height (only applicable in `multiline` mode)                 |
+| `maxWidth`        | number             | no       | Maximum textarea width (only applicable in `multiline` mode)                  |
+| `multiline`       | boolean            | no       | Whether to render a textarea (`true`) or input field (`false`)                |
+| `placeholder`     | string             | no       | Placeholder text for the input field                                          |
+| `selectedLabel`   | string or function | no       | Transforming function or placeholder for group label                          |
+| `validateInput`   | function           | no       | Function to validate input, should return `true` (valid) or `false` (invalid) |
 
 #### `<Select />` filter
 A simple single-select filter (uses browser `<select />` element)
@@ -300,7 +302,6 @@ A simple single-select filter (uses browser `<select />` element)
 | `options`       | array              | yes      | Collection of selectable options (property `value` is required, `label` and `disabled` are optional). To create a group of options, use `value` for the group label and add an array of grouped options as `children`. |
 | `placeholder`   | string             | no       | Placeholder text for the input field                                                                                                                                                                                   |
 | `selectedLabel` | string or function | no       | Transforming function or placeholder for group label                                                                                                                                                                   |
-| `value`         | string or number   | no       | Currently selected value                                                                                                                                                                                               |
 
 #### `<Toggle />` filter
 A toggle switch button (affects single value)
@@ -312,6 +313,43 @@ A toggle switch button (affects single value)
 | `information`   | string             | no       | Help text for this filter, to be shown on mouseover                                                                                                                                                                    |
 | `label`         | string             | no       | Label for this filter                                                                                                                                                                                                  |
 | `option`        | object             | yes      | Option that can be toggled (property `value` is required, `label` and `disabled` are optional). A toggle can only take one option. When switched on, the field will be included in the query with the option value     |
+
+## Theming
+All customizable variables defaults are found in [`src/scss/variables.scss`](src/scss/variables.scss). To override any variable, 
+don't import the compiled distribution CSS that comes with the package but instead, import the Sass source 
+in your project's source and redeclare the variables you want before that statement. For example:
+
+```
+// Custom variable values
+$color-a: blue;
+$color-b: red;
+
+// Import Sass source
+@import '~orizzonte/src/scss/Orizzonte.scss';
+```
+
+Following this method, the styles should be compiled as part of your own project's build process while taking 
+in consideration the customizations applied.
+
+## Custom filters
+Orizzonte comes with a set of [default filters](#filters) out of the box. If these do not meet your requirements, you can choose
+to create a filter of your own. Internally, Orizzonte clones each filter component and adds a few props, in addition 
+to the props you configured, that are used to read and update filter values. Any other filter interactivity should 
+be managed within the filter component itself.
+
+* `fieldName`
+This prop is required to be defined and will be used as the field name (key) for this filter in the query object (if a value is set).
+It should only be of type `PropTypes.string`.
+
+* `value`
+The current filter value is provided through the `value`-prop and is derived directly from the current query object.
+Make sure to define which types you expect to receive for this prop.
+
+* `onUpdate(newValue)`
+The filter value can be updated by calling the `onUpdate` function and passing the new value as it's first and only 
+argument. Note that the value in the query object will be exactly as passed through the `onUpdate` callback. 
+If for any reason the component expects a value representation different from how it's stored in the query, you 
+should use a transformer function to convert the internal format from and to the query format.
 
 ## Tests
 

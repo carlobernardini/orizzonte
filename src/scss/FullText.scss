@@ -3,21 +3,21 @@
     padding: 5px;
     background-color: #fff;
     border: 1px solid $border-color;
-    border-radius: 3px;
+    border-radius: $fulltext-border-radius;
     outline: none;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    box-shadow: $fulltext-box-shadow;
     transition: border-color .3s;
     box-sizing: border-box;
-    height: 32px;
+    height: $fulltext-base-height;
     @extend %fonts;
     font: {
-        size: .9em;
+        size: $fulltext-font-size;
     }
 
     &:focus {
-        border-color: $color-a;
+        border-color: $filter-border-active;
         &.orizzonte__filter-fulltext--invalid {
-            border-color: $color-e;
+            border-color: $filter-border-invalid;
         }
     }
     &--disabled {
@@ -25,11 +25,16 @@
         background-color: $background-color-muted;
     }
     &--invalid {
-        border-color: $color-e;
+        border-color: $filter-border-invalid;
     }
     &--multiline {
         height: auto;
         min-height: 50px;
         min-width: 190px;
+    }
+    &__error {
+        color: $fulltext-error-color;
+        margin-top: 3px;
+        font-size: .9em;
     }
 }

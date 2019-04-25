@@ -1,17 +1,24 @@
 {
   "name": "orizzonte",
-  "version": "0.2.7",
+  "version": "0.3.7",
   "description": "React components for a horizontal, filtered search UI",
   "main": "./dist/orizzonte.min.js",
   "scripts": {
     "analyze": "npm run stats && webpack-bundle-analyzer ./stats.json ./dist",
     "build": "webpack --progress --config ./config/webpack.config.prod.js",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "lint": "eslint .",
+    "lint-fix": "npm run lint -- --fix",
     "prepare": "npm run test && npm run build",
     "stats": "webpack --env production --profile --json --config ./config/webpack.config.prod.js > stats.json",
     "storybook": "start-storybook -p 9001",
     "storybook-deploy": "storybook-to-ghpages",
     "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test && npm run lint-fix"
+    }
   },
   "browserslist": [
     "last 1 version",
@@ -78,6 +85,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.0",
     "eslint-plugin-react": "^7.10.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "husky": "^1.2.1",
     "jest": "^23.4.0",
     "node-sass": "^4.9.2",
     "postcss-loader": "^2.1.6",

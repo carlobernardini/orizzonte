@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { debounce, isFunction } from 'lodash-es';
@@ -18,7 +18,7 @@ class FullText extends Component {
             this.dispatchToQuery,
             props.dispatchTimeout
         );
-        this.input = React.createRef();
+        this.input = createRef();
         this.dispatchDebouncedWrapper = this.dispatchDebouncedWrapper.bind(this);
         this.dispatchToQuery = this.dispatchToQuery.bind(this);
     }
@@ -150,6 +150,28 @@ class FullText extends Component {
         );
     }
 
+    renderValidationError() {
+        const { validateInput, validationErrorMessage } = this.props;
+
+        if (!validateInput || !isFunction(validateInput) || !validationErrorMessage) {
+            return null;
+        }
+
+        const { value = '' } = this.state;
+
+        if (!value.length || validateInput(value)) {
+            return null;
+        }
+
+        return (
+            <div
+                className="orizzonte__filter-fulltext__error"
+            >
+                { validationErrorMessage }
+            </div>
+        );
+    }
+
     render() {
         const { information, label } = this.props;
 
@@ -164,6 +186,7 @@ class FullText extends Component {
                     { label }
                 </Caption>
                 { this.renderField() }
+                { this.renderValidationError() }
             </div>
         );
     }
@@ -202,6 +225,8 @@ FullText.propTypes = {
     ]),
     /** Function to validate user input, should return true (valid) or false (invalid) */
     validateInput: PropTypes.func,
+    /** Error message to show when input is invalid */
+    validationErrorMessage: PropTypes.string,
     /** Current value for this filter */
     value: PropTypes.string
 };
@@ -220,6 +245,7 @@ FullText.defaultProps = {
     placeholder: null,
     selectedLabel: '%s',
     validateInput: null,
+    validationErrorMessage: null,
     value: null
 };
 

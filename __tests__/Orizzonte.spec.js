@@ -4,7 +4,6 @@ import { Group, Select } from '../src';
 import BtnAdd from '../src/components/BtnAdd';
 import BtnClearAll from '../src/components/BtnClearAll';
 import BtnSave from '../src/components/BtnSave';
-import List from '../src/components/List';
 
 describe('<Orizzonte />', () => {
     it('should render an empty filter container', () => {
@@ -73,7 +72,7 @@ describe('<Orizzonte />', () => {
     });
 
     it('should unset an active group when clicking outside of the main component', () => {
-        const map = {}
+        const map = {};
 
         const onGroupRemove = jest.fn();
 
@@ -129,7 +128,7 @@ describe('<Orizzonte />', () => {
 
         expect(instance.toggleGroup(false)).toBe(false);
 
-        wrapper.find(Group).first().prop('onGroupRemove')(0)
+        wrapper.find(Group).first().prop('onGroupRemove')(0);
         expect(onGroupRemove).toHaveBeenCalledWith(0);
 
         jest.useFakeTimers();
@@ -210,7 +209,7 @@ describe('<Orizzonte />', () => {
         expect(onGroupAdd).toHaveBeenCalledWith(1);
         expect(instance.toggleGroup).toHaveBeenCalledWith(0);
 
-        jest.clearAllMocks()
+        jest.clearAllMocks();
 
         wrapper.setProps({
             autoExpandOnGroupAdd: false
@@ -227,7 +226,9 @@ describe('<Orizzonte />', () => {
             <Orizzonte
                 addBtnLabel="Add more groups"
                 groupToggleIcon={
-                    <span>▼</span>
+                    <span>
+▼
+                    </span>
                 }
             >
                 <Group

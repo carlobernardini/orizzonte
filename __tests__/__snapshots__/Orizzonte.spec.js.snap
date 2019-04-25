@@ -46,6 +46,7 @@ exports[`<Orizzonte /> should render a simple filter container with custom class
       }
     }
     removeBtnLabel={null}
+    showGroupControlsOnMouseover={false}
     style={Object {}}
   >
     <OrizzonteSelect
@@ -151,6 +152,7 @@ exports[`<Orizzonte /> should render toggle icons and a custom label for the add
     orientation="left"
     queryPart={Object {}}
     removeBtnLabel={null}
+    showGroupControlsOnMouseover={false}
     style={Object {}}
   >
     <OrizzonteSelect

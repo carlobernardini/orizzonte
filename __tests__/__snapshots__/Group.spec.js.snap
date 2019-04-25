@@ -75,6 +75,7 @@ exports[`<Group /> should render an active group with description and min width 
     doneBtnLabel={null}
     isFilterGroup={true}
     minWidth={null}
+    mouseoverControls={false}
     onApply={[Function]}
     onRemove={[Function]}
     onUpdate={[Function]}
@@ -145,6 +146,7 @@ exports[`<Group /> should render an active group without top label and no remove
     doneBtnLabel={null}
     isFilterGroup={true}
     minWidth={null}
+    mouseoverControls={false}
     onApply={[Function]}
     onRemove={[Function]}
     onUpdate={[Function]}
@@ -220,6 +222,7 @@ exports[`<Group /> should render group without clear / remove / done buttons, an
     doneBtnLabel={null}
     isFilterGroup={true}
     minWidth={400}
+    mouseoverControls={false}
     onApply={[Function]}
     onRemove={[Function]}
     onUpdate={[Function]}
