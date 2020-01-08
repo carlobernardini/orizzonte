@@ -1,9 +1,10 @@
 import React from 'react';
 import FullText from '../src/components/FullText';
 
+jest.useFakeTimers();
+
 describe('<FullText />', () => {
     it('should render a fulltext filter', () => {
-        jest.useFakeTimers();
         const expectedValue = 'some keywords';
         const onUpdate = jest.fn();
 
@@ -22,7 +23,9 @@ describe('<FullText />', () => {
         });
 
         expect(wrapper.state().value).toBe(expectedValue);
+
         jest.runAllTimers();
+
         expect(onUpdate).toHaveBeenCalledWith(expectedValue);
         expect(wrapper).toMatchSnapshot();
 
@@ -79,7 +82,6 @@ describe('<FullText />', () => {
     });
 
     it('should render a fulltext filter with input validation', () => {
-        jest.useFakeTimers();
         const onUpdate = jest.fn();
 
         const wrapper = shallow(
