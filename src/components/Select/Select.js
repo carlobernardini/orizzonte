@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DISPLAY_NAME_FILTER_SELECT } from '../constants';
-import Caption from './Caption';
-import FilterInfo from './FilterInfo';
+import { DISPLAY_NAME_FILTER_SELECT } from '../../constants';
+import Caption from '../Caption';
+import FilterInfo from '../FilterInfo';
 
 const Select = ({ disabled, information, label, notSetLabel, onUpdate, options, value }) => (
     <div

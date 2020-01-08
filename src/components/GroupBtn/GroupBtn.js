@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DISPLAY_NAME_GROUP_BTN } from '../constants';
+import { DISPLAY_NAME_GROUP_BTN } from '../../constants';
 
 const GroupBtn = ({ hidden, onClick }) => {
     if (hidden) {

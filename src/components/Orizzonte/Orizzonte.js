@@ -7,11 +7,11 @@ import isFunction from 'lodash/isFunction';
 import pick from 'lodash/pick';
 import pickBy from 'lodash/pickBy';
 import classNames from 'classnames';
-import { DISPLAY_NAME_GROUP, DISPLAY_NAME_ORIZZONTE } from '../constants';
-import BtnAdd from './BtnAdd';
-import BtnClearAll from './BtnClearAll';
-import BtnSave from './BtnSave';
-import '../scss/Orizzonte.scss';
+import { DISPLAY_NAME_GROUP, DISPLAY_NAME_ORIZZONTE } from '../../constants';
+import BtnAdd from '../BtnAdd';
+import BtnClearAll from '../BtnClearAll';
+import BtnSave from '../BtnSave';
+import '../../scss/Orizzonte.scss';
 
 class Orizzonte extends Component {
     constructor(props) {

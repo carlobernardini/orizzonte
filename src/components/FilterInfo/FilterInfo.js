@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DISPLAY_NAME_FILTER_INFO } from '../constants';
+import { DISPLAY_NAME_FILTER_INFO } from '../../constants';
 
 const FilterInfo = (({ information }) => (
     information

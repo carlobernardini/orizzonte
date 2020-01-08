@@ -12,14 +12,14 @@ import toArray from 'lodash/toArray';
 import uniqueId from 'lodash/uniqueId';
 import without from 'lodash/without';
 import diacritics from 'diacritics';
-import { escapeRegExp, getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
+import { escapeRegExp, getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../../utils';
 import {
     DEFAULT_STR_LOADING, DEFAULT_STR_NO_MATCH, DEFAULT_STR_NO_OPTIONS, DISPLAY_NAME_FILTER_DROPDOWN
-} from '../constants';
-import CheckBox from './CheckBox';
-import LoadingIndicator from './LoadingIndicator';
-import Caption from './Caption';
-import FilterInfo from './FilterInfo';
+} from '../../constants';
+import CheckBox from '../CheckBox';
+import LoadingIndicator from '../LoadingIndicator';
+import Caption from '../Caption';
+import FilterInfo from '../FilterInfo';
 
 class Dropdown extends Component {
     constructor(props) {

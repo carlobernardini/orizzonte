@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isNil from 'lodash/isNil';
-import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_RADIO } from '../constants';
+import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_RADIO } from '../../constants';
 
 // eslint-disable-next-line max-len
 const RadioButton = ({ disabled, facetCount, id, label, name, onChange, value, viewBox, selected }) => (

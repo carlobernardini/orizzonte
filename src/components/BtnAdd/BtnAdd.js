@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DISPLAY_NAME_BTN_ADD } from '../constants';
-import List from './List';
+import { DISPLAY_NAME_BTN_ADD } from '../../constants';
+import List from '../List';
 
 class BtnAdd extends PureComponent {
     constructor(props) {

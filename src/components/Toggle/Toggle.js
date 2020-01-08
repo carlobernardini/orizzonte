@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
-import Caption from './Caption';
-import FilterInfo from './FilterInfo';
-import { DISPLAY_NAME_TOGGLE, NAME_PREFIX_TOGGLE } from '../constants';
+import Caption from '../Caption';
+import FilterInfo from '../FilterInfo';
+import { DISPLAY_NAME_TOGGLE, NAME_PREFIX_TOGGLE } from '../../constants';
 
 const Toggle = ({ disabled, information, label, onUpdate, option, toggleStateLabel, value }) => {
     const id = uniqueId(NAME_PREFIX_TOGGLE);

@@ -11,11 +11,11 @@ import isNil from 'lodash/isNil';
 import pick from 'lodash/pick';
 import union from 'lodash/union';
 import without from 'lodash/without';
-import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
-import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../utils';
-import GroupTopLabel from './GroupTopLabel';
-import GroupBtn from './GroupBtn';
-import List from './List';
+import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../../constants';
+import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../../utils';
+import GroupTopLabel from '../GroupTopLabel';
+import GroupBtn from '../GroupBtn';
+import List from '../List';
 
 class Group extends Component {
     constructor(props) {

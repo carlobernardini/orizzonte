@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DISPLAY_NAME_CAPTION } from '../constants';
+import { DISPLAY_NAME_CAPTION } from '../../constants';
 
 const Caption = ({ children }) => {
     if (!children) {

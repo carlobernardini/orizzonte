@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     DISPLAY_NAME_LOADING, LOADING_SVG_VIEWBOX, LOADING_SVG_CENTER,
     LOADING_SVG_STROKE_WIDTH, LOADING_SVG_RADIUS
-} from '../constants';
+} from '../../constants';
 
 const LoadingIndicator = ({ size }) => (
     <svg

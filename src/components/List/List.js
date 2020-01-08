@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DEFAULT_STR_DONE, DEFAULT_STR_REMOVE, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../constants';
+import { DEFAULT_STR_DONE, DEFAULT_STR_REMOVE, DEFAULT_ORIENTATION, DISPLAY_NAME_LIST } from '../../constants';
 
 class List extends Component {
     constructor(props) {

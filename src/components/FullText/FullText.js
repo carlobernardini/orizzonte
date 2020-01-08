@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import isFunction from 'lodash/isFunction';
-import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
-import Caption from './Caption';
-import FilterInfo from './FilterInfo';
+import { DISPLAY_NAME_FILTER_FULLTEXT } from '../../constants';
+import Caption from '../Caption';
+import FilterInfo from '../FilterInfo';
 
 class FullText extends Component {
     constructor(props) {

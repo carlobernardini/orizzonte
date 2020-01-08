@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DEFAULT_STR_SAVE, DISPLAY_NAME_BTN_SAVE } from '../constants';
+import { DEFAULT_STR_SAVE, DISPLAY_NAME_BTN_SAVE } from '../../constants';
 
 const BtnSave = ({ saveLabel, disabled, onSave, position, shown }) => (
     <div

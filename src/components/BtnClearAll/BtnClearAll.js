@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DEFAULT_STR_CLEAR_ALL, DISPLAY_NAME_BTN_CLEAR_ALL } from '../constants';
+import { DEFAULT_STR_CLEAR_ALL, DISPLAY_NAME_BTN_CLEAR_ALL } from '../../constants';
 
 const BtnClearAll = ({ clearAllLabel, disabled, onClearAll, position, shown }) => (
     <div
