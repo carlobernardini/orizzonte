@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import classNames from 'classnames';
-import {
-    debounce, filter as _filter, includes, isEqual, isFunction,
-    isNil, toArray, uniqueId, without
-} from 'lodash-es';
+import debounce from 'lodash/debounce';
+import _filter from 'lodash/filter';
+import includes from 'lodash/includes';
+import isEqual from 'lodash/isEqual';
+import isFunction from 'lodash/isFunction';
+import isNil from 'lodash/isNil';
+import toArray from 'lodash/toArray';
+import uniqueId from 'lodash/uniqueId';
+import without from 'lodash/without';
 import diacritics from 'diacritics';
 import { escapeRegExp, getFlattenedOptions, getSelectedOptionsDeep, mergeOptionsDeep } from '../utils';
 import {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-    includes, isEqual, uniqueId, without
-} from 'lodash-es';
+import includes from 'lodash/includes';
+import isEqual from 'lodash/isEqual';
+import uniqueId from 'lodash/uniqueId';
+import without from 'lodash/without';
 import { DISPLAY_NAME_FILTER_CHOICES, NAME_PREFIX_CHECKBOX, NAME_PREFIX_RADIO } from '../constants';
 import CheckBox from './CheckBox';
 import Caption from './Caption';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { uniqueId } from 'lodash-es';
+import uniqueId from 'lodash/uniqueId';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
 import { DISPLAY_NAME_TOGGLE, NAME_PREFIX_TOGGLE } from '../constants';
