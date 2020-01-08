@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { isNil } from 'lodash-es';
+import isNil from 'lodash/isNil';
 import { DEFAULT_CHOICES_VIEWBOX, DISPLAY_NAME_CHECKBOX } from '../constants';
 
 /**

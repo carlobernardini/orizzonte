@@ -1,6 +1,13 @@
-import {
-    filter, flatMap, isFunction, isNumber, keyBy, map, mergeWith, reduce, unionBy, values
-} from 'lodash-es';
+import filter from 'lodash/filter';
+import flatMap from 'lodash/flatMap';
+import isFunction from 'lodash/isFunction';
+import isNumber from 'lodash/isNumber';
+import keyBy from 'lodash/keyBy';
+import map from 'lodash/map';
+import mergeWith from 'lodash/mergeWith';
+import reduce from 'lodash/reduce';
+import unionBy from 'lodash/unionBy';
+import values from 'lodash/values';
 
 export const escapeRegExp = (string) => (
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_special_characters

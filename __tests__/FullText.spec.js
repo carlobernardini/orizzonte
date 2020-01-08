@@ -1,7 +1,7 @@
 import React from 'react';
 import FullText from '../src/components/FullText';
 
-jest.useFakeTimers();
+jest.mock('lodash/debounce', () => jest.fn(fn => fn));
 
 describe('<FullText />', () => {
     it('should render a fulltext filter', () => {
@@ -23,9 +23,6 @@ describe('<FullText />', () => {
         });
 
         expect(wrapper.state().value).toBe(expectedValue);
-
-        jest.runAllTimers();
-
         expect(onUpdate).toHaveBeenCalledWith(expectedValue);
         expect(wrapper).toMatchSnapshot();
 
@@ -35,7 +32,6 @@ describe('<FullText />', () => {
             }
         });
 
-        jest.runAllTimers();
         expect(onUpdate).toHaveBeenCalledWith(null);
     });
 
@@ -105,7 +101,6 @@ describe('<FullText />', () => {
         });
 
         expect(wrapper.state().value).toBe('123');
-        jest.runAllTimers();
         expect(instance.dispatchDebouncedWrapper).toHaveBeenCalled();
         expect(wrapper.find('.orizzonte__filter-fulltext').hasClass('orizzonte__filter-fulltext--invalid')).toBe(true);
         expect(onUpdate).not.toHaveBeenCalled();

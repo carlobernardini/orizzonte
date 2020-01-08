@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {
-    difference, identity, isEqual, isFunction, pick, pickBy
-} from 'lodash-es';
+import difference from 'lodash/difference';
+import identity from 'lodash/identity';
+import isEqual from 'lodash/isEqual';
+import isFunction from 'lodash/isFunction';
+import pick from 'lodash/pick';
+import pickBy from 'lodash/pickBy';
 import classNames from 'classnames';
 import { DISPLAY_NAME_GROUP, DISPLAY_NAME_ORIZZONTE } from '../constants';
 import BtnAdd from './BtnAdd';

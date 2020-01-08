@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {
-    concat, filter, find, fromPairs, intersection,
-    isEqual, isNil, pick, union, without
-} from 'lodash-es';
+import concat from 'lodash/concat';
+import find from 'lodash/find';
+import filter from 'lodash/filter';
+import fromPairs from 'lodash/fromPairs';
+import intersection from 'lodash/intersection';
+import isEqual from 'lodash/isEqual';
+import isNil from 'lodash/isNil';
+import pick from 'lodash/pick';
+import union from 'lodash/union';
+import without from 'lodash/without';
 import { DEFAULT_STR_EXCEPTION, DEFAULT_ORIENTATION, DISPLAY_NAME_GROUP, GROUP_MIN_WIDTH } from '../constants';
 import { getFlattenedOptions, mergeOptionsDeep, transformLabel } from '../utils';
 import GroupTopLabel from './GroupTopLabel';

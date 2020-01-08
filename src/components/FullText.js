@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { debounce, isFunction } from 'lodash-es';
+import debounce from 'lodash/debounce';
+import isFunction from 'lodash/isFunction';
 import { DISPLAY_NAME_FILTER_FULLTEXT } from '../constants';
 import Caption from './Caption';
 import FilterInfo from './FilterInfo';
