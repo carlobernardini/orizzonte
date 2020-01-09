@@ -57,9 +57,9 @@
   "homepage": "https://carlobernardini.github.io/orizzonte",
   "devDependencies": {
     "@dump247/storybook-state": "^1.5.0",
-    "@storybook/addon-info": "^3.4.8",
-    "@storybook/addon-knobs": "^3.4.10",
-    "@storybook/react": "^3.4.8",
+    "@storybook/addon-info": "^5.2.8",
+    "@storybook/addon-knobs": "^5.2.8",
+    "@storybook/react": "^5.2.8",
     "@storybook/storybook-deployer": "^2.3.0",
     "array-move": "^1.0.0",
     "axios-mock-adapter": "^1.15.0",
