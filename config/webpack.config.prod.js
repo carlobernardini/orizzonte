@@ -2,7 +2,9 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const LIBRARY_NAME = 'orizzonte';
 
@@ -36,7 +38,8 @@ module.exports = {
                     }
                 },
                 extractComments: false
-            })
+            }),
+            new OptimizeCSSAssetsPlugin()
         ]
     },
     module: {
@@ -51,17 +54,20 @@ module.exports = {
             exclude: /node_modules/,
         }, {
             test: /\.(s*)css$/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [{
-                    loader: 'css-loader'
-                }, {
-                    loader: 'postcss-loader',
+            use: [
+                MiniCssExtractPlugin.loader,
+                {
+                    loader: 'css-loader',
                     options: {
-                        plugins: () => [autoprefixer()]
+                        sourceMap: true
                     }
-                }, 'sass-loader']
-            })
+                }, {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                }
+            ]
         }]
     },
     plugins: [
@@ -76,7 +82,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
-        new ExtractTextPlugin({
+        new MiniCssExtractPlugin({
             filename: `${ LIBRARY_NAME }.min.css`
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
