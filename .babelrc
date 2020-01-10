@@ -3,8 +3,7 @@
         "lodash"
     ],
     "presets": [
-        "env",
-        "react",
-        "stage-2"
+        "@babel/preset-env",
+        "@babel/preset-react"
     ]
 }

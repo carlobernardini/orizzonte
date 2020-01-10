@@ -1,6 +1,7 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const LIBRARY_NAME = 'orizzonte';
@@ -9,6 +10,7 @@ module.exports = {
     entry: [
         path.resolve(__dirname, '../src/index.js')
     ],
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, '../dist'),
         library: LIBRARY_NAME,
@@ -21,6 +23,21 @@ module.exports = {
             path.resolve(__dirname, '../node_modules')
         ],
         extensions: ['.js', '.jsx'],
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    warnings: false,
+                    mangle: true,
+                    output: {
+                        comments: false
+                    }
+                },
+                extractComments: false
+            })
+        ]
     },
     module: {
         rules: [{
@@ -37,10 +54,7 @@ module.exports = {
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [{
-                    loader: 'css-loader',
-                    options: {
-                        minimize: true
-                    }
+                    loader: 'css-loader'
                 }, {
                     loader: 'postcss-loader',
                     options: {
@@ -66,27 +80,6 @@ module.exports = {
             filename: `${ LIBRARY_NAME }.min.css`
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.HashedModuleIdsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: {
-                warnings: false,
-                pure_getters: true,
-                unsafe: true,
-                unsafe_comps: true,
-                screw_ie8: true,
-                conditionals: true,
-                unused: true,
-                comparisons: true,
-                sequences: true,
-                dead_code: true,
-                evaluate: true,
-                if_return: true,
-                join_vars: true
-            },
-            output: {
-                comments: false,
-            },
-        }),
+        new webpack.HashedModuleIdsPlugin()
     ]
 };
