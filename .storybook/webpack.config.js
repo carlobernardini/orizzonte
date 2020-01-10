@@ -1,13 +1,13 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const genDefaultConfig = require('@storybook/react/dist/server/config/defaults/webpack.config.js');
+// const genDefaultConfig = require('@storybook/react/dist/server/config/defaults/webpack.config.js');
 
 /**
  * Extend the current storybook webpack config to resolve the library components path
  */
 
-module.exports = (baseConfig, env) => {
-    const config = genDefaultConfig(baseConfig, env);
+module.exports = async ({ config, mode }) => {
+    // const config = genDefaultConfig(baseConfig, mode);
     config.resolve.alias.orizzonte = path.resolve(__dirname, '../src');
     config.module.rules.push({
         test: /\.(s*)css$/,
@@ -22,7 +22,7 @@ module.exports = (baseConfig, env) => {
             },
             'sass-loader',
         ],
-        include: path.resolve(__dirname, '../')
+        include: path.resolve(__dirname, '../src')
     });
     return config;
 };

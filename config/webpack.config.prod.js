@@ -1,7 +1,10 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const LIBRARY_NAME = 'orizzonte';
 
@@ -9,6 +12,7 @@ module.exports = {
     entry: [
         path.resolve(__dirname, '../src/index.js')
     ],
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, '../dist'),
         library: LIBRARY_NAME,
@@ -22,6 +26,22 @@ module.exports = {
         ],
         extensions: ['.js', '.jsx'],
     },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    warnings: false,
+                    mangle: true,
+                    output: {
+                        comments: false
+                    }
+                },
+                extractComments: false
+            }),
+            new OptimizeCSSAssetsPlugin()
+        ]
+    },
     module: {
         rules: [{
             test: /(\.js|\.jsx)$/,
@@ -34,20 +54,20 @@ module.exports = {
             exclude: /node_modules/,
         }, {
             test: /\.(s*)css$/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [{
+            use: [
+                MiniCssExtractPlugin.loader,
+                {
                     loader: 'css-loader',
                     options: {
-                        minimize: true
+                        sourceMap: true
                     }
                 }, {
-                    loader: 'postcss-loader',
+                    loader: 'sass-loader',
                     options: {
-                        plugins: () => [autoprefixer()]
+                        sourceMap: true
                     }
-                }, 'sass-loader']
-            })
+                }
+            ]
         }]
     },
     plugins: [
@@ -62,31 +82,10 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
         }),
-        new ExtractTextPlugin({
+        new MiniCssExtractPlugin({
             filename: `${ LIBRARY_NAME }.min.css`
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.HashedModuleIdsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: true,
-            compress: {
-                warnings: false,
-                pure_getters: true,
-                unsafe: true,
-                unsafe_comps: true,
-                screw_ie8: true,
-                conditionals: true,
-                unused: true,
-                comparisons: true,
-                sequences: true,
-                dead_code: true,
-                evaluate: true,
-                if_return: true,
-                join_vars: true
-            },
-            output: {
-                comments: false,
-            },
-        }),
+        new webpack.HashedModuleIdsPlugin()
     ]
 };
